@@ -1,0 +1,7 @@
+# El dueño de cada carpeta es revisor automático de los PR que la tocan.
+*                @Arcanalyra @jeronimoenunez
+/backend/        @Arcanalyra
+/apps/web/       @jeronimoenunez
+/docs/           @jeronimoenunez
+/specs/          @jeronimoenunez @Arcanalyra
+/.github/        @jeronimoenunez @Arcanalyra
