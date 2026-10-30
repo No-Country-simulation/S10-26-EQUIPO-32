@@ -25,10 +25,10 @@ OpenBridge centraliza un catálogo de ≥ 100 herramientas open-source con métr
 | ID | Requisito | Prioridad | Criterio de verificación | Feature |
 | --- | --- | --- | --- | --- |
 | RF-01 | El sistema muestra el catálogo agrupado por categoría funcional (Auth, BD, Pagos, IA, Analítica, Búsqueda) | M | Cada categoría lista sus repos | 001 |
-| RF-02 | Ficha técnica por repo: nombre, descripción, stars, última actualización, licencia, lenguaje, issues abiertos, health score | M | Ficha con los campos poblados | 001 |
+| RF-02 | Ficha técnica por repo: nombre, categorías, descripción, stars, última actualización, licencia, lenguaje, issues abiertos, mantenedor activo (sí/no), health score y enlace al repositorio original (solo `https://github.com`) | M | Ficha con los campos poblados; campo sin dato = "Sin dato"; enlace ausente si la URL no cumple la regla | 001 |
 | RF-03 | Filtros por lenguaje, licencia, stars mínimos, categoría y nivel de mantenimiento | M | Cada filtro reduce el resultado correctamente | 001 |
 | RF-04 | Búsqueda por texto libre | S | "auth" devuelve Keycloak / Auth.js | 001 |
-| RF-05 | Cada repo tiene ≥ 1 idea de integración estructurada (tipo REST/Docker/SDK/webhook, snippet, compatibilidad, dificultad) | M | Esquema validado, sin texto plano suelto | 001 / 003 |
+| RF-05 | Ideas de integración estructuradas (tipo REST/Docker/SDK/webhook, disparadores, snippet, stack compatible, dificultad, estado de revisión). **Dato (003):** cada repo tiene ≥ 1 idea. **Interfaz (001):** muestra 0..N ideas; con 0 ideas, estado vacío explícito | M | Esquema validado, sin texto plano suelto. 003: 100 % de repos con ≥ 1 idea. 001: ficha con 0 ideas muestra el estado vacío sin errores | 001 / 003 |
 | RF-06 | El usuario describe su negocio y el asistente devuelve un stack recomendado con justificación y repos citados | M | Solo cita repos existentes en la BD | 002 |
 | RF-07 | El pipeline consulta la GitHub API diariamente y actualiza metadatos y health score | M | Log de corrida diaria | 003 |
 | RF-08 | El pipeline genera y guarda embeddings de cada repo | M | 100 % de repos con vector | 003 |
@@ -48,7 +48,7 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-05 | Producto · Seguridad | Rate limiting en el endpoint del asistente | M | Request por encima del límite devuelve 429 | 002 |
 | RNF-06 | Producto · Rendimiento | El pipeline respeta el rate limit de GitHub (backoff, headers de rate limit) | M | Corrida completa sin 403/429 | 003 |
 | RNF-07 | Producto · Rendimiento | El catálogo filtra en < 1 s con 100+ repos | M | Medición sobre dataset sintético de 150 | 001 |
-| RNF-08 | Producto · Confiabilidad | Si falla la ingesta, se muestra el último dato válido con su fecha | S | Simular API caída | 001 / 003 |
+| RNF-08 | Producto · Confiabilidad | Si falla la ingesta, se conserva y se sirve el último dato válido con su fecha. (001 solo muestra la fecha de las métricas y un estado de error si no hay datos; la conservación del último dato es del pipeline) | S | Simular API caída | 003 |
 | RNF-09 | Producto · Precisión | El asistente no inventa repos | M | 0 repos alucinados en el set de prueba | 002 |
 | RNF-10 | Producto · Usabilidad | Interfaz responsiva (mobile y desktop) | M | Prueba en 2 tamaños | 001 |
 | RNF-11 | Organizacional | Stack acordado; PR revisado por el otro integrante | M | Historial de PRs | todas |
@@ -62,3 +62,9 @@ Clasificación: de producto, organizacionales y externos.
 ## 5. Trazabilidad
 
 Riesgo → control → requisito → prueba: ver `docs/matriz-riesgos.md`.
+
+## 6. Cambios
+
+| Fecha | Cambio | Origen |
+| --- | --- | --- |
+| 2026-10-30 | RNF-08 pasa de 001/003 a 003. RF-02 incluye categorías, mantenedor activo y enlace al repo. RF-05 separa el requisito de datos (≥ 1 idea, 003) del comportamiento de la interfaz (0..N, 001). | Plan 001, decisiones 2 y 3 |
