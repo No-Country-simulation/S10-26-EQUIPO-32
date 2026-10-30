@@ -16,5 +16,10 @@ OWASP: A0x = Top 10 web (edición 2021) · LLM0x = Top 10 para LLM (2025). Si ad
 | R-08 | Recomendar librería con licencia incompatible o sin mantenimiento | 2 | 2 | 4 | Licencia visible, nivel de mantenimiento | RNF-13 | Revisión de fichas | GV, ID | — |
 | R-09 | Dependencia vulnerable en nuestro proyecto | 2 | 2 | 4 | Dependabot, npm audit | RNF-14 | 0 críticas abiertas | PR | A06 |
 | R-10 | Un integrante no puede seguir (equipo ya bajó a 2) | 2 | 3 | 6 | Repo documentado, specs, tareas chicas | RNF-11 | — | GV | — |
+| R-11 | Backend o pipeline entrega datos malformados o envenenados que rompen o engañan a la interfaz (incluye una idea no revisada que se hace pasar por revisada) | 2 | 2 | 4 | Validación zod en la frontera del adaptador, datos inválidos → "Sin dato" u omisión con log, `revisada` falla cerrado (solo `true` estricto cuenta) | RNF-04 | Fixtures MU-09, MU-12 (001) | PR, DE | A08 / A04 |
+| R-12 | Payload desmedido (descripciones o listas enormes) degrada el navegador o el filtrado | 2 | 1 | 2 | Cotas de longitud y cantidad en el contrato, truncado con indicación, límite de tamaño y timeout en el adaptador | RNF-07 | Fixtures MU-04 + medición RNF-07 (001) | PR | A04 |
+| R-13 | Cabeceras de seguridad ausentes o debilitadas por un cambio de configuración (CSP, frame-ancestors, nosniff) | 2 | 2 | 4 | Prueba E2E de cabeceras contra el build de producción en cada PR | RNF-04 | Test de cabeceras (001) | PR, DE | A05 |
+
+R-11 a R-13 agregados el 2026-10-30 desde el plan 001 (P y I son mi estimación inicial; revisar con Ángel).
 
 Pendiente: revisar con Ángel; completar R-xx del backend (feature 003).
