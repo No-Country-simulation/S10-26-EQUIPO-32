@@ -16,6 +16,6 @@ Flujo: constitución → especificación → clarificación → plan técnico �
 
 | # | Feature | Dueño | Estado |
 | --- | --- | --- | --- |
-| 001 | Frontend: catálogo y ficha | Jero | plan aprobado |
+| 001 | Frontend: catálogo y ficha | Jero | tareas aprobadas |
 | 002 | Asistente RAG + guardrails | Jero | pendiente |
 | 003 | Backend y pipeline de ingesta | Ángel | pendiente |
