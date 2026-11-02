@@ -412,25 +412,25 @@ Se mide en la máquina de desarrollo, sin limitar la CPU, con una acción de cad
 
 | Bloque | Contenido | RF/RNF | Horas |
 | --- | --- | --- | --- |
-| B0 | Andamiaje: `create-next-app`, Tailwind, 5 componentes shadcn, ESLint con reglas de seguridad, Vitest, Playwright, `web.yml`, headers estáticos, chequeo de TS, diccionario `es.ts` (RNF-17a) | RNF-14, RNF-17 | 4 |
+| B0 | Andamiaje: `create-next-app`, Tailwind, 5 componentes shadcn, ESLint con reglas de seguridad y del brief, Vitest, Playwright, `web.yml` con chequeo de dependencias, diccionario `es.ts` (RNF-17a) | RNF-14, RNF-17 | 5 |
 | B1 | Contrato (`contrato.ts`, `texto.ts`, `enlaces.ts`), interfaz y adaptador sintético, script de dataset, `mu.json`, tests unitarios de seguridad | P5, RNF-04, MU-01..12 | 7.5 |
-| B2 | Tokens del tema oscuro, `next/font` (2 familias), layout, cabecera, entrada deshabilitada del asistente, estados vacío/error/no encontrado | RNF-15 | 3.5 |
-| B3 | Grilla y tarjetas, navegación por categorías, `textoLicencia` | RF-01, RNF-13 | 3.5 |
-| B4 | Filtros, búsqueda, estado en URL, panel móvil con `<details>`, tests de `filtros` y `estado-url` | RF-03, RF-04, RNF-07 | 5.5 |
-| B5 | Ficha técnica, ideas de integración, snippet con copiar, aviso de no revisada, enlace validado | RF-02, RF-05 | 5.5 |
+| B2 | Integración de la tanda UI-1 (TI1: tokens, `next/font`, cabecera, estados), base técnica del tema, layout, asistente deshabilitado, `error` y `not-found` | RNF-15 | 2.5 |
+| B3 | Integración de la tanda UI-2 (TI2), `textoLicencia`, página con grilla y navegación por categorías | RF-01, RNF-13 | 3 |
+| B4 | Integración de la tanda UI-4 (TI4: panel, buscador, chips), cableado de filtros y búsqueda, estado en URL, tests de `filtros` y `estado-url` | RF-03, RF-04, RNF-07 | 5.5 |
+| B5 | Integración de la tanda UI-3 (TI3), ficha técnica, ideas de integración, snippet con copiar, aviso de no revisada, enlace validado | RF-02, RF-05 | 4.75 |
 | B6 | CSP con nonce (proxy), greps de CI | RNF-04, RNF-02 | 3 |
 | B7 | Playwright: `mu`, `headers`, `teclado`, `a11y`, `rnf07` | RNF-04/07/15/16 | 7 |
 | B8 | Correcciones de accesibilidad + revisión manual (6.3) + resultados en `tasks.md` | RNF-10, RNF-16 | 2 |
 | B9 | Adaptador Supabase (solo GET + validación + límite de tamaño + timeout) y script MU-07 *(bloqueado por validación de 4.1 y RLS de 003)* | RF-01..05, RNF-02 | 3 |
 | B10 | `tasks.md` con resultados, README mínimo de `apps/web` (SRS y matriz ya actualizados) | P10 | 1 |
-| **Total** | | | **45.5** |
-| Total sin B9 (si 003 no llega a tiempo) | | | **42.5** |
+| **Total** | | | **44.25** |
+| Total sin B9 (si 003 no llega a tiempo) | | | **41.25** |
 | RNF-17b (inglés + selector), **fuera del presupuesto** | | | 6 (opcional) |
 
 Desglose de B7: `mu` 2.25 · `headers` 0.75 · `teclado` 1.25 · `a11y` 1.75 (incluye forzar el estado de error) · `rnf07` 1.0.
-Acumulado planificado: B0 4 → B1 11.5 → B2 15 → B3 18.5 → B4 24 → B5 29.5 → B6 32.5 → B7 39.5 → B8 41.5 → B10 42.5 → B9 45.5.
+Acumulado planificado: B0 5 → B1 12.5 → B2 15 → B3 18 → B4 23.5 → B5 28.25 → B6 31.25 → B7 38.25 → B8 40.25 → B10 41.25 → B9 44.25. Las horas por bloque coinciden con `tasks.md` (que incluye las tareas de integración TI1-TI4, D-19).
 
-### 8.2 Qué queda afuera y cuánto ahorra cada recorte (81 h → 45.5 h)
+### 8.2 Qué queda afuera y cuánto ahorra cada recorte (81 h → 44.25 h)
 
 | # | Recorte | Ahorro | Qué queda afuera | Cómo se verifica ahora | ¿Toca seguridad? |
 | --- | --- | --- | --- | --- | --- |
@@ -445,9 +445,10 @@ Acumulado planificado: B0 4 → B1 11.5 → B2 15 → B3 18.5 → B4 24 → B5 2
 | 9 | Documentación mínima | **2.0 h** | SRS y matriz ya actualizados en este paso; README de `apps/web` breve | — | No |
 | 10 | Adaptador Supabase acotado | **3.0 h** | Reintentos, caché fina, paginación | Solo GET + validación + límite + timeout; MU-07 por script corto | No (el adaptador sigue de solo lectura) |
 | 11 | **Re-estimación de implementación** (B0-B6) | **14.0 h** | Nada de alcance: estimación inicial re-hecha sin holgura | — | No |
-| | **Total** | **35.5 h** | | | |
+| 12 | **Delegación de la capa visual (D-19), neto** | **1.25 h** | El diseño de componentes (lo hace el asistente de UI); queda la integración TI1-TI4 | Revisión del PR contra el checklist del brief + lint, `tsc`, build y axe | No (la UI solo recibe props; la frontera de P5 no cambia) |
+| | **Total** | **36.75 h** | | | |
 
-> **Sobre el recorte 11, para ser claros:** 21.5 h son recortes de alcance o de verificación (filas 1-10); las otras **14 h son mi estimación inicial re-hecha sin holgura**. Esa parte no baja trabajo: baja mi margen. Es el punto más optimista del plan y por eso existe el checkpoint de 8.4.
+> **Sobre el recorte 11, para ser claros:** 21.5 h son recortes de alcance o de verificación (filas 1-10), 1.25 h son el neto de delegar la UI (fila 12); las otras **14 h son mi estimación inicial re-hecha sin holgura**. Esa parte no baja trabajo: baja mi margen. Es el punto más optimista del plan y por eso existe el checkpoint de 8.4.
 
 ### 8.3 Controles de seguridad: intactos
 
@@ -471,8 +472,8 @@ Acumulado planificado: B0 4 → B1 11.5 → B2 15 → B3 18.5 → B4 24 → B5 2
 
 ### 8.4 Calidad de la estimación y checkpoint
 
-- Central: **45.5 h**, es decir 0.5 h por encima del tope de 45 h por recuperar `next/font`. Con ±30 % el rango real es **32-59 h**; superar las 45 h es posible, no un caso raro. Sin B9 (42.5 h) queda dentro del tope.
-- **Checkpoint al terminar B5** (acumulado planificado: 29.5 h). Si las horas reales superan **35 h**, se aplican los recortes de 8.5 en ese orden.
+- Central: **44.25 h**, dentro del tope de 45 h con solo 0.75 h de margen. Con ±30 % el rango real es **31-58 h**; superar las 45 h es posible, no un caso raro. Sin B9 (41.25 h) queda dentro del tope.
+- **Checkpoint al terminar B5** (acumulado planificado: 28.25 h, T01-T23 y TI1-TI4). Si las horas reales superan **35 h**, se aplican los recortes de 8.5 en ese orden.
 - Lo más riesgoso: B1 (modelo de datos y 12 fixtures), B6 (CSP con nonce y Next 16, versión muy reciente) y B7 (Playwright contra build de producción, tiempos de configuración).
 
 ### 8.5 Orden de recorte ante desvíos (P8)
