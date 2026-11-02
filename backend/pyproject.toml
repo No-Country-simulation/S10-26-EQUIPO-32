@@ -1,0 +1,24 @@
+[project]
+name = "openbridge-backend"
+version = "1.0.0"
+description = "API REST, Pipeline de Ingesta de Repositorios y Base Vectorial para OpenBridge"
+authors = [
+    { name = "Ángel De La Rosa", email = "angel@openbridge.local" },
+    { name = "Jerónimo Núñez", email = "jeronimo@openbridge.local" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.28.0",
+    "pydantic>=2.6.0",
+    "python-dotenv>=1.0.0",
+    "cryptography>=42.0.0",
+    "python-jose[cryptography]>=3.3.0",
+    "psycopg2-binary>=2.9.9",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
