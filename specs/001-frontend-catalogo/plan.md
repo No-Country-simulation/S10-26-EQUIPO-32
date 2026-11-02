@@ -131,7 +131,7 @@ Criterio de inclusión: cada dependencia debe justificar su presencia; si se pue
 
 | Dependencia | Para qué | Licencia | Mantenida |
 | --- | --- | --- | --- |
-| `next` 16.x | Framework (App Router), render en servidor, headers, proxy | MIT | Sí — publicada 2026-10-30 |
+| `next` 16.x (exacta: **16.4.4**) | Framework (App Router), render en servidor, headers, proxy | MIT | Sí — publicada 2026-10-30 |
 | `react`, `react-dom` 19.x | UI. React escapa el texto por defecto: base de RNF-04 | MIT | Sí — 2026-10-30 |
 | `zod` 4.x | Validar y normalizar todo dato externo en la frontera (P5) | MIT | Sí — 2026-10-12 |
 | `@radix-ui/react-slot` | Composición de `Button` de shadcn | MIT | Sí — 2026-10-12 |
