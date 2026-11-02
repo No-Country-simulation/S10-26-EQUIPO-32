@@ -20,6 +20,7 @@
 | 8 | Presupuesto | 40-45 h para el frontend (después vienen 002 y el red-team; entrega 16/11). | Secciones 6 y 8. Total 45.5 h (ver 8.4). |
 | 9 | Alcance de Playwright | Se aceptan tres desvíos: axe en `a11y.spec`, RNF-07 como test E2E y dos aserciones extra en `headers.spec` (tema oscuro, asistente deshabilitado). | 6.2, 8.1 |
 | 10 | `next/font` | Se recupera del recorte de extras visuales (≈ 0.5 h en B2). Sirve las fuentes desde nuestro servidor, compatible con `font-src 'self'`. Animaciones, esqueletos y microinteracciones siguen fuera. | D-14, 8.1, 8.2 |
+| 11 | **Pendiente** · Origen de datos de B9 | El adaptador real probablemente lea de la API REST del backend en lugar de Supabase directo; se decide al llegar a B9. (Contexto: el backend de Ángel, FastAPI en `backend/`, ya está en `main`, expone una API REST y hoy guarda los datos en memoria, no en Supabase.) | B9 (T36-T38). No se cambia nada más del plan por ahora. |
 
 ## 1. Chequeo contra la constitución
 
@@ -142,13 +143,15 @@ Criterio de inclusión: cada dependencia debe justificar su presencia; si se pue
 
 | Dependencia | Para qué | Licencia | Mantenida |
 | --- | --- | --- | --- |
-| `typescript` | Tipado estricto | Apache-2.0 | Sí — 2026-10-30. **Nota:** la última es la 7.0.x; la primera tarea confirma que Next 16 + ESLint compilan con la versión que instale `create-next-app`. Si no, se fija 5.x. |
+| `typescript` 5.x (exacta: **5.9.3**) | Tipado estricto | Apache-2.0 | Sí — última estable de la serie 5. **Fijada en 5.x desde el arranque** (la serie 7 está descartada, ver D-18). |
+| `@types/react`, `@types/react-dom` (exactas: **19.3.0** ambas) | Tipos de React 19 para TypeScript | MIT | Sí — 2026-10-04. Solo tipos, no llegan a producción. |
+| `@types/node` (exacta: **22.20.5**) | Tipos de Node para la serie 22 (la de `.nvmrc`) | MIT | Sí — serie 22. Solo tipos. |
 | `tailwindcss` 4.x, `@tailwindcss/postcss` | Estilos y tokens del tema oscuro | MIT | Sí — 2026-10-19 |
 | `shadcn` (CLI) | Copia el código de los componentes al repo; **no es dependencia de runtime** | MIT | Sí — 2026-10-27 |
 | `vitest` | Pruebas unitarias de lógica | MIT | Sí — 2026-10-19 |
 | `@playwright/test` | E2E: fixtures MU, headers, teclado, RNF-07 | Apache-2.0 | Sí — 2026-10-30 |
 | `@axe-core/playwright` | Auditoría de accesibilidad (RNF-16) | **MPL-2.0** | Sí — 2026-10-30. Solo en desarrollo, no se distribuye ni se modifica; la licencia no impone obligaciones sobre nuestro código. |
-| `eslint`, `eslint-config-next` | Reglas que hacen cumplir RNF-04 y RNF-17 (ver 5.1) | MIT | Sí — 2026-10-30 |
+| `eslint` 9.x (exacta: **9.39.5**), `eslint-config-next` | Reglas que hacen cumplir RNF-04 y RNF-17 (ver 5.1) | MIT | Sí — `eslint` fijado en la serie 9 desde el arranque (la serie 10 está descartada, ver D-18). |
 
 **Deliberadamente NO se incluyen:** `supabase-js` (se usa `fetch` GET, D-03), librería de i18n (diccionario propio, D-07), `faker` (PRNG de 10 líneas en el script), `tsx` (el script es `.mjs`), librerías de sanitización HTML (no renderizamos HTML), `sonner`/toasts, `@radix-ui/react-dialog` y `tw-animate-css` (el panel móvil usa `<details>` nativo, D-16), `radix select` (se usa `<select>` nativo, D-08), librería de gráficos, librería de estado global.
 
@@ -371,7 +374,7 @@ Reparto: **Vitest** para lógica (rápido, barato, la mayor parte), **Playwright
 
 ### 6.4 CI (`.github/workflows/web.yml`, nuevo)
 
-`npm ci` → lint → `tsc --noEmit` → Vitest → build → Playwright (Chromium) con `CATALOG_SOURCE=fixtures` → greps de RNF-02/AM-01/AM-09 → `npm audit --audit-level=critical`. Gitleaks sigue en `security.yml`. Los checks se agregan como requeridos en la rama protegida (P9).
+El workflow usa `actions/setup-node` con `node-version-file: .nvmrc` (el archivo está en la raíz del repo y fija Node 22). `npm ci` → lint → `tsc --noEmit` → Vitest → build → Playwright (Chromium) con `CATALOG_SOURCE=fixtures` → greps de RNF-02/AM-01/AM-09 → `npm audit --audit-level=critical`. Gitleaks sigue en `security.yml`. Los checks se agregan como requeridos en la rama protegida (P9).
 
 ### 6.5 Medición de RNF-07: qué se puede afirmar
 
@@ -398,6 +401,7 @@ Se mide en la máquina de desarrollo, sin limitar la CPU, con una acción de cad
 | D-15 | **Sin base de datos ni caché propia en el frontend** | El spec dice que solo lee. La caché es la del `fetch` (`revalidate`). | *Redis/Edge cache propios*: infraestructura sin necesidad medida. |
 | D-16 | **Filtros en móvil con `<details>/<summary>` nativo** en lugar de un Sheet de Radix | Accesible por teclado sin código, sin trampa de foco posible, ahorra ≈ 2 h y dos dependencias (`@radix-ui/react-dialog`, `tw-animate-css`). | *Sheet/Drawer de shadcn*: mejor acabado visual pero más código de foco y animación; es un extra (recorte 1 y 2 en 8.2). |
 | D-17 | **axe filtrado por etiquetas `wcagNNN`** en vez de un archivo propio de mapeo | Las reglas de axe ya traen la etiqueta del criterio WCAG; reproduce la partición alcance / fuera de alcance del spec con unas líneas. | *Archivo `reglas-en-alcance.ts` mantenido a mano*: más trabajo y se desactualiza. |
+| D-18 | **TypeScript 5.x (5.9.3) y ESLint 9.x (9.39.5) desde el arranque**, con `.nvmrc` en `22` | Con un presupuesto de 45.5 h no hay margen para depurar incompatibilidades de toolchain (Next 16, `eslint-config-next`, plugins de React y reglas de seguridad). Las series 5 y 9 son las más probadas con ese conjunto. | *TypeScript 7*: la última, descartada por riesgo de compatibilidad con el presupuesto de 45.5 h. *ESLint 10*: ídem. Se reevalúan después de la entrega, fuera de esta feature. |
 
 ## 8. Esfuerzo (presupuesto 40-45 h)
 
