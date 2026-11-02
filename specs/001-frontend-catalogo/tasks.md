@@ -46,6 +46,33 @@ Qué reglas de `ui-brief.md` hace cumplir el lint de T02 y cuáles no se pueden 
 | T04 | Configurar Vitest y Playwright. Playwright arranca el **build de producción** con `CATALOG_SOURCE=fixtures`. Scripts `test` y `test:e2e`. | D-13, P7 | `npm test` y `npm run test:e2e` corren con una prueba mínima cada uno (la de Playwright carga `/` contra el build de producción). | 1.0 | 4 |  | [ ] |
 | T05 | Crear `.github/workflows/web.yml` (con `actions/setup-node` y `node-version-file: .nvmrc`): `npm ci` → lint → `tsc --noEmit` → Vitest → build → Playwright → `npm audit --audit-level=critical`. Más un **chequeo de dependencias**: compara las `dependencies`/`devDependencies` de `package.json` contra la lista permitida de la tabla 3 del plan, que vive en **`apps/web/allowed-deps.json`** (nombre → versión exacta; se genera a partir de la tabla 3 y solo cambia en el mismo commit que la tabla; `apps/web/` está bajo CODEOWNERS) y falla si aparece una nueva. | RNF-14, R-09, AM-14 | El workflow corre verde en el PR, el chequeo de dependencias falla al agregar una dependencia que no está en la tabla 3 (probado en una rama descartable) y falla si se rompe el lint o se planta un test rojo (probado en una rama descartable). Marcar los checks como requeridos en la rama protegida (Settings): lo intenta Jero; si no tiene permisos, queda **pendiente para Ángel** y se anota acá. | 1.0 | 5 |  | [ ] |
 
+### Riesgo conocido en T05: `npm audit` (2026-11-02)
+
+`npm audit` en `apps/web` informa **16 vulnerabilidades moderadas, 0 altas y 0 críticas**. `npm audit --omit=dev` informa **0**: ninguna llega a producción. Son **una sola** advisory contada 16 veces por propagación: `minimatch` < 11.0.1, *denial of service por amplificación de globparts* ([GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249), CWE-405). Está presente `minimatch` 3.1.5 (6 copias, en la cadena de ESLint) y 10.2.6; todas las entradas son la cadena de `eslint` / `eslint-config-next` fijada por D-18.
+
+| Paquete | Directa / transitiva | Desarrollo / runtime | Origen |
+| --- | --- | --- | --- |
+| `eslint` | directa | desarrollo | Hereda de `minimatch` (a través de sus dependencias) |
+| `eslint-config-next` | directa | desarrollo | Hereda de `minimatch` (a través de sus dependencias) |
+| `minimatch` | transitiva | desarrollo | **Causa raíz**: `minimatch` < 11.0.1 |
+| `@eslint-community/eslint-utils` | transitiva | desarrollo | Hereda de `minimatch` |
+| `@eslint/config-array` | transitiva | desarrollo | Hereda de `minimatch` |
+| `@eslint/eslintrc` | transitiva | desarrollo | Hereda de `minimatch` |
+| `@next/eslint-plugin-next` | transitiva | desarrollo | Hereda de `minimatch` |
+| `@typescript-eslint/eslint-plugin` | transitiva | desarrollo | Hereda de `minimatch` |
+| `@typescript-eslint/parser` | transitiva | desarrollo | Hereda de `minimatch` |
+| `@typescript-eslint/type-utils` | transitiva | desarrollo | Hereda de `minimatch` |
+| `@typescript-eslint/typescript-estree` | transitiva | desarrollo | Hereda de `minimatch` |
+| `@typescript-eslint/utils` | transitiva | desarrollo | Hereda de `minimatch` |
+| `eslint-plugin-import` | transitiva | desarrollo | Hereda de `minimatch` |
+| `eslint-plugin-jsx-a11y` | transitiva | desarrollo | Hereda de `minimatch` |
+| `eslint-plugin-react` | transitiva | desarrollo | Hereda de `minimatch` |
+| `typescript-eslint` | transitiva | desarrollo | Hereda de `minimatch` |
+
+- **Por qué es aceptable por ahora:** solo corre al hacer lint en desarrollo y en CI, con patrones de glob que escribimos nosotros; no procesa entrada externa. El paso de CI de T05 usa `--audit-level=critical`, por lo que **no bloquea**; se informan también las moderadas.
+- **No aplicar `npm audit fix --force`:** propone *bajar* a `eslint@4.0.0` y `eslint-config-next@12.0.4`, que rompe D-18 y las reglas de T02.
+- **Estado:** sin corregir (decisión del 2026-11-02). Reevaluar cuando haya una versión de ESLint 9 / `eslint-config-next` con `minimatch` ≥ 11.0.1, o al revisar D-18 después de la entrega. Si T05 pasa a bloquear `high`, esto no cambia.
+
 ## B1 · Contrato de datos y datos de prueba (7.5 h)
 
 | # | Tarea | Implementa | Criterio de terminado | Est. h | Acum. | Reales | Estado |
