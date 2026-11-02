@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import "./globals.css";
 
-// `lang="es"`, textos del diccionario y tema oscuro llegan en T02 y B2.
+// Tema oscuro y fuentes llegan en B2 (TI1, T12).
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html>
+    <html lang="es">
       <body>{children}</body>
     </html>
   );

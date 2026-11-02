@@ -16,8 +16,8 @@ OpenBridge es un catálogo de herramientas open-source (Autenticación, Base de 
 
 ## 3. Dirección visual
 
-- **Referencia de estructura y calidad:** Mobbin (mobbin.com): grilla de tarjetas densa y limpia, navegación por categorías arriba, filtros a la izquierda en desktop, ficha de detalle con jerarquía clara, tipografía protagonista, mucho aire, un solo color de acento.
-- **Marca propia:** el producto se llama **OpenBridge**. Logo, nombre, textos, íconos e imágenes son propios. **No usar** el logo, el nombre, los textos, las capturas ni los assets de Mobbin. Se replica la estructura y el nivel de calidad, no la marca.
+- **Referencia de estructura y calidad:** Grilla de tarjetas densa y limpia, navegación por categorías arriba, filtros a la izquierda en desktop, ficha de detalle con jerarquía clara, tipografía protagonista, mucho aire, un solo color de acento.
+- **Marca propia:** el producto se llama **OpenBridge**. Logo, nombre, textos, íconos e imágenes son propios. **No usar** el logo, el nombre, los textos, las capturas ni los assets que no se te brinden o no se te informe de crearlos.
 - **Solo modo oscuro** (RNF-15). Sin selector de tema.
 - **Responsive:** 360, 768 y 1280 px sin scroll horizontal (RNF-10).
 
