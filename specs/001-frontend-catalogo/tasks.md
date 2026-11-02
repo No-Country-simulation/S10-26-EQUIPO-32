@@ -73,6 +73,10 @@ Qué reglas de `ui-brief.md` hace cumplir el lint de T02 y cuáles no se pueden 
 - **No aplicar `npm audit fix --force`:** propone *bajar* a `eslint@4.0.0` y `eslint-config-next@12.0.4`, que rompe D-18 y las reglas de T02.
 - **Estado:** sin corregir (decisión del 2026-11-02). Reevaluar cuando haya una versión de ESLint 9 / `eslint-config-next` con `minimatch` ≥ 11.0.1, o al revisar D-18 después de la entrega. Si T05 pasa a bloquear `high`, esto no cambia.
 
+### Riesgo conocido en T05: ESLint 9.39.5 sin soporte (2026-11-02)
+
+`npm ci` avisa y `npm view eslint@9.39.5 deprecated` confirma: «This version is no longer supported». Es la última de la serie 9 fijada por D-18 (compatibilidad con Next 16 y `eslint-config-next`). **Riesgo aceptado:** es una herramienta de desarrollo y de CI, no llega al navegador ni a producción; ya no recibirá correcciones, lo que se suma a la advisory de `minimatch` de arriba. **Reevaluación:** la migración a ESLint 10 se decide después de la entrega (ver nota junto a D-18 en la sección 7 del plan). No se actualiza ahora.
+
 ## B1 · Contrato de datos y datos de prueba (7.5 h)
 
 | # | Tarea | Implementa | Criterio de terminado | Est. h | Acum. | Reales | Estado |
