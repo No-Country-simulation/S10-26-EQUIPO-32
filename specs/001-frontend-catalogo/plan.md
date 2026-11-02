@@ -147,7 +147,7 @@ Criterio de inclusión: cada dependencia debe justificar su presencia; si se pue
 | `@types/react`, `@types/react-dom` (exactas: **19.3.0** ambas) | Tipos de React 19 para TypeScript | MIT | Sí — 2026-10-04. Solo tipos, no llegan a producción. |
 | `@types/node` (exacta: **22.20.5**) | Tipos de Node para la serie 22 (la de `.nvmrc`) | MIT | Sí — serie 22. Solo tipos. |
 | `tailwindcss` 4.x, `@tailwindcss/postcss` | Estilos y tokens del tema oscuro | MIT | Sí — 2026-10-19 |
-| `shadcn` (CLI) | Copia el código de los componentes al repo; **no es dependencia de runtime** | MIT | Sí — 2026-10-27 |
+| `shadcn` (CLI, exacta: **4.23.0**) | Copia el código de los componentes al repo; **no es dependencia de runtime** | MIT | Sí — 2026-10-27 |
 | `vitest` | Pruebas unitarias de lógica | MIT | Sí — 2026-10-19 |
 | `@playwright/test` | E2E: fixtures MU, headers, teclado, RNF-07 | Apache-2.0 | Sí — 2026-10-30 |
 | `@axe-core/playwright` | Auditoría de accesibilidad (RNF-16) | **MPL-2.0** | Sí — 2026-10-30. Solo en desarrollo, no se distribuye ni se modifica; la licencia no impone obligaciones sobre nuestro código. |
