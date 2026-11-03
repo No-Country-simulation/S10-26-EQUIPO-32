@@ -28,3 +28,7 @@ venv/
 # Logs
 *.log
 npm-debug.log*
+
+# Playwright
+apps/web/test-results/
+apps/web/playwright-report/
