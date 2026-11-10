@@ -26,6 +26,6 @@ describe("CSP con nonce (plan 5.2; AM-11, R-07, R-13)", () => {
   it("el nonce es distinto en cada llamada y tiene 128 bits", () => {
     const nonces = new Set(Array.from({ length: 50 }, generarNonce));
     expect(nonces.size).toBe(50);
-    expect(atob([...nonces][0]).length).toBe(16);
+    expect(atob(String([...nonces][0])).length).toBe(16);
   });
 });
