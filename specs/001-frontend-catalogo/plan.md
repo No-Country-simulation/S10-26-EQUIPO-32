@@ -133,7 +133,7 @@ Criterio de inclusión: cada dependencia debe justificar su presencia; si se pue
 | --- | --- | --- | --- |
 | `next` 16.x (exacta: **16.4.4**) | Framework (App Router), render en servidor, headers, proxy | MIT | Sí — publicada 2026-10-30 |
 | `react`, `react-dom` 19.x | UI. React escapa el texto por defecto: base de RNF-04 | MIT | Sí — 2026-10-30 |
-| `zod` 4.x | Validar y normalizar todo dato externo en la frontera (P5) | MIT | Sí — 2026-10-12 |
+| `zod` 4.x (exacta: **4.6.7**) | Validar y normalizar todo dato externo en la frontera (P5) | MIT | Sí — 2026-10-12 |
 | `@radix-ui/react-slot` | Composición de `Button` de shadcn | MIT | Sí — 2026-10-12 |
 | `class-variance-authority` | Variantes de componentes shadcn | Apache-2.0 | **Estable pero sin publicaciones recientes** — última 0.7.1 (2024-11-26). Es una función de 1 archivo sin dependencias; si se vuelve problema, se reemplaza por un `switch`. |
 | `clsx`, `tailwind-merge` | Composición de clases (requeridas por shadcn) | MIT | Sí — 2026-09-18 / 2026-10-23 |
