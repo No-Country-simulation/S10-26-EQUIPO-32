@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { HerramientaResumen } from "@/lib/catalogo/contrato";
+import { textoLicencia } from "@/lib/catalogo/licencia";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 import { IndicadorSalud } from "./IndicadorSalud";
@@ -59,7 +60,7 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
             <bdi dir="auto">{lenguaje ?? sinDato}</bdi>
           </Dato>
           <Dato etiqueta={t("tarjeta.licencia")}>
-            <bdi dir="auto">{licencia ?? t("comun.sinLicencia")}</bdi>
+            <bdi dir="auto">{textoLicencia(licencia)}</bdi>
           </Dato>
           <Dato etiqueta={t("tarjeta.stars")}>{stars === null ? sinDato : formatoNumero.format(stars)}</Dato>
           <Dato etiqueta={t("tarjeta.mantenimiento")}>
