@@ -5,17 +5,11 @@
 //  - Idea.revisada: solo el booleano true cuenta; cualquier otra cosa -> false (falla cerrado).
 //  - Las claves desconocidas se descartan. Nada se coacciona (el string "5" no es un 5).
 import { z } from "zod";
+import { CATEGORIAS, type Categoria } from "./categorias";
 import { validarUrlRepo } from "./enlaces";
 import { normalizarTexto, normalizarTextoLargo } from "./texto";
 
-export const CATEGORIAS = [
-  "autenticacion",
-  "base-de-datos",
-  "pagos",
-  "ia",
-  "analitica",
-  "busqueda",
-] as const;
+export { CATEGORIAS };
 export const NIVELES_MANTENIMIENTO = ["activo", "moderado", "abandonado"] as const;
 export const TIPOS_IDEA = ["rest", "docker", "sdk", "webhook"] as const;
 export const DIFICULTADES = ["baja", "media", "alta"] as const;
@@ -37,7 +31,7 @@ const LIMITE_ENTRADA = 100_000;
 const MAX_VALOR_NUMERICO = 1_000_000_000;
 const UN_DIA_MS = 24 * 60 * 60 * 1000;
 
-export type Categoria = (typeof CATEGORIAS)[number];
+export type { Categoria };
 
 // ---------- piezas reutilizables ----------
 
@@ -171,6 +165,8 @@ export const esquemaHerramientaLista = z.object(base).transform((h) => ({
   ...conDescripcion(COTAS.descripcionTarjeta)(h),
 }));
 export type HerramientaLista = z.output<typeof esquemaHerramientaLista>;
+/** Nombre que usa ui-brief §8 para la versión liviana de la grilla. */
+export type HerramientaResumen = HerramientaLista;
 
 const esquemaIdeas = z
   .unknown()
