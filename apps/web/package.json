@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "check:deps": "node scripts/verificar-dependencias.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.5.0",
