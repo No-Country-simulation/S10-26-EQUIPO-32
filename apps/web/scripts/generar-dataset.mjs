@@ -36,6 +36,14 @@ const SUFIJOS = {
   busqueda: ["Busca", "Indice", "Rastro"],
 };
 const PREFIJOS = ["Aurora", "Brisa", "Cobalto", "Delta", "Eco", "Faro", "Gema", "Halo", "Ibis", "Jade", "Kora", "Luma", "Mica", "Nodo", "Onda", "Pixel", "Quark", "Rumbo", "Sendero", "Tallo"];
+const ETIQUETA = {
+  autenticacion: "autenticación",
+  "base-de-datos": "bases de datos",
+  pagos: "pagos",
+  ia: "inteligencia artificial",
+  analitica: "analítica",
+  busqueda: "búsqueda",
+};
 const LENGUAJES = ["TypeScript", "Python", "Go", "Rust", "Java", "Ruby", "PHP", "C#", "Kotlin"];
 const LICENCIAS = ["MIT", "Apache-2.0", "BSD-3-Clause", "GPL-3.0", "MPL-2.0", "ISC", "AGPL-3.0"];
 const NIVELES = ["activo", "moderado", "abandonado"];
@@ -110,8 +118,8 @@ function generar() {
       i % 4 === 1
         ? undefined // 10 sin descripción
         : larga
-          ? `${nombre} resuelve un problema habitual del dominio de ${principal}. `.repeat(8).trim()
-          : `${nombre}: componente de ${principal} pensado para integrarse con servicios existentes.`;
+          ? `${nombre} resuelve un problema habitual del dominio de ${ETIQUETA[principal]}. `.repeat(8).trim()
+          : `${nombre}: componente de ${ETIQUETA[principal]} pensado para integrarse con servicios existentes.`;
 
     herramientas.push({
       id,

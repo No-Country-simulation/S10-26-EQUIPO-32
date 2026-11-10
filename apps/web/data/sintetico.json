@@ -3,7 +3,7 @@
     "id": "aurora-acceso",
     "nombre": "Aurora Acceso",
     "urlRepo": "https://github.com/ejemplo-sintetico/aurora-acceso",
-    "descripcion": "Aurora Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "descripcion": "Aurora Acceso: componente de autenticación pensado para integrarse con servicios existentes.",
     "categorias": [
       "autenticacion",
       "base-de-datos"
@@ -90,7 +90,7 @@
     "id": "delta-mente",
     "nombre": "Delta Mente",
     "urlRepo": "https://github.com/ejemplo-sintetico/delta-mente",
-    "descripcion": "Delta Mente: componente de ia pensado para integrarse con servicios existentes.",
+    "descripcion": "Delta Mente: componente de inteligencia artificial pensado para integrarse con servicios existentes.",
     "categorias": [
       "ia"
     ],
@@ -125,7 +125,7 @@
     "id": "eco-panel",
     "nombre": "Eco Panel",
     "urlRepo": "https://github.com/ejemplo-sintetico/eco-panel",
-    "descripcion": "Eco Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "descripcion": "Eco Panel: componente de analítica pensado para integrarse con servicios existentes.",
     "categorias": [
       "analitica"
     ],
@@ -207,7 +207,7 @@
     "id": "gema-acceso",
     "nombre": "Gema Acceso",
     "urlRepo": "https://github.com/ejemplo-sintetico/gema-acceso",
-    "descripcion": "Gema Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "descripcion": "Gema Acceso: componente de autenticación pensado para integrarse con servicios existentes.",
     "categorias": [
       "autenticacion",
       "ia"
@@ -227,7 +227,7 @@
     "id": "halo-registro",
     "nombre": "Halo Registro",
     "urlRepo": null,
-    "descripcion": "Halo Registro: componente de base-de-datos pensado para integrarse con servicios existentes.",
+    "descripcion": "Halo Registro: componente de bases de datos pensado para integrarse con servicios existentes.",
     "categorias": [
       "base-de-datos"
     ],
@@ -325,7 +325,7 @@
     "id": "kora-panel",
     "nombre": "Kora Panel",
     "urlRepo": "https://github.com/ejemplo-sintetico/kora-panel",
-    "descripcion": "Kora Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "descripcion": "Kora Panel: componente de analítica pensado para integrarse con servicios existentes.",
     "categorias": [
       "analitica",
       "base-de-datos"
@@ -345,7 +345,7 @@
     "id": "luma-rastro",
     "nombre": "Luma Rastro",
     "urlRepo": "https://github.com/ejemplo-sintetico/luma-rastro",
-    "descripcion": "Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda.",
+    "descripcion": "Luma Rastro resuelve un problema habitual del dominio de búsqueda. Luma Rastro resuelve un problema habitual del dominio de búsqueda. Luma Rastro resuelve un problema habitual del dominio de búsqueda. Luma Rastro resuelve un problema habitual del dominio de búsqueda. Luma Rastro resuelve un problema habitual del dominio de búsqueda. Luma Rastro resuelve un problema habitual del dominio de búsqueda. Luma Rastro resuelve un problema habitual del dominio de búsqueda. Luma Rastro resuelve un problema habitual del dominio de búsqueda.",
     "categorias": [
       "busqueda",
       "ia"
@@ -405,7 +405,7 @@
     "id": "mica-acceso",
     "nombre": "Mica Acceso",
     "urlRepo": "https://github.com/ejemplo-sintetico/mica-acceso",
-    "descripcion": "Mica Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "descripcion": "Mica Acceso: componente de autenticación pensado para integrarse con servicios existentes.",
     "categorias": [
       "autenticacion"
     ],
@@ -487,7 +487,7 @@
     "id": "pixel-mente",
     "nombre": "Pixel Mente",
     "urlRepo": "https://github.com/ejemplo-sintetico/pixel-mente",
-    "descripcion": "Pixel Mente: componente de ia pensado para integrarse con servicios existentes.",
+    "descripcion": "Pixel Mente: componente de inteligencia artificial pensado para integrarse con servicios existentes.",
     "categorias": [
       "ia",
       "base-de-datos"
@@ -523,7 +523,7 @@
     "id": "quark-panel",
     "nombre": "Quark Panel",
     "urlRepo": "https://github.com/ejemplo-sintetico/quark-panel",
-    "descripcion": "Quark Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "descripcion": "Quark Panel: componente de analítica pensado para integrarse con servicios existentes.",
     "categorias": [
       "analitica",
       "busqueda"
@@ -602,7 +602,7 @@
     "id": "sendero-acceso",
     "nombre": "Sendero Acceso",
     "urlRepo": "https://github.com/ejemplo-sintetico/sendero-acceso",
-    "descripcion": "Sendero Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "descripcion": "Sendero Acceso: componente de autenticación pensado para integrarse con servicios existentes.",
     "categorias": [
       "autenticacion"
     ],
@@ -621,7 +621,7 @@
     "id": "tallo-registro",
     "nombre": "Tallo Registro",
     "urlRepo": null,
-    "descripcion": "Tallo Registro: componente de base-de-datos pensado para integrarse con servicios existentes.",
+    "descripcion": "Tallo Registro: componente de bases de datos pensado para integrarse con servicios existentes.",
     "categorias": [
       "base-de-datos"
     ],
@@ -719,7 +719,7 @@
     "id": "cobalto-panel",
     "nombre": "Cobalto Panel",
     "urlRepo": "https://github.com/ejemplo-sintetico/cobalto-panel",
-    "descripcion": "Cobalto Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "descripcion": "Cobalto Panel: componente de analítica pensado para integrarse con servicios existentes.",
     "categorias": [
       "analitica"
     ],
@@ -738,7 +738,7 @@
     "id": "delta-rastro",
     "nombre": "Delta Rastro",
     "urlRepo": "https://github.com/ejemplo-sintetico/delta-rastro",
-    "descripcion": "Delta Rastro: componente de busqueda pensado para integrarse con servicios existentes.",
+    "descripcion": "Delta Rastro: componente de búsqueda pensado para integrarse con servicios existentes.",
     "categorias": [
       "busqueda"
     ],
@@ -799,7 +799,7 @@
     "id": "eco-acceso",
     "nombre": "Eco Acceso",
     "urlRepo": "https://github.com/ejemplo-sintetico/eco-acceso",
-    "descripcion": "Eco Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "descripcion": "Eco Acceso: componente de autenticación pensado para integrarse con servicios existentes.",
     "categorias": [
       "autenticacion"
     ],
@@ -886,7 +886,7 @@
     "id": "halo-mente",
     "nombre": "Halo Mente",
     "urlRepo": "https://github.com/ejemplo-sintetico/halo-mente",
-    "descripcion": "Halo Mente: componente de ia pensado para integrarse con servicios existentes.",
+    "descripcion": "Halo Mente: componente de inteligencia artificial pensado para integrarse con servicios existentes.",
     "categorias": [
       "ia"
     ],
@@ -920,7 +920,7 @@
     "id": "ibis-panel",
     "nombre": "Ibis Panel",
     "urlRepo": "https://github.com/ejemplo-sintetico/ibis-panel",
-    "descripcion": "Ibis Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "descripcion": "Ibis Panel: componente de analítica pensado para integrarse con servicios existentes.",
     "categorias": [
       "analitica"
     ],
@@ -997,7 +997,7 @@
     "id": "kora-acceso",
     "nombre": "Kora Acceso",
     "urlRepo": "https://github.com/ejemplo-sintetico/kora-acceso",
-    "descripcion": "Kora Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "descripcion": "Kora Acceso: componente de autenticación pensado para integrarse con servicios existentes.",
     "categorias": [
       "autenticacion",
       "ia"
@@ -1017,7 +1017,7 @@
     "id": "luma-registro",
     "nombre": "Luma Registro",
     "urlRepo": null,
-    "descripcion": "Luma Registro: componente de base-de-datos pensado para integrarse con servicios existentes.",
+    "descripcion": "Luma Registro: componente de bases de datos pensado para integrarse con servicios existentes.",
     "categorias": [
       "base-de-datos",
       "busqueda"
@@ -1116,7 +1116,7 @@
     "id": "onda-panel",
     "nombre": "Onda Panel",
     "urlRepo": "https://github.com/ejemplo-sintetico/onda-panel",
-    "descripcion": "Onda Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "descripcion": "Onda Panel: componente de analítica pensado para integrarse con servicios existentes.",
     "categorias": [
       "analitica"
     ],
@@ -1135,7 +1135,7 @@
     "id": "pixel-rastro",
     "nombre": "Pixel Rastro",
     "urlRepo": "https://github.com/ejemplo-sintetico/pixel-rastro",
-    "descripcion": "Pixel Rastro: componente de busqueda pensado para integrarse con servicios existentes.",
+    "descripcion": "Pixel Rastro: componente de búsqueda pensado para integrarse con servicios existentes.",
     "categorias": [
       "busqueda",
       "ia"
@@ -1196,7 +1196,7 @@
     "id": "quark-acceso",
     "nombre": "Quark Acceso",
     "urlRepo": "https://github.com/ejemplo-sintetico/quark-acceso",
-    "descripcion": "Quark Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "descripcion": "Quark Acceso: componente de autenticación pensado para integrarse con servicios existentes.",
     "categorias": [
       "autenticacion",
       "base-de-datos"
@@ -1282,7 +1282,7 @@
     "id": "tallo-mente",
     "nombre": "Tallo Mente",
     "urlRepo": "https://github.com/ejemplo-sintetico/tallo-mente",
-    "descripcion": "Tallo Mente: componente de ia pensado para integrarse con servicios existentes.",
+    "descripcion": "Tallo Mente: componente de inteligencia artificial pensado para integrarse con servicios existentes.",
     "categorias": [
       "ia"
     ],
