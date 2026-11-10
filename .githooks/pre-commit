@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Segunda capa de R-14 (la primera es el paso de CI): rechaza el commit si un archivo
+# en staging de apps/web/{src,tests,scripts} tiene caracteres bidi o de ancho cero crudos.
+# Revisa el contenido del índice, no el árbol de trabajo. Activar: git config core.hooksPath .githooks
+set -euo pipefail
+
+raiz="$(git rev-parse --show-toplevel)"
+verificador="$raiz/apps/web/scripts/verificar-invisibles.mjs"
+[ -f "$verificador" ] || exit 0
+command -v node >/dev/null 2>&1 || { echo "pre-commit: falta node; no se puede revisar R-14." >&2; exit 1; }
+
+fallo=0
+while IFS= read -r -d '' archivo; do
+  case "$archivo" in
+    apps/web/src/*|apps/web/tests/*|apps/web/scripts/*)
+      git show ":$archivo" | node "$verificador" --stdin "$archivo" || fallo=1
+      ;;
+  esac
+done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+
+if [ "$fallo" -ne 0 ]; then
+  echo "pre-commit: commit rechazado (R-14, CVE-2021-42574). Reemplazá los caracteres crudos por escapes." >&2
+  exit 1
+fi

@@ -21,26 +21,34 @@ function* archivos(dir) {
 }
 
 const hallazgos = [];
-for (const carpeta of carpetas) {
-  const dir = join(raiz, carpeta);
-  try {
-    statSync(dir);
-  } catch {
-    continue;
-  }
-  for (const ruta of archivos(dir)) {
-    const buffer = readFileSync(ruta);
-    if (buffer.includes(0)) continue; // binario
-    buffer
-      .toString("utf8")
-      .split("\n")
-      .forEach((linea, i) => {
-        const m = INVISIBLE.exec(linea);
-        if (m) {
-          const cp = m[0].codePointAt(0).toString(16).toUpperCase().padStart(4, "0");
-          hallazgos.push(`${relative(raiz, ruta)}:${i + 1} carácter invisible U+${cp}`);
-        }
-      });
+
+function revisar(texto, nombre) {
+  texto.split("\n").forEach((linea, i) => {
+    const m = INVISIBLE.exec(linea);
+    if (m) {
+      const cp = m[0].codePointAt(0).toString(16).toUpperCase().padStart(4, "0");
+      hallazgos.push(`${nombre}:${i + 1} carácter invisible U+${cp}`);
+    }
+  });
+}
+
+if (process.argv[2] === "--stdin") {
+  // Uso del hook pre-commit: contenido del índice por stdin y el nombre del archivo como argumento.
+  const buffer = readFileSync(0);
+  if (!buffer.includes(0)) revisar(buffer.toString("utf8"), process.argv[3] ?? "<stdin>");
+} else {
+  for (const carpeta of carpetas) {
+    const dir = join(raiz, carpeta);
+    try {
+      statSync(dir);
+    } catch {
+      continue;
+    }
+    for (const ruta of archivos(dir)) {
+      const buffer = readFileSync(ruta);
+      if (buffer.includes(0)) continue; // binario
+      revisar(buffer.toString("utf8"), relative(raiz, ruta));
+    }
   }
 }
 

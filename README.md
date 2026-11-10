@@ -29,6 +29,7 @@ CLAUDE.md      Reglas de SDD para Claude Code
 - **Ramas:** `main` protegida. Una rama por feature (`001-nombre-feature`), un PR por feature, revisado por el otro integrante.
 - **Commits:** [Conventional Commits](https://www.conventionalcommits.org/es/v1.0.0/) con el ID del requisito cuando aplica: `feat(rag): validar input (RNF-03)`.
 - **Secretos:** nunca en el repo. Copiar `.env.example` a `.env` y completar localmente.
+- **Hook local (una vez por clon):** `git config core.hooksPath .githooks`. Rechaza el commit si un archivo en staging de `apps/web/src`, `tests` o `scripts` tiene caracteres bidi o de ancho cero crudos (R-14); necesita Node. La CI hace la misma revisión.
 
 ## Seguridad
 
