@@ -5,7 +5,7 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const raiz = fileURLToPath(new URL("..", import.meta.url));
-const carpetas = ["src", "tests", "scripts"];
+const carpetas = ["src", "tests", "scripts", "demo"];
 const IGNORAR = new Set(["node_modules", ".next", "test-results", "playwright-report"]);
 // Bidi U+202A-202E y U+2066-2069; ancho cero U+200B-200D y U+FEFF.
 // También U+200E, U+200F, U+061C y U+2060, que texto.ts elimina por la misma razón.
@@ -57,4 +57,4 @@ if (hallazgos.length > 0) {
   console.error("Usá escapes \\uXXXX en lugar del carácter crudo (R-14, CVE-2021-42574).");
   process.exit(1);
 }
-console.log("Sin caracteres bidi ni de ancho cero crudos en src, tests y scripts.");
+console.log("Sin caracteres bidi ni de ancho cero crudos en src, tests, scripts y demo.");
