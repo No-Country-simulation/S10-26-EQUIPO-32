@@ -1,0 +1,1314 @@
+[
+  {
+    "id": "aurora-acceso",
+    "nombre": "Aurora Acceso",
+    "urlRepo": "https://github.com/ejemplo-sintetico/aurora-acceso",
+    "descripcion": "Aurora Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "autenticacion",
+      "base-de-datos"
+    ],
+    "stars": 3374,
+    "ultimaActualizacion": "2026-10-15T00:00:00Z",
+    "licencia": "MIT",
+    "lenguaje": null,
+    "issuesAbiertos": 117,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 83,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "brisa-registro",
+    "nombre": "Brisa Registro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/brisa-registro",
+    "categorias": [
+      "base-de-datos",
+      "ia"
+    ],
+    "stars": 5,
+    "ultimaActualizacion": "2026-08-13T00:00:00Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 18,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 50,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cada vez que se publica un documento",
+          "cuando un usuario se registra",
+          "cuando falla una tarea programada"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/brisa-registro:latest",
+        "stack": [
+          "docker",
+          "kubernetes"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al recibir un pago"
+        ],
+        "snippet": "import { crearCliente } from \"brisa-registro-sdk\";\n\nconst cliente = crearCliente({ servidor: \"https://api.brisa-registro.test\" });\nawait cliente.enviar({ evento: \"ejemplo\" });",
+        "stack": [
+          "ruby",
+          "kubernetes"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "cobalto-caja",
+    "nombre": "Cobalto Caja",
+    "urlRepo": "https://github.com/ejemplo-sintetico/cobalto-caja",
+    "descripcion": "Cobalto Caja resuelve un problema habitual del dominio de pagos. Cobalto Caja resuelve un problema habitual del dominio de pagos. Cobalto Caja resuelve un problema habitual del dominio de pagos. Cobalto Caja resuelve un problema habitual del dominio de pagos. Cobalto Caja resuelve un problema habitual del dominio de pagos. Cobalto Caja resuelve un problema habitual del dominio de pagos. Cobalto Caja resuelve un problema habitual del dominio de pagos. Cobalto Caja resuelve un problema habitual del dominio de pagos.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 5,
+    "ultimaActualizacion": "2024-09-18T00:00:00Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "Go",
+    "issuesAbiertos": 13,
+    "mantenedorActivo": false,
+    "nivelMantenimiento": "abandonado",
+    "healthScore": 5,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "delta-mente",
+    "nombre": "Delta Mente",
+    "urlRepo": "https://github.com/ejemplo-sintetico/delta-mente",
+    "descripcion": "Delta Mente: componente de ia pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 5,
+    "ultimaActualizacion": "2026-10-22T00:00:00Z",
+    "licencia": null,
+    "lenguaje": "Rust",
+    "issuesAbiertos": 288,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 83,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "cuando falla una tarea programada"
+        ],
+        "snippet": "POST /webhooks/delta-mente HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "postgres",
+          "ruby",
+          "go"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "eco-panel",
+    "nombre": "Eco Panel",
+    "urlRepo": "https://github.com/ejemplo-sintetico/eco-panel",
+    "descripcion": "Eco Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 12,
+    "ultimaActualizacion": "2026-10-15T00:00:00Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 22,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 77,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "faro-rastro",
+    "nombre": "Faro Rastro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/faro-rastro",
+    "categorias": [
+      "busqueda",
+      "base-de-datos"
+    ],
+    "stars": 0,
+    "ultimaActualizacion": "2026-03-27T00:00:00Z",
+    "licencia": "ISC",
+    "lenguaje": "Ruby",
+    "issuesAbiertos": 389,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 65,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando falla una tarea programada",
+          "al recibir un pago",
+          "cuando cambia el estado de un pedido"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/faro-rastro:latest",
+        "stack": [
+          "python",
+          "java"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando falla una tarea programada",
+          "al terminar un proceso por lotes",
+          "cada vez que se publica un documento"
+        ],
+        "snippet": "import { crearCliente } from \"faro-rastro-sdk\";\n\nconst cliente = crearCliente({ servidor: \"https://api.faro-rastro.test\" });\nawait cliente.enviar({ evento: \"ejemplo\" });",
+        "stack": [
+          "java",
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "al terminar un proceso por lotes"
+        ],
+        "snippet": "POST /webhooks/faro-rastro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "ruby",
+          "postgres"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "gema-acceso",
+    "nombre": "Gema Acceso",
+    "urlRepo": "https://github.com/ejemplo-sintetico/gema-acceso",
+    "descripcion": "Gema Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "autenticacion",
+      "ia"
+    ],
+    "stars": 975,
+    "ultimaActualizacion": "2026-10-18T00:00:00Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "PHP",
+    "issuesAbiertos": 164,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 83,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "halo-registro",
+    "nombre": "Halo Registro",
+    "urlRepo": null,
+    "descripcion": "Halo Registro: componente de base-de-datos pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 24,
+    "ultimaActualizacion": "2026-10-12T00:00:00Z",
+    "licencia": "MIT",
+    "lenguaje": "C#",
+    "issuesAbiertos": 17,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 87,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "al recibir un pago",
+          "cuando cambia el estado de un pedido"
+        ],
+        "snippet": "POST /webhooks/halo-registro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "ruby",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando falla una tarea programada"
+        ],
+        "snippet": "curl -X POST https://api.halo-registro.test/v1/eventos \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"evento\": \"ejemplo\"}'",
+        "stack": [
+          "postgres"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "ibis-caja",
+    "nombre": "Ibis Caja",
+    "urlRepo": "https://github.com/ejemplo-sintetico/ibis-caja",
+    "descripcion": "Ibis Caja: componente de pagos pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 2,
+    "ultimaActualizacion": "2026-10-20T00:00:00Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Kotlin",
+    "issuesAbiertos": 98,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 97,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "jade-mente",
+    "nombre": "Jade Mente",
+    "urlRepo": "https://github.com/ejemplo-sintetico/jade-mente",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 331,
+    "ultimaActualizacion": "2026-10-24T00:00:00Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 264,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando un usuario se registra"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/jade-mente:latest",
+        "stack": [
+          "java",
+          "python",
+          "ruby"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "kora-panel",
+    "nombre": "Kora Panel",
+    "urlRepo": "https://github.com/ejemplo-sintetico/kora-panel",
+    "descripcion": "Kora Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "analitica",
+      "base-de-datos"
+    ],
+    "stars": 107,
+    "ultimaActualizacion": "2025-08-20T00:00:00Z",
+    "licencia": null,
+    "lenguaje": "Python",
+    "issuesAbiertos": 353,
+    "mantenedorActivo": false,
+    "nivelMantenimiento": "abandonado",
+    "healthScore": 22,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "luma-rastro",
+    "nombre": "Luma Rastro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/luma-rastro",
+    "descripcion": "Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda. Luma Rastro resuelve un problema habitual del dominio de busqueda.",
+    "categorias": [
+      "busqueda",
+      "ia"
+    ],
+    "stars": 233,
+    "ultimaActualizacion": "2024-10-15T00:00:00Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 264,
+    "mantenedorActivo": false,
+    "nivelMantenimiento": "abandonado",
+    "healthScore": 6,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "cuando un usuario se registra"
+        ],
+        "snippet": "POST /webhooks/luma-rastro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando falla una tarea programada",
+          "cada vez que se publica un documento",
+          "cuando un usuario se registra"
+        ],
+        "snippet": "curl -X POST https://api.luma-rastro.test/v1/eventos \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"evento\": \"ejemplo\"}'",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cada vez que se publica un documento"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/luma-rastro:latest",
+        "stack": [
+          "kubernetes"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "mica-acceso",
+    "nombre": "Mica Acceso",
+    "urlRepo": "https://github.com/ejemplo-sintetico/mica-acceso",
+    "descripcion": "Mica Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 7,
+    "ultimaActualizacion": "2026-08-11T00:00:00Z",
+    "licencia": "ISC",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 107,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 56,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "nodo-registro",
+    "nombre": "Nodo Registro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/nodo-registro",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 151,
+    "ultimaActualizacion": "2026-10-25T00:00:00Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": null,
+    "issuesAbiertos": 172,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 88,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "cuando falla una tarea programada"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/nodo-registro:latest",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cada vez que se publica un documento"
+        ],
+        "snippet": "import { crearCliente } from \"nodo-registro-sdk\";\n\nconst cliente = crearCliente({ servidor: \"https://api.nodo-registro.test\" });\nawait cliente.enviar({ evento: \"ejemplo\" });",
+        "stack": [
+          "ruby"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "onda-caja",
+    "nombre": "Onda Caja",
+    "urlRepo": "https://github.com/ejemplo-sintetico/onda-caja",
+    "descripcion": "Onda Caja: componente de pagos pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 118,
+    "ultimaActualizacion": "2026-03-18T00:00:00Z",
+    "licencia": "MIT",
+    "lenguaje": "Ruby",
+    "issuesAbiertos": 290,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 49,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "pixel-mente",
+    "nombre": "Pixel Mente",
+    "urlRepo": "https://github.com/ejemplo-sintetico/pixel-mente",
+    "descripcion": "Pixel Mente: componente de ia pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "ia",
+      "base-de-datos"
+    ],
+    "stars": 1414,
+    "ultimaActualizacion": "2026-10-01T00:00:00Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "PHP",
+    "issuesAbiertos": 28,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 70,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "al terminar un proceso por lotes",
+          "cuando un usuario se registra",
+          "cada vez que se publica un documento"
+        ],
+        "snippet": "POST /webhooks/pixel-mente HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "go",
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "quark-panel",
+    "nombre": "Quark Panel",
+    "urlRepo": "https://github.com/ejemplo-sintetico/quark-panel",
+    "descripcion": "Quark Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "analitica",
+      "busqueda"
+    ],
+    "stars": 0,
+    "ultimaActualizacion": "2026-08-30T00:00:00Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "C#",
+    "issuesAbiertos": 234,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 42,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "rumbo-rastro",
+    "nombre": "Rumbo Rastro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/rumbo-rastro",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 7,
+    "ultimaActualizacion": "2026-11-01T00:00:00Z",
+    "licencia": null,
+    "lenguaje": "Kotlin",
+    "issuesAbiertos": 130,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 80,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando cambia el estado de un pedido"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/rumbo-rastro:latest",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "al terminar un proceso por lotes"
+        ],
+        "snippet": "import { crearCliente } from \"rumbo-rastro-sdk\";\n\nconst cliente = crearCliente({ servidor: \"https://api.rumbo-rastro.test\" });\nawait cliente.enviar({ evento: \"ejemplo\" });",
+        "stack": [
+          "java",
+          "docker",
+          "go"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando un usuario se registra"
+        ],
+        "snippet": "POST /webhooks/rumbo-rastro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "kubernetes",
+          "go"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "sendero-acceso",
+    "nombre": "Sendero Acceso",
+    "urlRepo": "https://github.com/ejemplo-sintetico/sendero-acceso",
+    "descripcion": "Sendero Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 39,
+    "ultimaActualizacion": "2026-10-31T00:00:00Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 75,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 74,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "tallo-registro",
+    "nombre": "Tallo Registro",
+    "urlRepo": null,
+    "descripcion": "Tallo Registro: componente de base-de-datos pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 73,
+    "ultimaActualizacion": "2026-11-01T00:00:00Z",
+    "licencia": "ISC",
+    "lenguaje": "Python",
+    "issuesAbiertos": 42,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 82,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "al recibir un pago"
+        ],
+        "snippet": "POST /webhooks/tallo-registro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "cuando un usuario se registra"
+        ],
+        "snippet": "curl -X POST https://api.tallo-registro.test/v1/eventos \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"evento\": \"ejemplo\"}'",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "aurora-caja",
+    "nombre": "Aurora Caja",
+    "urlRepo": "https://github.com/ejemplo-sintetico/aurora-caja",
+    "descripcion": "Aurora Caja resuelve un problema habitual del dominio de pagos. Aurora Caja resuelve un problema habitual del dominio de pagos. Aurora Caja resuelve un problema habitual del dominio de pagos. Aurora Caja resuelve un problema habitual del dominio de pagos. Aurora Caja resuelve un problema habitual del dominio de pagos. Aurora Caja resuelve un problema habitual del dominio de pagos. Aurora Caja resuelve un problema habitual del dominio de pagos. Aurora Caja resuelve un problema habitual del dominio de pagos.",
+    "categorias": [
+      "pagos",
+      "ia"
+    ],
+    "stars": 1,
+    "ultimaActualizacion": "2026-10-09T00:00:00Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 178,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 82,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "brisa-mente",
+    "nombre": "Brisa Mente",
+    "urlRepo": "https://github.com/ejemplo-sintetico/brisa-mente",
+    "categorias": [
+      "ia",
+      "busqueda"
+    ],
+    "stars": 2,
+    "ultimaActualizacion": "2026-09-24T00:00:00Z",
+    "licencia": "MIT",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 56,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 97,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando cambia el estado de un pedido"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/brisa-mente:latest",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "cobalto-panel",
+    "nombre": "Cobalto Panel",
+    "urlRepo": "https://github.com/ejemplo-sintetico/cobalto-panel",
+    "descripcion": "Cobalto Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 12,
+    "ultimaActualizacion": "2026-10-11T00:00:00Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 54,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 79,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "delta-rastro",
+    "nombre": "Delta Rastro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/delta-rastro",
+    "descripcion": "Delta Rastro: componente de busqueda pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 16,
+    "ultimaActualizacion": "2026-04-05T00:00:00Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "Ruby",
+    "issuesAbiertos": 134,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 40,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando un usuario se registra",
+          "al terminar un proceso por lotes"
+        ],
+        "snippet": "POST /webhooks/delta-rastro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "go",
+          "node",
+          "postgres"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cada vez que se publica un documento"
+        ],
+        "snippet": "curl -X POST https://api.delta-rastro.test/v1/eventos \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"evento\": \"ejemplo\"}'",
+        "stack": [
+          "kubernetes"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando falla una tarea programada"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/delta-rastro:latest",
+        "stack": [
+          "go",
+          "python",
+          "java"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "eco-acceso",
+    "nombre": "Eco Acceso",
+    "urlRepo": "https://github.com/ejemplo-sintetico/eco-acceso",
+    "descripcion": "Eco Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 76,
+    "ultimaActualizacion": "2026-10-25T00:00:00Z",
+    "licencia": null,
+    "lenguaje": "PHP",
+    "issuesAbiertos": 89,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 97,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "faro-registro",
+    "nombre": "Faro Registro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/faro-registro",
+    "categorias": [
+      "base-de-datos",
+      "ia"
+    ],
+    "stars": 145,
+    "ultimaActualizacion": "2026-06-05T00:00:00Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "C#",
+    "issuesAbiertos": 155,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 66,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "al terminar un proceso por lotes"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/faro-registro:latest",
+        "stack": [
+          "postgres",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "cuando falla una tarea programada"
+        ],
+        "snippet": "import { crearCliente } from \"faro-registro-sdk\";\n\nconst cliente = crearCliente({ servidor: \"https://api.faro-registro.test\" });\nawait cliente.enviar({ evento: \"ejemplo\" });",
+        "stack": [
+          "kubernetes",
+          "python"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "gema-caja",
+    "nombre": "Gema Caja",
+    "urlRepo": "https://github.com/ejemplo-sintetico/gema-caja",
+    "descripcion": "Gema Caja: componente de pagos pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "pagos",
+      "busqueda"
+    ],
+    "stars": 558,
+    "ultimaActualizacion": "2026-09-26T00:00:00Z",
+    "licencia": "ISC",
+    "lenguaje": null,
+    "issuesAbiertos": 226,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "halo-mente",
+    "nombre": "Halo Mente",
+    "urlRepo": "https://github.com/ejemplo-sintetico/halo-mente",
+    "descripcion": "Halo Mente: componente de ia pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 0,
+    "ultimaActualizacion": "2026-01-23T00:00:00Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 128,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 44,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando falla una tarea programada",
+          "al recibir un pago"
+        ],
+        "snippet": "POST /webhooks/halo-mente HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "docker",
+          "go"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "ibis-panel",
+    "nombre": "Ibis Panel",
+    "urlRepo": "https://github.com/ejemplo-sintetico/ibis-panel",
+    "descripcion": "Ibis Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 1,
+    "ultimaActualizacion": "2026-04-13T00:00:00Z",
+    "licencia": "MIT",
+    "lenguaje": "Python",
+    "issuesAbiertos": 244,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 43,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "jade-rastro",
+    "nombre": "Jade Rastro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/jade-rastro",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 20248,
+    "ultimaActualizacion": "2026-10-15T00:00:00Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 80,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 79,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando cambia el estado de un pedido"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/jade-rastro:latest",
+        "stack": [
+          "go",
+          "ruby"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al terminar un proceso por lotes",
+          "cuando un usuario se registra"
+        ],
+        "snippet": "import { crearCliente } from \"jade-rastro-sdk\";\n\nconst cliente = crearCliente({ servidor: \"https://api.jade-rastro.test\" });\nawait cliente.enviar({ evento: \"ejemplo\" });",
+        "stack": [
+          "kubernetes",
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "al terminar un proceso por lotes"
+        ],
+        "snippet": "POST /webhooks/jade-rastro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "kora-acceso",
+    "nombre": "Kora Acceso",
+    "urlRepo": "https://github.com/ejemplo-sintetico/kora-acceso",
+    "descripcion": "Kora Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "autenticacion",
+      "ia"
+    ],
+    "stars": 34,
+    "ultimaActualizacion": "2026-09-23T00:00:00Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 359,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 94,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "luma-registro",
+    "nombre": "Luma Registro",
+    "urlRepo": null,
+    "descripcion": "Luma Registro: componente de base-de-datos pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "base-de-datos",
+      "busqueda"
+    ],
+    "stars": 35066,
+    "ultimaActualizacion": "2026-10-16T00:00:00Z",
+    "licencia": null,
+    "lenguaje": "Java",
+    "issuesAbiertos": 330,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 88,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "al recibir un pago"
+        ],
+        "snippet": "POST /webhooks/luma-registro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "docker",
+          "ruby"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al recibir un pago",
+          "al terminar un proceso por lotes"
+        ],
+        "snippet": "curl -X POST https://api.luma-registro.test/v1/eventos \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"evento\": \"ejemplo\"}'",
+        "stack": [
+          "python",
+          "go",
+          "java"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "mica-caja",
+    "nombre": "Mica Caja",
+    "urlRepo": "https://github.com/ejemplo-sintetico/mica-caja",
+    "descripcion": "Mica Caja: componente de pagos pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 9086,
+    "ultimaActualizacion": "2026-01-15T00:00:00Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "Ruby",
+    "issuesAbiertos": 214,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 66,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "nodo-mente",
+    "nombre": "Nodo Mente",
+    "urlRepo": "https://github.com/ejemplo-sintetico/nodo-mente",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 76,
+    "ultimaActualizacion": "2026-05-03T00:00:00Z",
+    "licencia": "ISC",
+    "lenguaje": "PHP",
+    "issuesAbiertos": 107,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 47,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando falla una tarea programada"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/nodo-mente:latest",
+        "stack": [
+          "ruby"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "onda-panel",
+    "nombre": "Onda Panel",
+    "urlRepo": "https://github.com/ejemplo-sintetico/onda-panel",
+    "descripcion": "Onda Panel: componente de analitica pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 15,
+    "ultimaActualizacion": "2026-10-13T00:00:00Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "C#",
+    "issuesAbiertos": 206,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 96,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "pixel-rastro",
+    "nombre": "Pixel Rastro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/pixel-rastro",
+    "descripcion": "Pixel Rastro: componente de busqueda pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "busqueda",
+      "ia"
+    ],
+    "stars": 12587,
+    "ultimaActualizacion": "2025-09-01T00:00:00Z",
+    "licencia": "MIT",
+    "lenguaje": "Kotlin",
+    "issuesAbiertos": 196,
+    "mantenedorActivo": false,
+    "nivelMantenimiento": "abandonado",
+    "healthScore": 34,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando cambia el estado de un pedido",
+          "cada vez que se publica un documento"
+        ],
+        "snippet": "POST /webhooks/pixel-rastro HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando un usuario se registra",
+          "al terminar un proceso por lotes",
+          "cuando cambia el estado de un pedido"
+        ],
+        "snippet": "curl -X POST https://api.pixel-rastro.test/v1/eventos \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"evento\": \"ejemplo\"}'",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al terminar un proceso por lotes",
+          "cada vez que se publica un documento"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/pixel-rastro:latest",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "quark-acceso",
+    "nombre": "Quark Acceso",
+    "urlRepo": "https://github.com/ejemplo-sintetico/quark-acceso",
+    "descripcion": "Quark Acceso: componente de autenticacion pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "autenticacion",
+      "base-de-datos"
+    ],
+    "stars": 14,
+    "ultimaActualizacion": "2026-08-30T00:00:00Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 275,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "moderado",
+    "healthScore": 41,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "rumbo-registro",
+    "nombre": "Rumbo Registro",
+    "urlRepo": "https://github.com/ejemplo-sintetico/rumbo-registro",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 86,
+    "ultimaActualizacion": "2026-09-27T00:00:00Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "Python",
+    "issuesAbiertos": 282,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 98,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al recibir un pago",
+          "cuando falla una tarea programada",
+          "cuando un usuario se registra"
+        ],
+        "snippet": "docker run --rm -p 8080:8080 imagen-sintetica/rumbo-registro:latest",
+        "stack": [
+          "ruby",
+          "node",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": true
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando falla una tarea programada"
+        ],
+        "snippet": "import { crearCliente } from \"rumbo-registro-sdk\";\n\nconst cliente = crearCliente({ servidor: \"https://api.rumbo-registro.test\" });\nawait cliente.enviar({ evento: \"ejemplo\" });",
+        "stack": [
+          "kubernetes"
+        ],
+        "dificultad": "alta",
+        "revisada": true
+      }
+    ]
+  },
+  {
+    "id": "sendero-caja",
+    "nombre": "Sendero Caja",
+    "urlRepo": "https://github.com/ejemplo-sintetico/sendero-caja",
+    "descripcion": "Sendero Caja resuelve un problema habitual del dominio de pagos. Sendero Caja resuelve un problema habitual del dominio de pagos. Sendero Caja resuelve un problema habitual del dominio de pagos. Sendero Caja resuelve un problema habitual del dominio de pagos. Sendero Caja resuelve un problema habitual del dominio de pagos. Sendero Caja resuelve un problema habitual del dominio de pagos. Sendero Caja resuelve un problema habitual del dominio de pagos. Sendero Caja resuelve un problema habitual del dominio de pagos.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 0,
+    "ultimaActualizacion": "2024-01-20T00:00:00Z",
+    "licencia": null,
+    "lenguaje": "Go",
+    "issuesAbiertos": 329,
+    "mantenedorActivo": false,
+    "nivelMantenimiento": "abandonado",
+    "healthScore": 13,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": []
+  },
+  {
+    "id": "tallo-mente",
+    "nombre": "Tallo Mente",
+    "urlRepo": "https://github.com/ejemplo-sintetico/tallo-mente",
+    "descripcion": "Tallo Mente: componente de ia pensado para integrarse con servicios existentes.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 23,
+    "ultimaActualizacion": "2026-10-08T00:00:00Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": null,
+    "issuesAbiertos": 14,
+    "mantenedorActivo": true,
+    "nivelMantenimiento": "activo",
+    "healthScore": 94,
+    "metricasTomadasEn": "2026-11-09T00:00:00Z",
+    "ideas": [
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "al terminar un proceso por lotes"
+        ],
+        "snippet": "POST /webhooks/tallo-mente HTTP/1.1\nHost: tu-servicio.test\nContent-Type: application/json\n\n{\"evento\": \"ejemplo\"}",
+        "stack": [
+          "kubernetes",
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  }
+]

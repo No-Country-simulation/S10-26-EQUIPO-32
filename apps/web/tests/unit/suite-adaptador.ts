@@ -9,6 +9,13 @@ import {
 } from "@/lib/catalogo/contrato";
 import type { RepositorioCatalogo } from "@/lib/catalogo/repositorio";
 
+// Volver a validar un texto ya cortado no ve el recorte: ese indicador es el único campo que puede cambiar.
+const sinIndicadorDeRecorte = (h: { descripcionTruncada: boolean }): Record<string, unknown> => {
+  const copia: Record<string, unknown> = { ...h };
+  delete copia.descripcionTruncada;
+  return copia;
+};
+
 const METODOS_PERMITIDOS = ["constructor", "listarHerramientas", "obtenerHerramienta"];
 
 // Nombres de los miembros que son funciones (propios y heredados). Un dato como `crudos` no cuenta.
@@ -40,7 +47,9 @@ export function ejecutarSuiteContratoAdaptador(
       expect(Number.isInteger(omitidas) && omitidas >= 0).toBe(true);
       const ids = new Set<string>();
       for (const h of herramientas) {
-        expect(parsearHerramientaLista(h)).toEqual(h); // volver a pasar por el contrato no la cambia
+        const otra = parsearHerramientaLista(h);
+        expect(otra).not.toBeNull();
+        if (otra !== null) expect(sinIndicadorDeRecorte(otra)).toEqual(sinIndicadorDeRecorte(h)); // el contrato es idempotente
         expect(h).not.toHaveProperty("ideas");
         expect(esIdValido(h.id)).toBe(true);
         expect(ids.has(h.id)).toBe(false);
@@ -57,7 +66,9 @@ export function ejecutarSuiteContratoAdaptador(
         if (d === null) continue;
         expect(d.id).toBe(h.id);
         expect(d.nombre).toBe(h.nombre);
-        expect(parsearHerramientaDetalle(d)).toEqual(d);
+        const otro = parsearHerramientaDetalle(d);
+        expect(otro).not.toBeNull();
+        if (otro !== null) expect(sinIndicadorDeRecorte(otro)).toEqual(sinIndicadorDeRecorte(d));
         expect(d.ideas.length).toBeLessThanOrEqual(10);
         for (const idea of d.ideas) expect(typeof idea.revisada).toBe("boolean");
       }
