@@ -7,10 +7,12 @@ export interface GrillaHerramientasProps {
   herramientas: HerramientaResumen[];
   /** Cantidad de resultados que se anuncia (la grilla no pagina: coincide con `herramientas.length`). */
   total: number;
+  /** Estado vacío: texto propio (p. ej. «sin resultados para …») y acción de limpiar. */
+  vacio?: { texto?: string; accion?: { etiqueta: string; onClick: () => void } };
 }
 
 /** Grilla de tres, dos o una columna según el ancho. Vacía: muestra el estado vacío. */
-export function GrillaHerramientas({ herramientas, total }: GrillaHerramientasProps) {
+export function GrillaHerramientas({ herramientas, total, vacio }: GrillaHerramientasProps) {
   return (
     <section aria-label={t("grilla.region")} className="space-y-4">
       <p aria-live="polite" className="sr-only">
@@ -18,7 +20,7 @@ export function GrillaHerramientas({ herramientas, total }: GrillaHerramientasPr
         <span>{total === 1 ? t("grilla.resultado.uno") : t("grilla.resultado.otras")}</span>
       </p>
       {herramientas.length === 0 ? (
-        <EstadoVacio titulo={t("estado.vacio.titulo")} texto={t("estado.vacio.texto")} />
+        <EstadoVacio titulo={t("estado.vacio.titulo")} texto={vacio?.texto ?? t("estado.vacio.texto")} accion={vacio?.accion} />
       ) : (
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {herramientas.map((herramienta) => (

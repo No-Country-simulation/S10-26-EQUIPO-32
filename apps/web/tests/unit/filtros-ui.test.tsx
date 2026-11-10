@@ -33,3 +33,40 @@ describe("componentes de filtros (TI4, RNF-10, RNF-16)", () => {
     expect(renderToStaticMarkup(<Buscador valor="" onBuscar={nada} />)).toContain('maxLength="100"');
   });
 });
+
+// ---------- T19: cableado en el catálogo ----------
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { Catalogo } from "@/components/catalogo/Catalogo";
+import { parsearLista } from "@/lib/catalogo/contrato";
+import { ESTADO_SIN_FILTROS } from "@/lib/catalogo/filtros";
+
+const { herramientas } = parsearLista(JSON.parse(readFileSync(join(__dirname, "../../data/sintetico.json"), "utf8")));
+
+describe("Catalogo cableado (RF-03, RF-04, D-08, D-16)", () => {
+  it("sin filtros muestra todo y ningún chip", () => {
+    const html = renderToStaticMarkup(<Catalogo herramientas={herramientas} />);
+    expect(html).toContain(`>${herramientas.length}</span>`);
+    expect(html).not.toContain("Filtros activos");
+  });
+
+  it("con un estado inicial muestra la cantidad filtrada y los chips activos", () => {
+    const html = renderToStaticMarkup(
+      <Catalogo herramientas={herramientas} estadoInicial={{ ...ESTADO_SIN_FILTROS, categoria: "ia", stars: 100 }} />,
+    );
+    const esperadas = herramientas.filter((h) => h.categorias.includes("ia") && h.stars !== null && h.stars >= 100).length;
+    expect(html).toContain(`>${esperadas}</span>`);
+    expect(html).toContain("Filtros activos");
+    expect(html).toContain("Limpiar filtros");
+  });
+
+  it("combinación sin resultados: estado vacío con el texto buscado escapado y la acción de limpiar", () => {
+    const html = renderToStaticMarkup(
+      <Catalogo herramientas={herramientas} estadoInicial={{ ...ESTADO_SIN_FILTROS, q: "<svg onload=x>" }} />,
+    );
+    expect(html).toContain("No hay herramientas para la búsqueda");
+    expect(html).toContain("«&lt;svg onload=x&gt;»");
+    expect(html).not.toContain("<svg onload");
+    expect(html).toContain("Limpiar filtros");
+  });
+});
