@@ -48,3 +48,34 @@ export function resolverFuente(env: { CATALOG_SOURCE?: string; NODE_ENV?: string
   }
   return valor as FuenteCatalogo;
 }
+
+const cache = new Map<FuenteCatalogo, Promise<RepositorioCatalogo>>();
+
+/**
+ * Devuelve el adaptador de la fuente elegida (plan 4.1). Los adaptadores se cargan bajo demanda:
+ * los datos de prueba de `fixtures` no entran al código que se usa con `sintetico`.
+ * `supabase` queda fuera del MVP 2026-11-10 (B9): pedirla es un error de configuración claro.
+ */
+export function obtenerRepositorio(
+  env: { CATALOG_SOURCE?: string; NODE_ENV?: string } = process.env,
+): Promise<RepositorioCatalogo> {
+  const fuente = resolverFuente(env);
+  let repo = cache.get(fuente);
+  if (repo === undefined) {
+    repo = cargar(fuente);
+    cache.set(fuente, repo);
+    repo.catch(() => cache.delete(fuente)); // un fallo de carga no queda en caché
+  }
+  return repo;
+}
+
+async function cargar(fuente: FuenteCatalogo): Promise<RepositorioCatalogo> {
+  switch (fuente) {
+    case "sintetico":
+      return (await import("./adaptadores/sintetico")).crearAdaptadorSintetico();
+    case "fixtures":
+      return (await import("./adaptadores/fixtures")).crearAdaptadorFixtures();
+    case "supabase":
+      throw new ErrorConfiguracion("CATALOG_SOURCE=supabase no está disponible en esta versión (B9 fuera del MVP).");
+  }
+}

