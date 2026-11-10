@@ -18,7 +18,7 @@
 | 6 | Fallo cerrado de `revisada` y snippets largos | Aprobados. | 4.2, AM-04, AM-05 |
 | 7 | Riesgos nuevos | R-11, R-12 y R-13 agregados. | `docs/matriz-riesgos.md` actualizado (P e I son estimación inicial, a revisar con Ángel). |
 | 8 | Presupuesto | 40-45 h para el frontend (después vienen 002 y el red-team; entrega 16/11). | Secciones 6 y 8. Total 45.5 h (ver 8.4). |
-| 9 | Alcance de Playwright | Se aceptan tres desvíos: axe en `a11y.spec`, RNF-07 como test E2E y dos aserciones extra en `headers.spec` (tema oscuro, asistente deshabilitado). | 6.2, 8.1 |
+| 9 | Alcance de Playwright | Se aceptan tres desvíos: axe en `a11y.spec`, RNF-07 como test E2E y dos aserciones extra en `headers.spec` (tema claro, asistente deshabilitado). | 6.2, 8.1 |
 | 10 | `next/font` | Se recupera del recorte de extras visuales (≈ 0.5 h en B2). Sirve las fuentes desde nuestro servidor, compatible con `font-src 'self'`. Animaciones, esqueletos y microinteracciones siguen fuera. | D-14, 8.1, 8.2 |
 | 11 | **Pendiente** · Origen de datos de B9 | El adaptador real probablemente lea de la API REST del backend en lugar de Supabase directo; se decide al llegar a B9. (Contexto: el backend de Ángel, FastAPI en `backend/`, ya está en `main`, expone una API REST y hoy guarda los datos en memoria, no en Supabase.) | B9 (T36-T38). No se cambia nada más del plan por ahora. |
 
@@ -146,7 +146,7 @@ Criterio de inclusión: cada dependencia debe justificar su presencia; si se pue
 | `typescript` 5.x (exacta: **5.9.3**) | Tipado estricto | Apache-2.0 | Sí — última estable de la serie 5. **Fijada en 5.x desde el arranque** (la serie 7 está descartada, ver D-18). |
 | `@types/react`, `@types/react-dom` (exactas: **19.3.0** ambas) | Tipos de React 19 para TypeScript | MIT | Sí — 2026-10-04. Solo tipos, no llegan a producción. |
 | `@types/node` (exacta: **22.20.5**) | Tipos de Node para la serie 22 (la de `.nvmrc`) | MIT | Sí — serie 22. Solo tipos. |
-| `tailwindcss` 4.x, `@tailwindcss/postcss` | Estilos y tokens del tema oscuro | MIT | Sí — 2026-10-19 |
+| `tailwindcss` 4.x, `@tailwindcss/postcss` | Estilos y tokens del tema claro | MIT | Sí — 2026-10-19 |
 | `shadcn` (CLI, exacta: **4.23.0**) | Copia el código de los componentes al repo; **no es dependencia de runtime** | MIT | Sí — 2026-10-27 |
 | `vitest` | Pruebas unitarias de lógica | MIT | Sí — 2026-10-19 |
 | `@playwright/test` | E2E: fixtures MU, headers, teclado, RNF-07 | Apache-2.0 | Sí — 2026-10-30 |
@@ -356,7 +356,7 @@ Reparto: **Vitest** para lógica (rápido, barato, la mayor parte), **Playwright
 | Archivo | Qué verifica | Cubre |
 | --- | --- | --- |
 | `mu.spec` | **Recorre `mu.json` (MU-01 a MU-12) con una guarda común:** falla si (a) se dispara un `dialog`, (b) aparece una violación de CSP en consola, (c) se pide un recurso de otro host, (d) el DOM del contenedor tiene elementos inesperados (`<script>`, `<img>`, `<svg>`) donde debería haber solo texto. Más aserciones específicas: texto literal visible con `<` y `>` (01, 05, 11); sin `<a>` dentro de `<pre>` y "Copiar" copia exactamente el snippet, con aviso visible si no está revisada (02, 10); snippet largo sin botón "Copiar" (04); 5 URLs manipuladas responden 200 sin errores (06); solo el enlace válido al repo aparece, con `rel="noopener noreferrer"` y `target="_blank"` (08); inválidos omitidos o "Sin dato", y una idea con "✔ Revisada" en el texto sigue mostrando el aviso (09, 12); ficha sin licencia muestra "Sin licencia declarada" (RNF-13) | RNF-04, R-07, R-11, R-12 |
-| `headers.spec` | Headers de 5.2 presentes en `/` y en una ficha; la CSP no contiene `unsafe-eval` ni `unsafe-inline` en `script-src`; el nonce difiere entre dos requests. **Dos aserciones adicionales con la página ya cargada:** con `colorScheme: 'light'` el fondo calculado es oscuro y no hay control de tema (RNF-15); el botón "Asistente — próximamente" está deshabilitado y no hay `<input>` ni request al hacer clic (Spec §9) | R-13, AM-11, RNF-15 |
+| `headers.spec` | Headers de 5.2 presentes en `/` y en una ficha; la CSP no contiene `unsafe-eval` ni `unsafe-inline` en `script-src`; el nonce difiere entre dos requests. **Dos aserciones adicionales con la página ya cargada:** con `colorScheme: 'light'` y `'dark'` el fondo calculado es blanco y no hay control de tema (RNF-15); el botón "Asistente — próximamente" está deshabilitado y no hay `<input>` ni request al hacer clic (Spec §9) | R-13, AM-11, RNF-15 |
 | `teclado.spec` | Guion con solo teclado: elegir categoría → aplicar y quitar un filtro → buscar → abrir una ficha → copiar el snippet → volver. Verifica foco visible en cada parada y que `Tab` recorre la página hasta salir (sin trampas) | RNF-16 (2.1.1, 2.1.2, 2.4.3, 2.4.7) |
 | `a11y.spec` | axe sobre los **5 estados que define el spec**: grilla, panel de filtros abierto, ficha con ideas, estado vacío y estado de error (se fuerza con `mu-forzar-error`). Se recorre una lista de estados con el mismo código. **Bloquea** toda violación cuyas etiquetas de axe correspondan a los criterios de RNF-16 (`wcag143`, `wcag1411`, `wcag211`, `wcag212`, `wcag243`, `wcag247`, `wcag332`, `wcag412`, `wcag311`); el resto se lista en `tasks.md` sin bloquear | RNF-16 |
 | `rnf07.spec` | Con las 150 herramientas, 20 repeticiones alternando un cambio de filtro y un texto de búsqueda; mide con `performance.now()` + `MutationObserver` hasta que la grilla refleja el resultado. Reporta mínimo, mediana y máximo. **Pasa si el máximo < 1000 ms** | RNF-07 |
@@ -369,7 +369,8 @@ Reparto: **Vitest** para lógica (rápido, barato, la mayor parte), **Playwright
 | --- | --- | --- |
 | Responsivo | Grilla, panel de filtros y una ficha a 360, 768 y 1280 px: sin scroll horizontal y legibles. **Se hace con las fixtures MU-03/MU-04 cargadas**, así de paso se confirma que los textos largos o bidi no desordenan a sus vecinas | RNF-10, MU-03, MU-04 |
 | Teclado | 10 minutos recorriendo el flujo de `teclado.spec` a mano | RNF-16 |
-| Contraste y tema | Revisión visual de todas las pantallas en oscuro, con el sistema en modo claro | RNF-15, RNF-16 (1.4.3, 1.4.11) |
+| Fidelidad visual | Revisión visual de Jerónimo de cabecera, portada y catálogo contra la referencia (`spec.md` §1.2); sin medición de píxeles | RNF-18 |
+| Contraste y tema | Revisión visual de todas las pantallas en claro, con el sistema en ambos modos | RNF-15, RNF-16 (1.4.3, 1.4.11) |
 | RNF-17 | `react/jsx-no-literals` sin hallazgos en `src/components` y `src/app`; `<html lang="es">` | RNF-17 |
 
 ### 6.4 CI (`.github/workflows/web.yml`, nuevo)
@@ -394,7 +395,7 @@ Se mide en la máquina de desarrollo, sin limitar la CPU, con una acción de cad
 | D-08 | **`<select>` nativo** para lenguaje, licencia y nivel; `<input type="number">` para stars | Accesibilidad y teclado gratis, funciona bien en móvil, una dependencia (Radix Select) menos. | *Radix Select*: más pesado y con más casos de borde de foco. *Combobox con búsqueda*: útil si hubiera cientos de lenguajes; no es el caso. |
 | D-09 | **Tarjeta = un enlace** a la ficha; **categorías = botones** con `aria-pressed` | Una sola acción por tarjeta → teclado simple. Las categorías son filtros, no navegación a otra página. | *Tarjeta con varios controles*: más paradas de `Tab` por tarjeta (150 tarjetas). |
 | D-10 | **Catálogo completo cargado en el cliente** (lista liviana) | A ~150-500 herramientas el JSON es pequeño (cota de descripción a 300). | *Paginación / scroll infinito*: no necesario aún y complica filtros. **Límite explícito:** si el catálogo supera ~2 000 herramientas, hay que paginar o filtrar en el servidor; se re-evalúa con medición. |
-| D-11 | **Tema oscuro único**: `color-scheme: dark`, clase fija, sin proveedor de tema | RNF-15. Menos código, un solo juego de tokens para auditar contraste. | *`next-themes` + selector*: dependencia y un segundo tema que habría que auditar (el spec lo dejó fuera). |
+| D-11 | **Tema claro único**: `color-scheme: light`, tokens únicos en `:root`, sin `.dark` ni `@custom-variant dark`, sin proveedor de tema | RNF-15. Menos código, un solo juego de tokens para auditar contraste. | *`next-themes` + selector*: dependencia y un segundo tema que habría que auditar (el spec lo dejó fuera). |
 | D-12 | **Sintético por script con semilla fija** y fixtures en archivo aparte | Decisión de la clarificación 5. Reproducible (P7) y revisable en un PR. Los fixtures *crudos* permiten probar que la frontera rechaza lo inválido, cosa que el sintético "válido" no prueba. | *Generar con faker*: dependencia innecesaria. *Un solo archivo mezclado*: confunde datos de demo con casos de ataque. *Datos reales de GitHub*: licencias reales mal representadas, y rompe P7 si parecen métricas reales. |
 | D-13 | **Playwright contra el build de producción** | La CSP y los headers de producción difieren de desarrollo (5.2); probar en dev daría falsa confianza. | *Probar contra `next dev`*: oculta problemas de CSP. *Cypress*: Playwright ya está en los lineamientos. |
 | D-14 | **`next/font`** con dos familias (texto y monoespaciada para snippets), de licencia libre (OFL), pesos limitados | La tipografía es parte central de la dirección visual. `next/font` descarga las fuentes en el build y las sirve desde nuestro propio servidor: sin requests a terceros en tiempo de ejecución, compatible con `font-src 'self'`, sin dependencia nueva (viene con `next`) y sin saltos de layout. Costo ≈ 0.5 h en B2. | *Fuente de Google por `<link>`*: request externo, choca con `font-src 'self'`. *Solo fuentes del sistema*: ahorraba 0.5 h pero empobrece la jerarquía tipográfica. *`next/font/local` con archivos en el repo*: alternativa si el build en Vercel no pudiera descargar las fuentes; mismo resultado en ejecución. |
@@ -406,9 +407,13 @@ Se mide en la máquina de desarrollo, sin limitar la CPU, con una acción de cad
 
 > **Riesgo aceptado (relacionado con D-18) · ESLint 9.39.5 sin soporte** (2026-11-02). `npm view eslint@9.39.5 deprecated` informa «This version is no longer supported» y `npm ci` lo avisa. La serie 9 se fijó en D-18 por compatibilidad con Next 16 y `eslint-config-next`; la consecuencia es que la última versión de esa serie ya no recibe correcciones. **Se acepta** porque ESLint es una herramienta de desarrollo y de CI: no se empaqueta ni llega al navegador (`npm audit --omit=dev` da 0). **Se reevalúa la migración a ESLint 10 después de la entrega** de la feature, junto con TypeScript 7 (D-18). Registrado también en `tasks.md` (T05, riesgos conocidos) junto con las 16 moderadas de `minimatch`, que tienen el mismo origen.
 
+> **Revisión visual 2026-11-02:** se agrega la portada presentacional y la verificación RNF-18 conforme a `spec.md` §1.1–1.2. TI1 recibe la demo fuera de `src/app` en `demo/demo-ui/page.tsx` y define su montaje solo en desarrollo. No se cambian contratos, seguridad, dependencias ni lógica de catálogo.
+
 ## 8. Esfuerzo (presupuesto 40-45 h)
 
 **Son estimaciones mías en horas efectivas de una persona; no son una medición (P7).** La entrega es el 16/11/2026 (17 días desde hoy). La estimación inicial, sin recortes, era de 81 h.
+
+> Las horas y acumulados siguientes son la **línea base anterior a esta revisión**. El trabajo adicional de portada y comparación visual de TI1/T13/T34 requiere reestimación; no se afirma que entre en el margen original de 0.75 h ni se alteran horas reales.
 
 ### 8.1 Presupuesto por bloque
 
@@ -416,7 +421,7 @@ Se mide en la máquina de desarrollo, sin limitar la CPU, con una acción de cad
 | --- | --- | --- | --- |
 | B0 | Andamiaje: `create-next-app`, Tailwind, 5 componentes shadcn, ESLint con reglas de seguridad y del brief, Vitest, Playwright, `web.yml` con chequeo de dependencias, diccionario `es.ts` (RNF-17a) | RNF-14, RNF-17 | 5 |
 | B1 | Contrato (`contrato.ts`, `texto.ts`, `enlaces.ts`), interfaz y adaptador sintético, script de dataset, `mu.json`, tests unitarios de seguridad | P5, RNF-04, MU-01..12 | 7.5 |
-| B2 | Integración de la tanda UI-1 (TI1: tokens, `next/font`, cabecera, estados), base técnica del tema, layout, asistente deshabilitado, `error` y `not-found` | RNF-15 | 2.5 |
+| B2 | Integración de la tanda UI-1 (TI1: tokens, `next/font`, cabecera, portada `PresentacionCatalogo`, estados), base técnica del tema, layout, asistente deshabilitado, `error` y `not-found` | RNF-15 | 2.5 |
 | B3 | Integración de la tanda UI-2 (TI2), `textoLicencia`, página con grilla y navegación por categorías | RF-01, RNF-13 | 3 |
 | B4 | Integración de la tanda UI-4 (TI4: panel, buscador, chips), cableado de filtros y búsqueda, estado en URL, tests de `filtros` y `estado-url` | RF-03, RF-04, RNF-07 | 5.5 |
 | B5 | Integración de la tanda UI-3 (TI3), ficha técnica, ideas de integración, snippet con copiar, aviso de no revisada, enlace validado | RF-02, RF-05 | 4.75 |
@@ -485,8 +490,42 @@ Acumulado planificado: B0 5 → B1 12.5 → B2 15 → B3 18 → B4 23.5 → B5 2
 3. **RF-04, búsqueda** (≈ 2 h dentro de B4): es S. Se evalúa en último lugar porque HU-04 es el caso de "ya conozco la herramienta".
 4. **Último recurso, debilita la verificación de un requisito M:** pasar `teclado.spec` a revisión solo manual (−1.25 h) y bajar axe a 3 estados (−0.5 h). Se informa explícitamente en `tasks.md`.
 
-**Nunca se recortan:** P3, P4, P5, P6; RF-01, RF-02, RF-03 y RF-05; B1 (contrato), B6 (CSP/headers), `mu.spec` y la regla de solo-texto.
+**Nunca se recortan:** P3, P4, P5, P6; RF-01, RF-02, RF-03 y RF-05; B1 (contrato), B6 (headers estáticos), `mu.spec` (reducido a 6 fixtures por 8.7) y la regla de solo-texto. *Desde 2026-11-10 la CSP con nonce es opcional (8.7).*
 
 ### 8.6 Camino crítico
 
 B0 → B1 → (B2 ∥ B3) → B4 → B5 → B6 → B7 → B8 → B10. B9 depende de Ángel y puede hacerse después o en paralelo sin bloquear la demo con datos sintéticos.
+
+### 8.7 Recorte MVP 2026-11-10 (P8)
+
+**Contexto:** la entrega y exposición es el **viernes 13/11/2026** (quedan 3 días; antes se contaba hasta el 16/11). Este recorte **reemplaza** el orden de 8.5 y la línea base de 8.1 y 8.2. Los cambios de verificación están registrados en `spec.md` (nota «Recorte MVP 2026-11-10»).
+
+| # | Queda fuera | Verificación que lo sustituye | ¿Toca seguridad? |
+| --- | --- | --- | --- |
+| 1 | RNF-17 inglés (17b) y selector | Ya era opcional. El diccionario `es.ts` se mantiene. | No |
+| 2 | axe (`a11y.spec`, T31) y su corrección (T33) | RNF-16 se verifica con lint, contraste de tokens comentado en TI1 y la revisión manual de teclado y foco de T34. **RNF-16 queda «verificado manualmente», no automatizado.** | No |
+| 3 | Rendimiento (`rnf07.spec`, T32) | RNF-07 queda **«pendiente de verificación»**; no se declara cumplido. | No |
+| 4 | Playwright extendido (`teclado.spec`, T30) | Solo quedan **`mu.spec`** con 6 fixtures (XSS, bidi, enlace malicioso, payload grande, tipos inválidos, revisada) y **`headers.spec`**. Los demás MU (01–12) se cubren con Vitest sobre `contrato.ts`, `texto.ts` y `enlaces.ts`. | Reduce la cobertura E2E de MU; los controles siguen en el código |
+| 5 | B9 (T36–T38, adaptador Supabase) | La demo corre con el dataset sintético; **RNF-02 queda «pendiente de verificación»** (sin MU-07). | No (la interfaz sigue de solo lectura) |
+| 6 | Tandas de UI externas (PR de `ui/astra-v1`, rondas UI-n) | La UI la hace Claude Code integrando los componentes de Codex. TI1–TI4 pasan a integrar en una sola pasada, sin ciclo de PR por tanda. El checklist de `ui-brief.md` §10 y los controles de T02 se siguen aplicando. | No |
+| 7 | CSP con nonce (T25) pasa a **opcional** | Ver abajo. | **Sí** |
+
+**CSP con nonce (T25), con límite de tiempo hasta el miércoles 11/11.**
+- Si entra: se mantiene 5.2 y `headers.spec` como está (sin `unsafe-inline` en `script-src`, nonce distinto entre requests).
+- Si no entra el miércoles: se entrega con los **headers estáticos de T24** (`X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`, HSTS, COOP), se documenta en 5.3 como **riesgo aceptado** y se ajusta `headers.spec` a lo que realmente se emite. Mitigación que sigue vigente: render solo como texto, `react/no-danger`, validación en la frontera y `mu.spec`. Sin nonce no hay `script-src` estricto; si se agrega una CSP estática, necesitará `unsafe-inline` en `script-src` y eso se declara en el riesgo (R-07, R-13).
+
+**Presupuesto reestimado (horas efectivas, estimación mía, no medición, P7):**
+
+| Bloque | Antes | MVP |
+| --- | --- | --- |
+| B0 | 5.0 | 5.0 (T04 y T05 hechas) |
+| **B1** | 7.5 | **5.5** (objetivo ≤ 6 h, hoy) |
+| **B2 + B3 + B4 + B5 (toda la UI)** | 15.75 | **8.0** (objetivo ≤ 8 h, mañana) |
+| B6 | 3.0 | 2.5 (T25 timebox) |
+| B7 | 7.0 | 2.0 |
+| B8 | 2.0 | 1.0 |
+| B10 | 1.0 | 0.75 |
+| B9 | 3.0 | fuera |
+| **Total** | 44.25 | **24.75** (19.75 desde hoy) |
+
+Los objetivos de B1 y de la UI no tienen margen: **la UI en 8 h es el punto más optimista del plan.** Si la UI supera 8 h, se recorta en este orden: RF-04 (búsqueda), después T23 (copiar) a texto seleccionable, y nunca los controles de seguridad ni `mu.spec`. El detalle por tarea está en `tasks.md`.

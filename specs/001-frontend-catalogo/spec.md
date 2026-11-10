@@ -19,15 +19,21 @@ Los arquitectos y líderes técnicos de la consultora pierden **15-20 horas por 
 
 ### 1.1 Referencia de experiencia (UX/UI)
 
-Se toma **Mobbin** como referencia de **estructura y calidad**, no de identidad:
+**Dirección vigente · 2026-11-02:** reproducir con alta fidelidad la composición visual de las capturas de Mobbin entregadas por Jerónimo, adaptadas al contenido de OpenBridge. Esta decisión reemplaza el tema oscuro anterior. La referencia deja de ser una inspiración genérica: guía fondos, proporciones, alineación, espaciado, tipografía y forma de los controles (RNF-15 y RNF-18).
 
-| Se toma | No se toma |
-| --- | --- |
-| Grilla de tarjetas como vista principal | Marca, nombre, logo |
-| Navegación por categorías siempre visible | Textos, copys o microcopys |
-| Filtros combinables con conteo de resultados | Imágenes, ilustraciones o capturas |
-| Ficha de detalle con jerarquía clara | Paleta de colores o tipografía propietaria |
-| Jerarquía tipográfica marcada y modo oscuro (único tema, ver RNF-15) | |
+- **Tema claro único:** fondo blanco, texto casi negro, superficies gris muy claro y botones principales negros con texto blanco. Sin acento verde global, modo oscuro ni selector de tema.
+- **Cabecera:** compacta y horizontal, contenido centrado dentro de un ancho máximo compartido con el catálogo. Marca OpenBridge a la izquierda y acciones a la derecha; conservar las proporciones de la referencia sin inventar enlaces o funciones.
+- **Portada del catálogo:** título grande, de peso fuerte, centrado, con composición de hasta tres líneas en escritorio; subtítulo gris y acción principal tipo píldora que lleva al catálogo. Espacio generoso entre cabecera, título, descripción, acción y comienzo del catálogo. Se muestra en la entrada del catálogo, no se repite en la ficha ni como portada de cada estado.
+- **Catálogo:** retomar la composición de galería de la referencia: categorías arriba, tarjetas alineadas, separación regular y superficies suaves. Tres columnas en escritorio cuando el ancho disponible lo permita, dos en tablet y una en móvil. Mantener los filtros laterales de OpenBridge en escritorio y su variante móvil accesible. La información técnica sustituye a las capturas de apps; no usar imágenes gigantes vacías para simularlas.
+- **Estados:** mensajes compactos en el área del contenido al que reemplazan. Una pila de estados de prueba de gran altura no representa la pantalla principal del producto.
+- **Identidad propia:** no copiar nombre, logo, textos, íconos propios, imágenes ni fuentes propietarias de Mobbin. Elegir una fuente libre con métricas visuales cercanas mediante `next/font`; redactar textos propios en español y usar recursos locales. Se pueden reproducir la paleta neutra, la estructura y las proporciones.
+- **Límite de alcance:** no incorporar pricing, login, clientes, testimonios, cookies, carruseles, animaciones ni funcionalidades de Mobbin que no correspondan al catálogo. Se conserva el asistente deshabilitado.
+
+### 1.2 Fidelidad visual (RNF-18)
+
+Las capturas aportadas por Jerónimo son la referencia fija; el sitio vivo puede cambiar. La composición de OpenBridge (cabecera, portada, catálogo y ficha) debe ser fiel a la referencia, adaptada al contenido propio y sin los elementos que §1.1 deja fuera. Recortar la interfaz de Safari y el Dock: no forman parte del diseño. La comparación de píxeles de textos, logos e imágenes sustituidos no es un criterio válido de igualdad.
+
+**Criterio de aprobación:** composición fiel a la referencia, aprobada por revisión visual de Jerónimo. No hay protocolo de medición ni tabla de medidas. A 360, 768 y 1280 px se comprueban además legibilidad, orden, foco y ausencia de desborde. Las referencias son de escritorio: el móvil es una adaptación de esa composición, no una reproducción comprobada contra una captura móvil. La aprobación de Jerónimo se suma a lint, tipos y build.
 
 ## 2. Usuarios y actores
 
@@ -108,6 +114,8 @@ Qué información necesita la interfaz, **no** cómo se pide ni en qué formato 
 
 ## 5. Requisitos no funcionales
 
+> **Recorte MVP 2026-11-10 (entrega y exposición: viernes 13/11):** por tiempo, la verificación de estos requisitos baja y se declara así en `tasks.md`, sin cambiar los requisitos. **RNF-16**: sin axe; se verifica con contraste de tokens, lint y revisión manual de teclado/foco (T34). **RNF-07**: sin medición; queda *pendiente de verificación*. **RNF-02**: sin adaptador real ni MU-07 (B9 fuera); queda *pendiente de verificación*. **RNF-04 / casos de mal uso**: `mu.spec` ejecuta 6 fixtures (XSS, bidi, enlace malicioso, payload grande, tipos inválidos, revisada); el resto de MU-01 a MU-12 se prueba con Vitest sobre la validación. **RNF-17**: solo español. La CSP con nonce pasa a opcional: si no entra el miércoles 11/11, se documenta como riesgo aceptado con headers estáticos (plan 8.7). Los criterios de §9 que mencionan estas verificaciones se leen con esta nota.
+
 | ID | Tipo | Requisito | Cómo se verifica |
 | --- | --- | --- | --- |
 | RNF-02 | Seguridad | El frontend solo **lee** datos del catálogo y usa únicamente la clave pública. No ofrece ninguna operación de escritura ni contiene la clave de servicio. | (1) Revisión de código: no hay operaciones de alta, baja ni modificación. (2) Secret scanning en CI sin hallazgos y búsqueda de la clave de servicio en lo que se publica del frontend: 0 coincidencias. (3) Prueba de MU-07: un intento de escritura con la clave pública es rechazado. |
@@ -115,9 +123,10 @@ Qué información necesita la interfaz, **no** cómo se pide ni en qué formato 
 | RNF-07 | Producto · Rendimiento | Con un catálogo de más de 100 herramientas, aplicar o cambiar un filtro o una búsqueda actualiza los resultados en **menos de 1 segundo**. | Medición con el conjunto sintético de 150 herramientas (sección 9): tiempo desde el cambio de filtro hasta la grilla actualizada, 20 repeticiones, todas < 1 s. Se registran los valores reales en `tasks.md` (P7). |
 | RNF-10 | Producto · Usabilidad | La interfaz es responsiva y usable en celular, tablet y escritorio. | Revisión en anchos de 360 px, 768 px y 1280 px: sin scroll horizontal, filtros accesibles en celular, tarjetas y ficha legibles. |
 | RNF-13 | Producto · Legal | La licencia de cada herramienta es visible en **todas** las fichas (y en las tarjetas de la grilla). Si no tiene, se indica "Sin licencia declarada" de forma visible. | Revisión de todas las fichas del conjunto de prueba, incluyendo al menos una sin licencia: el dato o la leyenda aparece siempre. |
-| RNF-15 | Producto · Usabilidad | **Modo oscuro único** (M): la interfaz se ve solo en tema oscuro, sin selector de tema y sin importar la preferencia del sistema. Todas las pantallas (grilla, filtros, ficha, estados vacíos, de error y "no encontrado") y los controles nativos del navegador (campos, barras de desplazamiento) se ven en oscuro. | (1) Revisión de cada pantalla con el sistema en modo claro y en modo oscuro: la interfaz se ve igual, en oscuro. (2) No hay textos invisibles ni elementos con fondo claro sin estilo. (3) No existe ningún control para cambiar de tema. |
+| RNF-15 | Producto · Usabilidad | **Tema claro único** (M): fondo blanco y controles nativos claros mediante `color-scheme: light`, sin selector y sin depender del sistema. Aplica a portada, catálogo, filtros, ficha y estados. | Revisar todas las pantallas con sistema claro y oscuro: mismo tema claro, textos legibles y controles coherentes. Sin variante `.dark`, `@custom-variant dark` ni proveedor de tema. |
 | RNF-16 | Producto · Accesibilidad | **WCAG 2.1 AA acotado** (M): la interfaz cumple estos criterios, y solo estos se declaran y verifican: **contraste** de texto (1.4.3) y de controles y foco (1.4.11); **navegación completa por teclado** (2.1.1), sin trampas de foco (2.1.2) y con un orden de foco lógico (2.4.3); **foco visible** (2.4.7); **labels** en todos los controles, filtros y botones (3.3.2, 4.1.2); **idioma de la página declarado** (3.1.1). Los criterios que quedan fuera están listados en 5.1. | (1) Análisis con **axe** sobre la grilla, la ficha, el panel de filtros, un estado vacío y un estado de error: 0 violaciones en las reglas de axe asociadas a los criterios en alcance. Si axe reporta violaciones de criterios fuera de alcance (5.1), se registran en `tasks.md` pero no bloquean. (2) Prueba manual solo con teclado: elegir una categoría, aplicar y quitar filtros, buscar, abrir una ficha, copiar un snippet y volver a la grilla, con el foco siempre visible y sin quedar atrapado. Resultados de ambas pruebas registrados en `tasks.md`. |
 | RNF-17 | Producto · Internacionalización | **Interfaz preparada para varios idiomas, entregada en español** (C). Desde el inicio, todos los textos propios de la interfaz (navegación, filtros, estados vacíos y de error, "Sin dato", "Sin licencia declarada", aviso de idea no revisada, "Asistente — próximamente") viven en un diccionario por idioma; ninguno queda escrito directamente en las pantallas. La entrega obligatoria es solo en español. **Mejora si sobra tiempo:** diccionario en inglés con selector de idioma; el idioma inicial sale de la preferencia del navegador (español si no es ninguno de los dos) y solo se traduce la interfaz, nunca los datos del catálogo. | (1) Revisión de código: no hay textos visibles de la interfaz fuera del diccionario. (2) El idioma de la página está declarado como español (RNF-16, 3.1.1). (3) Solo si se entrega el inglés: recorrido completo en cada idioma sin textos del otro idioma, y cambiar de idioma no pierde la búsqueda ni los filtros. |
+| RNF-18 | Producto · Calidad visual | **Alta fidelidad a la referencia Mobbin** (M), con identidad OpenBridge y alcance de §1.1. | Composición fiel a la referencia, aprobada por revisión visual de Jerónimo (§1.2), registrada en T34; no se acepta solo una semejanza genérica. |
 
 ### 5.1 Criterios WCAG 2.1 fuera de alcance (RNF-16)
 
@@ -162,7 +171,7 @@ No se declaran ni se verifican en esta feature. Pueden cumplirse por diseño, pe
 - Login, cuentas de usuario y control de acceso al catálogo: el catálogo es público (pregunta 1).
 - Cualquier escritura de datos desde la interfaz: altas, ediciones, favoritos, comentarios, valoraciones.
 - Comparador lado a lado de herramientas y ordenamiento personalizado (candidatos a una versión posterior).
-- Tema claro y selector de tema: la interfaz es solo oscura (RNF-15).
+- Tema oscuro y selector de tema: la interfaz es solo clara (RNF-15).
 - Criterios WCAG 2.1 no listados en RNF-16 (ver 5.1) y pruebas con lectores de pantalla.
 - Interfaz en inglés como entrega obligatoria: es una mejora C (RNF-17). Traducción de los datos del catálogo (descripciones, disparadores, snippets). Idiomas además de español e inglés.
 - Copiar marca, logo, textos o imágenes de Mobbin.
@@ -179,7 +188,7 @@ No se declaran ni se verifican en esta feature. Pueden cumplirse por diseño, pe
 | 6 | **Categorías:** ¿una herramienta puede pertenecer a más de una categoría? | Sí. Una herramienta tiene una o más de las 6 categorías, aparece en cada una de ellas y la ficha las lista todas. | 2026-10-30 |
 | 7 | **Búsqueda y filtros:** ¿en qué campos busca el texto (¿también en disparadores o stack?) y queremos que la búsqueda y los filtros queden en la dirección para poder compartir el enlace? | Busca solo en nombre y descripción. La búsqueda y los filtros quedan en la dirección: se puede recargar o compartir el enlace y se llega a la misma vista. Todo valor que llegue por la dirección es no confiable y se valida (MU-05, MU-06). | 2026-10-30 |
 | 8 | **Punto de entrada al asistente:** ¿cómo se reserva (botón deshabilitado "Próximamente", sección vacía, oculto detrás de un flag)? ¿Le asignamos un ID de requisito? | Un botón o sección visible y deshabilitado, "Asistente — próximamente", sin campo de texto ni llamada a ningún servicio. No lleva ID propio: es un criterio de aceptación de esta feature y el ID lo define la spec 002. | 2026-10-30 |
-| 9 | **Modo oscuro y accesibilidad:** ¿el modo oscuro es obligatorio (M) o recortable (C, según P8)? ¿Apuntamos a algún nivel de accesibilidad (ej. WCAG 2.1 AA)? | **Modo oscuro único**, sin selector de tema (**RNF-15**, M): no entra en el orden de recorte de P8 para esta feature. Accesibilidad: **WCAG 2.1 AA acotado** a contraste, teclado, foco visible, labels e idioma declarado, verificado con axe más una prueba manual de teclado (**RNF-16**, M). Los criterios fuera de alcance están en 5.1. | 2026-10-30 |
+| 9 | **Modo oscuro y accesibilidad:** ¿el modo oscuro es obligatorio (M) o recortable (C, según P8)? ¿Apuntamos a algún nivel de accesibilidad (ej. WCAG 2.1 AA)? | **Decisión original de tema oscuro sustituida el 2026-11-02 por tema claro único (RNF-15, M), según §1.1.** Accesibilidad: **WCAG 2.1 AA acotado** a contraste, teclado, foco visible, labels e idioma declarado, verificado con axe más una prueba manual de teclado (**RNF-16**, M). Los criterios fuera de alcance están en 5.1. | 2026-10-30 |
 | 10 | **Idioma:** ¿la interfaz es solo en español? Las descripciones de GitHub vienen mayormente en inglés: ¿se muestran tal cual? | **RNF-17, prioridad C.** Los textos de la interfaz se externalizan en un diccionario desde el inicio, pero se entrega solo en español. El inglés (con selector) queda como mejora si sobra tiempo. Supuestos confirmados: el idioma inicial sale del navegador y solo se traduce la interfaz; los datos del catálogo se muestran en su idioma original. | 2026-10-30 |
 
 ## 9. Criterios de aceptación de la feature
@@ -188,7 +197,7 @@ No se declaran ni se verifican en esta feature. Pueden cumplirse por diseño, pe
 - [ ] Existe un archivo de fixtures separado con los payloads de MU-01 a MU-12 y los casos borde (campos faltantes, al menos una herramienta sin licencia, categoría vacía, valores fuera de rango).
 - [ ] La sección 4.1 fue validada con Ángel antes de empezar las tareas que consumen datos reales.
 - [ ] RF-01 a RF-05 cumplen sus criterios de aceptación con el conjunto de prueba.
-- [ ] RNF-02, RNF-04, RNF-07, RNF-10, RNF-13, RNF-15 (modo oscuro) y RNF-16 (WCAG 2.1 AA acotado) verificados según la sección 5, con resultados reales registrados en `tasks.md`.
+- [ ] RNF-02, RNF-04, RNF-07, RNF-10, RNF-13, RNF-15 (tema claro único), RNF-18 (fidelidad visual) y RNF-16 (WCAG 2.1 AA acotado) verificados según la sección 5, con resultados reales registrados en `tasks.md`.
 - [ ] RNF-17: todos los textos de la interfaz están en el diccionario y la interfaz se entrega en español. El inglés no es requisito para cerrar la feature.
 - [ ] Los casos MU-01 a MU-12 se probaron con datos de prueba y dieron el resultado esperado.
 - [ ] El punto de entrada al asistente RAG se ve como un elemento deshabilitado "Asistente — próximamente": no acepta texto, no envía nada y no llama a ningún servicio.

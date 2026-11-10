@@ -16,10 +16,15 @@ OpenBridge es un catálogo de herramientas open-source (Autenticación, Base de 
 
 ## 3. Dirección visual
 
-- **Referencia de estructura y calidad:** Grilla de tarjetas densa y limpia, navegación por categorías arriba, filtros a la izquierda en desktop, ficha de detalle con jerarquía clara, tipografía protagonista, mucho aire, un solo color de acento.
-- **Marca propia:** el producto se llama **OpenBridge**. Logo, nombre, textos, íconos e imágenes son propios. **No usar** el logo, el nombre, los textos, los íconos ni las imágenes de la referencia visual: la marca es OpenBridge. Se replica la estructura y el nivel de calidad, no la marca. Solo se usan los assets que se te entreguen o que se acuerde que crees.
-- **Solo modo oscuro** (RNF-15). Sin selector de tema.
-- **Responsive:** 360, 768 y 1280 px sin scroll horizontal (RNF-10).
+**Revisión 2026-11-02:** seguir `spec.md` §1.1–1.2. El objetivo es una representación muy cercana de la composición de Mobbin con marca OpenBridge, no una reinterpretación libre. El tema oscuro de la versión anterior queda sustituido por **tema claro único**.
+
+- Fondo `#ffffff`, texto principal `#141414`, superficies `#f5f5f5`, texto secundario cercano a `#6b6b6b` y bordes neutros sutiles. Verificar contraste AA de cada combinación. Negro/blanco para la acción principal y gris claro para la secundaria; colores semánticos solo para salud, avisos y errores.
+- Un solo juego de tokens en `:root`, `color-scheme: light`; sin `.dark`, `@custom-variant dark`, selector, proveedor de tema ni dependencia de `prefers-color-scheme`. Tokens de espaciado, radios y escala tipográfica compartidos; botones tipo píldora y tarjetas con radios medidos de la referencia.
+- Cabecera compacta, alineada al ancho del contenido. Portada centrada con título grande, fuerte y de hasta tres líneas en escritorio, subtítulo gris, acción hacia el catálogo y amplios espacios como en las capturas. No convertir todos los títulos de estados en titulares de portada.
+- Catálogo con navegación superior, grilla de tres/dos/una columnas según espacio disponible y filtros laterales en escritorio. Conservar la densidad técnica de OpenBridge y los campos requeridos; no inventar capturas de producto ni bloques vacíos para rellenar tarjetas.
+- Marca, textos, íconos y recursos de OpenBridge. No reutilizar activos de Mobbin. Fuente libre visualmente cercana con `next/font`; solo assets locales. No agregar secciones comerciales, enlaces ficticios ni animaciones de la referencia.
+- Componer fiel a la referencia (`spec.md` §1.2); la aprobación es la revisión visual de Jerónimo, sin medición de píxeles. No tomar el chrome de Safari como parte del diseño.
+- Responsive a 360, 768 y 1280 px sin desborde; móvil adaptado a falta de referencia móvil. Seguridad y accesibilidad se mantienen aunque obliguen a documentar una diferencia visual.
 
 ## 4. Stack obligatorio (no agregar nada)
 
@@ -94,11 +99,13 @@ type HerramientaDetalle = Herramienta & { ideas: Idea[] };             // ficha:
 
 **Notas de lectura (no son campos nuevos):** el botón «Copiar» se habilita con `copiable = !snippetExcedeLimite` y solo si `snippet !== null`; ese cálculo lo hace `IdeaIntegracion` al pasarle `copiable` a `BloqueSnippet`. `metricasTomadasEn` es la fecha que se muestra como «métricas al …». Filtros y búsqueda usan estos mismos valores (`lenguaje`, `licencia`, `mantenimiento`, `stars`, `q`).
 
+**UI-1 no depende de `contrato.ts`**. Los tipos de datos anteriores se usan a partir de UI-2; si el archivo aún no existe, se trabaja con esta copia y se concilia al integrar.
+
 Los componentes se entregan en **cuatro tandas** (cada una es un PR a la rama `001-frontend-catalogo`):
 
 | Tanda | Componentes |
 | --- | --- |
-| UI-1 | Tokens y escala en `globals.css`, fuentes con `next/font`, `Cabecera`, `EstadoVacio`, `EstadoError`, `EstadoNoEncontrado` |
+| UI-1 | Tokens y escala en `globals.css`, fuentes con `next/font`, `Cabecera`, `PresentacionCatalogo`, `EstadoVacio`, `EstadoError`, `EstadoNoEncontrado` |
 | UI-2 | `TarjetaHerramienta`, `IndicadorSalud`, `GrillaHerramientas`, `NavCategorias` |
 | UI-3 | `FichaHerramienta`, `IdeaIntegracion`, `BloqueSnippet` |
 | UI-4 | `PanelFiltros`, `Buscador`, `ChipsFiltros` (el contador de resultados va dentro de `PanelFiltros`) |
@@ -106,6 +113,7 @@ Los componentes se entregan en **cuatro tandas** (cada una es un PR a la rama `0
 | Componente | Qué muestra | Props clave |
 | --- | --- | --- |
 | `Cabecera` | Marca OpenBridge y botón «Asistente — próximamente» **deshabilitado** (no acepta texto ni hace nada). **No incluye buscador** (va en UI-4); deja un lugar para montarlo | `children?` (ranura para el `Buscador`) |
+| `PresentacionCatalogo` *(UI-1)* | Portada centrada del catálogo: título, subtítulo y enlace principal al área del catálogo. Textos propios desde `t()`, sin métricas inventadas ni lógica de datos | `idCatalogo: string` (identificador interno del destino; el componente construye un enlace de fragmento, no acepta URL externa) |
 | `Buscador` *(UI-4)* | Campo de búsqueda con `label` | `valor: string`, `onBuscar: (q: string) => void`; `maxLength={100}` |
 | `NavCategorias` | Las 6 categorías + «Todas», la activa resaltada | `activa: Categoria \| null`, `onElegir: (c: Categoria \| null) => void` |
 | `PanelFiltros` *(UI-4)* | Lenguaje, licencia, stars mínimos, nivel de mantenimiento y contador de resultados. En móvil, dentro de `<details>` nativo | `opciones: { lenguajes: string[]; licencias: string[] }`, `valores: ValoresFiltros`, `total: number`, `onCambiar: (parcial: Partial<ValoresFiltros>) => void` |
@@ -125,7 +133,10 @@ Campos `null` → «Sin dato»; `licencia === null` → «Sin licencia declarada
 ## 9. Cómo se entrega
 
 - Rama `ui/astra-v1` (o zip), **una tanda por PR** (ver tabla de tandas en §8), con **solo**: `src/components/catalogo/*.tsx`, ajustes de tokens en `src/app/globals.css`, la fuente con `next/font` y las claves nuevas para `src/i18n/es.ts`.
-- Una página de demostración `src/app/demo-ui/page.tsx` (**solo para desarrollo: no entra al build de producción**; la ruta `/demo-ui` no puede existir en `next build`; el mecanismo lo fija la integración de la tanda UI-1) con datos de ejemplo **inventados** (nada de marcas ni repos reales), incluidos casos extremos: descripción enorme, texto con `<script>alert(1)</script>`, nombre con caracteres bidi, idea no revisada, herramienta sin licencia y ficha sin ideas.
+- Página de demostración como archivo aparte en `demo/demo-ui/page.tsx`, **fuera de `src/app`**. El autor de UI no modifica configuración ni crea una ruta de producción; TI1 decide cómo montarla solo en desarrollo y verifica que `/demo-ui` no exista en producción. Estar fuera de `src/app` evita registrar una ruta, pero no garantiza exclusión de typecheck: no cambiar `tsconfig` para ocultar errores.
+- La demo abre con una **vista normal del producto**: cabecera y portada; desde UI-2, catálogo de ejemplo. En UI-1 el enlace principal lleva a una sección de demostración de un estado del catálogo; no se inventan tarjetas de tandas posteriores. Los casos de prueba se agrupan aparte en un `<details>` identificado, cerrado inicialmente, y nunca sustituyen la portada.
+- Datos inventados; incluir solo casos aplicables a la tanda. UI-1: estados con/sin acción, reintento opcional, texto largo, `<script>alert(1)</script>` como texto y caracteres bidi contenidos sin afectar vecinos. En UI-2/3 agregar licencia ausente, campos nulos, ideas no revisadas y ficha sin ideas. Los valores nulos solo se usan donde el tipo los permite; no forzar props inválidas con casts.
+- Entregar cada archivo completo con su ruta en un bloque separado, claves nuevas de `es.ts` aparte y checklist §10 confirmado con evidencia o explicado como pendiente.
 - Entra por **PR** a la rama `001-frontend-catalogo`. Lo revisa Jerónimo y pasa por lint (`react/no-danger`, `react/jsx-no-target-blank`, `react/jsx-no-literals`), `tsc`, Gitleaks y axe.
 
 ## 10. Checklist de aceptación
@@ -140,3 +151,9 @@ Campos `null` → «Sin dato»; `licencia === null` → «Sin licencia declarada
 - [ ] Foco visible y navegación completa con teclado.
 - [ ] Sin scroll horizontal a 360 px.
 - [ ] Sin logo, nombre, textos, íconos ni imágenes de la referencia visual; la marca es solo OpenBridge.
+
+- [ ] Tema claro único incluso con sistema oscuro; sin `.dark`, selector ni recursos remotos en ejecución.
+- [ ] Cabecera y portada fieles a la referencia, a revisión de Jerónimo (`spec.md` §1.2). Grilla y ficha se verifican cuando corresponda a su tanda.
+- [ ] Demo en `demo/demo-ui/page.tsx`, sin cambios de configuración; vista normal primero y casos extremos separados y cerrados inicialmente.
+- [ ] UI-1 incluye `PresentacionCatalogo`; ningún estado gigante ni texto técnico de pruebas reemplaza la portada del producto.
+- [ ] Evidencia responsive a 360, 768 y 1280 px; no declarar fidelidad móvil pixel perfect sin referencia móvil.

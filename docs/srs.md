@@ -55,9 +55,10 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-12 | Organizacional | Entrega antes del 16/11/2026 con README, SRS y matriz de riesgos | M | Fecha de entrega | — |
 | RNF-13 | Externo · Legal | Licencia visible en el 100 % de las fichas; sin PII de usuarios | M | Revisión de fichas | 001 |
 | RNF-14 | Externo · Supply chain | Dependencias escaneadas (Dependabot / audit) | M | 0 vulnerabilidades críticas abiertas | todas |
-| RNF-15 | Producto · Usabilidad | Interfaz solo en modo oscuro, sin selector de tema | M | Revisión visual con sistema en modo claro | 001 |
+| RNF-15 | Producto · Usabilidad | Interfaz solo en tema claro, sin selector y sin depender del sistema | M | Revisión visual con sistema en modo claro y oscuro | 001 |
 | RNF-16 | Producto · Accesibilidad | WCAG 2.1 AA acotado: 1.4.3, 1.4.11, 2.1.1, 2.1.2, 2.4.3, 2.4.7, 3.3.2, 4.1.2, 3.1.1 | M | axe + prueba manual de teclado | 001 |
 | RNF-17 | Producto · Usabilidad | Textos de interfaz en diccionario; entrega en español, inglés como mejora | C | Diccionario único; sin textos hardcodeados | 001 |
+| RNF-18 | Producto · Calidad visual | Composición fiel a la referencia, aprobada por revisión visual de Jerónimo; tema claro e identidad OpenBridge según spec 001 §1.1–1.2 | M | Revisión visual de Jerónimo (T34) | 001 |
 
 ## 5. Trazabilidad
 
