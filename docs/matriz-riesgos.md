@@ -6,7 +6,7 @@ OWASP: A0x = Top 10 web (edición 2021) · LLM0x = Top 10 para LLM (2025). Si ad
 
 | ID | Riesgo | P | I | Nivel | Control | Requisito | Prueba | CSF | OWASP |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| R-01 | Filtración del token de GitHub o API key del LLM | 2 | 3 | 6 | Env vars, Gitleaks en CI, push protection, rotación | RNF-01 | CI verde; runbook en SECURITY.md | PR, RS | — |
+| R-01 | Filtración del token de GitHub o API key del LLM | 2 | 3 | 6 | Env vars, Gitleaks en CI, push protection, rotación. Falsos positivos solo por fingerprint en `.gitleaksignore`, verificados y registrados en SECURITY.md (2026-11-10: token ficticio de `test_sanitizer.py:86`) | RNF-01 | CI verde; runbook en SECURITY.md | PR, RS | — |
 | R-02 | Prompt injection indirecta vía README de un repo | 2 | 3 | 6 | Separar datos de instrucciones, sanitizar contexto, validar salida | RNF-03 | Red-team 002 | PR, ID | LLM01 |
 | R-03 | El asistente recomienda repos inexistentes o abandonados | 3 | 2 | 6 | Grounding solo en BD + umbral de health score | RNF-09 | Set de prueba 002 | PR | LLM09 |
 | R-04 | Abuso del endpoint del asistente (costo, DoS) | 2 | 2 | 4 | Rate limit + tope de longitud de input | RNF-05 | Test 429 | PR, DE | LLM10 |
