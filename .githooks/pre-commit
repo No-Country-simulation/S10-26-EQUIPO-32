@@ -13,7 +13,7 @@ fallo=0
 while IFS= read -r -d '' archivo; do
   case "$archivo" in
     apps/web/src/*|apps/web/tests/*|apps/web/scripts/*|apps/web/demo/*)
-      git show ":$archivo" | node "$verificador" --stdin "$archivo" || fallo=1
+      git show ":$archivo" | node "$verificador" --stdin "$archivo" > /dev/null || fallo=1
       ;;
   esac
 done < <(git diff --cached --name-only --diff-filter=ACMR -z)
