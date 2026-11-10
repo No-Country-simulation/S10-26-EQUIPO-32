@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { BadgeCheck, TriangleAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Idea } from "@/lib/catalogo/contrato";
@@ -42,8 +43,10 @@ function ListaDeTextos({ items }: { items: string[] }) {
 export function IdeaIntegracion({ idea }: IdeaIntegracionProps) {
   const sinDato = t("comun.sinDato");
   const copiable = idea.snippet !== null && !idea.snippetExcedeLimite;
-  const copiar = () => {
-    if (idea.snippet !== null) void navigator.clipboard.writeText(idea.snippet);
+  const avisoId = useId();
+  // Copia exactamente el texto mostrado. Si el portapapeles no está disponible, lanza y el botón lo avisa.
+  const copiar = async () => {
+    if (idea.snippet !== null) await navigator.clipboard.writeText(idea.snippet);
   };
   return (
     <article className="min-w-0 space-y-5 rounded-2xl border border-border p-5">
@@ -69,7 +72,7 @@ export function IdeaIntegracion({ idea }: IdeaIntegracionProps) {
         <h4 className="text-sm font-semibold">{t("idea.snippet")}</h4>
         {/* El aviso va pegado al bloque (AM-04): nunca lejos del código que advierte. */}
         {!idea.revisada && (
-          <p role="note" className="flex items-start gap-2 rounded-lg bg-salud-media-fondo p-3 text-sm text-salud-media">
+          <p id={avisoId} role="note" className="flex items-start gap-2 rounded-lg bg-salud-media-fondo p-3 text-sm text-salud-media">
             <TriangleAlert aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
             {t("idea.noRevisada")}
           </p>
@@ -83,7 +86,7 @@ export function IdeaIntegracion({ idea }: IdeaIntegracionProps) {
                 {t("snippet.excede")}
               </p>
             )}
-            <BloqueSnippet codigo={idea.snippet} copiable={copiable} onCopiar={copiar} />
+            <BloqueSnippet codigo={idea.snippet} copiable={copiable} onCopiar={copiar} avisoId={idea.revisada ? undefined : avisoId} />
           </>
         )}
       </div>
