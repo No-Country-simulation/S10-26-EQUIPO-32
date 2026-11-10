@@ -118,6 +118,11 @@ export type Idea = z.output<typeof esquemaIdea>;
 
 const esquemaId = z.string().regex(/^[a-z0-9][a-z0-9._-]{0,99}$/);
 
+/** Forma válida de un `id` (ASCII estricto). La usan los adaptadores antes de buscar por id. */
+export function esIdValido(id: unknown): id is string {
+  return esquemaId.safeParse(id).success;
+}
+
 const esquemaNombre = z
   .string()
   .transform((s) => normalizarTexto(acotar(s), COTAS.nombre))
