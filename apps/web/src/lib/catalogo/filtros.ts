@@ -1,6 +1,15 @@
 // Lógica pura de filtrado (plan 4.5). T16: filtro por categoría; T17 suma los demás filtros y la búsqueda.
 import type { Categoria } from "./categorias";
 
+/** Valores de los filtros secundarios (RF-03); `null` = sin filtro. Tipo de ui-brief §8. */
+export interface ValoresFiltros {
+  lenguaje: string | null;
+  licencia: string | null;
+  mantenimiento: "activo" | "moderado" | "abandonado" | null;
+  /** Entero 0 a 10^7. */
+  stars: number | null;
+}
+
 /**
  * Una herramienta cumple el filtro si pertenece a la categoría elegida, aunque tenga otras (RF-01 b, RF-03 a).
  * `null` = sin filtro. No modifica la entrada y conserva el orden.

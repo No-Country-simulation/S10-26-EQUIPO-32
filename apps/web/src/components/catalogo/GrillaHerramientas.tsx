@@ -13,7 +13,7 @@ export interface GrillaHerramientasProps {
 export function GrillaHerramientas({ herramientas, total }: GrillaHerramientasProps) {
   return (
     <section aria-label={t("grilla.region")} className="space-y-4">
-      <p aria-live="polite" className="flex gap-1.5 text-sm text-muted-foreground">
+      <p aria-live="polite" className="sr-only">
         <span className="tabular-nums">{total}</span>
         <span>{total === 1 ? t("grilla.resultado.uno") : t("grilla.resultado.otras")}</span>
       </p>

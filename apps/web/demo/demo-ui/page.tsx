@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { Buscador } from "@/components/catalogo/Buscador";
+import { ChipsFiltros } from "@/components/catalogo/ChipsFiltros";
+import { PanelFiltros } from "@/components/catalogo/PanelFiltros";
+import type { ValoresFiltros } from "@/lib/catalogo/filtros";
 import { EstadoVacio } from "@/components/catalogo/EstadoVacio";
 import { EstadoError } from "@/components/catalogo/EstadoError";
 import { EstadoNoEncontrado } from "@/components/catalogo/EstadoNoEncontrado";
@@ -56,6 +60,8 @@ export default function DemoUI() {
   const [reintentado, setReintentado] = useState(false);
   const [restablecido, setRestablecido] = useState(false);
   const [categoria, setCategoria] = useState<Categoria | null>(null);
+  const [busqueda, setBusqueda] = useState("");
+  const [valores, setValores] = useState<ValoresFiltros>({ lenguaje: null, licencia: null, mantenimiento: null, stars: null });
   const visibles = categoria === null ? normales : normales.filter((h) => h.categorias.includes(categoria));
 
   return (
@@ -66,7 +72,25 @@ export default function DemoUI() {
           <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{t("demo.titulo")}</h2>
           <p className="text-muted-foreground">{t("demo.descripcion")}</p>
         </div>
+        <Buscador valor={busqueda} onBuscar={setBusqueda} />
         <NavCategorias activa={categoria} onElegir={setCategoria} />
+        <PanelFiltros
+          opciones={{ lenguajes: ["Go", "Python", "TypeScript"], licencias: ["Apache-2.0", "BSD-3-Clause", "MIT"] }}
+          valores={valores}
+          total={visibles.length}
+          onCambiar={(parcial) => setValores((v) => ({ ...v, ...parcial }))}
+        />
+        <ChipsFiltros
+          activos={[
+            ...(valores.lenguaje === null ? [] : [{ clave: "lenguaje", etiqueta: `${t("filtros.lenguaje")}: ${valores.lenguaje}` }]),
+            ...(busqueda === "" ? [] : [{ clave: "q", etiqueta: `${t("chip.busqueda")}: ${busqueda}` }]),
+          ]}
+          onQuitar={(clave) => (clave === "q" ? setBusqueda("") : setValores((v) => ({ ...v, [clave]: null })))}
+          onLimpiar={() => {
+            setBusqueda("");
+            setValores({ lenguaje: null, licencia: null, mantenimiento: null, stars: null });
+          }}
+        />
         <GrillaHerramientas herramientas={visibles} total={visibles.length} />
         <EstadoVacio
           titulo={t("estado.vacio.titulo")}
@@ -87,6 +111,16 @@ export default function DemoUI() {
           </p>
           <EstadoError />
           <EstadoNoEncontrado />
+          <Buscador valor={extremos.html} onBuscar={() => undefined} />
+          <ChipsFiltros
+            activos={[
+              { clave: "html", etiqueta: extremos.html },
+              { clave: "bidi", etiqueta: extremos.nombre },
+              { clave: "largo", etiqueta: extremos.enorme.slice(0, 400) },
+            ]}
+            onQuitar={() => undefined}
+            onLimpiar={() => undefined}
+          />
           <EstadoVacio titulo={extremos.nombre} texto={extremos.html} />
           <EstadoVacio titulo={t("demo.textoLargo")} texto={extremos.enorme} />
           <EstadoVacio titulo={extremos.enorme} texto={t("demo.tituloLargo")} />
