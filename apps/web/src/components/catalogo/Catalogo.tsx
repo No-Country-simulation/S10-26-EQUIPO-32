@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Categoria } from "@/lib/catalogo/categorias";
 import type { HerramientaResumen } from "@/lib/catalogo/contrato";
+import { serializarEstadoUrl } from "@/lib/catalogo/estado-url";
 import { derivarOpciones, ESTADO_SIN_FILTROS, filtrar, type EstadoFiltros, type ValoresFiltros } from "@/lib/catalogo/filtros";
 import { t } from "@/i18n/es";
 import { Buscador, LARGO_MAXIMO_BUSQUEDA } from "./Buscador";
@@ -14,7 +15,7 @@ import { PanelFiltros } from "./PanelFiltros";
 export interface CatalogoProps {
   /** Lista ya validada por el contrato en el servidor. El catálogo completo viaja una vez y se filtra acá. */
   herramientas: HerramientaResumen[];
-  /** Estado inicial ya validado (T20 lo lee de la URL en el servidor). */
+  /** Estado inicial ya validado (el servidor lo lee de la URL y lo valida). */
   estadoInicial?: EstadoFiltros;
 }
 
@@ -32,7 +33,7 @@ function chipsActivos(estado: EstadoFiltros): { clave: string; etiqueta: string 
 
 const CLAVES = ["categoria", "lenguaje", "licencia", "mantenimiento", "stars", "q"] as const;
 
-/** Estado en memoria del catálogo: categoría, filtros y búsqueda. T20 lo sincroniza con la URL. */
+/** Estado en memoria del catálogo (categoría, filtros y búsqueda), reflejado en la URL con `history.replaceState`. */
 export function Catalogo({ herramientas, estadoInicial = ESTADO_SIN_FILTROS }: CatalogoProps) {
   const [estado, setEstado] = useState<EstadoFiltros>(estadoInicial);
   const opciones = useMemo(() => derivarOpciones(herramientas), [herramientas]);
@@ -46,6 +47,19 @@ export function Catalogo({ herramientas, estadoInicial = ESTADO_SIN_FILTROS }: C
     },
     [],
   );
+
+  // Estado en memoria ⇄ URL (RF-03 f, D-06): replaceState no navega ni va al servidor (RNF-07).
+  // Se omite el primer render: el estado inicial ya salió de la URL. La query se serializa siempre con URLSearchParams.
+  const primerRender = useRef(true);
+  useEffect(() => {
+    if (primerRender.current) {
+      primerRender.current = false;
+      return;
+    }
+    const query = serializarEstadoUrl(estado);
+    const destino = `${window.location.pathname}${query === "" ? "" : `?${query}`}${window.location.hash}`;
+    window.history.replaceState(null, "", destino);
+  }, [estado]);
 
   const activos = chipsActivos(estado);
   const valores: ValoresFiltros = {

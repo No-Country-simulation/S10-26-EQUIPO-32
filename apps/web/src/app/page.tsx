@@ -1,5 +1,7 @@
 import { Catalogo } from "@/components/catalogo/Catalogo";
 import { PresentacionCatalogo } from "@/components/catalogo/PresentacionCatalogo";
+import { parsearEstadoUrl, serializarEstadoUrl } from "@/lib/catalogo/estado-url";
+import { derivarOpciones } from "@/lib/catalogo/filtros";
 import { obtenerRepositorio } from "@/lib/catalogo/repositorio";
 import { t } from "@/i18n/es";
 
@@ -9,10 +11,16 @@ export const dynamic = "force-dynamic";
 // Destino interno del enlace principal de la portada.
 const ID_CATALOGO = "catalogo";
 
-export default async function Inicio() {
+export default async function Inicio({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   // Si el repositorio falla, el error sube a src/app/error.tsx: mensaje genérico y «Reintentar».
   const repositorio = await obtenerRepositorio();
   const { herramientas } = await repositorio.listarHerramientas();
+  // Todo valor de la URL es no confiable (MU-05, MU-06): se valida antes de usarlo; lo inválido se ignora.
+  const estadoInicial = parsearEstadoUrl(await searchParams, derivarOpciones(herramientas));
 
   return (
     <>
@@ -21,7 +29,8 @@ export default async function Inicio() {
         <h2 id="titulo-catalogo" className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {t("catalogo.titulo")}
         </h2>
-        <Catalogo herramientas={herramientas} />
+        {/* La clave reinicia el estado si el servidor entrega otra URL (p. ej. el logo hacia «/»). */}
+        <Catalogo key={serializarEstadoUrl(estadoInicial)} herramientas={herramientas} estadoInicial={estadoInicial} />
       </section>
     </>
   );
