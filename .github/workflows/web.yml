@@ -26,6 +26,8 @@ jobs:
         run: npm ci
       - name: Dependencias contra la tabla 3
         run: npm run check:deps
+      - name: Sin caracteres bidi ni de ancho cero crudos (R-14)
+        run: npm run check:invisibles
       - name: Lint
         run: npm run lint
       - name: Tipos
