@@ -9,6 +9,9 @@ import "./globals.css";
 const sans = Geist({ subsets: ["latin"], variable: "--font-openbridge-sans", display: "swap" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-openbridge-mono", display: "swap" });
 
+// La CSP con nonce (src/proxy.ts) exige render dinámico: una página estática no puede llevar el nonce de cada request (plan 5.2).
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: t("sitio.nombre"),
   description: t("sitio.descripcion"),
