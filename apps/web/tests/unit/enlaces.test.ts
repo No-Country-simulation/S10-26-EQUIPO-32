@@ -70,7 +70,6 @@ describe("validarUrlRepo · inválidos (MU-08)", () => {
   });
 
   it("un host con letras de ancho completo se normaliza a github.com y la salida es la canónica", () => {
-    const r = validarUrlRepo("https://ｇithub.com/o/r");
-    expect(r === null || r === "https://github.com/o/r").toBe(true);
+    expect(validarUrlRepo("https://\uFF47ithub.com/o/r")).toBe("https://github.com/o/r");
   });
 });
