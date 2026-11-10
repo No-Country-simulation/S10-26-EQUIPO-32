@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { HerramientaResumen } from "@/lib/catalogo/contrato";
@@ -36,10 +37,13 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
     herramienta;
   const sinDato = t("comun.sinDato");
   return (
-    <Card className="h-full min-w-0 gap-4 rounded-2xl py-5">
+    <Card className="relative h-full min-w-0 gap-4 rounded-2xl py-5">
       <CardHeader className="min-w-0 gap-1 px-5">
         <h3 className="line-clamp-2 text-lg leading-snug font-semibold [overflow-wrap:anywhere]">
-          <bdi dir="auto">{nombre}</bdi>
+          {/* El enlace cubre toda la tarjeta (after:inset-0). El id es ASCII estricto: seguro en la ruta (MU-05). */}
+          <Link href={`/herramientas/${encodeURIComponent(id)}`} className="catalogo-foco rounded-sm after:absolute after:inset-0 after:rounded-2xl">
+            <bdi dir="auto">{nombre}</bdi>
+          </Link>
         </h3>
         <code className="block truncate font-mono text-xs text-muted-foreground">{id}</code>
       </CardHeader>

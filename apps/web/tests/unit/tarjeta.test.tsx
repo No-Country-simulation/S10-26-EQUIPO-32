@@ -72,10 +72,13 @@ describe("TarjetaHerramienta · el texto externo nunca se inserta como HTML (AM-
     expect(salida).not.toMatch(/<[^>]*\son(error|load)=/i);
   });
 
-  it("no usa style ni enlaces ni imágenes, y cada texto externo va aislado con bdi", () => {
+  it("no usa style ni imágenes; su único enlace es interno a la ficha, y cada texto externo va aislado con bdi", () => {
     const salida = html();
     expect(salida).not.toMatch(/\sstyle=/);
-    expect(salida).not.toMatch(/<(a|img|iframe|script)\b/i);
+    expect(salida).not.toMatch(/<(img|iframe|script)\b/i);
+    expect(salida.match(/<a\b[^>]*>/gi) ?? []).toHaveLength(1);
+    expect(salida).toContain('href="/herramientas/ejemplo"');
+    expect(salida).not.toContain("target=");
     expect(cuenta(salida, '<bdi dir="auto">')).toBeGreaterThanOrEqual(4);
   });
 

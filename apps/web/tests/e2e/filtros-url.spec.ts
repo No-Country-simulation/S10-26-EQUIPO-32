@@ -5,7 +5,9 @@ test("elegir una categoría y buscar actualiza la URL sin ir al servidor", async
   await page.goto("/");
   const pedidos: string[] = [];
   page.on("request", (r) => {
-    if (r.resourceType() === "document" || r.url().includes("_rsc")) pedidos.push(r.url());
+    // Los prefetch de los enlaces a las fichas (/herramientas/…) son esperables; un pedido a «/» no (RNF-07).
+    const { pathname } = new URL(r.url());
+    if (pathname === "/" && (r.resourceType() === "document" || r.url().includes("_rsc"))) pedidos.push(r.url());
   });
   await page.getByRole("button", { name: "Pagos", exact: true }).click();
   await page.getByLabel("Buscar herramientas").fill("a");
