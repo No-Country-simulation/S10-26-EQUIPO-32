@@ -15,7 +15,9 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check:deps": "node scripts/verificar-dependencias.mjs",
-    "check:invisibles": "node scripts/verificar-invisibles.mjs"
+    "check:invisibles": "node scripts/verificar-invisibles.mjs",
+    "embeddings": "node --env-file-if-exists=.env scripts/generar-embeddings.mjs",
+    "redteam": "node --env-file-if-exists=.env scripts/redteam.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.5.0",

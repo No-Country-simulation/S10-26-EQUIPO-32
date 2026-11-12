@@ -147,7 +147,7 @@ Sin dependencias nuevas: `fetch` nativo, `zod` (ya está), scripts `.mjs` con No
 | --- | --- | --- | --- | --- |
 | A01 | Este spec comprimido | P1 | Archivo en la rama | [x] |
 | A02 | `data/repos-reales.json` (30) + fuente `reales` + test | RF-12 | Test de contrato verde | [x] |
-| A03 | Script de embeddings + `data/embeddings.json` + `.env.example` | RF-13, D-20 | Archivo generado con Ollama real | [ ] |
+| A03 | Script de embeddings + `data/embeddings.json` + `.env.example` | RF-13, D-20 | Archivo generado con Ollama real | [x] |
 | A04 | Núcleo: config, ollama, índice, prompt, salida, límite + tests | RNF-03/05/09/19/21 | Tests unitarios verdes | [ ] |
 | A05 | `src/app/api/asistente/route.ts` + tests | RF-06, RNF-05/20 | Tests del handler verdes (400/413/415/429/200) | [ ] |
 | A06 | Panel del asistente en la cabecera + i18n + test | RF-11, RNF-04 | Test del panel con payload XSS verde | [ ] |
