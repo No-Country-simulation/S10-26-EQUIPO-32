@@ -148,7 +148,7 @@ describe("salida (RNF-04, RNF-09, RNF-19)", () => {
 describe("responder (RF-06) con Ollama simulado", () => {
   const indice = obtenerIndice();
   const ollama = (contenido: string) =>
-    vi.fn(async (url: string | URL | Request) =>
+    vi.fn(async (url: string | URL | Request, _init?: RequestInit) => // eslint-disable-line @typescript-eslint/no-unused-vars
       String(url).endsWith("/api/embed")
         ? Response.json({ embeddings: [Array.from({ length: 768 }, (_, i) => (i % 7) / 7)] })
         : Response.json({ message: { content: contenido } }),
@@ -158,7 +158,7 @@ describe("responder (RF-06) con Ollama simulado", () => {
     const f = ollama(JSON.stringify({ sinContexto: false, stack: [{ id: "supabase", rol: "base y auth" }], justificacion: "ok" }));
     const r = await responder("tienda online", { config: { ollamaUrl: "http://o", guardrails: true }, indice, fetchFn: f });
     expect(r).toMatchObject({ estado: "ok", citados: [{ id: "supabase", nombre: "Supabase" }] });
-    const cuerpoChat = JSON.parse(String((f.mock.calls[1]![1] as RequestInit).body));
+    const cuerpoChat = JSON.parse(String(f.mock.calls[1]![1]!.body));
     expect(cuerpoChat.format).toBeDefined();
     expect(cuerpoChat.options.temperature).toBe(0);
   });
