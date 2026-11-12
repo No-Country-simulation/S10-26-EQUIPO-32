@@ -150,7 +150,7 @@ Sin dependencias nuevas: `fetch` nativo, `zod` (ya está), scripts `.mjs` con No
 | A03 | Script de embeddings + `data/embeddings.json` + `.env.example` | RF-13, D-20 | Archivo generado con Ollama real | [x] |
 | A04 | Núcleo: config, ollama, índice, prompt, salida, límite + tests | RNF-03/05/09/19/21 | Tests unitarios verdes | [x] |
 | A05 | `src/app/api/asistente/route.ts` + tests | RF-06, RNF-05/20 | Tests del handler verdes (400/413/415/429/200) | [ ] |
-| A06 | Panel del asistente en la cabecera + i18n + test | RF-11, RNF-04 | Test del panel con payload XSS verde | [ ] |
+| A06 | Panel del asistente en la cabecera + i18n + test | RF-11, RNF-04 | Test del panel con payload XSS verde. Reemplaza la prueba E2E de 001 «botón deshabilitado» (spec 001 §9) | [x] |
 | A07 | `tests/redteam/ataques.json` + script + `docs/red-team.md` | RF-14, RNF-03 | Documento generado por corrida real | [ ] |
 | A08 | Validación + SRS + matriz de riesgos | DoD | typecheck, lint, unit, check:deps verdes; resultados abajo | [ ] |
 

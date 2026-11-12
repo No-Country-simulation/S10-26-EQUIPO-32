@@ -59,14 +59,15 @@ for (const esquema of ["light", "dark"] as const) {
   });
 }
 
-test("Spec §9: el botón del asistente está deshabilitado, sin <input> y sin requests al hacer clic", async ({ page }) => {
+test("Feature 002 (RF-11): el botón abre el panel del asistente y no hace requests hasta enviar", async ({ page }) => {
   await page.goto("/");
-  const boton = page.getByRole("button", { name: "Asistente — próximamente" });
-  await expect(boton).toBeDisabled();
-  await expect(page.locator("header input, header textarea")).toHaveCount(0);
+  const boton = page.getByRole("button", { name: "Asistente de stack" });
+  await expect(boton).toHaveAttribute("aria-expanded", "false");
   const pedidos: string[] = [];
   page.on("request", (r) => pedidos.push(r.url()));
-  await boton.click({ force: true });
-  await page.waitForTimeout(500);
-  expect(pedidos).toEqual([]);
+  await boton.click();
+  await expect(boton).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByLabel("Describí tu negocio")).toHaveAttribute("maxlength", "500");
+  await page.waitForTimeout(300);
+  expect(pedidos.filter((u) => u.includes("/api/asistente"))).toEqual([]);
 });
