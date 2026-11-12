@@ -30,7 +30,7 @@ Quien arma un producto no sabe qué combinación de herramientas open-source le 
 | --- | --- | --- | --- |
 | RF-06 | El usuario describe su negocio y recibe stack recomendado, justificación y repos citados. | M | (a) La respuesta tiene `stack` (rol + repo), `justificacion` y `citados`. (b) Todo repo citado existe en el índice. (c) Si no hay contexto suficiente, responde «sin contexto» y no recomienda nada (P6). |
 | RF-11 | Panel del asistente desde el botón de la cabecera (hoy deshabilitado). | M | (a) El botón abre y cierra el panel (`aria-expanded`). (b) Campo con etiqueta, máximo 500 caracteres y contador. (c) Cada repo citado enlaza a `/herramientas/{id}`. (d) Estados: cargando, error genérico, 429 y sin contexto. |
-| RF-12 | Dataset real del índice: si existe `data/repos-reales.json` de Ángel se usa; si no, 30 repos reales (5 por categoría) con 1-2 ideas cada uno, todas `revisada: false`, validados con `contrato.ts`. | M | Test: los 30 pasan `parsearLista` sin omitidas, 5 por categoría, toda idea con `revisada === false`. |
+| RF-12 | Dataset real del índice: si existe `data/repos-reales.json` de Ángel se usa; si no, 30 repos reales (5 por categoría) con 1-2 ideas cada uno, todas `revisada: false`, validados con `contrato.ts`. | M | Test: los 30 pasan `parsearLista` sin omitidas, 5 por categoría principal (la primera), toda idea con `revisada === false`. Se sirven en el catálogo con `CATALOG_SOURCE=reales`. |
 | RF-13 | Embeddings precalculados por script en `data/embeddings.json`; búsqueda por similitud coseno en memoria. | M | El script regenera el archivo; el índice valida que cada `id` exista en el dataset y que todas las dimensiones coincidan. |
 | RF-14 | Set de red-team (`tests/redteam/ataques.json`, 10 ataques) y script que genera `docs/red-team.md` con resultados con y sin guardrails. | M | El documento sale de una corrida real (fecha, modelo, commit) e incluye % bloqueado en cada modo. |
 
@@ -146,7 +146,7 @@ Sin dependencias nuevas: `fetch` nativo, `zod` (ya está), scripts `.mjs` con No
 | # | Tarea | Req. | Criterio de terminado | Estado |
 | --- | --- | --- | --- | --- |
 | A01 | Este spec comprimido | P1 | Archivo en la rama | [x] |
-| A02 | `data/repos-reales.json` (30) + fuente `reales` + test | RF-12 | Test de contrato verde | [ ] |
+| A02 | `data/repos-reales.json` (30) + fuente `reales` + test | RF-12 | Test de contrato verde | [x] |
 | A03 | Script de embeddings + `data/embeddings.json` + `.env.example` | RF-13, D-20 | Archivo generado con Ollama real | [ ] |
 | A04 | Núcleo: config, ollama, índice, prompt, salida, límite + tests | RNF-03/05/09/19/21 | Tests unitarios verdes | [ ] |
 | A05 | `src/app/api/asistente/route.ts` + tests | RF-06, RNF-05/20 | Tests del handler verdes (400/413/415/429/200) | [ ] |

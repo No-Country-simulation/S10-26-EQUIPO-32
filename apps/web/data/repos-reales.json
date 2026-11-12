@@ -1,0 +1,1045 @@
+[
+  {
+    "id": "keycloak",
+    "nombre": "Keycloak",
+    "urlRepo": "https://github.com/keycloak/keycloak",
+    "descripcion": "Servidor de identidad y acceso: inicio de sesión único (SSO) con OpenID Connect y SAML, federación de usuarios, roles y autenticación multifactor.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 37836,
+    "ultimaActualizacion": "2026-11-12T17:55:37Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 3547,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando necesitás SSO para varias aplicaciones internas"
+        ],
+        "snippet": "docker run -p 8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=<definir> quay.io/keycloak/keycloak start-dev",
+        "stack": [
+          "docker",
+          "oidc"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando un usuario se registra en tu app"
+        ],
+        "snippet": "POST /admin/realms/{realm}/users",
+        "stack": [
+          "oidc",
+          "saml"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "next-auth",
+    "nombre": "Auth.js (NextAuth)",
+    "urlRepo": "https://github.com/nextauthjs/next-auth",
+    "descripcion": "Autenticación para aplicaciones web en JavaScript con proveedores OAuth, enlaces mágicos por correo y sesiones, pensada para Next.js.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 28377,
+    "ultimaActualizacion": "2026-07-22T19:42:19Z",
+    "licencia": "ISC",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 604,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando agregás login con GitHub o Google a una app Next.js"
+        ],
+        "snippet": "npm install next-auth",
+        "stack": [
+          "nextjs",
+          "typescript"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "kratos",
+    "nombre": "Ory Kratos",
+    "urlRepo": "https://github.com/ory/kratos",
+    "descripcion": "Gestión de identidades sin interfaz propia: registro, login, recuperación de cuenta, verificación y MFA expuestos por API.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 13956,
+    "ultimaActualizacion": "2026-07-29T09:30:37Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 242,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando querés tu propia pantalla de login con un backend de identidad"
+        ],
+        "snippet": "docker run -p 4433:4433 oryd/kratos:latest serve --dev",
+        "stack": [
+          "docker",
+          "go"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "authelia",
+    "nombre": "Authelia",
+    "urlRepo": "https://github.com/authelia/authelia",
+    "descripcion": "Portal de autenticación y autorización con SSO y segundo factor que se pone delante de aplicaciones a través de un proxy inverso.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 29637,
+    "ultimaActualizacion": "2026-11-12T22:35:23Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 128,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando necesitás proteger paneles internos detrás de un proxy"
+        ],
+        "snippet": "docker run -p 9091:9091 -v ./config:/config authelia/authelia",
+        "stack": [
+          "docker",
+          "nginx",
+          "traefik"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "supertokens-core",
+    "nombre": "SuperTokens",
+    "urlRepo": "https://github.com/supertokens/supertokens-core",
+    "descripcion": "Alternativa open-source a servicios de autenticación gestionados: login con contraseña, sin contraseña y social, con gestión de sesiones.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 15345,
+    "ultimaActualizacion": "2026-11-06T14:51:28Z",
+    "licencia": null,
+    "lenguaje": "Java",
+    "issuesAbiertos": 152,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando querés autenticación autoalojada con SDK para frontend y backend"
+        ],
+        "snippet": "docker run -p 3567:3567 registry.supertokens.io/supertokens/supertokens-postgresql",
+        "stack": [
+          "docker",
+          "postgresql",
+          "nodejs"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "supabase",
+    "nombre": "Supabase",
+    "urlRepo": "https://github.com/supabase/supabase",
+    "descripcion": "Plataforma de desarrollo sobre Postgres: base de datos, autenticación, API instantánea, almacenamiento de archivos y suscripciones en tiempo real.",
+    "categorias": [
+      "base-de-datos",
+      "autenticacion"
+    ],
+    "stars": 114931,
+    "ultimaActualizacion": "2026-11-12T23:08:56Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 1199,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando necesitás una base Postgres con API y auth listas"
+        ],
+        "snippet": "npm install @supabase/supabase-js",
+        "stack": [
+          "postgresql",
+          "typescript"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando consultás una tabla desde cualquier lenguaje"
+        ],
+        "snippet": "GET /rest/v1/{tabla}?select=*",
+        "stack": [
+          "postgresql",
+          "rest"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "pgvector",
+    "nombre": "pgvector",
+    "urlRepo": "https://github.com/pgvector/pgvector",
+    "descripcion": "Extensión de Postgres para guardar vectores y hacer búsqueda por similitud, útil para embeddings y RAG dentro de la misma base.",
+    "categorias": [
+      "base-de-datos",
+      "ia",
+      "busqueda"
+    ],
+    "stars": 23662,
+    "ultimaActualizacion": "2026-11-12T22:57:17Z",
+    "licencia": null,
+    "lenguaje": "C",
+    "issuesAbiertos": 17,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando querés búsqueda semántica sin sumar otra base"
+        ],
+        "snippet": "CREATE EXTENSION vector;",
+        "stack": [
+          "postgresql",
+          "sql"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "prisma",
+    "nombre": "Prisma ORM",
+    "urlRepo": "https://github.com/prisma/orm",
+    "descripcion": "ORM para Node.js y TypeScript con esquema declarativo, migraciones y cliente tipado para Postgres, MySQL, SQLite y otras bases.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 47670,
+    "ultimaActualizacion": "2026-11-12T19:50:02Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 2847,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando querés acceso tipado a la base desde TypeScript"
+        ],
+        "snippet": "npm install prisma --save-dev\nnpx prisma init",
+        "stack": [
+          "typescript",
+          "nodejs",
+          "postgresql"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "valkey",
+    "nombre": "Valkey",
+    "urlRepo": "https://github.com/valkey-io/valkey",
+    "descripcion": "Almacén clave-valor en memoria de alto rendimiento, compatible con el protocolo de Redis; sirve como caché, cola y almacenamiento de sesiones.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 27707,
+    "ultimaActualizacion": "2026-11-12T22:51:19Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "C",
+    "issuesAbiertos": 1033,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando necesitás caché o sesiones compartidas entre instancias"
+        ],
+        "snippet": "docker run -p 6379:6379 valkey/valkey",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "duckdb",
+    "nombre": "DuckDB",
+    "urlRepo": "https://github.com/duckdb/duckdb",
+    "descripcion": "Base de datos analítica embebida (OLAP) que consulta con SQL archivos Parquet, CSV y JSON sin servidor.",
+    "categorias": [
+      "base-de-datos",
+      "analitica"
+    ],
+    "stars": 43048,
+    "ultimaActualizacion": "2026-11-12T23:20:08Z",
+    "licencia": "MIT",
+    "lenguaje": "C++",
+    "issuesAbiertos": 1193,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando querés analizar archivos grandes con SQL sin montar un servidor"
+        ],
+        "snippet": "pip install duckdb",
+        "stack": [
+          "python",
+          "sql"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "hyperswitch",
+    "nombre": "Hyperswitch",
+    "urlRepo": "https://github.com/juspay/hyperswitch",
+    "descripcion": "Orquestador de pagos open-source: conecta varios procesadores con una sola API, con ruteo, reintentos y conciliación.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 45773,
+    "ultimaActualizacion": "2026-11-12T21:26:27Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 2369,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando querés usar más de un procesador de pagos sin acoplarte a uno"
+        ],
+        "snippet": "git clone https://github.com/juspay/hyperswitch\ncd hyperswitch\ndocker compose up -d",
+        "stack": [
+          "docker",
+          "rust",
+          "postgresql"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "killbill",
+    "nombre": "Kill Bill",
+    "urlRepo": "https://github.com/killbill/killbill",
+    "descripcion": "Plataforma de suscripciones y facturación recurrente con catálogo de planes, facturas y plugins de pasarelas de pago.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 5853,
+    "ultimaActualizacion": "2026-11-12T22:58:42Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 272,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando vendés suscripciones con planes y facturación periódica"
+        ],
+        "snippet": "docker run -p 8080:8080 killbill/killbill",
+        "stack": [
+          "docker",
+          "java",
+          "mysql"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "lago",
+    "nombre": "Lago",
+    "urlRepo": "https://github.com/getlago/lago",
+    "descripcion": "Facturación basada en uso (usage-based billing): mide eventos de consumo y genera facturas y suscripciones.",
+    "categorias": [
+      "pagos",
+      "analitica"
+    ],
+    "stars": 10805,
+    "ultimaActualizacion": "2026-11-12T10:44:15Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 17,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando cobrás por uso (llamadas a API, almacenamiento, minutos)"
+        ],
+        "snippet": "POST /api/v1/events",
+        "stack": [
+          "rest",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "medusa",
+    "nombre": "Medusa",
+    "urlRepo": "https://github.com/medusajs/medusa",
+    "descripcion": "Framework de comercio electrónico headless con carrito, pedidos, inventario y módulos de pago intercambiables.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 37207,
+    "ultimaActualizacion": "2026-11-12T20:43:08Z",
+    "licencia": null,
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 103,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando armás una tienda online a medida"
+        ],
+        "snippet": "npx create-medusa-app@latest",
+        "stack": [
+          "nodejs",
+          "typescript",
+          "postgresql"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "stripe-node",
+    "nombre": "Stripe Node.js",
+    "urlRepo": "https://github.com/stripe/stripe-node",
+    "descripcion": "Biblioteca oficial de Node.js para la API de Stripe: cobros, suscripciones, clientes y verificación de webhooks.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 4566,
+    "ultimaActualizacion": "2026-11-12T22:11:43Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 51,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando cobrás con tarjeta desde un backend Node.js"
+        ],
+        "snippet": "npm install stripe",
+        "stack": [
+          "nodejs",
+          "typescript"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando se confirma un pago"
+        ],
+        "snippet": "stripe.webhooks.constructEvent(cuerpo, firma, secretoDelEndpoint)",
+        "stack": [
+          "nodejs"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "ollama",
+    "nombre": "Ollama",
+    "urlRepo": "https://github.com/ollama/ollama",
+    "descripcion": "Ejecuta modelos de lenguaje abiertos en local con una API HTTP simple para chat y embeddings.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 186810,
+    "ultimaActualizacion": "2026-11-12T23:03:09Z",
+    "licencia": "MIT",
+    "lenguaje": "Go",
+    "issuesAbiertos": 4644,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando querés un LLM local sin enviar datos a terceros"
+        ],
+        "snippet": "curl http://localhost:11434/api/chat -d '{\"model\":\"llama3.2:3b\",\"messages\":[{\"role\":\"user\",\"content\":\"hola\"}]}'",
+        "stack": [
+          "rest",
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "langchain",
+    "nombre": "LangChain",
+    "urlRepo": "https://github.com/langchain-ai/langchain",
+    "descripcion": "Framework para construir aplicaciones con LLM: cadenas, agentes, herramientas y recuperación de documentos (RAG).",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 149418,
+    "ultimaActualizacion": "2026-11-12T19:39:11Z",
+    "licencia": "MIT",
+    "lenguaje": "Python",
+    "issuesAbiertos": 737,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando armás un asistente que consulta tus documentos"
+        ],
+        "snippet": "pip install langchain",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "transformers",
+    "nombre": "Transformers",
+    "urlRepo": "https://github.com/huggingface/transformers",
+    "descripcion": "Biblioteca para usar y entrenar modelos preentrenados de texto, visión y audio (clasificación, traducción, generación).",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 168923,
+    "ultimaActualizacion": "2026-11-12T23:09:38Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 1082,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando necesitás clasificar o resumir texto con un modelo abierto"
+        ],
+        "snippet": "pip install transformers",
+        "stack": [
+          "python",
+          "pytorch"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "llama-index",
+    "nombre": "LlamaIndex",
+    "urlRepo": "https://github.com/run-llama/llama_index",
+    "descripcion": "Framework de datos para LLM: ingesta, indexación y consulta de documentos propios para RAG.",
+    "categorias": [
+      "ia",
+      "busqueda"
+    ],
+    "stars": 52884,
+    "ultimaActualizacion": "2026-11-11T19:05:14Z",
+    "licencia": "MIT",
+    "lenguaje": "Python",
+    "issuesAbiertos": 1373,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando querés indexar PDFs o páginas propias para un chatbot"
+        ],
+        "snippet": "pip install llama-index",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "llama-cpp",
+    "nombre": "llama.cpp",
+    "urlRepo": "https://github.com/ggml-org/llama.cpp",
+    "descripcion": "Inferencia de LLM en C/C++ eficiente en CPU y GPU, con cuantización y un servidor HTTP compatible con OpenAI.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 134525,
+    "ultimaActualizacion": "2026-11-12T23:17:36Z",
+    "licencia": "MIT",
+    "lenguaje": "C++",
+    "issuesAbiertos": 2582,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando necesitás inferencia local en hardware modesto"
+        ],
+        "snippet": "llama-server -m modelo.gguf --port 8080",
+        "stack": [
+          "c++"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "posthog",
+    "nombre": "PostHog",
+    "urlRepo": "https://github.com/PostHog/posthog",
+    "descripcion": "Analítica de producto: eventos, embudos, grabación de sesiones, feature flags y experimentos A/B.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 40763,
+    "ultimaActualizacion": "2026-11-12T23:17:59Z",
+    "licencia": null,
+    "lenguaje": "Python",
+    "issuesAbiertos": 4466,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando querés medir qué hacen los usuarios en tu producto"
+        ],
+        "snippet": "npm install posthog-js",
+        "stack": [
+          "javascript",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "plausible",
+    "nombre": "Plausible Analytics",
+    "urlRepo": "https://github.com/plausible/analytics",
+    "descripcion": "Analítica web liviana y respetuosa de la privacidad, sin cookies, con panel simple de visitas y fuentes.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 29833,
+    "ultimaActualizacion": "2026-11-12T21:16:06Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "Elixir",
+    "issuesAbiertos": 53,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando querés métricas de visitas sin cookies ni banners"
+        ],
+        "snippet": "git clone https://github.com/plausible/community-edition\ncd community-edition\ndocker compose up -d",
+        "stack": [
+          "docker",
+          "elixir",
+          "postgresql"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "matomo",
+    "nombre": "Matomo",
+    "urlRepo": "https://github.com/matomo-org/matomo",
+    "descripcion": "Plataforma de analítica web autoalojada, alternativa a Google Analytics, con control total de los datos.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 22028,
+    "ultimaActualizacion": "2026-11-12T23:20:47Z",
+    "licencia": "GPL-3.0",
+    "lenguaje": "PHP",
+    "issuesAbiertos": 2555,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando necesitás analítica web con datos en tu servidor"
+        ],
+        "snippet": "docker run -p 8080:80 matomo",
+        "stack": [
+          "docker",
+          "php",
+          "mysql"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "umami",
+    "nombre": "Umami",
+    "urlRepo": "https://github.com/umami-software/umami",
+    "descripcion": "Analítica web simple y enfocada en privacidad, con panel en tiempo real y seguimiento de eventos.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 40098,
+    "ultimaActualizacion": "2026-11-12T23:12:03Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 121,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando querés métricas de un sitio con una instalación chica"
+        ],
+        "snippet": "docker compose up -d",
+        "stack": [
+          "docker",
+          "nextjs",
+          "postgresql"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "metabase",
+    "nombre": "Metabase",
+    "urlRepo": "https://github.com/metabase/metabase",
+    "descripcion": "Herramienta de inteligencia de negocio para hacer preguntas a tus datos, armar tableros y compartirlos sin escribir SQL.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 50302,
+    "ultimaActualizacion": "2026-11-12T23:06:52Z",
+    "licencia": null,
+    "lenguaje": "Clojure",
+    "issuesAbiertos": 4708,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando el equipo necesita tableros sobre la base de producción"
+        ],
+        "snippet": "docker run -p 3000:3000 metabase/metabase",
+        "stack": [
+          "docker",
+          "java",
+          "postgresql"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "meilisearch",
+    "nombre": "Meilisearch",
+    "urlRepo": "https://github.com/meilisearch/meilisearch",
+    "descripcion": "Motor de búsqueda rápido con tolerancia a errores de tipeo, filtros y facetas, listo para búsqueda instantánea en apps y sitios.",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 59846,
+    "ultimaActualizacion": "2026-11-12T18:59:03Z",
+    "licencia": null,
+    "lenguaje": "Rust",
+    "issuesAbiertos": 320,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando querés búsqueda instantánea en un catálogo de productos"
+        ],
+        "snippet": "docker run -p 7700:7700 getmeili/meilisearch",
+        "stack": [
+          "docker",
+          "rest"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "typesense",
+    "nombre": "Typesense",
+    "urlRepo": "https://github.com/typesense/typesense",
+    "descripcion": "Motor de búsqueda en memoria tolerante a errores de tipeo, con búsqueda vectorial y geográfica.",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 27119,
+    "ultimaActualizacion": "2026-11-11T07:58:39Z",
+    "licencia": "GPL-3.0",
+    "lenguaje": "C++",
+    "issuesAbiertos": 931,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando necesitás búsqueda con filtros y facetas de baja latencia"
+        ],
+        "snippet": "docker run -p 8108:8108 -v ./datos:/data typesense/typesense --data-dir /data --api-key=<definir>",
+        "stack": [
+          "docker",
+          "rest"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "opensearch",
+    "nombre": "OpenSearch",
+    "urlRepo": "https://github.com/opensearch-project/OpenSearch",
+    "descripcion": "Motor de búsqueda y analítica distribuido derivado de Elasticsearch, para búsqueda de texto completo, logs y observabilidad.",
+    "categorias": [
+      "busqueda",
+      "analitica"
+    ],
+    "stars": 14004,
+    "ultimaActualizacion": "2026-11-12T20:03:25Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 3369,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando tenés que buscar y analizar grandes volúmenes de logs o documentos"
+        ],
+        "snippet": "docker run -p 9200:9200 -e discovery.type=single-node opensearchproject/opensearch",
+        "stack": [
+          "docker",
+          "java"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "qdrant",
+    "nombre": "Qdrant",
+    "urlRepo": "https://github.com/qdrant/qdrant",
+    "descripcion": "Base de datos vectorial para búsqueda por similitud con filtros sobre metadatos, usada en RAG y recomendaciones.",
+    "categorias": [
+      "busqueda",
+      "ia"
+    ],
+    "stars": 35528,
+    "ultimaActualizacion": "2026-11-12T23:17:44Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 796,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando tu búsqueda semántica supera lo que conviene tener en Postgres"
+        ],
+        "snippet": "docker run -p 6333:6333 qdrant/qdrant",
+        "stack": [
+          "docker",
+          "rest",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "sonic",
+    "nombre": "Sonic",
+    "urlRepo": "https://github.com/valeriansaliou/sonic",
+    "descripcion": "Backend de búsqueda muy liviano que indexa texto y devuelve identificadores, pensado como alternativa mínima a motores grandes.",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 21377,
+    "ultimaActualizacion": "2026-11-10T19:05:33Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 51,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando necesitás búsqueda de texto con muy pocos recursos"
+        ],
+        "snippet": "docker run -p 1491:1491 valeriansaliou/sonic",
+        "stack": [
+          "docker",
+          "rust"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  }
+]
