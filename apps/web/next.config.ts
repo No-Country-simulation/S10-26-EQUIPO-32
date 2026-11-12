@@ -14,6 +14,8 @@ const headersSeguridad = [
 const nextConfig: NextConfig = {
   // No anunciar el framework (AM-13).
   poweredByHeader: false,
+  // Solo el red-team (scripts/redteam.mjs, feature 002) usa un directorio aparte para convivir con un `next dev` abierto.
+  ...(process.env.REDTEAM_DIST_DIR === "1" ? { distDir: ".next-redteam" } : {}),
   async headers() {
     return [{ source: "/:path*", headers: headersSeguridad }];
   },
