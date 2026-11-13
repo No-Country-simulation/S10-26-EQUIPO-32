@@ -1,5 +1,7 @@
 import { Catalogo } from "@/components/catalogo/Catalogo";
 import { PresentacionCatalogo } from "@/components/catalogo/PresentacionCatalogo";
+import { SeccionAsistente, type RepoCitado } from "@/components/sitio/SeccionAsistente";
+import type { Categoria } from "@/lib/catalogo/categorias";
 import type { HerramientaResumen } from "@/lib/catalogo/contrato";
 import { parsearEstadoUrl, serializarEstadoUrl } from "@/lib/catalogo/estado-url";
 import { derivarOpciones } from "@/lib/catalogo/filtros";
@@ -12,13 +14,29 @@ export const dynamic = "force-dynamic";
 // Destinos internos de los enlaces de la portada y de la cabecera.
 const ID_CATALOGO = "catalogo";
 const ID_SEGURIDAD = "seguridad";
+const ID_ASISTENTE = "asistente";
+
+// Categorías de la consulta de ejemplo de la sección «Asistente» (login, cobros y visitas).
+const CATEGORIAS_EJEMPLO: Categoria[] = ["autenticacion", "pagos", "analitica"];
+
+const porSalud = (lista: HerramientaResumen[]) => [...lista].sort((x, y) => (y.healthScore ?? -1) - (x.healthScore ?? -1));
 
 /** Las 4 herramientas con mejor salud dan las iniciales de los tiles del titular (solo nombre e id). */
 function destacadas(herramientas: HerramientaResumen[]) {
-  return [...herramientas]
-    .sort((x, y) => (y.healthScore ?? -1) - (x.healthScore ?? -1))
+  return porSalud(herramientas)
     .slice(0, 4)
     .map(({ id, nombre }) => ({ id, nombre }));
+}
+
+/** Para cada categoría del ejemplo, la herramienta real con mejor salud (P6: solo repos que están en la base). */
+function citadosDelEjemplo(herramientas: HerramientaResumen[]): RepoCitado[] {
+  const ordenadas = porSalud(herramientas);
+  const citados: RepoCitado[] = [];
+  for (const categoria of CATEGORIAS_EJEMPLO) {
+    const elegida = ordenadas.find((h) => h.categorias.includes(categoria) && !citados.some((c) => c.id === h.id));
+    if (elegida) citados.push({ id: elegida.id, nombre: elegida.nombre, categoria });
+  }
+  return citados;
 }
 
 export default async function Inicio({
@@ -42,6 +60,7 @@ export default async function Inicio({
         {/* La clave reinicia el estado si el servidor entrega otra URL (p. ej. el logo hacia «/»). */}
         <Catalogo key={serializarEstadoUrl(estadoInicial)} herramientas={herramientas} estadoInicial={estadoInicial} />
       </section>
+      <SeccionAsistente id={ID_ASISTENTE} citados={citadosDelEjemplo(herramientas)} />
     </>
   );
 }
