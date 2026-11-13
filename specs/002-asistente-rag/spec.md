@@ -213,7 +213,7 @@ Corrida del 2026-11-12 (Jero + Claude Code, máquina local con Ollama 0.32.0).
 | B04 | Detector `rol.ts` + llamada en `asistente.ts` + tests | RNF-23 | Tests positivos/negativos verdes | [x] |
 | B05 | Refuerzo del system prompt + test | RNF-23 | Test verde; `salida.ts` sin diff | [x] |
 | B06 | Corrida v2 y `docs/red-team.md` | RNF-23, P7 | `corridas/v2.json` con commit limpio | [x] |
-| B07 | Matriz de riesgos, `docs/owasp.md` (LLM01), SRS; checks; PR y merge | DoD | CI en verde | [ ] |
+| B07 | Matriz de riesgos, `docs/owasp.md` (LLM01), SRS; checks; PR y merge | DoD | CI en verde | [x] |
 
 ### 12.4 Resultados (corridas reales, `docs/red-team.md`)
 
