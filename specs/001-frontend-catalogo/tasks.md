@@ -194,7 +194,7 @@ T36–T38 quedan reemplazadas: el origen real es la API REST del backend, no Sup
 | --- | --- | --- | --- | --- |
 | T39 | Spec §10 + plan §9 + estas tareas | P1 | En la rama antes del código | [x] |
 | T40 | Contrato: nivel `bajo` y `desgloseSalud` (todo o nada) + filtro, URL e i18n | RF-01..05, RF-15 | Tests de contrato y filtros verdes | [x] |
-| T41 | `adaptadores/backend.ts` + `config` de `BACKEND_URL` + `.env.example` | RNF-24, AM-30..33, AM-35 | Tests unitarios del adaptador verdes | [ ] |
+| T41 | `adaptadores/backend.ts` + `config` de `BACKEND_URL` + `.env.example` | RNF-24, AM-30..33, AM-35 | Tests unitarios del adaptador verdes | [x] |
 | T42 | Desglose en la ficha (5 componentes con máximos) | RF-15 | Test de la ficha verde | [x] |
 | T43 | `scripts/sembrar-backend.mjs` (2 lotes, nuestra categoría, chequeo sin credencial) | RNF-25, MU-07, AM-34 | Corrida real: 30/30 ingestados, escritura sin token rechazada | [ ] |
 | T44 | E2E con el backend levantado | RF-15, RNF-24 | `backend.spec.ts` verde en local, resultado abajo | [ ] |
