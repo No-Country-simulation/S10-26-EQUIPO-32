@@ -103,6 +103,8 @@ Qué reglas de `ui-brief.md` hace cumplir el lint de T02 y cuáles no se pueden 
 
 > **Nota TI1 (2026-11-10):** `~/Desktop/codex-snapshot/` ya no existía; se usó `~/Downloads/openbridge-estado-actual-2026-11-09.zip` (mismo snapshot: su `frontend-mobbin.patch` coincide con el aplicado), y solo estas rutas: `src/components/catalogo/` (Cabecera, EstadoVacio, EstadoError, EstadoNoEncontrado), las claves de `src/i18n/es.ts`, la fuente de `src/app/layout.tsx` y `demo/demo-ui/page.tsx`. **El snapshot no traía** `PresentacionCatalogo` (UI-1) ni nada de UI-2: los escribe Claude Code según `ui-brief.md` §8. Los tokens y las clases `catalogo-*` de `globals.css` también son nuestros (ese archivo no estaba entre los autorizados). La demo se adaptó (portada y casos extremos en `<details>`); el chequeo de caracteres invisibles (R-14) ahora también cubre `demo/`.
 
+> **Nota TI1/TI3 (2026-11-13, R-24):** el criterio «`demo-ui` no entra al build de producción» estaba verificado solo por el 404 (`notFound()` con `NODE_ENV=production`): la ruta seguía en `app-path-routes-manifest.json` y el componente cliente de la demo se publicaba en `/_next/static`. Se eliminó `src/app/demo-ui/page.tsx` (ningún test lo usaba) y el criterio queda cubierto por `tests/e2e/superficie-dev.spec.ts`. La demo sigue en `demo/demo-ui/page.tsx` (typecheck, lint y `check:invisibles`); para verla en local se monta una ruta temporal sin commitear.
+
 ## B3 · Catálogo por categoría (1.5 h)
 
 | # | Tarea | Implementa | Criterio de terminado | Est. h | Acum. | Reales | Estado |
