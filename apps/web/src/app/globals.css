@@ -121,8 +121,9 @@
   .catalogo-contenedor {
     @apply mx-auto w-full max-w-[72rem] px-5 sm:px-8;
   }
+  /* Tailwind 4: outline-none fija --tw-outline-style: none y outline-2 lo hereda; sin outline-solid el foco no se pinta (2.4.7). */
   .catalogo-foco {
-    @apply outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring;
+    @apply outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-ring;
   }
   .catalogo-estado {
     @apply mx-auto flex w-full max-w-xl min-w-0 flex-col items-center rounded-3xl bg-secondary px-6 py-12 text-center sm:px-10;
