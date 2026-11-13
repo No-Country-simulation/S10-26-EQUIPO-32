@@ -209,7 +209,7 @@ Corrida del 2026-11-12 (Jero + Claude Code, máquina local con Ollama 0.32.0).
 | --- | --- | --- | --- | --- |
 | B01 | Este §12 + RNF-23 + MU-19b/c/d | P1 | Spec en la rama antes del código | [x] |
 | B02 | 3 ataques nuevos y 5 controles en `ataques.json`; *harness* del script (controles, 429, etiquetas, tabla v1/v2) | RF-14, RNF-23 | Script corre sin tocar `src/` | [x] |
-| B03 | Corrida baseline v1 sobre el código sin mitigación | P7 | `corridas/v1.json` con commit limpio | [ ] |
+| B03 | Corrida baseline v1 sobre el código sin mitigación | P7 | `corridas/v1.json` con commit limpio | [x] |
 | B04 | Detector `rol.ts` + llamada en `asistente.ts` + tests | RNF-23 | Tests positivos/negativos verdes | [ ] |
 | B05 | Refuerzo del system prompt + test | RNF-23 | Test verde; `salida.ts` sin diff | [ ] |
 | B06 | Corrida v2 y `docs/red-team.md` | RNF-23, P7 | `corridas/v2.json` con commit limpio | [ ] |
