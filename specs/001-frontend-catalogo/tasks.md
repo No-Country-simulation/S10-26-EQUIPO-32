@@ -363,3 +363,19 @@ Se completa con lo que realmente ocurra; no se omite ninguna.
 - [ ] Reestimar incremento de portada y revisión visual; conciliar plan y tareas.
 
 **Estado (2026-11-13):** pendiente. La aprobación visual de Jerónimo (T34) no quedó registrada; no se declara RNF-18 cumplido. No se reutiliza la validación de la UI oscura anterior.
+
+### UI v2 (2026-11-13, `feat/ui-v2`, ui-brief §11)
+
+Un commit por sección, en orden: brief, cabecera, hero, app preview, tabs y grilla, Asistente, Seguridad, footer y el fix de foco.
+
+| Verificación | Resultado |
+| --- | --- |
+| `check:deps`, `check:invisibles`, lint (`jsx-no-literals`, `no-danger`, sin `style` en catálogo), `tsc` | En verde |
+| Vitest | 411/411 (suma `orden.test.ts`; `tarjeta.test.tsx` pasa a exigir `line-clamp-1` en la descripción, más estricto) |
+| Playwright contra el build de producción (`CATALOG_SOURCE=fixtures`, puerto 3100) | 29/29. Único selector cambiado: el botón del asistente se llama «Asistente» (RF-11 conserva «sin requests hasta enviar») |
+| Scroll horizontal en `/`, una ficha y «no encontrado» a 360, 375, 768 y 1280 px | Ninguno |
+| Foco visible recorriendo la portada con Tab (139 paradas) | Todos los controles con outline. Se corrigió un bug previo: `catalogo-foco` no pintaba el outline en Tailwind 4 (faltaba `outline-solid`) |
+| Contraste AA | Tokens nuevos documentados en `globals.css` (footer: 17.6:1 y 7.9:1). axe sigue sin correrse (sin dependencias nuevas) |
+| CSP | Sin `<script>` ni `style` en línea nuevos; e2e de headers y nonce en verde |
+
+**Pendiente:** aprobación visual de Jerónimo (RNF-18 / T34). La carpeta de referencias `ref-mobbin` no estaba disponible: la referencia directa fue solo la captura de la portada.
