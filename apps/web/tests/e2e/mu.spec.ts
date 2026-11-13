@@ -28,8 +28,16 @@ function instalarGuarda(page: Page): string[] {
 function domInesperado(page: Page): Promise<string[]> {
   return page.evaluate(() => {
     const salida: string[] = [];
-    for (const el of document.querySelectorAll("main script, main img, main iframe, main object, main embed, main style, main link"))
-      salida.push(`<${el.localName}> dentro de main`);
+    for (const el of document.querySelectorAll("main script, main img, main iframe, main object, main embed, main style, main link")) {
+      // Única excepción: el logo propio (feature 005, RF-18), decorativo y servido por el sitio desde /logos/<id>.png|jpg.
+      const logo =
+        el instanceof HTMLImageElement &&
+        el.matches("img[data-ob-logo][alt=''][aria-hidden='true']") &&
+        new URL(el.src).origin === location.origin &&
+        /^\/logos\/[a-z0-9][a-z0-9._-]*\.(png|jpg)$/.test(new URL(el.src).pathname) &&
+        !el.getAttributeNames().some((n) => /^on/i.test(n));
+      if (!logo) salida.push(`<${el.localName}> dentro de main`);
+    }
     for (const el of document.querySelectorAll("main bdi *, main code *, main pre > :not(code)"))
       salida.push(`<${el.localName}> dentro de un texto externo`);
     // Solo íconos lucide o SVG propios fijos (data-ob-svg, ui-brief §12.3), siempre decorativos.
@@ -62,11 +70,16 @@ test.describe("guarda común", () => {
       falso.setAttribute("aria-hidden", "true");
       falso.setAttribute("onload", "alert(1)");
       document.querySelector("main")?.append(falso);
+      // Un <img> que imita al logo propio pero apunta a otro host también tiene que saltar (RNF-26).
+      const logoFalso = document.createElement("img");
+      for (const [k, v] of [["data-ob-logo", ""], ["alt", ""], ["aria-hidden", "true"], ["src", "https://evil.test/logos/keycloak.png"]] as const) logoFalso.setAttribute(k, v);
+      document.querySelector("main")?.append(logoFalso);
     });
     const hallazgos = await domInesperado(page);
     expect(hallazgos.join()).toContain("<img>");
     expect(hallazgos.join()).toContain("<svg>");
     expect(hallazgos.join()).toContain("atributo onload");
+    expect(hallazgos.filter((h) => h === "<img> dentro de main")).toHaveLength(2);
   });
 
   test("la guarda DETECTA una conexión a otro host (la CSP la bloquea y queda registrada) y un dialog", async ({ page }) => {

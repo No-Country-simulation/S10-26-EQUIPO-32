@@ -71,7 +71,7 @@ Respondidas por la consigna del 2026-11-13; las decisiones que la consigna no fi
 | 3 | ¿Qué es «activo» y qué es «licencia OSI»? | **D:** activo = no archivado, no fork y último push ≤ 180 días. OSI = SPDX de la lista OSI informado por GitHub; los repos open-core (partes con licencia no OSI) quedan afuera aunque el núcleo sea OSI. Excepción documentada: pgvector (PostgreSQL License que GitHub no detecta) | 2026-11-13 |
 | 4 | ¿Se quitan repos de los 30 actuales? | **D:** sí, los que no cumplen el criterio (supertokens-core, medusa, posthog, metabase, meilisearch: open-core). Se reemplazan por repos que sí cumplen; quedan en `excluidos` de la semilla | 2026-11-13 |
 | 5 | ¿Qué script genera el dataset? | No había script para los 30 (se armaron a mano). **D:** se crea `scripts/ingestar-repos.mjs`, que conserva lo curado de los 30 (descripción en español e ideas) | 2026-11-13 |
-| 6 | ¿Qué modelo genera las ideas? | Ollama local, el modelo de chat del asistente; validadas por el contrato y `revisada: false` | 2026-11-13 |
+| 6 | ¿Qué modelo genera las ideas? | Ollama local; validadas por el contrato y `revisada: false`. **D:** `llama3.1:8b` por defecto (configurable con `INGESTA_MODELO_IDEAS`), porque el `llama3.2:3b` del asistente da JSON menos confiable | 2026-11-13 |
 | 7 | ¿Extensión de los logos? | **D:** `<id>.png` o `<id>.jpg` según los magic bytes, para que el tipo servido coincida con el contenido (`nosniff`) | 2026-11-13 |
 | 8 | ¿Mantenimiento en la grilla con backend? | Sin desglose en la grilla: «Sin dato» con esa fuente; la ficha lo muestra con el desglose | 2026-11-13 |
 

@@ -120,4 +120,11 @@ Resultado real de cada requisito al entregar. Evidencia completa en `specs/001-f
 | RNF-18 | Pendiente | Aprobación visual de Jerónimo sin registrar |
 | RNF-19 a RNF-22 | Cumple | Tests de 002; MU-14 bloqueado |
 | RNF-23 | Cumple en la batería | Red-team v2 13/13 (v1 11/13), 0/5 falsos positivos; generalización sin medir (AM-29) |
+| RF-16 | Cumple | `data/semilla-repos.json`: 108 repos, 18 por categoría, criterio verificado contra la API (`semilla-repos.test.ts`) |
+| RF-17 | Cumple | Corrida real de `npm run ingesta` del 13/11: 108 repos, 0 excluidos, 83 con ideas nuevas, exit 0 (`specs/005-catalogo-100/tasks.md`); `ingesta.test.ts` |
+| RF-18 | Cumple | 108 logos en `public/logos/` con `fuentes.json`; `logo.test.tsx` y guarda de `mu.spec.ts` |
+| RF-19 | Cumple | Grilla con 108 repos en 2 requests; desglose solo en ficha (`adaptador-backend.test.ts`). Nivel en la grilla con backend: «Sin dato» |
+| RNF-26, RNF-27 | Cumple | `ingesta.test.ts`, `logo.test.tsx`, `repos-reales.test.ts`; CSP sin cambios (`headers.spec`) |
+| RNF-28 | Cumple | Peor caso 52 requests/min por instancia (`adaptador-backend.test.ts`); sin medir contra el backend real con 108 |
+| RNF-29 | Parcial | Red-team v3 (108 repos): 13/13 bloqueados, 0/5 falsos positivos, 0 fugas, 0 inventados, igual que v2. **Regresión cualitativa en MU-20** (recomienda repos para un pedido de ransomware en vez de «sin contexto»): abierta, R-27 (`docs/red-team.md`) |
 

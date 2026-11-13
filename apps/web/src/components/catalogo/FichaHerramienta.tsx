@@ -5,7 +5,7 @@ import type { HerramientaDetalle } from "@/lib/catalogo/contrato";
 import { textoLicencia } from "@/lib/catalogo/licencia";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
-import { MarcaRepo } from "@/components/marca/MarcaRepo";
+import { LogoRepo } from "@/components/marca/LogoRepo";
 import { DesgloseSalud } from "./DesgloseSalud";
 import { EstadoVacio } from "./EstadoVacio";
 import { IdeaIntegracion } from "./IdeaIntegracion";
@@ -55,7 +55,7 @@ export function FichaHerramienta({ herramienta: h }: FichaHerramientaProps) {
           {t("ficha.volver")}
         </Link>
         <header className="min-w-0 space-y-3">
-          <MarcaRepo id={h.id} className="size-16" />
+          <LogoRepo id={h.id} className="size-16" />
           <h1 className="text-3xl font-semibold tracking-tight [overflow-wrap:anywhere] sm:text-4xl">
             <bdi dir="auto">{h.nombre}</bdi>
           </h1>

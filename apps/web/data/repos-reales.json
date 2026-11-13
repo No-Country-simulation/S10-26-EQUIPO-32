@@ -7,15 +7,15 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 37836,
-    "ultimaActualizacion": "2026-11-12T17:55:37Z",
+    "stars": 37858,
+    "ultimaActualizacion": "2026-11-13T19:35:45Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 3547,
+    "issuesAbiertos": 3553,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -53,15 +53,15 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 28377,
+    "stars": 28379,
     "ultimaActualizacion": "2026-07-22T19:42:19Z",
     "licencia": "ISC",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 604,
+    "issuesAbiertos": 605,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -86,15 +86,15 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 13956,
+    "stars": 13957,
     "ultimaActualizacion": "2026-07-29T09:30:37Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
-    "issuesAbiertos": 242,
+    "issuesAbiertos": 241,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -119,15 +119,15 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 29637,
-    "ultimaActualizacion": "2026-11-12T22:35:23Z",
+    "stars": 29649,
+    "ultimaActualizacion": "2026-11-13T17:04:33Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
-    "issuesAbiertos": 128,
+    "issuesAbiertos": 121,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -146,40 +146,6 @@
     ]
   },
   {
-    "id": "supertokens-core",
-    "nombre": "SuperTokens",
-    "urlRepo": "https://github.com/supertokens/supertokens-core",
-    "descripcion": "Alternativa open-source a servicios de autenticación gestionados: login con contraseña, sin contraseña y social, con gestión de sesiones.",
-    "categorias": [
-      "autenticacion"
-    ],
-    "stars": 15345,
-    "ultimaActualizacion": "2026-11-06T14:51:28Z",
-    "licencia": null,
-    "lenguaje": "Java",
-    "issuesAbiertos": 152,
-    "mantenedorActivo": null,
-    "nivelMantenimiento": null,
-    "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
-    "ideas": [
-      {
-        "tipo": "docker",
-        "disparadores": [
-          "cuando querés autenticación autoalojada con SDK para frontend y backend"
-        ],
-        "snippet": "docker run -p 3567:3567 registry.supertokens.io/supertokens/supertokens-postgresql",
-        "stack": [
-          "docker",
-          "postgresql",
-          "nodejs"
-        ],
-        "dificultad": "media",
-        "revisada": false
-      }
-    ]
-  },
-  {
     "id": "supabase",
     "nombre": "Supabase",
     "urlRepo": "https://github.com/supabase/supabase",
@@ -188,15 +154,15 @@
       "base-de-datos",
       "autenticacion"
     ],
-    "stars": 114931,
-    "ultimaActualizacion": "2026-11-12T23:08:56Z",
+    "stars": 114986,
+    "ultimaActualizacion": "2026-11-13T21:00:04Z",
     "licencia": "Apache-2.0",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 1199,
+    "issuesAbiertos": 1200,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -236,15 +202,15 @@
       "ia",
       "busqueda"
     ],
-    "stars": 23662,
-    "ultimaActualizacion": "2026-11-12T22:57:17Z",
-    "licencia": null,
+    "stars": 23670,
+    "ultimaActualizacion": "2026-11-13T09:12:29Z",
+    "licencia": "PostgreSQL",
     "lenguaje": "C",
     "issuesAbiertos": 17,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -269,15 +235,15 @@
     "categorias": [
       "base-de-datos"
     ],
-    "stars": 47670,
-    "ultimaActualizacion": "2026-11-12T19:50:02Z",
+    "stars": 47671,
+    "ultimaActualizacion": "2026-11-13T20:42:09Z",
     "licencia": "Apache-2.0",
     "lenguaje": "TypeScript",
     "issuesAbiertos": 2847,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -303,15 +269,15 @@
     "categorias": [
       "base-de-datos"
     ],
-    "stars": 27707,
-    "ultimaActualizacion": "2026-11-12T22:51:19Z",
+    "stars": 27705,
+    "ultimaActualizacion": "2026-11-13T20:47:06Z",
     "licencia": "BSD-3-Clause",
     "lenguaje": "C",
-    "issuesAbiertos": 1033,
+    "issuesAbiertos": 1039,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -336,15 +302,15 @@
       "base-de-datos",
       "analitica"
     ],
-    "stars": 43048,
-    "ultimaActualizacion": "2026-11-12T23:20:08Z",
+    "stars": 43044,
+    "ultimaActualizacion": "2026-11-13T20:45:13Z",
     "licencia": "MIT",
     "lenguaje": "C++",
-    "issuesAbiertos": 1193,
+    "issuesAbiertos": 1204,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -369,15 +335,15 @@
     "categorias": [
       "pagos"
     ],
-    "stars": 45773,
-    "ultimaActualizacion": "2026-11-12T21:26:27Z",
+    "stars": 45782,
+    "ultimaActualizacion": "2026-11-13T20:19:21Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Rust",
-    "issuesAbiertos": 2369,
+    "issuesAbiertos": 2367,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -403,15 +369,15 @@
     "categorias": [
       "pagos"
     ],
-    "stars": 5853,
-    "ultimaActualizacion": "2026-11-12T22:58:42Z",
+    "stars": 5854,
+    "ultimaActualizacion": "2026-11-13T16:43:04Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
     "issuesAbiertos": 272,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -438,15 +404,15 @@
       "pagos",
       "analitica"
     ],
-    "stars": 10805,
-    "ultimaActualizacion": "2026-11-12T10:44:15Z",
+    "stars": 10833,
+    "ultimaActualizacion": "2026-11-13T08:15:26Z",
     "licencia": "AGPL-3.0",
     "lenguaje": "Go",
     "issuesAbiertos": 17,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -464,40 +430,6 @@
     ]
   },
   {
-    "id": "medusa",
-    "nombre": "Medusa",
-    "urlRepo": "https://github.com/medusajs/medusa",
-    "descripcion": "Framework de comercio electrónico headless con carrito, pedidos, inventario y módulos de pago intercambiables.",
-    "categorias": [
-      "pagos"
-    ],
-    "stars": 37207,
-    "ultimaActualizacion": "2026-11-12T20:43:08Z",
-    "licencia": null,
-    "lenguaje": "TypeScript",
-    "issuesAbiertos": 103,
-    "mantenedorActivo": null,
-    "nivelMantenimiento": null,
-    "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
-    "ideas": [
-      {
-        "tipo": "sdk",
-        "disparadores": [
-          "cuando armás una tienda online a medida"
-        ],
-        "snippet": "npx create-medusa-app@latest",
-        "stack": [
-          "nodejs",
-          "typescript",
-          "postgresql"
-        ],
-        "dificultad": "media",
-        "revisada": false
-      }
-    ]
-  },
-  {
     "id": "stripe-node",
     "nombre": "Stripe Node.js",
     "urlRepo": "https://github.com/stripe/stripe-node",
@@ -505,15 +437,15 @@
     "categorias": [
       "pagos"
     ],
-    "stars": 4566,
-    "ultimaActualizacion": "2026-11-12T22:11:43Z",
+    "stars": 4567,
+    "ultimaActualizacion": "2026-11-13T20:52:58Z",
     "licencia": "MIT",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 51,
+    "issuesAbiertos": 50,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -550,15 +482,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 186810,
-    "ultimaActualizacion": "2026-11-12T23:03:09Z",
+    "stars": 186884,
+    "ultimaActualizacion": "2026-11-13T20:45:24Z",
     "licencia": "MIT",
     "lenguaje": "Go",
-    "issuesAbiertos": 4644,
+    "issuesAbiertos": 4652,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -583,15 +515,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 149418,
-    "ultimaActualizacion": "2026-11-12T19:39:11Z",
+    "stars": 149468,
+    "ultimaActualizacion": "2026-11-13T20:49:45Z",
     "licencia": "MIT",
     "lenguaje": "Python",
-    "issuesAbiertos": 737,
+    "issuesAbiertos": 741,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -615,15 +547,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 168923,
-    "ultimaActualizacion": "2026-11-12T23:09:38Z",
+    "stars": 168951,
+    "ultimaActualizacion": "2026-11-13T20:58:33Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
-    "issuesAbiertos": 1082,
+    "issuesAbiertos": 1117,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -649,15 +581,15 @@
       "ia",
       "busqueda"
     ],
-    "stars": 52884,
-    "ultimaActualizacion": "2026-11-11T19:05:14Z",
+    "stars": 52894,
+    "ultimaActualizacion": "2026-11-13T20:34:33Z",
     "licencia": "MIT",
     "lenguaje": "Python",
-    "issuesAbiertos": 1373,
+    "issuesAbiertos": 1388,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -681,15 +613,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 134525,
-    "ultimaActualizacion": "2026-11-12T23:17:36Z",
+    "stars": 134863,
+    "ultimaActualizacion": "2026-11-13T20:27:51Z",
     "licencia": "MIT",
     "lenguaje": "C++",
-    "issuesAbiertos": 2582,
+    "issuesAbiertos": 2607,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -706,39 +638,6 @@
     ]
   },
   {
-    "id": "posthog",
-    "nombre": "PostHog",
-    "urlRepo": "https://github.com/PostHog/posthog",
-    "descripcion": "Analítica de producto: eventos, embudos, grabación de sesiones, feature flags y experimentos A/B.",
-    "categorias": [
-      "analitica"
-    ],
-    "stars": 40763,
-    "ultimaActualizacion": "2026-11-12T23:17:59Z",
-    "licencia": null,
-    "lenguaje": "Python",
-    "issuesAbiertos": 4466,
-    "mantenedorActivo": null,
-    "nivelMantenimiento": null,
-    "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
-    "ideas": [
-      {
-        "tipo": "sdk",
-        "disparadores": [
-          "cuando querés medir qué hacen los usuarios en tu producto"
-        ],
-        "snippet": "npm install posthog-js",
-        "stack": [
-          "javascript",
-          "python"
-        ],
-        "dificultad": "baja",
-        "revisada": false
-      }
-    ]
-  },
-  {
     "id": "plausible",
     "nombre": "Plausible Analytics",
     "urlRepo": "https://github.com/plausible/analytics",
@@ -746,15 +645,15 @@
     "categorias": [
       "analitica"
     ],
-    "stars": 29833,
-    "ultimaActualizacion": "2026-11-12T21:16:06Z",
+    "stars": 29842,
+    "ultimaActualizacion": "2026-11-13T20:22:54Z",
     "licencia": "AGPL-3.0",
     "lenguaje": "Elixir",
-    "issuesAbiertos": 53,
+    "issuesAbiertos": 54,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -781,14 +680,14 @@
       "analitica"
     ],
     "stars": 22028,
-    "ultimaActualizacion": "2026-11-12T23:20:47Z",
+    "ultimaActualizacion": "2026-11-13T18:30:04Z",
     "licencia": "GPL-3.0",
     "lenguaje": "PHP",
-    "issuesAbiertos": 2555,
+    "issuesAbiertos": 2556,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -814,15 +713,15 @@
     "categorias": [
       "analitica"
     ],
-    "stars": 40098,
+    "stars": 40120,
     "ultimaActualizacion": "2026-11-12T23:12:03Z",
     "licencia": "MIT",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 121,
+    "issuesAbiertos": 125,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -841,73 +740,6 @@
     ]
   },
   {
-    "id": "metabase",
-    "nombre": "Metabase",
-    "urlRepo": "https://github.com/metabase/metabase",
-    "descripcion": "Herramienta de inteligencia de negocio para hacer preguntas a tus datos, armar tableros y compartirlos sin escribir SQL.",
-    "categorias": [
-      "analitica"
-    ],
-    "stars": 50302,
-    "ultimaActualizacion": "2026-11-12T23:06:52Z",
-    "licencia": null,
-    "lenguaje": "Clojure",
-    "issuesAbiertos": 4708,
-    "mantenedorActivo": null,
-    "nivelMantenimiento": null,
-    "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
-    "ideas": [
-      {
-        "tipo": "docker",
-        "disparadores": [
-          "cuando el equipo necesita tableros sobre la base de producción"
-        ],
-        "snippet": "docker run -p 3000:3000 metabase/metabase",
-        "stack": [
-          "docker",
-          "java",
-          "postgresql"
-        ],
-        "dificultad": "baja",
-        "revisada": false
-      }
-    ]
-  },
-  {
-    "id": "meilisearch",
-    "nombre": "Meilisearch",
-    "urlRepo": "https://github.com/meilisearch/meilisearch",
-    "descripcion": "Motor de búsqueda rápido con tolerancia a errores de tipeo, filtros y facetas, listo para búsqueda instantánea en apps y sitios.",
-    "categorias": [
-      "busqueda"
-    ],
-    "stars": 59846,
-    "ultimaActualizacion": "2026-11-12T18:59:03Z",
-    "licencia": null,
-    "lenguaje": "Rust",
-    "issuesAbiertos": 320,
-    "mantenedorActivo": null,
-    "nivelMantenimiento": null,
-    "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
-    "ideas": [
-      {
-        "tipo": "docker",
-        "disparadores": [
-          "cuando querés búsqueda instantánea en un catálogo de productos"
-        ],
-        "snippet": "docker run -p 7700:7700 getmeili/meilisearch",
-        "stack": [
-          "docker",
-          "rest"
-        ],
-        "dificultad": "baja",
-        "revisada": false
-      }
-    ]
-  },
-  {
     "id": "typesense",
     "nombre": "Typesense",
     "urlRepo": "https://github.com/typesense/typesense",
@@ -915,15 +747,15 @@
     "categorias": [
       "busqueda"
     ],
-    "stars": 27119,
-    "ultimaActualizacion": "2026-11-11T07:58:39Z",
+    "stars": 27130,
+    "ultimaActualizacion": "2026-11-13T10:01:09Z",
     "licencia": "GPL-3.0",
     "lenguaje": "C++",
     "issuesAbiertos": 931,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -949,15 +781,15 @@
       "busqueda",
       "analitica"
     ],
-    "stars": 14004,
-    "ultimaActualizacion": "2026-11-12T20:03:25Z",
+    "stars": 14007,
+    "ultimaActualizacion": "2026-11-13T20:04:51Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 3369,
+    "issuesAbiertos": 3373,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -983,15 +815,15 @@
       "busqueda",
       "ia"
     ],
-    "stars": 35528,
-    "ultimaActualizacion": "2026-11-12T23:17:44Z",
+    "stars": 35539,
+    "ultimaActualizacion": "2026-11-13T20:54:39Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Rust",
-    "issuesAbiertos": 796,
+    "issuesAbiertos": 794,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -1017,7 +849,7 @@
     "categorias": [
       "busqueda"
     ],
-    "stars": 21377,
+    "stars": 21379,
     "ultimaActualizacion": "2026-11-10T19:05:33Z",
     "licencia": "MPL-2.0",
     "lenguaje": "Rust",
@@ -1025,7 +857,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-12T23:30:00Z",
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -1036,6 +868,3819 @@
         "stack": [
           "docker",
           "rust"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "logto",
+    "nombre": "Logto",
+    "urlRepo": "https://github.com/logto-io/logto",
+    "descripcion": "🧑‍🚀 Authentication and authorization infrastructure for SaaS and AI apps, built on OIDC and OAuth 2.1 with multi-tenancy, SSO, and RBAC.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 14929,
+    "ultimaActualizacion": "2026-11-13T09:00:25Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 130,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un usuario",
+          "al iniciar sesión"
+        ],
+        "snippet": "import { LogtoClient } from 'logto-io';\nconst client = new LogtoClient('https://localhost:3000');",
+        "stack": [
+          "typescript",
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al iniciar sesión",
+          "cuando se intenta acceder a un recurso protegido"
+        ],
+        "snippet": "curl -X POST 'http://localhost:3000/api/v1/auth/login' -H 'Content-Type: application/json' -d '{\"username\":\"john\",\"password\":\"123456\"}'",
+        "stack": [
+          "node",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "zitadel",
+    "nombre": "ZITADEL",
+    "urlRepo": "https://github.com/zitadel/zitadel",
+    "descripcion": "ZITADEL - Identity infrastructure, simplified for you.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 15575,
+    "ultimaActualizacion": "2026-11-13T14:14:52Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 1380,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un usuario",
+          "al iniciar sesión"
+        ],
+        "snippet": "import \"github.com/zitadel/zitadel/pkg/sdk\"\n\nfunc main() {\n\tclient := sdk.NewClient(\"https://localhost:8080\")\n\t// Utilizar el cliente para interactuar con ZITADEL\n}",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al crear un nuevo usuario",
+          "cuando se intenta iniciar sesión"
+        ],
+        "snippet": "curl -X POST \\\n  http://localhost:8080/users \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"username\": \"johnDoe\", \"password\": \"holaMundo\"}'",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "casdoor",
+    "nombre": "Casdoor",
+    "urlRepo": "https://github.com/casdoor/casdoor",
+    "descripcion": "An open-source Agent-first Identity and Access Management (IAM) /LLM MCP & agent gateway and auth server with web UI supporting OpenClaw, MCP, OAuth, OIDC, SAML, CAS, LDAP, SCIM, WebAuthn, TOTP, MFA, Face ID, Google Workspace, Azure AD",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 14844,
+    "ultimaActualizacion": "2026-11-11T11:37:17Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 102,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se inicia la sesión",
+          "al intentar acceder a un recurso protegido"
+        ],
+        "snippet": "import casdoor\n# Inicializar el SDK con tu instancia de Casdoor\ncd = casdoor.Casdoor()\n# Verificar si la sesión está iniciada\ncd.is_authenticated()",
+        "stack": [
+          "go",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se intenta acceder a un recurso protegido",
+          "al intentar realizar una acción no autorizada"
+        ],
+        "snippet": "curl -X GET 'http://localhost:8080/api/v1/user'\n# Verificar si la sesión está iniciada y obtener el token de acceso\ncurl -X POST 'http://localhost:8080/api/v1/login' -H 'Content-Type: application/json' -d '{",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "hydra",
+    "nombre": "Ory Hydra",
+    "urlRepo": "https://github.com/ory/hydra",
+    "descripcion": "Internet-scale OpenID Certified™ OpenID Connect and OAuth2.1 provider that integrates with your user management through headless APIs. Solve OIDC/OAuth2 user cases over night. Consume as a service on Ory Network or self-host. Trusted by OpenAI and many others for scale and security. Written in Go.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 17663,
+    "ultimaActualizacion": "2026-07-29T09:30:11Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 91,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando un usuario se registra",
+          "al iniciar sesión"
+        ],
+        "snippet": "curl -X POST 'http://localhost:4444/oauth2/token' -H 'Content-Type: application/json' -d '{",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando un usuario intenta acceder a una aplicación protegida"
+        ],
+        "snippet": "import (\"github.com/ory/hydra/client\")\nhydra := client.NewClient(\",",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "better-auth",
+    "nombre": "Better Auth",
+    "urlRepo": "https://github.com/better-auth/better-auth",
+    "descripcion": "The most comprehensive authentication framework",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 30740,
+    "ultimaActualizacion": "2026-11-13T19:11:00Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 969,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se inicia la aplicación",
+          "al intentar acceder a un recurso protegido"
+        ],
+        "snippet": "import { BetterAuth } from 'better-auth';\nconst auth = new BetterAuth();\nauth.init();",
+        "stack": [
+          "typescript",
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al intentar registrarse",
+          "cuando se olvida la contraseña"
+        ],
+        "snippet": "curl -X POST http://localhost:3000/auth/register\n- H 'Content-Type: application/json'\n- d '{\"username\":\"john\",\"password\":\"123456\"}'",
+        "stack": [
+          "node",
+          "express"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "dex",
+    "nombre": "Dex",
+    "urlRepo": "https://github.com/dexidp/dex",
+    "descripcion": "OpenID Connect (OIDC) identity and OAuth 2.0 provider with pluggable connectors",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 11257,
+    "ultimaActualizacion": "2026-11-13T11:15:40Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 534,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se inicia la aplicación",
+          "al recibir un token OIDC"
+        ],
+        "snippet": "import \"github.com/dexidp/dex\"\ndex := dex.New()\nerr := dex.Init(dex.Config{...})\nif err != nil { log.Fatal(err) }",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al recibir una solicitud de autenticación",
+          "cuando se intenta acceder a un recurso protegido"
+        ],
+        "snippet": "curl -X POST \nhttp://localhost:5555/auth \n-H 'Content-Type: application/json' \n-d '{...}'",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "hanko",
+    "nombre": "Hanko",
+    "urlRepo": "https://github.com/teamhanko/hanko",
+    "descripcion": "Modern authentication, on your terms. Open source alternative to Auth0, Clerk, WorkOS, Stytch.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 9072,
+    "ultimaActualizacion": "2026-11-13T15:03:13Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 74,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al iniciar la aplicación",
+          "cuando se requiere autenticar un usuario"
+        ],
+        "snippet": "import \"github.com/teamhanko/hanko/sdk\"\n\n// Inicializar el SDK con tu ID de cliente y secreto de cliente\nclient := hanko.NewClient(\"TU_ID_CLIENTE\", \"TU_SECRETO_CLIENTE\")\n\n// Autenticar un usuario\ntoken, err := client.Authenticate(\"correo@electronico.com\", \"contraseña\")",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al crear una cuenta",
+          "cuando se intenta acceder a un recurso protegido"
+        ],
+        "snippet": "curl -X POST \\\n  http://localhost:3000/auth/login \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"correo\": \"correo@electronico.com\", \"contraseña\": \"contraseña\"}'",
+        "stack": [
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "oauth2-proxy",
+    "nombre": "OAuth2 Proxy",
+    "urlRepo": "https://github.com/oauth2-proxy/oauth2-proxy",
+    "descripcion": "A reverse proxy that provides authentication with Google, Azure, OpenID Connect and many more identity providers.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 15369,
+    "ultimaActualizacion": "2026-11-08T19:26:49Z",
+    "licencia": "MIT",
+    "lenguaje": "Go",
+    "issuesAbiertos": 287,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se requiera autenticar un usuario"
+        ],
+        "snippet": "docker run -p 8080:80 oauth2-proxy/oauth2-proxy",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se requiera autenticar un usuario",
+          "al iniciar el servicio"
+        ],
+        "snippet": "import \"github.com/oauth2-proxy/oauth2-proxy-go\"\nproxy := oauth2.NewProxy()\nproxy.Start(\"localhost:8080\")",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "pocket-id",
+    "nombre": "Pocket ID",
+    "urlRepo": "https://github.com/pocket-id/pocket-id",
+    "descripcion": "The most user-friendly OpenID Connect Certified™ and OAuth 2.0 provider that lets users sign in to your applications with passkeys.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 10295,
+    "ultimaActualizacion": "2026-11-13T20:02:57Z",
+    "licencia": "BSD-2-Clause",
+    "lenguaje": "Go",
+    "issuesAbiertos": 90,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando un usuario intenta acceder a la aplicación"
+        ],
+        "snippet": "import \"github.com/pocket-id/pocket-id/sdk\"\n\n// Inicializar el cliente con tu ID de cliente y secreto de cliente\nclient := sdk.NewClient(\"TU_ID_CLIENTE\", \"TU_SECRETO_CLIENTE\")\n\n// Verificar si un usuario está conectado\nif client.IsAuthenticated() {\n    // El usuario está conectado, puedes acceder a sus datos\n}",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al recibir una solicitud de autenticación"
+        ],
+        "snippet": "curl -X POST \\\n  http://localhost:8080/oauth/token \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  -d 'grant_type=authorization_code&code=TU_CODIGO_DE_AUTENTICACION'",
+        "stack": [
+          "http"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "jose",
+    "nombre": "jose",
+    "urlRepo": "https://github.com/panva/jose",
+    "descripcion": "JWA, JWS, JWE, JWT, JWK, JWKS for Node.js, Browser, Cloudflare Workers, Deno, Bun, and other Web-interoperable runtimes",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 7881,
+    "ultimaActualizacion": "2026-11-12T14:14:59Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 0,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesite firmar un JWT",
+          "al generar un token de acceso"
+        ],
+        "snippet": "import { JWS } from 'jose'; const payload = { ... }; const signature = await JWS.sign(payload, key);",
+        "stack": [
+          "node",
+          "typescript"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al recibir una solicitud de autenticación",
+          "cuando se necesite verificar un token JWT"
+        ],
+        "snippet": "const express = require('express'); const app = express(); app.post('/auth', (req, res) => { ... });",
+        "stack": [
+          "node",
+          "javascript"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "casbin",
+    "nombre": "Casbin",
+    "urlRepo": "https://github.com/apache/casbin",
+    "descripcion": "Apache Casbin: an authorization library that supports access control models like ACL, RBAC, ABAC.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 20495,
+    "ultimaActualizacion": "2026-11-04T17:03:34Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 42,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo usuario",
+          "al iniciar sesión"
+        ],
+        "snippet": "import casbin \"github.com/apache/casbin\"\ncb := NewCasbin()\nerr := cb.LoadPolicyFromFile(\"policy.csv\")\nif err != nil {\n    panic(err)\n}",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se intenta acceder a un recurso protegido",
+          "al realizar una solicitud HTTP"
+        ],
+        "snippet": "func main() {\n    r := gin.Default()\n    cb := NewCasbin()\n    r.GET(\"/protected\", func(c *gin.Context) {\n        // lógica para verificar permisos\n    })\n}",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "openfga",
+    "nombre": "OpenFGA",
+    "urlRepo": "https://github.com/openfga/openfga",
+    "descripcion": "A high-performance and flexible authorization/permission engine built for developers and inspired by Google Zanzibar.",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 6141,
+    "ultimaActualizacion": "2026-11-13T18:57:26Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 255,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un usuario",
+          "al iniciar sesión"
+        ],
+        "snippet": "import \"github.com/openfga/openfga/sdk\"\nclient := openfga.NewClient(\"localhost:8080\")\nerr := client.CreateUser(ctx, \"user1\", \"password123\")",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al intentar acceder a un recurso protegido",
+          "cuando se modifica la política de autorización"
+        ],
+        "snippet": "curl -X POST http://localhost:8080/authorize\ndata='{\\",
+        "stack": [
+          "http"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "spicedb",
+    "nombre": "SpiceDB",
+    "urlRepo": "https://github.com/authzed/spicedb",
+    "descripcion": "Open Source, Google Zanzibar-inspired database for scalably storing and querying fine-grained authorization data",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 7216,
+    "ultimaActualizacion": "2026-11-13T17:20:15Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 183,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo usuario",
+          "al realizar una solicitud a la API"
+        ],
+        "snippet": "import \"github.com/authzed/spicedb-go/spicedb\"\nspicedb := spicedb.NewClient(\"localhost:8080\")\nerr := spicedb.CreateUser(context.Background(), \"john_doe\", \"role1\")",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al realizar una solicitud a la API",
+          "cuando se crea un nuevo usuario"
+        ],
+        "snippet": "curl -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{\"name\": \"john_doe\", \"role\": \"role1\"}'",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "drizzle-orm",
+    "nombre": "Drizzle ORM",
+    "urlRepo": "https://github.com/drizzle-team/drizzle-orm",
+    "descripcion": "ORM",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 36274,
+    "ultimaActualizacion": "2026-11-13T18:11:33Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 2054,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un modelo",
+          "al conectar a la base de datos"
+        ],
+        "snippet": "import { DrizzleORM } from 'drizzle-orm';\nconst orm = new DrizzleORM();\nawait orm.connect('localhost:5432');",
+        "stack": [
+          "typescript",
+          "node"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al crear un nuevo modelo",
+          "cuando se actualiza una entidad"
+        ],
+        "snippet": "const express = require('express');\nconst app = express();\napp.post('/models', (req, res) => {\n    const model = req.body;\n    // Procesar el modelo y guardar en la base de datos\n});",
+        "stack": [
+          "node",
+          "express"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "typeorm",
+    "nombre": "TypeORM",
+    "urlRepo": "https://github.com/typeorm/typeorm",
+    "descripcion": "TypeScript & JavaScript ORM for Node.js — supports PostgreSQL, MySQL, MariaDB, SQLite, SQL Server, Oracle, and more.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 36672,
+    "ultimaActualizacion": "2026-11-12T12:06:28Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 744,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al crear un modelo",
+          "cuando se conecta a una base de datos"
+        ],
+        "snippet": "import { Entity, Column } from 'typeorm';\n\n@Entity()\nclass Usuario {\n  @Column()\n  nombre: string;\n}\n\nconst usuario = new Usuario();",
+        "stack": [
+          "node",
+          "typescript"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al realizar una consulta SQL",
+          "cuando se crea un nuevo registro en la base de datos"
+        ],
+        "snippet": "const app = express();\napp.use(TypeOrmExpressMiddleware);\n\nconst conectarBD = async () => {\n  const conn = await createConnection();\n  return conn;\n};",
+        "stack": [
+          "node",
+          "typescript"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "sequelize",
+    "nombre": "Sequelize",
+    "urlRepo": "https://github.com/sequelize/sequelize",
+    "descripcion": "Feature-rich ORM for modern Node.js and TypeScript, it supports PostgreSQL (with JSON and JSONB support), MySQL, MariaDB, SQLite, MS SQL Server, Snowflake, Oracle DB, DB2 and DB2 for IBM i.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 30348,
+    "ultimaActualizacion": "2026-11-12T01:32:04Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 1114,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un modelo",
+          "al conectar a la base de datos"
+        ],
+        "snippet": "const Sequelize = require('sequelize'); const sequelize = new Sequelize('database', 'username', 'password', { host: 'localhost', dialect: 'mysql' });",
+        "stack": [
+          "node",
+          "typescript"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se crea un registro",
+          "al actualizar un modelo"
+        ],
+        "snippet": "const express = require('express'); const app = express(); const sequelize = new Sequelize('database', 'username', 'password', { host: 'localhost', dialect: 'mysql' }); app.get('/users', async (req, res) => { const users = await User.findAll(); res.json(users); });",
+        "stack": [
+          "node",
+          "typescript"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "neon",
+    "nombre": "Neon",
+    "urlRepo": "https://github.com/neondatabase/neon",
+    "descripcion": "Neon: Serverless Postgres. We separated storage and compute to offer autoscaling, code-like database branching, and scale to zero.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 23330,
+    "ultimaActualizacion": "2026-08-31T11:03:14Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 590,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al crear una base de datos",
+          "cuando se necesita escalabilidad"
+        ],
+        "snippet": "docker run -p 5432:5432 neon/neon",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al conectar a la base de datos",
+          "cuando se necesita programación en Rust"
+        ],
+        "snippet": "import { Client } from 'neon'; const client = new Client();",
+        "stack": [
+          "rust",
+          "node"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "libsql",
+    "nombre": "libSQL",
+    "urlRepo": "https://github.com/tursodatabase/libsql",
+    "descripcion": "libSQL is a fork of SQLite that is both Open Source, and Open Contributions.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 17326,
+    "ultimaActualizacion": "2026-11-07T09:15:44Z",
+    "licencia": "MIT",
+    "lenguaje": "C",
+    "issuesAbiertos": 486,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se conecte a una base de datos",
+          "al crear un nuevo registro"
+        ],
+        "snippet": "import libsql\nconn = libsql.connect('database.db')\nconn.execute('CREATE TABLE users (name TEXT, email TEXT)')",
+        "stack": [
+          "c",
+          "sqlite"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al realizar una consulta SQL",
+          "cuando se inserten nuevos datos"
+        ],
+        "snippet": "libsql.connect('database.db').execute('SELECT * FROM users')\nprint(libsql.connect('database.db').fetchall())",
+        "stack": [
+          "c",
+          "sqlite"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "cassandra",
+    "nombre": "Apache Cassandra",
+    "urlRepo": "https://github.com/apache/cassandra",
+    "descripcion": "Open source transactional distributed database. Linear scalability and proven fault-tolerance on commodity hardware or cloud infrastructure without compromising performance.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 10151,
+    "ultimaActualizacion": "2026-11-13T16:43:44Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 590,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se conecte a la base de datos"
+        ],
+        "snippet": "docker run -d --name cassandra apache/cassandra:latest",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al conectar un cliente a la base de datos",
+          "cuando se realice una consulta"
+        ],
+        "snippet": "import org.apache.cassandra.concurrent.CancellableTask; // Importar el SDK oficial",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "clickhouse",
+    "nombre": "ClickHouse",
+    "urlRepo": "https://github.com/ClickHouse/ClickHouse",
+    "descripcion": "ClickHouse® is a real-time analytics database management system",
+    "categorias": [
+      "base-de-datos",
+      "analitica"
+    ],
+    "stars": 50916,
+    "ultimaActualizacion": "2026-11-13T20:59:27Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "C++",
+    "issuesAbiertos": 9054,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al insertar un nuevo registro",
+          "cuando se actualice una tabla"
+        ],
+        "snippet": "curl -X POST 'http://localhost:8123/query' -H 'Content-Type: application/json' -d '{\"query\": \"SELECT * FROM mytable\"}'",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor de ClickHouse",
+          "cuando se reinicie el servidor"
+        ],
+        "snippet": "docker run -p 8123:8123 --name clickhouse -d clickhouse/clickhouse-server",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "etcd",
+    "nombre": "etcd",
+    "urlRepo": "https://github.com/etcd-io/etcd",
+    "descripcion": "Distributed reliable key-value store for the most critical data of a distributed system",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 52603,
+    "ultimaActualizacion": "2026-11-13T15:35:08Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 466,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se crea un nuevo registro"
+        ],
+        "snippet": "docker run -d --name etcd etcdio/etcd:latest",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo registro",
+          "al iniciar el contenedor"
+        ],
+        "snippet": "import (\n    \"github.com/coreos/etcd/client\"\n)\n\nfunc main() {\n    client, err := client.NewClient(\"localhost:2379\")\n    if err != nil {\n        panic(err)\n    }\n}",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "vitess",
+    "nombre": "Vitess",
+    "urlRepo": "https://github.com/vitessio/vitess",
+    "descripcion": "Vitess is a database clustering system for horizontal scaling of MySQL.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 21419,
+    "ultimaActualizacion": "2026-11-13T20:16:42Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 1153,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se inicie el contenedor",
+          "al conectar un cliente a la base de datos"
+        ],
+        "snippet": "docker run -p 8080:8080 vitess/vitess:v1.10.2",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al crear un nuevo modelo de datos",
+          "cuando se requiera la escalabilidad de una base de datos MySQL"
+        ],
+        "snippet": "import \"github.com/vitessio/vitess/go/vt/gateway\"",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "questdb",
+    "nombre": "QuestDB",
+    "urlRepo": "https://github.com/questdb/questdb",
+    "descripcion": "QuestDB is a high performance, open-source, time-series database",
+    "categorias": [
+      "base-de-datos",
+      "analitica"
+    ],
+    "stars": 17528,
+    "ultimaActualizacion": "2026-11-13T20:24:23Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 1474,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se crea un contenedor",
+          "al iniciar el servidor"
+        ],
+        "snippet": "docker run -p 8010:8080 questdb/questdb",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un objeto de conexión",
+          "al insertar datos en la base de datos"
+        ],
+        "snippet": "import com.questdb.cairo.QueryConfiguration; QueryConfiguration config = new QueryConfiguration();",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "postgrest",
+    "nombre": "PostgREST",
+    "urlRepo": "https://github.com/PostgREST/postgrest",
+    "descripcion": "REST API for any Postgres database",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 27757,
+    "ultimaActualizacion": "2026-11-13T18:35:45Z",
+    "licencia": "MIT",
+    "lenguaje": "Haskell",
+    "issuesAbiertos": 411,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se necesita una API REST para una base de datos PostgreSQL",
+          "al crear un nuevo proyecto con base de datos"
+        ],
+        "snippet": "docker run -p 3000:3000 postgrest/postgrest --db-host=localhost --db-port=5432",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesita interactuar con una base de datos PostgreSQL desde un lenguaje Haskell",
+          "al desarrollar una aplicación que requiere acceso a una base de datos"
+        ],
+        "snippet": "import Database.PostgreSQL (connect, query)",
+        "stack": [
+          "haskell"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "kysely",
+    "nombre": "Kysely",
+    "urlRepo": "https://github.com/kysely-org/kysely",
+    "descripcion": "A type-safe TypeScript SQL query builder",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 14353,
+    "ultimaActualizacion": "2026-11-13T15:40:54Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 201,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al crear una API RESTful",
+          "cuando se necesita ofrecer acceso a la base de datos"
+        ],
+        "snippet": "const express = require('express');\nconst app = express();\napp.get('/users', (req, res) => {\ndb.select('*').from('users').execute().then(resultados => res.json(resultados));});",
+        "stack": [
+          "node",
+          "express"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "garnet",
+    "nombre": "Garnet",
+    "urlRepo": "https://github.com/microsoft/garnet",
+    "descripcion": "Garnet is a remote cache-store from Microsoft Research that offers strong performance (throughput and latency), scalability, storage, recovery, cluster sharding, key migration, and replication features. Garnet can work with existing Redis clients.",
+    "categorias": [
+      "base-de-datos"
+    ],
+    "stars": 12091,
+    "ultimaActualizacion": "2026-11-13T21:00:40Z",
+    "licencia": "MIT",
+    "lenguaje": "C#",
+    "issuesAbiertos": 99,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se inicie el contenedor",
+          "al recibir un nuevo dato"
+        ],
+        "snippet": "docker run -d --name garnet -p 6379:6379 microsoft/garnet",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se conecte un cliente Redis",
+          "al intentar escribir en la cache"
+        ],
+        "snippet": "using Microsoft.Garnet; var client = new GarnetClient(); client.Connect(\"localhost\");",
+        "stack": [
+          "csharp"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "btcpayserver",
+    "nombre": "BTCPay Server",
+    "urlRepo": "https://github.com/btcpayserver/btcpayserver",
+    "descripcion": "Accept Bitcoin payments. Free, open-source & self-hosted, Bitcoin payment processor. ",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 7920,
+    "ultimaActualizacion": "2026-11-12T18:25:40Z",
+    "licencia": "MIT",
+    "lenguaje": "C#",
+    "issuesAbiertos": 81,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo pedido",
+          "al recibir una notificación de pago"
+        ],
+        "snippet": "Install-Package btcpayserver\nusing (var client = new BtcpayClient(\"http://localhost:8080\"))\n{...}",
+        "stack": [
+          "c#"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "saleor",
+    "nombre": "Saleor",
+    "urlRepo": "https://github.com/saleor/saleor",
+    "descripcion": "Saleor Core: the high performance, composable, headless commerce API.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 23571,
+    "ultimaActualizacion": "2026-11-13T17:47:33Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "Python",
+    "issuesAbiertos": 307,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo producto",
+          "al realizar una venta"
+        ],
+        "snippet": "import saleor\nsaleor.api.Product.objects.create(name='Nuevo Producto', price=10.99)\n# o\nsaleor.api.Order.objects.create(total_amount=100, currency_code='USD')",
+        "stack": [
+          "python",
+          "django"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al recibir un pago exitoso",
+          "cuando se actualiza la información de un cliente"
+        ],
+        "snippet": "curl -X POST 'http://localhost:8000/graphql' \\\n  -H 'Content-Type: application/json' \\\n  -d '{",
+        "stack": [
+          "node",
+          "graphql"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "spree",
+    "nombre": "Spree Commerce",
+    "urlRepo": "https://github.com/spree/spree",
+    "descripcion": "Open Source Platform for DTC, B2B Commerce, Marketplaces & Omnichannel. REST APIs, TypeScript SDKs, and production-ready Next.js storefront. Self-host it. Own your data. No vendor lock-in. Zero platform fees.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 15835,
+    "ultimaActualizacion": "2026-11-13T19:45:04Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "Ruby",
+    "issuesAbiertos": 214,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se crea un nuevo pedido",
+          "al realizar una transacción"
+        ],
+        "snippet": "curl -X POST https://localhost:3000/api/orders.json -H 'Content-Type: application/json' -d '{\"order\":{\"line_items\":[{\"product_id\":1,\"quantity\":2}]}'}",
+        "stack": [
+          "ruby",
+          "rails"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesita integrar pagos en una aplicación de Ruby"
+        ],
+        "snippet": "require 'spree_api_client'\nclient = SpreeApiClient.new('https://localhost:3000')\nclient.order.create(line_items:[{product_id: 1, quantity: 2}])",
+        "stack": [
+          "ruby",
+          "rails"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "openmeter",
+    "nombre": "OpenMeter",
+    "urlRepo": "https://github.com/openmeterio/openmeter",
+    "descripcion": "Metering and Billing for AI, API and DevOps. Collect and aggregate millions of usage events in real-time and enable usage-based billing.",
+    "categorias": [
+      "pagos",
+      "analitica"
+    ],
+    "stars": 2445,
+    "ultimaActualizacion": "2026-11-13T19:17:57Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 79,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "Cuando se crea un nuevo pago",
+          "Al recibir una notificación de uso"
+        ],
+        "snippet": "import \"github.com/openmeterio/openmeter\"\nclient := openmeter.NewClient(\"https://localhost:8080\")\nerr := client.CreatePayment(payment)\nif err != nil {\n    log.Println(err)\n}",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "Cuando se recibe un evento de uso",
+          "Al realizar una consulta de pagos"
+        ],
+        "snippet": "curl -X POST \\\n  http://localhost:8080/api/v1/events \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"event\": \"usage\", \"data\": {\"usage\": 10}}'",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "stripe-python",
+    "nombre": "Stripe Python",
+    "urlRepo": "https://github.com/stripe/stripe-python",
+    "descripcion": "Python library for the Stripe API.    ",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 2060,
+    "ultimaActualizacion": "2026-11-13T20:57:45Z",
+    "licencia": "MIT",
+    "lenguaje": "Python",
+    "issuesAbiertos": 36,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo cliente",
+          "al realizar una transacción"
+        ],
+        "snippet": "from stripe import Stripe\nstripe = Stripe('YOUR_API_KEY')\nstripe.Customer.create(name='John Doe', email='john@example.com')",
+        "stack": [
+          "python",
+          "stripe"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se recibe un pago",
+          "al consultar el estado de una transacción"
+        ],
+        "snippet": "import requests\nresponse = requests.get('http://localhost:8000/customers')\nprint(response.json())",
+        "stack": [
+          "python",
+          "flask"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "stripe-go",
+    "nombre": "Stripe Go",
+    "urlRepo": "https://github.com/stripe/stripe-go",
+    "descripcion": "Go library for the Stripe API.    ",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 2652,
+    "ultimaActualizacion": "2026-11-13T20:54:47Z",
+    "licencia": "MIT",
+    "lenguaje": "Go",
+    "issuesAbiertos": 13,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo pago",
+          "al recibir una notificación de Stripe"
+        ],
+        "snippet": "import \"github.com/stripe/stripe-go\"\nstripe.Key = \"YOUR_STRIPE_SECRET_KEY\"\nstripe.Init()\npayment := stripe.PaymentIntentCreate(map[string]interface{}{\n  \"amount\": 1000,\n  \"currency\": \"usd\",\n})",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "mollie-api-php",
+    "nombre": "Mollie API PHP",
+    "urlRepo": "https://github.com/mollie/mollie-api-php",
+    "descripcion": "Mollie API client for PHP",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 605,
+    "ultimaActualizacion": "2026-11-04T19:50:03Z",
+    "licencia": "BSD-2-Clause",
+    "lenguaje": "PHP",
+    "issuesAbiertos": 0,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se realiza un pago",
+          "al recibir una notificación de Mollie"
+        ],
+        "snippet": "require_once 'vendor/autoload.php'; $mollie = new \ninecordero\\MollieAPI();",
+        "stack": [
+          "php",
+          "composer"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al recibir un pago exitoso",
+          "cuando se produce un error en el proceso de pago"
+        ],
+        "snippet": "curl -X GET 'http://localhost:8000/pagos'",
+        "stack": [
+          "node",
+          "express"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "adyen-node",
+    "nombre": "Adyen Node.js",
+    "urlRepo": "https://github.com/Adyen/adyen-node-api-library",
+    "descripcion": "Adyen API Library for Node.js",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 139,
+    "ultimaActualizacion": "2026-11-13T11:22:24Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 31,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesite realizar un pago",
+          "al conectar la cuenta Adyen"
+        ],
+        "snippet": "const adyen = require('adyen-node-api-library');\nconst client = new adyen.Client('YOUR_API_KEY', 'YOUR_API_SECRET');",
+        "stack": [
+          "node"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al recibir un pedido de pago",
+          "cuando se necesite verificar el estado de un pago"
+        ],
+        "snippet": "const express = require('express');\nconst app = express();\napp.get('/pago', (req, res) => {\n  const api_key = 'YOUR_API_KEY';\n  const api_secret = 'YOUR_API_SECRET';\n  // Llamar a la API de Adyen\n});",
+        "stack": [
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "omnipay",
+    "nombre": "Omnipay",
+    "urlRepo": "https://github.com/thephpleague/omnipay",
+    "descripcion": "A framework agnostic, multi-gateway payment processing library for PHP 5.6+",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 6067,
+    "ultimaActualizacion": "2026-07-10T22:16:37Z",
+    "licencia": "MIT",
+    "lenguaje": "PHP",
+    "issuesAbiertos": 113,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "Cuando se necesita procesar un pago",
+          "Al realizar una transacción"
+        ],
+        "snippet": "require 'vendor/autoload.php'; use Omnipay\\Omnipay; $gateway = Omnipay::create('PayPal_Express');",
+        "stack": [
+          "php"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "Al recibir un pago",
+          "Cuando se necesita verificar el estado de una transacción"
+        ],
+        "snippet": "curl -X GET 'http://localhost:8000/pagos/estado/{id}'",
+        "stack": [
+          "node",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "lnd",
+    "nombre": "LND (Lightning Network Daemon)",
+    "urlRepo": "https://github.com/lightningnetwork/lnd",
+    "descripcion": "Lightning Network Daemon ⚡️",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 8217,
+    "ultimaActualizacion": "2026-11-13T14:12:46Z",
+    "licencia": "MIT",
+    "lenguaje": "Go",
+    "issuesAbiertos": 919,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se recibe un pago",
+          "al conectar a la red Lightning"
+        ],
+        "snippet": "import lnd \"github.com/lightningnetwork/lnd/lnrpc\"\nclient := lnd.NewClient(\"localhost:8080\")\nclient.Connect()\npago := client.SendPayment(context.Background(), &lnd.PaymentRequest{...})",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al enviar un pago",
+          "cuando se conecta a la red Lightning"
+        ],
+        "snippet": "curl -X POST http://localhost:8080/v1/lnrpc/Paymentservice/SendPayment\ndata='{\\",
+        "stack": [
+          "node",
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "active-merchant",
+    "nombre": "Active Merchant",
+    "urlRepo": "https://github.com/activemerchant/active_merchant",
+    "descripcion": "Active Merchant is a simple payment abstraction library extracted from Shopify. The aim of the project is to feel natural to Ruby users and to abstract as many parts as possible away from the user to offer a consistent interface across all supported gateways.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 4603,
+    "ultimaActualizacion": "2026-10-22T00:23:49Z",
+    "licencia": "MIT",
+    "lenguaje": "Ruby",
+    "issuesAbiertos": 37,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesita procesar un pago",
+          "al conectar una nueva tienda en línea"
+        ],
+        "snippet": "require 'active_merchant'\nActiveMerchant::Gateway.new(:test => true)",
+        "stack": [
+          "ruby"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "sylius",
+    "nombre": "Sylius",
+    "urlRepo": "https://github.com/Sylius/Sylius",
+    "descripcion": "Headless open-source eCommerce platform on top of PHP/Symfony/API Platform",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 8571,
+    "ultimaActualizacion": "2026-11-13T18:55:42Z",
+    "licencia": "MIT",
+    "lenguaje": "PHP",
+    "issuesAbiertos": 250,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un pedido",
+          "al realizar una transacción"
+        ],
+        "snippet": "require_once 'vendor/autoload.php';\nuse Sylius\\Bundle\\Framework\\Bundle\\Client\\Client;\n$client = new Client('https://localhost:8000');",
+        "stack": [
+          "php",
+          "symfony"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al realizar una consulta de inventario",
+          "cuando se actualiza un producto"
+        ],
+        "snippet": "curl -X GET 'https://localhost:8000/api/products'",
+        "stack": [
+          "php",
+          "symfony"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "bagisto",
+    "nombre": "Bagisto",
+    "urlRepo": "https://github.com/bagisto/bagisto",
+    "descripcion": "Open Source eCommerce & Multi-Vendor Marketplace Platform Built with Laravel for Enterprise-Scale Commerce, Supporting 10M+ SKUs",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 28369,
+    "ultimaActualizacion": "2026-11-12T12:23:16Z",
+    "licencia": "MIT",
+    "lenguaje": "PHP",
+    "issuesAbiertos": 29,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo producto",
+          "al realizar una venta"
+        ],
+        "snippet": "composer require bagisto/bagisto\nuse Bagisto\\App\\Services\\ProductService;",
+        "stack": [
+          "laravel",
+          "php"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "al realizar un pago exitoso",
+          "cuando se actualiza la información de un cliente"
+        ],
+        "snippet": "curl -X POST \\\n  http://localhost:8000/api/webhooks/pago-exitoso \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"id\": \"12345\", \"monto\": 100.00}'",
+        "stack": [
+          "laravel",
+          "php"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "vllm",
+    "nombre": "vLLM",
+    "urlRepo": "https://github.com/vllm-project/vllm",
+    "descripcion": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 96870,
+    "ultimaActualizacion": "2026-11-13T20:36:09Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 10326,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se reciba un nuevo modelo"
+        ],
+        "snippet": "docker run -p 5000:5000 vllm-project/vllm",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesite realizar una inferencia",
+          "al conectar un nuevo modelo"
+        ],
+        "snippet": "from vllm import VLLM\nmodel = VLLM()\nmodel.load_model('mi_modelo')\ninferencia = model.inferencia(input_data)",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "diffusers",
+    "nombre": "Diffusers",
+    "urlRepo": "https://github.com/huggingface/diffusers",
+    "descripcion": "🤗 Diffusers: State-of-the-art diffusion models for image, video, and audio generation in PyTorch.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 34918,
+    "ultimaActualizacion": "2026-11-13T20:11:34Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 1587,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se requiera generar imágenes con un modelo de difusión"
+        ],
+        "snippet": "import diffusers\nmodel = diffusers.DDPMScheduler.from_pretrained('CompVis/diffusion/ddpm')\nimage = model.generate(input_ids=[1, 2, 3])",
+        "stack": [
+          "python",
+          "pytorch"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al ejecutar un comando de generación de imágenes en una aplicación web"
+        ],
+        "snippet": "docker run -p 5000:5000 diffusers/diffusion:latest python app.py",
+        "stack": [
+          "docker",
+          "pytorch"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "keras",
+    "nombre": "Keras",
+    "urlRepo": "https://github.com/keras-team/keras",
+    "descripcion": "Deep Learning for humans",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 64424,
+    "ultimaActualizacion": "2026-11-13T20:38:29Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 240,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesita entrenar un modelo de IA",
+          "al crear una aplicación con inteligencia artificial"
+        ],
+        "snippet": "import keras\nfrom keras.datasets import mnist\nmnist.load_data()",
+        "stack": [
+          "python",
+          "keras"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al crear un entorno de desarrollo para Deep Learning",
+          "cuando se necesita ejecutar un modelo de Keras en producción"
+        ],
+        "snippet": "docker run -p 8888:8888 keras-team/keras\njupyter notebook --port=8888",
+        "stack": [
+          "docker",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "crewai",
+    "nombre": "CrewAI",
+    "urlRepo": "https://github.com/crewAIInc/crewAI",
+    "descripcion": "Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 60861,
+    "ultimaActualizacion": "2026-11-13T18:43:21Z",
+    "licencia": "MIT",
+    "lenguaje": "Python",
+    "issuesAbiertos": 1262,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se inicie la aplicación",
+          "al recibir un evento"
+        ],
+        "snippet": "import crewai\nfrom crewai import Agent, Environment\ncrewai.init()\nagent = Agent()\nenvironment = Environment()\nagent.start(environment)",
+        "stack": [
+          "python",
+          "crewai"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se conecte un cliente"
+        ],
+        "snippet": "docker run -p 8080:8080 crewai/crewai:latest\nhttp://localhost:8080/api/v1/agents",
+        "stack": [
+          "docker",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "haystack",
+    "nombre": "Haystack",
+    "urlRepo": "https://github.com/deepset-ai/haystack",
+    "descripcion": "Open-source AI orchestration framework for building context-engineered, production-ready LLM applications. Design modular pipelines and agent workflows with explicit control over retrieval, routing, memory, and generation. Built for scalable agents, RAG, multimodal applications, semantic search, and conversational systems.",
+    "categorias": [
+      "ia",
+      "busqueda"
+    ],
+    "stars": 27003,
+    "ultimaActualizacion": "2026-11-13T12:05:35Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 145,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo documento",
+          "al recibir una solicitud de búsqueda"
+        ],
+        "snippet": "import haystack\nfrom haystack.document_store import DocumentStore\ndocument_store = DocumentStore()\ndocument_store.write_documents([{'text': 'Este es un ejemplo'}])",
+        "stack": [
+          "python",
+          "haystack"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se necesita una aplicación de búsqueda"
+        ],
+        "snippet": "docker run -p 8000:8000 haystack/haystack\nhttp://localhost:8000/",
+        "stack": [
+          "docker",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "mlflow",
+    "nombre": "MLflow",
+    "urlRepo": "https://github.com/mlflow/mlflow",
+    "descripcion": "The open source AI engineering platform for agents, LLMs, and ML models. MLflow enables teams of all sizes to debug, evaluate, monitor, and optimize production-quality AI applications while controlling costs and managing access to models and data.",
+    "categorias": [
+      "ia",
+      "analitica"
+    ],
+    "stars": 28792,
+    "ultimaActualizacion": "2026-11-13T20:53:05Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 2220,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un modelo",
+          "al entrenar una red neuronal"
+        ],
+        "snippet": "import mlflow\nmlflow.set_tracking_uri('http://localhost:5000')\nmlflow.start_run()",
+        "stack": [
+          "python",
+          "mlflow"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se registra un experimento",
+          "al crear una ruta de entrenamiento"
+        ],
+        "snippet": "curl -X POST 'http://localhost:5000/api/2.0/experiments/create'\n-H 'Content-Type: application/json' -d '{\"name\": \"mi_experimento\", \"tags\": {\"author\": \"Juanito\"}}'",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "ray",
+    "nombre": "Ray",
+    "urlRepo": "https://github.com/ray-project/ray",
+    "descripcion": "Ray is an AI compute engine. Ray consists of a core distributed runtime and a set of AI Libraries for accelerating ML workloads.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 44285,
+    "ultimaActualizacion": "2026-11-13T19:55:39Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 3778,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al iniciar el servidor",
+          "cuando se crea un nuevo modelo"
+        ],
+        "snippet": "import ray\nray.init(address=':6379')\nmodel = ray.train.Model(...)",
+        "stack": [
+          "python",
+          "ray"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al crear un contenedor",
+          "cuando se ejecuta una tarea en segundo plano"
+        ],
+        "snippet": "docker run -p 6379:6379 ray/ray:latest\nray.init(address=':6379')",
+        "stack": [
+          "docker",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "whisper-cpp",
+    "nombre": "whisper.cpp",
+    "urlRepo": "https://github.com/ggml-org/whisper.cpp",
+    "descripcion": "Port of OpenAI's Whisper model in C/C++",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 55165,
+    "ultimaActualizacion": "2026-11-13T07:04:38Z",
+    "licencia": "MIT",
+    "lenguaje": "C++",
+    "issuesAbiertos": 367,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al detectar un sonido",
+          "cuando se ingrese un texto"
+        ],
+        "snippet": "#include <whisper.cpp>\nint main() {\n  Whisper whisper;\n  std::string texto = whisper.recognizeAudio(\"audio.wav\");\n  return 0;\n}",
+        "stack": [
+          "c++",
+          "cpp"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al recibir un audio de voz",
+          "cuando se ingrese una URL de audio"
+        ],
+        "snippet": "docker run -v $PWD:/app ggml/whisper cpp /app/main.cpp",
+        "stack": [
+          "docker",
+          "cpp"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "unsloth",
+    "nombre": "Unsloth",
+    "urlRepo": "https://github.com/unslothai/unsloth",
+    "descripcion": "Local UI to run and train LLMs and diffusion models. Supports GGUF, MLX, Qwen3.8, DeepSeek-V4.1, MiniMax-H3, Gemma 4, FLUX and more.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 79445,
+    "ultimaActualizacion": "2026-11-13T20:00:02Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 505,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se inicie el contenedor",
+          "al finalizar la ejecución del modelo"
+        ],
+        "snippet": "docker run -p 8080:8080 unslothai/unsloth",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se inicie la aplicación",
+          "al seleccionar un modelo para entrenamiento"
+        ],
+        "snippet": "from unsloth import Unsloth\nunsloth = Unsloth()\nunsloth.train_model(model_name='MiniMax-H3')",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "langgraph",
+    "nombre": "LangGraph",
+    "urlRepo": "https://github.com/langchain-ai/langgraph",
+    "descripcion": "Build resilient agents.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 44913,
+    "ultimaActualizacion": "2026-11-13T20:13:21Z",
+    "licencia": "MIT",
+    "lenguaje": "Python",
+    "issuesAbiertos": 478,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesita construir un agente resiliente",
+          "al implementar una IA"
+        ],
+        "snippet": "import langgraph\nfrom langgraph import Agent\n# Crear un agente\nagent = Agent()\n# Definir la lógica del agente",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al ejecutar una aplicación que requiere un agente resiliente",
+          "cuando se necesita integrar LangGraph en un proyecto"
+        ],
+        "snippet": "docker run -p 5000:5000 langgraph/langgraph\n# Acceder a la API del agente",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "semantic-kernel",
+    "nombre": "Semantic Kernel",
+    "urlRepo": "https://github.com/microsoft/semantic-kernel",
+    "descripcion": "Integrate cutting-edge LLM technology quickly and easily into your apps",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 28763,
+    "ultimaActualizacion": "2026-11-13T16:16:44Z",
+    "licencia": "MIT",
+    "lenguaje": "C#",
+    "issuesAbiertos": 344,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al desplegar una aplicación en un entorno de producción",
+          "cuando se necesita escalar la capacidad de procesamiento"
+        ],
+        "snippet": "docker run -p 5001:5001 semantickernel/model-server\nhttp://localhost:5001/model.json",
+        "stack": [
+          "docker",
+          "kubernetes"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "localai",
+    "nombre": "LocalAI",
+    "urlRepo": "https://github.com/mudler/LocalAI",
+    "descripcion": "LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 50354,
+    "ultimaActualizacion": "2026-11-13T18:13:28Z",
+    "licencia": "MIT",
+    "lenguaje": "Go",
+    "issuesAbiertos": 195,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se requiera un modelo de IA"
+        ],
+        "snippet": "docker run -p 8080:8080 localai/localai",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al crear una aplicación",
+          "cuando se necesite integrar un modelo de IA"
+        ],
+        "snippet": "import \"github.com/mudler/LocalAI/sdk\"\nlocalai := sdk.New()\nmodel, err := localai.LoadModel(\"mi_modelo\")",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "pydantic-ai",
+    "nombre": "Pydantic AI",
+    "urlRepo": "https://github.com/pydantic/pydantic-ai",
+    "descripcion": "How Python does AI. Agents, realtime voice, image generation, embeddings. Every model, every interface, typed end to end.",
+    "categorias": [
+      "ia"
+    ],
+    "stars": 21194,
+    "ultimaActualizacion": "2026-11-13T21:00:22Z",
+    "licencia": "MIT",
+    "lenguaje": "Python",
+    "issuesAbiertos": 1967,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un modelo de IA",
+          "al generar embeddings"
+        ],
+        "snippet": "import pydantic_ai\nmodel = pydantic_ai.Model()\nmodel.train()\nembeddings = model.embed(model.input_data)",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar un contenedor de IA",
+          "cuando se necesita una interfaz gráfica"
+        ],
+        "snippet": "docker run -p 8080:80 pydantic-ai/image-generator",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "grafana",
+    "nombre": "Grafana",
+    "urlRepo": "https://github.com/grafana/grafana",
+    "descripcion": "The open and composable observability and data visualization platform. Visualize metrics, logs, and traces from multiple sources like Prometheus, Loki, Elasticsearch, InfluxDB, Postgres and many more. ",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 77885,
+    "ultimaActualizacion": "2026-11-13T20:55:41Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 3292,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se crea un nuevo dashboard"
+        ],
+        "snippet": "docker run -d --name grafana grafana/grafana:latest\ngrafana-cli -u admin -p admin create-dashboards",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al crear un nuevo usuario",
+          "cuando se actualiza una métrica"
+        ],
+        "snippet": "import { GrafanaApi } from 'grafana-api';\nconst api = new GrafanaApi('http://localhost:3000');\napi.createUser({ username: 'john', email: 'john@example.com' });",
+        "stack": [
+          "node",
+          "typescript"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "superset",
+    "nombre": "Apache Superset",
+    "urlRepo": "https://github.com/apache/superset",
+    "descripcion": "Apache Superset is a Data Visualization and Data Exploration Platform",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 75517,
+    "ultimaActualizacion": "2026-11-13T19:41:36Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 663,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo dashboard",
+          "al actualizar una métrica"
+        ],
+        "snippet": "from superset import Superset\nsup = Superset()\nsup.create_dashboard(name='Mi Dashboard', content='...')",
+        "stack": [
+          "python",
+          "flask"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al crear un nuevo usuario",
+          "cuando se actualiza una tabla de datos"
+        ],
+        "snippet": "curl -X POST http://localhost:8080/api/v1/dashboard -H 'Content-Type: application/json' -d '{\"name\":\"Mi Dashboard\",\"content\":\"...\"}'",
+        "stack": [
+          "node",
+          "express"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "redash",
+    "nombre": "Redash",
+    "urlRepo": "https://github.com/getredash/redash",
+    "descripcion": "Make Your Company Data Driven. Connect to any data source, easily visualize, dashboard and share your data.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 28883,
+    "ultimaActualizacion": "2026-11-10T17:38:46Z",
+    "licencia": "BSD-2-Clause",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 776,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se crea un nuevo dashboard",
+          "al actualizar una métrica"
+        ],
+        "snippet": "curl -X POST 'http://localhost:5000/api/v1/query' -H 'Content-Type: application/json' -d '{",
+        "stack": [
+          "node",
+          "typescript"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo usuario",
+          "al realizar una consulta"
+        ],
+        "snippet": "import { RedashClient } from 'redash-client'; const client = new RedashClient('http://localhost:5000'); client.query('SELECT * FROM table');",
+        "stack": [
+          "javascript",
+          "typescript"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "jitsu",
+    "nombre": "Jitsu",
+    "urlRepo": "https://github.com/jitsucom/jitsu",
+    "descripcion": "Jitsu is an open-source Segment alternative. Fully-scriptable data ingestion engine for modern data teams. Set-up a real-time data pipeline in minutes, not days",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 5135,
+    "ultimaActualizacion": "2026-11-13T12:25:39Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 52,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo usuario",
+          "al recibir un evento de pago"
+        ],
+        "snippet": "import { Jitsu } from 'jitsu';\nconst jitsu = new Jitsu('YOUR_API_KEY');\njitsu.track('Usuario creado', { nombre: 'Juan' });",
+        "stack": [
+          "typescript",
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "webhook",
+        "disparadores": [
+          "cuando se realiza un pedido",
+          "al actualizar un producto"
+        ],
+        "snippet": "const express = require('express');\nconst app = express();\napp.post('/jitsu-webhook', (req, res) => {\njitsu.track('Pedido realizado', { total: req.body.total });\nres.send('Webhook recibido');});",
+        "stack": [
+          "node",
+          "express"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "druid",
+    "nombre": "Apache Druid",
+    "urlRepo": "https://github.com/apache/druid",
+    "descripcion": "Apache Druid: a high performance real-time analytics database.",
+    "categorias": [
+      "analitica",
+      "base-de-datos"
+    ],
+    "stars": 14096,
+    "ultimaActualizacion": "2026-11-13T15:33:48Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 763,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se necesite consultar datos históricos",
+          "al realizar un análisis en tiempo real"
+        ],
+        "snippet": "curl -X 'GET' 'http://localhost:8888/druid/v2/sql/queries'",
+        "stack": [
+          "java",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al integrar con una aplicación web",
+          "cuando se necesite realizar consultas complejas"
+        ],
+        "snippet": "import org.apache.druid.client.sql.SQLEngine; SQLEngine engine = new SQLEngine();",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "pinot",
+    "nombre": "Apache Pinot",
+    "urlRepo": "https://github.com/apache/pinot",
+    "descripcion": "Apache Pinot: a real-time analytics database for low-latency SQL and vector search, serving user-facing and agent-facing applications",
+    "categorias": [
+      "analitica",
+      "base-de-datos"
+    ],
+    "stars": 6176,
+    "ultimaActualizacion": "2026-11-13T16:06:56Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 1284,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se requiera realizar consultas SQL en tiempo real",
+          "al necesitar un motor de búsqueda vectorial"
+        ],
+        "snippet": "curl -X POST 'http://localhost:8090/v1/sql/query' -H 'Content-Type: application/json' -d '{",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al desarrollar una aplicación que requiera consultas SQL en tiempo real",
+          "cuando se necesite integrar un motor de búsqueda vectorial"
+        ],
+        "snippet": "import org.apache.pinot.client.PinotClient; PinotClient client = new PinotClient(); client.query(\"SELECT * FROM tabla\");",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "evidence",
+    "nombre": "Evidence",
+    "urlRepo": "https://github.com/evidence-dev/evidence",
+    "descripcion": "Business intelligence as code: build fast, interactive data visualizations in SQL and markdown",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 7117,
+    "ultimaActualizacion": "2026-11-13T20:59:51Z",
+    "licencia": "MIT",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 38,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo dashboard",
+          "al actualizar una métrica"
+        ],
+        "snippet": "const evidence = require('evidence-sdk');\nevidence.createDashboard({name: 'Mi Dashboard', query: 'SELECT * FROM mi_tabla'});",
+        "stack": [
+          "node",
+          "javascript"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al recibir un nuevo evento de log",
+          "cuando se actualiza una tabla en la base de datos"
+        ],
+        "snippet": "curl -X POST \nhttps://localhost:3000/api/v1/dashboards \n-H 'Content-Type: application/json' \n-d '{\"name\": \"Mi Dashboard\", \"query\": \"SELECT * FROM mi_tabla\"}'",
+        "stack": [
+          "node",
+          "javascript"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "prometheus",
+    "nombre": "Prometheus",
+    "urlRepo": "https://github.com/prometheus/prometheus",
+    "descripcion": "The Prometheus monitoring system and time series database.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 67590,
+    "ultimaActualizacion": "2026-11-13T20:58:41Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 1096,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se crea un nuevo servicio",
+          "al recibir una solicitud de monitoreo"
+        ],
+        "snippet": "curl -X POST http://localhost:9091/api/v1/query -H 'Content-Type: application/json' -d '{\"query\": \"metric_name\", \"time\": 1643723400}'",
+        "stack": [
+          "go",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al iniciar el servicio de monitoreo",
+          "cuando se detecta un problema en la aplicación"
+        ],
+        "snippet": "import (\"github.com/prometheus/client_golang/prometheus\"\n\"github.com/prometheus/client_golang/prometheus/promhttp\"\n)\nfunc main() {\n    // Crea un prometor\n    p := prometheus.NewPrometheus()\n    // Registra una métrica\n    p.Register(prometheus.NewCounter(\"metric_name\", \"Descripción de la métrica\"))\n}",
+        "stack": [
+          "go"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "opentelemetry-collector",
+    "nombre": "OpenTelemetry Collector",
+    "urlRepo": "https://github.com/open-telemetry/opentelemetry-collector",
+    "descripcion": "OpenTelemetry Collector",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 7765,
+    "ultimaActualizacion": "2026-11-13T20:56:55Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 721,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se inicie el contenedor",
+          "al recibir una solicitud HTTP"
+        ],
+        "snippet": "docker run -d --name opentelemetry-collector open-telemetry/opentelemetry-collector:latest",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se envíe un evento de log",
+          "al iniciar la aplicación"
+        ],
+        "snippet": "import opentelemetry\nfrom opentelemetry import trace\ntrace.set_tracer_provider(TraceProvider())",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "dbt",
+    "nombre": "dbt",
+    "urlRepo": "https://github.com/dbt-labs/dbt",
+    "descripcion": "dbt enables data analysts and engineers to transform their data using the same practices that software engineers use to build applications.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 14165,
+    "ultimaActualizacion": "2026-11-13T20:37:38Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 1915,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un modelo",
+          "al ejecutar una transformación"
+        ],
+        "snippet": "import dbt\nmodel = dbt.Model()\nmodel.compile()\ndbt.run_model(model)",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se ejecuta una tarea"
+        ],
+        "snippet": "docker run -p 8080:8080 dbt-labs/dbt\nhttp://localhost:8080/api/v1/models",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "openpanel",
+    "nombre": "OpenPanel",
+    "urlRepo": "https://github.com/Openpanel-dev/openpanel",
+    "descripcion": "OpenPanel is an open-source web and product analytics platform, an open-source alternative to Mixpanel with optional self-hosting.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 7296,
+    "ultimaActualizacion": "2026-11-09T13:30:38Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "TypeScript",
+    "issuesAbiertos": 48,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo evento",
+          "al iniciar la aplicación"
+        ],
+        "snippet": "import { OpenPanel } from 'openpanel-sdk';\nconst openPanel = new OpenPanel('https://localhost:3000');",
+        "stack": [
+          "typescript",
+          "node"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al enviar un formulario",
+          "cuando se hace una solicitud HTTP"
+        ],
+        "snippet": "curl -X POST \\\n  http://localhost:3000/api/events \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"event\": \"formulario enviado\", \"properties\": {\"nombre\": \"Juan\", \"email\": \"juan@example.com\"}}'",
+        "stack": [
+          "bash"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "aptabase",
+    "nombre": "Aptabase",
+    "urlRepo": "https://github.com/aptabase/aptabase",
+    "descripcion": "✨ Open Source, Privacy-First and Simple Analytics for Mobile, Desktop and Web Apps",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 1871,
+    "ultimaActualizacion": "2026-11-06T15:54:46Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "C#",
+    "issuesAbiertos": 61,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al finalizar una sesión",
+          "cuando se produce un error crítico"
+        ],
+        "snippet": "curl -X POST https://localhost:8080/api/events -H 'Content-Type: application/json' -d '{\"event\": \"Error de conexión\", \"metadata\": {\"usuario\": \"admin\"}}'",
+        "stack": [
+          "node",
+          "express"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "vector",
+    "nombre": "Vector",
+    "urlRepo": "https://github.com/vectordotdev/vector",
+    "descripcion": "A high-performance observability data pipeline.",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 22870,
+    "ultimaActualizacion": "2026-11-13T21:00:34Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 2575,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se reciba un evento"
+        ],
+        "snippet": "docker run -d --name vector vector/vector:latest\nvector listen http://localhost:11000",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se envíe un mensaje a la cola de mensajes",
+          "al iniciar el servicio"
+        ],
+        "snippet": "import vector\nvector.listen('http://localhost:11000')\nvector.send_event({'timestamp': 1643723400, 'event': 'example'}",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "solr",
+    "nombre": "Apache Solr",
+    "urlRepo": "https://github.com/apache/solr",
+    "descripcion": "Apache Solr open-source search software",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 1701,
+    "ultimaActualizacion": "2026-11-13T19:35:05Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 288,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se crea un nuevo documento",
+          "al realizar una búsqueda"
+        ],
+        "snippet": "curl -X POST 'http://localhost:8983/solr/colección/update?commit=true' -H 'Content-type: application/json' -d '{\"id\":\"documento1\",\"nombre\":\"prueba\"}'",
+        "stack": [
+          "java",
+          "solr"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se inicia el contenedor de Solr",
+          "al realizar una búsqueda en la aplicación"
+        ],
+        "snippet": "docker run -p 8983:8983 -v /path/to/solr/data:/var/solr/data apache/solr",
+        "stack": [
+          "docker",
+          "java"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "lucene",
+    "nombre": "Apache Lucene",
+    "urlRepo": "https://github.com/apache/lucene",
+    "descripcion": "Apache Lucene open-source search software",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 3610,
+    "ultimaActualizacion": "2026-11-13T20:54:10Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 2745,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "Cuando se necesita realizar una búsqueda avanzada en un sistema"
+        ],
+        "snippet": "import org.apache.lucene.search.Query;\nQuery query = new TermQuery(new Term(\"campo\", \"valor\"));\nIndexSearcher searcher = new IndexSearcher(index);\nTopDocs results = searcher.search(query, 10);",
+        "stack": [
+          "java",
+          "lucene"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "Al implementar un sistema de búsqueda en una aplicación web"
+        ],
+        "snippet": "curl -X POST \\\n  http://localhost:8983/solr/mycollection/update/json/docs?wt=json \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"id\":\"documento\",\"texto\":\"contenido del documento\"}'",
+        "stack": [
+          "java",
+          "solr"
+        ],
+        "dificultad": "alta",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "quickwit",
+    "nombre": "Quickwit",
+    "urlRepo": "https://github.com/quickwit-oss/quickwit",
+    "descripcion": "Cloud-native OSS search engine for observability",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 11795,
+    "ultimaActualizacion": "2026-11-13T20:03:24Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 860,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se ingrese a la aplicación"
+        ],
+        "snippet": "docker run -p 8080:8080 quickwit/quickwit",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se envíe una solicitud de búsqueda",
+          "al crear un índice nuevo"
+        ],
+        "snippet": "import quickwit\nquickwit.init()\nquickwit.create_index('mi_indice')",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "tantivy",
+    "nombre": "Tantivy",
+    "urlRepo": "https://github.com/quickwit-oss/tantivy",
+    "descripcion": "Tantivy is a full-text search engine library inspired by Apache Lucene and written in Rust",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 16436,
+    "ultimaActualizacion": "2026-11-11T23:01:25Z",
+    "licencia": "MIT",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 523,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un índice",
+          "al realizar una búsqueda"
+        ],
+        "snippet": "import tantivy\n# crear índice\nindex = tantivy.Index()\n# agregar documentos\nindex.add_document(tantivy.Document(...))\n# buscar\nresults = index.search(query)",
+        "stack": [
+          "rust",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se crea un índice",
+          "al realizar una búsqueda"
+        ],
+        "snippet": "curl -X POST http://localhost:8098/index\n# agregar documentos\ncurl -X POST http://localhost:8098/add_document\ndata='...'\n# buscar\ncurl -X GET http://localhost:8098/search?q=query",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "milvus",
+    "nombre": "Milvus",
+    "urlRepo": "https://github.com/milvus-io/milvus",
+    "descripcion": "Milvus is a high-performance, cloud-native vector database built for scalable vector ANN search",
+    "categorias": [
+      "busqueda",
+      "ia"
+    ],
+    "stars": 46654,
+    "ultimaActualizacion": "2026-11-13T18:05:07Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Go",
+    "issuesAbiertos": 1499,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesita un motor de búsqueda de vectores",
+          "al implementar una aplicación de IA"
+        ],
+        "snippet": "import milvus as mv\nclient = mv.Client()\nres, _ = client.search(collection_name='my_collection', query={'vector': [1.0, 2.0]})",
+        "stack": [
+          "go",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al crear un servicio de búsqueda en la nube",
+          "cuando se necesita escalabilidad para ANN search"
+        ],
+        "snippet": "curl -X POST 'http://localhost:19530/v1/collections' -H 'Content-Type: application/json' -d '{",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "chroma",
+    "nombre": "Chroma",
+    "urlRepo": "https://github.com/chroma-core/chroma",
+    "descripcion": "Search infrastructure for AI",
+    "categorias": [
+      "busqueda",
+      "ia"
+    ],
+    "stars": 29681,
+    "ultimaActualizacion": "2026-11-07T04:52:06Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 978,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al iniciar el servidor",
+          "cuando se envíe un nuevo índice"
+        ],
+        "snippet": "import chroma\n# Inicializar Chroma\ncroma.init()\n# Crear un índice\nindex = croma.create_index('mi_indice')",
+        "stack": [
+          "python",
+          "chroma"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al realizar una búsqueda",
+          "cuando se consulte un índice"
+        ],
+        "snippet": "curl -X GET 'http://localhost:8080/indices/mi_indice/search?q=query'",
+        "stack": [
+          "node",
+          "express"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "manticoresearch",
+    "nombre": "Manticore Search",
+    "urlRepo": "https://github.com/manticoresoftware/manticoresearch",
+    "descripcion": "Open-source search database for full-text, vector, and hybrid search with real-time indexing and SQL.",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 12082,
+    "ultimaActualizacion": "2026-11-13T19:37:20Z",
+    "licencia": "GPL-3.0",
+    "lenguaje": "C++",
+    "issuesAbiertos": 665,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se inicie el contenedor",
+          "al recibir una solicitud HTTP"
+        ],
+        "snippet": "docker run -p 9306:9306 manticoresearch/manticore-search",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se realice una consulta SQL",
+          "al indexar un documento"
+        ],
+        "snippet": "import manticore\nm = manticore.Manticore()\nm.connect('localhost', 9306)\nm.query('SELECT * FROM mi_tabla')",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "paradedb",
+    "nombre": "ParadeDB",
+    "urlRepo": "https://github.com/paradedb/paradedb",
+    "descripcion": "One Postgres for your application data, full-text search, vector retrieval, and aggregations. Home of the pg_search extension.",
+    "categorias": [
+      "busqueda",
+      "base-de-datos"
+    ],
+    "stars": 9511,
+    "ultimaActualizacion": "2026-11-13T20:29:13Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 309,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un modelo",
+          "al realizar una búsqueda"
+        ],
+        "snippet": "import parade from 'paradedb'; const db = new parade.Database();",
+        "stack": [
+          "node",
+          "javascript"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se inserta un nuevo registro",
+          "al actualizar un documento"
+        ],
+        "snippet": "curl -X POST http://localhost:8080/insert -H 'Content-Type: application/json' -d '{\"key\": \"value\"}'",
+        "stack": [
+          "node",
+          "javascript"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "vespa",
+    "nombre": "Vespa",
+    "urlRepo": "https://github.com/vespa-engine/vespa",
+    "descripcion": "The AI search platform",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 7180,
+    "ultimaActualizacion": "2026-11-13T16:16:47Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 262,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "al iniciar el servidor",
+          "cuando se envía una solicitud"
+        ],
+        "snippet": "import com.yahoo.platform.ycsb.Workload; ... Workload workload = new Workload();",
+        "stack": [
+          "java"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "al realizar una búsqueda",
+          "cuando se consulta un índice"
+        ],
+        "snippet": "curl -X POST 'http://localhost:8080/search' -H 'Content-Type: application/json' -d '{",
+        "stack": [
+          "node",
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "lancedb",
+    "nombre": "LanceDB",
+    "urlRepo": "https://github.com/lancedb/lancedb",
+    "descripcion": "Developer-friendly OSS embedded retrieval library for multimodal AI. Search More; Manage Less.",
+    "categorias": [
+      "busqueda",
+      "ia"
+    ],
+    "stars": 11894,
+    "ultimaActualizacion": "2026-11-13T21:00:47Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 687,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesita realizar una búsqueda en un sistema"
+        ],
+        "snippet": "import lancedb\n# Inicializar la base de datos\ndb = lancedb.Database()\n# Realizar una búsqueda\ndef search(query):\n    return db.search(query)",
+        "stack": [
+          "python",
+          "lancedb"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar un nuevo proyecto de IA"
+        ],
+        "snippet": "docker run -p 8080:8080 lancedb/lancedb\n# Acceder a la API\ncurl http://localhost:8080/search?q=query",
+        "stack": [
+          "docker",
+          "lancedb"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "faiss",
+    "nombre": "Faiss",
+    "urlRepo": "https://github.com/facebookresearch/faiss",
+    "descripcion": "A library for efficient similarity search and clustering of dense vectors.",
+    "categorias": [
+      "busqueda",
+      "ia"
+    ],
+    "stars": 41612,
+    "ultimaActualizacion": "2026-11-13T16:23:35Z",
+    "licencia": "MIT",
+    "lenguaje": "C++",
+    "issuesAbiertos": 389,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesite realizar una búsqueda de similitud entre vectores"
+        ],
+        "snippet": "import faiss\nindex = faiss.IndexFlatL2(128)\nindex.add(np.random.rand(100, 128).astype('float32'))\nD, I = index.search(np.random.rand(1, 128).astype('float32'), k=10)",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al crear un nuevo proyecto de IA que requiera búsqueda de similitud"
+        ],
+        "snippet": "docker run -it --rm -p 8080:8080 faiss:latest\npython -c 'import requests; r = requests.get(\"http://localhost:8080/search\", params={'q': \"vector1\"})'",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "searxng",
+    "nombre": "SearXNG",
+    "urlRepo": "https://github.com/searxng/searxng",
+    "descripcion": "SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 39525,
+    "ultimaActualizacion": "2026-11-13T13:16:16Z",
+    "licencia": "AGPL-3.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 214,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se requiera una búsqueda"
+        ],
+        "snippet": "docker run -d --name searxng -p 8080:8080 searxng/searxng",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesite realizar una búsqueda",
+          "al crear un nuevo índice de búsqueda"
+        ],
+        "snippet": "import requests\nurl = 'http://localhost:8080/\nresponse = requests.get(url)",
+        "stack": [
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "txtai",
+    "nombre": "txtai",
+    "urlRepo": "https://github.com/neuml/txtai",
+    "descripcion": "💡 All-in-one AI framework for semantic search, LLM orchestration and language model workflows",
+    "categorias": [
+      "busqueda",
+      "ia"
+    ],
+    "stars": 13382,
+    "ultimaActualizacion": "2026-11-13T13:30:56Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 12,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se necesite realizar una búsqueda semántica",
+          "al implementar un modelo de lenguaje"
+        ],
+        "snippet": "import txtai\nmodel = txtai.Model('llama')\nresponse = model.query('¿Qué es el AI?')",
+        "stack": [
+          "python",
+          "txtai"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al crear un contenedor para una aplicación de IA",
+          "cuando se necesite ejecutar un modelo de lenguaje en producción"
+        ],
+        "snippet": "docker run -p 5000:5000 neuml/txtai:latest",
+        "stack": [
+          "docker",
+          "txtai"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "kanidm",
+    "nombre": "Kanidm",
+    "urlRepo": "https://github.com/kanidm/kanidm",
+    "descripcion": "Kanidm: A simple, secure, and fast identity management platform",
+    "categorias": [
+      "autenticacion"
+    ],
+    "stars": 5562,
+    "ultimaActualizacion": "2026-11-13T07:45:25Z",
+    "licencia": "MPL-2.0",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 285,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo usuario",
+          "al iniciar sesión"
+        ],
+        "snippet": "import kanidm\nkanidm.init()\nk = kanidm.Kanidm('localhost', 8080)\nuser = k.create_user('nombre', 'apellido', 'correo')\nprint(user)",
+        "stack": [
+          "rust",
+          "python"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se intenta acceder a un recurso protegido",
+          "al realizar una transacción financiera"
+        ],
+        "snippet": "curl -X POST http://localhost:8080/api/v1/users\n-H 'Content-Type: application/json'\n-d '{\"nombre\": \"Juan\", \"apellido\": \"Pérez\"}'",
+        "stack": [
+          "node",
+          "python"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "solidus",
+    "nombre": "Solidus",
+    "urlRepo": "https://github.com/solidusio/solidus",
+    "descripcion": "🛒 Solidus, the open-source eCommerce framework for industry trailblazers.",
+    "categorias": [
+      "pagos"
+    ],
+    "stars": 5350,
+    "ultimaActualizacion": "2026-11-12T21:59:41Z",
+    "licencia": "BSD-3-Clause",
+    "lenguaje": "Ruby",
+    "issuesAbiertos": 73,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un pedido",
+          "al realizar una transacción"
+        ],
+        "snippet": "import Solidus\n# Crea un nuevo pedido\npedido = Solidus::Order.new(nombre: 'Mi Pedido', total: 100)\n# Guarda el pedido en la base de datos\npedido.save!",
+        "stack": [
+          "ruby",
+          "solidus"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "airflow",
+    "nombre": "Apache Airflow",
+    "urlRepo": "https://github.com/apache/airflow",
+    "descripcion": "Apache Airflow - A platform to programmatically author, schedule, and monitor workflows",
+    "categorias": [
+      "analitica"
+    ],
+    "stars": 47470,
+    "ultimaActualizacion": "2026-11-13T19:13:01Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Python",
+    "issuesAbiertos": 1934,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se crea un nuevo trabajo",
+          "al finalizar una tarea"
+        ],
+        "snippet": "from airflow import DAG\nfrom datetime import datetime, timedelta\ndefault_args = {\n    'owner': 'airflow',\n    'depends_on_past': False,\n    'start_date': datetime(2023, 1, 1),\n    'retries': 1,\n    'retry_delay': timedelta(minutes=5)\n}\ndag = DAG('mi_dag', default_args=default_args, schedule_interval=timedelta(days=1))",
+        "stack": [
+          "python",
+          "airflow"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      },
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "al iniciar el contenedor",
+          "cuando se conecta a la base de datos"
+        ],
+        "snippet": "docker run -p 8080:8080 apache/airflow\nairflow db init\ncurl http://localhost:8080/login",
+        "stack": [
+          "docker",
+          "apache-airflow"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "trino",
+    "nombre": "Trino",
+    "urlRepo": "https://github.com/trinodb/trino",
+    "descripcion": "Official repository of Trino, the distributed SQL query engine for big data, formerly known as PrestoSQL (https://trino.io)",
+    "categorias": [
+      "analitica",
+      "base-de-datos"
+    ],
+    "stars": 13512,
+    "ultimaActualizacion": "2026-11-13T17:20:13Z",
+    "licencia": "Apache-2.0",
+    "lenguaje": "Java",
+    "issuesAbiertos": 2758,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "rest",
+        "disparadores": [
+          "cuando se requiera realizar consultas SQL a gran escala",
+          "al necesitar analizar grandes cantidades de datos"
+        ],
+        "snippet": "curl -X GET 'http://localhost:38080/catalog/trino'",
+        "stack": [
+          "java",
+          "docker"
+        ],
+        "dificultad": "media",
+        "revisada": false
+      }
+    ]
+  },
+  {
+    "id": "pagefind",
+    "nombre": "Pagefind",
+    "urlRepo": "https://github.com/Pagefind/pagefind",
+    "descripcion": "Static low-bandwidth search at scale",
+    "categorias": [
+      "busqueda"
+    ],
+    "stars": 5557,
+    "ultimaActualizacion": "2026-11-11T23:57:47Z",
+    "licencia": "MIT",
+    "lenguaje": "Rust",
+    "issuesAbiertos": 123,
+    "mantenedorActivo": null,
+    "nivelMantenimiento": null,
+    "healthScore": null,
+    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "ideas": [
+      {
+        "tipo": "docker",
+        "disparadores": [
+          "cuando se suba un nuevo archivo",
+          "al iniciar el servidor"
+        ],
+        "snippet": "docker run -p 3000:3000 pagefind/pagefind",
+        "stack": [
+          "docker"
+        ],
+        "dificultad": "baja",
+        "revisada": false
+      },
+      {
+        "tipo": "sdk",
+        "disparadores": [
+          "cuando se reciba una solicitud de búsqueda",
+          "al iniciar el servidor"
+        ],
+        "snippet": "import pagefind\npagefind.init()",
+        "stack": [
+          "node"
         ],
         "dificultad": "media",
         "revisada": false

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Bot, Sparkles } from "lucide-react";
 import type { Categoria } from "@/lib/catalogo/categorias";
-import { MarcaRepo } from "@/components/marca/MarcaRepo";
+import { LogoRepo } from "@/components/marca/LogoRepo";
 import { t } from "@/i18n/es";
 
 export interface RepoCitado {
@@ -56,7 +56,7 @@ export function SeccionAsistente({ id, citados }: SeccionAsistenteProps) {
                           href={`/herramientas/${encodeURIComponent(repo.id)}`}
                           className="catalogo-foco flex min-w-0 items-center gap-3 rounded-2xl border border-border p-3 transition-colors hover:bg-secondary"
                         >
-                          <MarcaRepo id={repo.id} className="size-10" />
+                          <LogoRepo id={repo.id} className="size-10" />
                           <span className="min-w-0">
                             <bdi dir="auto" className="block truncate text-sm font-medium">
                               {repo.nombre}

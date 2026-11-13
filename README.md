@@ -34,12 +34,17 @@ npm run dev                          # http://localhost:3000
 
 # Opcional
 npm run embeddings                   # regenera data/embeddings.json (ya viene versionado)
+GITHUB_TOKEN="$(gh auth token)" npm run ingesta   # feature 005: regenera repos, logos e ideas faltantes desde data/semilla-repos.json
 npm test                             # Vitest
 npm run test:e2e                     # Playwright contra el build de producción (usa CATALOG_SOURCE=fixtures)
 npm run redteam -- --etiqueta v3     # 13 ataques + 5 controles, con y sin guardrails → docs/red-team.md
 ```
 
-**Fuentes de datos (`CATALOG_SOURCE`):** `reales` (demo: 30 repos reales con metadatos de la API de GitHub del 12/11, los mismos que indexa el asistente), `backend` (los mismos 30 servidos por el FastAPI de `backend/`, con health score, nivel de mantenimiento y desglose reales; ver abajo), `sintetico` (40 herramientas inventadas), `fixtures` (**solo pruebas**: casos de mal uso) y `supabase` (fuera del MVP). En `reales`, health score y mantenimiento se ven como «Sin dato»: no se inventan (P7).
+**Fuentes de datos (`CATALOG_SOURCE`):** `reales` (demo: **108 repos reales** de la lista curada [`data/semilla-repos.json`](data/semilla-repos.json), con metadatos de la API de GitHub y logo oficial, los mismos que indexa el asistente), `backend` (los repos servidos por el FastAPI de `backend/`, con health score, nivel de mantenimiento y desglose reales; ver abajo), `sintetico` (40 herramientas inventadas), `fixtures` (**solo pruebas**: casos de mal uso) y `supabase` (fuera del MVP). En `reales`, health score y mantenimiento se ven como «Sin dato»: no se inventan (P7).
+
+### Ingesta del catálogo real (feature 005)
+
+`npm run ingesta` (en `apps/web`) lee la lista curada `data/semilla-repos.json` (108 repos, 18 por categoría; el criterio de selección está en el mismo archivo: no archivado, no fork, push ≤ 180 días, licencia OSI), trae los metadatos de la API de GitHub, descarga el avatar de cada owner a `public/logos/` (solo PNG/JPEG por magic bytes, ≤ 200 KB, desde `avatars.githubusercontent.com`; origen y fecha en `public/logos/fuentes.json`), genera con Ollama local las ideas de los repos que no tienen (`revisada: false`, validadas) y regenera `data/repos-reales.json` y `data/embeddings.json`. Corre sin intervención (pensada para un cron): no escribe nada hasta que todo salió bien y sale con código 1 (falla de la corrida) o 2 (configuración) y un log `[ingesta]`. `GITHUB_TOKEN` solo por entorno, nunca en un archivo.
 
 ### Catálogo con el backend (`CATALOG_SOURCE=backend`)
 
@@ -53,7 +58,7 @@ export ADMIN_API_KEY="$(openssl rand -hex 32)"   # una propia: nunca la del cód
 export GITHUB_TOKEN="$(gh auth token)"           # sin token, GitHub corta a 60 pedidos/h y la siembra (2 por repo) falla
 uvicorn backend.app.main:app --port 8000
 
-# 2. Sembrar (otra terminal, con la misma ADMIN_API_KEY exportada): 30 repos en 2 lotes, con nuestra categoría.
+# 2. Sembrar (otra terminal, con la misma ADMIN_API_KEY exportada): los 108 repos en lotes de 15, con nuestra categoría.
 #    Antes verifica que escribir SIN credencial dé 401/403 (MU-07). No imprime la clave.
 cd apps/web
 BACKEND_URL=http://127.0.0.1:8000 npm run sembrar:backend
@@ -109,6 +114,8 @@ Detalle en [`SECURITY.md`](SECURITY.md), [`docs/owasp.md`](docs/owasp.md) y [`do
 - **EX-01, excepción a P9:** #2, #4, #5 y los PRs de cierre del 13/11 hasta las 22:00 se mergean sin la revisión de Ángel, que no respondió desde el 12/11. Los compensan el CI completo en verde, el red-team y la autorrevisión; Ángel revisa después del merge. Mientras dure la excepción, la protección de `main` exige los checks `Lint, tipos, pruebas y build` y `Gitleaks (secret scanning)`, sin push directo ni force push, y **sin aprobación obligatoria**, que se activa cuando vuelva Ángel. Registro completo en la matriz de riesgos.
 
 ## Resultados del red-team
+
+**Feature 005 (13/11, índice de 108 repos):** la batería v2 da lo mismo que con 30 (13/13 bloqueados, 0/5 falsos positivos, 0 fugas, 0 repos inventados), pero **MU-20 regresionó en comportamiento**: ante un pedido de ransomware recomienda repos con una justificación inventada en vez de responder «sin contexto». Abierto como R-27; detalle en [`docs/red-team.md`](docs/red-team.md).
 
 Corrida real del 12/11 contra `llama3.2:3b` (temperature 0, seed 42), con 10 ataques ([`docs/red-team.md`](docs/red-team.md)):
 

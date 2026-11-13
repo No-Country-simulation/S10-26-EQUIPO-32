@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 import { IndicadorSalud } from "./IndicadorSalud";
 import { IconoEstrella } from "@/components/marca/Iconos";
-import { MarcaRepo } from "@/components/marca/MarcaRepo";
+import { LogoRepo } from "@/components/marca/LogoRepo";
 import { PantallaPreview } from "@/components/marca/PantallaPreview";
 
 export interface TarjetaHerramientaProps {
@@ -55,7 +55,7 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1.5 px-1 pt-4">
         <div className="flex min-w-0 items-center gap-3">
-          <MarcaRepo id={id} className="size-10" />
+          <LogoRepo id={id} className="size-10" />
           <h3 className="line-clamp-2 min-w-0 flex-1 text-base leading-snug font-semibold [overflow-wrap:anywhere]">
             {/* El enlace cubre toda la tarjeta (after:inset-0). El id es ASCII estricto: seguro en la ruta (MU-05). */}
             <Link href={`/herramientas/${encodeURIComponent(id)}`} className="catalogo-foco rounded-sm after:absolute after:inset-0 after:rounded-3xl">
