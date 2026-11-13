@@ -2,6 +2,7 @@
 // Uso: npm run embeddings  (lee OLLAMA_URL de .env; por defecto http://localhost:11434 fuera de producción).
 // Sin dependencias: fetch nativo de Node 22. El texto de cada documento sale de data/repos-reales.json.
 import { readFileSync, writeFileSync } from "node:fs";
+import { pathToFileURL } from "node:url";
 
 export const MODELO_EMBEDDINGS = "nomic-embed-text";
 const ENTRADA = new URL("../data/repos-reales.json", import.meta.url);
@@ -22,7 +23,7 @@ export function textoDocumento(repo) {
   return `search_document: ${partes.filter(Boolean).join("\n")}`;
 }
 
-function urlOllama() {
+export function urlOllama() {
   const valor = process.env.OLLAMA_URL?.trim() || "http://localhost:11434";
   const url = new URL(valor);
   if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) {
@@ -31,14 +32,14 @@ function urlOllama() {
   return url.origin;
 }
 
-async function main() {
-  const repos = JSON.parse(readFileSync(ENTRADA, "utf8"));
+/** Calcula los embeddings de una lista de repos (la usa también la ingesta de la feature 005). Falla con un Error claro. */
+export async function calcularEmbeddings(repos, ollamaUrl = urlOllama()) {
   const validos = repos.filter((r) => typeof r?.id === "string" && ID_VALIDO.test(r.id));
-  const respuesta = await fetch(`${urlOllama()}/api/embed`, {
+  const respuesta = await fetch(`${ollamaUrl}/api/embed`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ model: MODELO_EMBEDDINGS, input: validos.map(textoDocumento) }),
-    signal: AbortSignal.timeout(120_000),
+    signal: AbortSignal.timeout(300_000),
   });
   if (!respuesta.ok) throw new Error(`Ollama respondió ${respuesta.status}.`);
   const { embeddings } = await respuesta.json();
@@ -48,12 +49,20 @@ async function main() {
     if (embeddings[i].length !== dimension) throw new Error("Dimensiones distintas.");
     return { id: r.id, vector: embeddings[i].map((x) => Math.round(x * 1e6) / 1e6) };
   });
-  const salida = { modelo: MODELO_EMBEDDINGS, dimension, generadoEn: new Date().toISOString(), items };
-  writeFileSync(SALIDA, JSON.stringify(salida) + "\n");
-  console.log(`${items.length} embeddings de dimensión ${dimension} escritos en data/embeddings.json`);
+  return { modelo: MODELO_EMBEDDINGS, dimension, generadoEn: new Date().toISOString(), items };
 }
 
-main().catch((e) => {
-  console.error(`[embeddings] ${e instanceof Error ? e.message : "error"}`);
-  process.exit(1);
-});
+async function main() {
+  const repos = JSON.parse(readFileSync(ENTRADA, "utf8"));
+  const salida = await calcularEmbeddings(repos);
+  writeFileSync(SALIDA, JSON.stringify(salida) + "\n");
+  console.log(`${salida.items.length} embeddings de dimensión ${salida.dimension} escritos en data/embeddings.json`);
+}
+
+// Solo corre al invocarlo directo (npm run embeddings), no al importarlo desde la ingesta.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((e) => {
+    console.error(`[embeddings] ${e instanceof Error ? e.message : "error"}`);
+    process.exit(1);
+  });
+}

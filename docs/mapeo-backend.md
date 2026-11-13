@@ -8,8 +8,8 @@ El backend es una fuente **no confiable** (P5): cada respuesta pasa por un sobre
 
 | Endpoint | Acceso | Para qué |
 | --- | --- | --- |
-| `GET /api/v1/repositories?limit=100` | Público | Grilla |
-| `GET /api/v1/repositories/{owner}/{repo}` | Público | Desglose y nivel de mantenimiento de cada repo |
+| `GET /api/v1/repositories?limit=100&offset=N` | Público | Grilla: páginas de 100 (el tope del backend), hasta 3 |
+| `GET /api/v1/repositories/{owner}/{repo}` | Público | Solo al abrir una ficha: desglose y nivel de mantenimiento de ese repo (feature 005, RF-19) |
 
 Ninguno lleva credenciales (P3). `POST /api/v1/ingestion/batch` (con `ADMIN_API_KEY`) solo lo usa la herramienta de operación `npm run sembrar:backend`, nunca el runtime.
 
@@ -63,4 +63,6 @@ Todo o nada: si un componente falta, no es numérico, es negativo o supera su m�
 ## Límites conocidos
 
 - **Rate limit (R-21, mitigado):** el backend permite 60 pedidos/min por IP y la lista no trae el desglose, así que cada tanda cuesta 1 + 30 pedidos. El adaptador guarda en memoria del servidor, durante 60 s, la lista y los desgloses; las cargas concurrentes comparten la misma tanda y los errores no se guardan. Medido con el backend real: 4 cargas seguidas → 31 pedidos, 0 respuestas 429. El 429 que se vio antes vino de varias corridas del e2e seguidas (cada una levanta un servidor nuevo, con su caché vacía). Sugerencia para el backend: incluir el desglose (o el nivel) en la lista.
+- **Grilla sin desgloses (feature 005, RF-19, RNF-28):** con 100+ repos la tanda anterior costaría 1 + 100 pedidos y superaría los 60/min. Desde la 005 la grilla pide solo la lista (⌈N/100⌉ pedidos: **2 con 108 repos**) y usa el `health_score` de cada ítem. El desglose se pide **solo al abrir una ficha**, uno por repo, guardado 60 s. Un presupuesto de 50 desgloses por minuto por instancia acota el peor caso (alguien que abre todas las fichas) a 52 pedidos/min; agotado, la ficha se sirve sin desglose («Sin dato»), nunca con un error ni con datos inventados. El rate limit del backend no se tocó.
+- **Mantenimiento en la grilla con fuente backend:** como el nivel sale del desglose (`commit_frequency_score`), en la grilla queda **«Sin dato»** y el filtro por nivel de mantenimiento no encuentra repos con esta fuente. La ficha sí lo muestra. Se resuelve del todo cuando el backend incluya el nivel (o el desglose) en la lista, la sugerencia de R-21.
 - **Store en memoria:** si el backend se reinicia, la lista vuelve vacía y el catálogo muestra el estado «No encontramos herramientas» hasta volver a sembrar (R-19).

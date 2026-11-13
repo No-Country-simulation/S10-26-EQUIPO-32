@@ -34,12 +34,17 @@ npm run dev                          # http://localhost:3000
 
 # Opcional
 npm run embeddings                   # regenera data/embeddings.json (ya viene versionado)
+GITHUB_TOKEN="$(gh auth token)" npm run ingesta   # feature 005: regenera repos, logos e ideas faltantes desde data/semilla-repos.json
 npm test                             # Vitest
 npm run test:e2e                     # Playwright contra el build de producción (usa CATALOG_SOURCE=fixtures)
 npm run redteam -- --etiqueta v3     # 13 ataques + 5 controles, con y sin guardrails → docs/red-team.md
 ```
 
-**Fuentes de datos (`CATALOG_SOURCE`):** `reales` (demo: 30 repos reales con metadatos de la API de GitHub del 12/11, los mismos que indexa el asistente), `backend` (los mismos 30 servidos por el FastAPI de `backend/`, con health score, nivel de mantenimiento y desglose reales; ver abajo), `sintetico` (40 herramientas inventadas), `fixtures` (**solo pruebas**: casos de mal uso) y `supabase` (fuera del MVP). En `reales`, health score y mantenimiento se ven como «Sin dato»: no se inventan (P7).
+**Fuentes de datos (`CATALOG_SOURCE`):** `reales` (demo: **108 repos reales** de la lista curada [`data/semilla-repos.json`](data/semilla-repos.json), con metadatos de la API de GitHub y logo oficial, los mismos que indexa el asistente), `backend` (los repos servidos por el FastAPI de `backend/`, con health score, nivel de mantenimiento y desglose reales; ver abajo), `sintetico` (40 herramientas inventadas), `fixtures` (**solo pruebas**: casos de mal uso) y `supabase` (fuera del MVP). En `reales`, health score y mantenimiento se ven como «Sin dato»: no se inventan (P7).
+
+### Ingesta del catálogo real (feature 005)
+
+`npm run ingesta` (en `apps/web`) lee la lista curada `data/semilla-repos.json` (108 repos, 18 por categoría; el criterio de selección está en el mismo archivo: no archivado, no fork, push ≤ 180 días, licencia OSI), trae los metadatos de la API de GitHub, descarga el avatar de cada owner a `public/logos/` (solo PNG/JPEG por magic bytes, ≤ 200 KB, desde `avatars.githubusercontent.com`; origen y fecha en `public/logos/fuentes.json`), genera con Ollama local las ideas de los repos que no tienen (`revisada: false`, validadas) y regenera `data/repos-reales.json` y `data/embeddings.json`. Corre sin intervención (pensada para un cron): no escribe nada hasta que todo salió bien y sale con código 1 (falla de la corrida) o 2 (configuración) y un log `[ingesta]`. `GITHUB_TOKEN` solo por entorno, nunca en un archivo.
 
 ### Catálogo con el backend (`CATALOG_SOURCE=backend`)
 

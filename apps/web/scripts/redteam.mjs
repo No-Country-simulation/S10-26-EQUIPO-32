@@ -206,17 +206,17 @@ function informe(corridas) {
   );
   const etq = corridas.map((c) => c.etiqueta);
   const filasMeta = corridas.map(
-    (c) => `| ${c.etiqueta} | ${c.fecha} | \`${c.commit}\`${c.arbolLimpio ? "" : " (con cambios sin commitear)"} | ${c.descripcion} | ${deTipo(c.con, "ataque").length} + ${deTipo(c.con, "control").length} |`,
+    (c) => `| ${c.etiqueta} | ${c.fecha} | \`${c.commit}\`${c.arbolLimpio ? "" : " (con cambios sin commitear)"} | ${c.descripcion} | ${c.reposIndice ?? 30} | ${deTipo(c.con, "ataque").length} + ${deTipo(c.con, "control").length} |`,
   );
   return `# Red-team del asistente RAG
 
 > **Generado por \`npm run redteam -- --etiqueta vN\`** (\`apps/web/scripts/redteam.mjs\`). No editar a mano: se regenera en cada corrida con todas las corridas de \`apps/web/tests/redteam/corridas/v*.json\` (P7).
 > Evidencia completa (cuerpos de respuesta): esos mismos archivos. La corrida inicial de 10 ataques del 2026-11-12 quedó en \`corridas/inicial-2026-11-12.json\`.
 
-Modelo de chat \`${MODELO_CHAT}\` (Ollama local, temperature 0, seed 42) · embeddings \`nomic-embed-text\`, ${IDS_INDICE.size} repos en el índice · batería: ${ataques.length} ataques + ${controles.length} controles benignos (\`apps/web/tests/redteam/ataques.json\`).
+Modelo de chat \`${MODELO_CHAT}\` (Ollama local, temperature 0, seed 42) · embeddings \`nomic-embed-text\`, ${IDS_INDICE.size} repos en el índice actual · batería: ${ataques.length} ataques + ${controles.length} controles benignos (\`apps/web/tests/redteam/ataques.json\`).
 
-| Corrida | Fecha | Commit | Qué mide | Ataques + controles |
-| --- | --- | --- | --- | --- |
+| Corrida | Fecha | Commit | Qué mide | Repos en el índice | Ataques + controles |
+| --- | --- | --- | --- | --- | --- |
 ${filasMeta.join("\n")}
 
 ## Resumen ${etq.join(" vs ")}
@@ -246,7 +246,11 @@ ${filasControles.join("\n")}
 `;
 }
 
-const DESCRIPCIONES = { v1: "Baseline: batería ampliada sobre el código sin la mitigación de MU-19", v2: "Mitigación de MU-19: detector de cambio de rol + refuerzo del system prompt (salida sin cambios)" };
+const DESCRIPCIONES = {
+  v1: "Baseline: batería ampliada sobre el código sin la mitigación de MU-19",
+  v2: "Mitigación de MU-19: detector de cambio de rol + refuerzo del system prompt (salida sin cambios)",
+  v3: "Regresión (feature 005, RNF-29): mismas defensas que v2 sobre el índice de 100+ repos reales",
+};
 
 // `next dev` agrega al tsconfig los tipos de .next-redteam: se restaura al terminar para no ensuciar el repo.
 const TSCONFIG = new URL("../tsconfig.json", import.meta.url);
@@ -259,6 +263,8 @@ const meta = {
   commit: git("rev-parse", "--short", "HEAD"),
   // P7: la corrida solo es reproducible si el código del asistente coincide con el commit.
   arbolLimpio: git("status", "--porcelain", "--", "src", "data", "scripts", "tests/redteam/ataques.json") === "",
+  // Feature 005: el índice cambió de tamaño entre corridas; las anteriores a v3 se hicieron con 30.
+  reposIndice: IDS_INDICE.size,
 };
 let con;
 let sin;

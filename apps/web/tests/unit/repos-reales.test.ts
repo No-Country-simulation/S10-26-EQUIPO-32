@@ -1,4 +1,5 @@
-// Dataset real del asistente (feature 002 · A02, RF-12): 30 repos reales validados con contrato.ts.
+// Dataset real del asistente (feature 002 · A02, RF-12; ampliado por la feature 005, RF-16 y RF-17): ≥ 100 repos reales
+// de data/semilla-repos.json, validados con contrato.ts.
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -10,18 +11,31 @@ const AHORA = new Date("2026-11-13T12:00:00Z");
 const crudos = JSON.parse(readFileSync(join(__dirname, "../../data/repos-reales.json"), "utf8")) as Array<
   Record<string, unknown>
 >;
+const semilla = JSON.parse(readFileSync(join(__dirname, "../../../../data/semilla-repos.json"), "utf8")) as {
+  repos: Array<{ repo: string; id: string; nombre: string }>;
+};
 
-describe("repos-reales.json · validado con contrato.ts (RF-12)", () => {
+describe("repos-reales.json · validado con contrato.ts (RF-12, RF-16)", () => {
   const { herramientas, omitidas } = parsearLista(crudos, AHORA);
 
-  it("30 repos, ninguno omitido", () => {
+  it("al menos 100 repos, ninguno omitido", () => {
     expect(omitidas).toBe(0);
-    expect(herramientas).toHaveLength(30);
+    expect(herramientas.length).toBeGreaterThanOrEqual(100);
   });
 
-  it("5 repos por categoría principal (la primera) y las 6 categorías cubiertas", () => {
+  it("al menos 15 repos por categoría principal (la primera) y las 6 categorías cubiertas", () => {
     const principal = herramientas.map((h) => h.categorias.length > 0 && (crudos.find((c) => c.id === h.id)!.categorias as string[])[0]);
-    for (const c of CATEGORIAS) expect(principal.filter((p) => p === c)).toHaveLength(5);
+    for (const c of CATEGORIAS) expect(principal.filter((p) => p === c).length).toBeGreaterThanOrEqual(15);
+  });
+
+  it("todos salen de la semilla, con su id, nombre y owner/repo (nada sintético)", () => {
+    const porId = new Map(semilla.repos.map((r) => [r.id, r]));
+    for (const c of crudos) {
+      const s = porId.get(c.id as string);
+      expect(s).toBeDefined();
+      expect(c.nombre).toBe(s!.nombre);
+      expect((c.urlRepo as string).toLowerCase()).toBe(`https://github.com/${s!.repo}`.toLowerCase());
+    }
   });
 
   it("cada repo tiene 1 o 2 ideas, todas sin revisar", () => {

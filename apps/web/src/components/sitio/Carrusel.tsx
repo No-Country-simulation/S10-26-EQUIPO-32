@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { MarcaRepo } from "@/components/marca/MarcaRepo";
+import { LogoRepo } from "@/components/marca/LogoRepo";
 import { PantallaPreview } from "@/components/marca/PantallaPreview";
 import type { Categoria } from "@/lib/catalogo/categorias";
 import { t } from "@/i18n/es";
@@ -79,7 +79,7 @@ export function Carrusel({ id, items }: { id: string; items: ItemCarrusel[] }) {
                 <PantallaPreview id={item.id} categoria={item.categoria} className="ob-escala transition-transform duration-300 group-hover/carrusel:scale-[1.02]" />
               </span>
               <span className="mt-4 flex min-w-0 items-center gap-3">
-                <MarcaRepo id={item.id} className="size-11" />
+                <LogoRepo id={item.id} className="size-11" />
                 <span className="min-w-0">
                   <bdi dir="auto" className="block truncate text-base font-semibold">
                     {item.nombre}

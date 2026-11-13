@@ -7,6 +7,7 @@ import { armarMensajes, CANARIO, FRAGMENTOS_PROMPT, neutralizar, SYSTEM_PROMPT }
 import { filtraPrompt, limpiarTexto, validarSalida } from "@/lib/asistente/salida";
 import { responder } from "@/lib/asistente/asistente";
 import { parsearHerramientaDetalle } from "@/lib/catalogo/contrato";
+import repos from "../../data/repos-reales.json";
 
 describe("config (RNF-21, AM-24, AM-26)", () => {
   it("REDTEAM_SIN_GUARDRAILS se ignora en producción", () => {
@@ -54,9 +55,10 @@ describe("Limitador (RNF-05, AM-22, AM-23)", () => {
 });
 
 describe("índice (RF-13)", () => {
-  it("indexa los 30 repos reales y busca por coseno", () => {
+  it("indexa los ≥ 100 repos reales (feature 005) y busca por coseno", () => {
     const i = obtenerIndice();
-    expect(i.tamano).toBe(30);
+    expect(i.tamano).toBeGreaterThanOrEqual(100);
+    expect(i.tamano).toBe(repos.length);
     expect(coseno([1, 0], [1, 0])).toBeCloseTo(1);
     expect(coseno([1, 0], [0, 1])).toBeCloseTo(0);
     expect(coseno([1], [1, 2])).toBe(-1);

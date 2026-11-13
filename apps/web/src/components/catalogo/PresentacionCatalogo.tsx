@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
-import { MarcaRepo } from "@/components/marca/MarcaRepo";
+import { LogoRepo } from "@/components/marca/LogoRepo";
 
 export interface HerramientaDestacada {
   id: string;
@@ -29,7 +29,7 @@ function Tile({ grupo, variante, className }: { grupo: HerramientaDestacada[]; v
   return (
     <span className={cn("ob-rotar relative mx-[0.14em] inline-block size-[0.9em] -translate-y-[0.06em] align-middle", GIROS[variante % GIROS.length], className)}>
       {grupo.map((h) => (
-        <MarcaRepo key={h.id} id={h.id} className="absolute inset-0 size-full drop-shadow-md" />
+        <LogoRepo key={h.id} id={h.id} className="absolute inset-0 size-full drop-shadow-md" />
       ))}
     </span>
   );

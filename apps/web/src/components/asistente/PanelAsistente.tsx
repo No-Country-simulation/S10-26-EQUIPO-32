@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useId, type FormEvent } from "react";
 import { Loader2, X } from "lucide-react";
+import { LogoRepo } from "@/components/marca/LogoRepo";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { t, type ClaveTexto } from "@/i18n/es";
@@ -59,9 +60,12 @@ function Resultado({ respuesta }: { respuesta: RespuestaCliente }) {
         <h3 className="text-sm font-semibold">{t("asistente.stack")}</h3>
         <ul className="space-y-1 text-sm">
           {respuesta.stack.map((item) => (
-            <li key={item.id} className="[overflow-wrap:anywhere]">
-              <EnlaceFicha id={item.id} nombre={item.nombre} />
-              {item.rol.length > 0 && <span className="text-muted-foreground">{conRol(item.rol)}</span>}
+            <li key={item.id} className="flex items-center gap-2 [overflow-wrap:anywhere]">
+              <LogoRepo id={item.id} className="size-6 rounded-md" />
+              <span>
+                <EnlaceFicha id={item.id} nombre={item.nombre} />
+                {item.rol.length > 0 && <span className="text-muted-foreground">{conRol(item.rol)}</span>}
+              </span>
             </li>
           ))}
         </ul>

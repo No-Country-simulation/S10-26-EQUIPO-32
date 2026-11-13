@@ -30,7 +30,9 @@ describe("PanelAsistente", () => {
     });
     expect(h).toContain('href="/herramientas/keycloak"');
     expect(h.match(/href=/g)).toHaveLength(2);
-    expect(h).not.toContain("<img");
+    // El único <img> permitido es el logo propio del repo citado (feature 005, RF-18): decorativo y desde /logos/.
+    const sinLogo = h.replace(/<img data-ob-logo="" src="\/logos\/keycloak\.(?:png|jpg)" alt="" aria-hidden="true"[^>]*\/>/g, "");
+    expect(sinLogo).not.toContain("<img");
     expect(h).not.toContain("<script");
     expect(h).toContain("&lt;img src=x onerror=");
   });

@@ -18,6 +18,7 @@
     "check:deps": "node scripts/verificar-dependencias.mjs",
     "check:invisibles": "node scripts/verificar-invisibles.mjs",
     "embeddings": "node --env-file-if-exists=.env scripts/generar-embeddings.mjs",
+    "ingesta": "node --env-file-if-exists=.env scripts/ingestar-repos.mjs",
     "redteam": "node --env-file-if-exists=.env scripts/redteam.mjs",
     "sembrar:backend": "node scripts/sembrar-backend.mjs"
   },
