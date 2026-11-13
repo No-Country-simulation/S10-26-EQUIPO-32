@@ -61,7 +61,7 @@ export function Cabecera() {
             </li>
           </ul>
         </nav>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="-mr-3 ml-auto flex items-center">
           <EnlaceExterno destino="repositorio" className={cn(CLASE_NAV, "gap-1.5")}>
             {t("cabecera.github")}
             <ArrowUpRight aria-hidden="true" className="size-4" />
@@ -72,8 +72,9 @@ export function Cabecera() {
             aria-controls={asistente.id}
             onClick={asistente.alternar}
             className={cn(
-              "catalogo-foco hidden min-h-11 cursor-pointer items-center gap-2 rounded-full bg-primary px-5 text-[0.95rem] font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/85 sm:inline-flex motion-reduce:transition-none",
-              conCta ? "visible translate-y-0 opacity-100" : "invisible translate-y-1 opacity-0",
+              "catalogo-foco hidden min-h-11 cursor-pointer items-center gap-2 overflow-hidden rounded-full bg-primary text-[0.95rem] font-medium whitespace-nowrap text-primary-foreground transition-all duration-300 hover:bg-primary/85 sm:inline-flex motion-reduce:transition-none",
+              // Oculto no ocupa lugar (max-w-0) ni se enfoca (invisible).
+              conCta ? "visible ml-2 max-w-64 translate-y-0 px-5 opacity-100" : "invisible ml-0 max-w-0 translate-y-1 px-0 opacity-0",
             )}
           >
             <Sparkles aria-hidden="true" className="size-4" />
