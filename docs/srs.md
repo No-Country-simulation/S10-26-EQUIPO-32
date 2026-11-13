@@ -29,11 +29,15 @@ OpenBridge centraliza un catálogo de ≥ 100 herramientas open-source con métr
 | RF-03 | Filtros por lenguaje, licencia, stars mínimos, categoría y nivel de mantenimiento | M | Cada filtro reduce el resultado correctamente | 001 |
 | RF-04 | Búsqueda por texto libre | S | "auth" devuelve Keycloak / Auth.js | 001 |
 | RF-05 | Ideas de integración estructuradas (tipo REST/Docker/SDK/webhook, disparadores, snippet, stack compatible, dificultad, estado de revisión). **Dato (003):** cada repo tiene ≥ 1 idea. **Interfaz (001):** muestra 0..N ideas; con 0 ideas, estado vacío explícito | M | Esquema validado, sin texto plano suelto. 003: 100 % de repos con ≥ 1 idea. 001: ficha con 0 ideas muestra el estado vacío sin errores | 001 / 003 |
-| RF-06 | El usuario describe su negocio y el asistente devuelve un stack recomendado con justificación y repos citados | M | Solo cita repos existentes en la BD | 002 |
+| RF-06 | El usuario describe su negocio y el asistente devuelve un stack recomendado con justificación y repos citados | M | Solo cita repos existentes en el índice (`data/repos-reales.json` en el MVP; la BD en 003); sin contexto suficiente responde «sin contexto» | 002 |
 | RF-07 | El pipeline consulta la GitHub API diariamente y actualiza metadatos y health score | M | Log de corrida diaria | 003 |
 | RF-08 | El pipeline genera y guarda embeddings de cada repo | M | 100 % de repos con vector | 003 |
 | RF-09 | Health score con fórmula documentada | M | Fórmula en README + tests | 003 |
 | RF-10 | Un admin puede dar de alta o baja un repo | C | Alta/baja visible en catálogo | — |
+| RF-11 | Panel del asistente desde la cabecera: campo de ≤ 500 caracteres, stack, justificación y repos citados enlazados a su ficha | M | Test del panel (`asistente-panel.test.tsx`) y E2E del botón | 002 |
+| RF-12 | Dataset real de 30 repos (5 por categoría principal, ideas sin revisar) validado con el contrato del catálogo | M | `repos-reales.test.ts` | 002 |
+| RF-13 | Embeddings precalculados por script y búsqueda por similitud coseno en memoria | M | `npm run embeddings` + test del índice | 002 |
+| RF-14 | Set de red-team de 10 ataques y script que genera `docs/red-team.md` con y sin guardrails | M | Corrida real registrada en `docs/red-team.md` | 002 |
 
 ## 4. Requisitos no funcionales
 
@@ -59,6 +63,10 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-16 | Producto · Accesibilidad | WCAG 2.1 AA acotado: 1.4.3, 1.4.11, 2.1.1, 2.1.2, 2.4.3, 2.4.7, 3.3.2, 4.1.2, 3.1.1 | M | axe + prueba manual de teclado | 001 |
 | RNF-17 | Producto · Usabilidad | Textos de interfaz en diccionario; entrega en español, inglés como mejora | C | Diccionario único; sin textos hardcodeados | 001 |
 | RNF-18 | Producto · Calidad visual | Composición fiel a la referencia, aprobada por revisión visual de Jerónimo; tema claro e identidad OpenBridge según spec 001 §1.1–1.2 | M | Revisión visual de Jerónimo (T34) | 001 |
+| RNF-19 | Producto · Seguridad | El asistente nunca devuelve su system prompt (canario + detección de fragmentos) | M | Test unitario + ataque MU-14 del red-team | 002 |
+| RNF-20 | Producto · Seguridad | Entrada del asistente: JSON, cuerpo ≤ 4 KB, consulta ≤ 500 caracteres normalizada | M | Tests del route handler (400/413/415) | 002 |
+| RNF-21 | Producto · Seguridad | El modo sin guardrails del red-team no tiene efecto en producción | M | Test unitario de configuración y del handler | 002 |
+| RNF-22 | Producto · Privacidad | LLM local: la consulta no sale del servidor y no se registra | M | Revisión de código (logs solo con códigos) | 002 |
 
 ## 5. Trazabilidad
 

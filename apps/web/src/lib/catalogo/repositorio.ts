@@ -17,7 +17,7 @@ export class ErrorCatalogo extends Error {
   }
 }
 
-export const FUENTES = ["sintetico", "fixtures", "supabase"] as const;
+export const FUENTES = ["sintetico", "reales", "fixtures", "supabase"] as const;
 export type FuenteCatalogo = (typeof FUENTES)[number];
 
 /** Error de configuración del servidor: el mensaje es para quien despliega, nunca para el usuario. */
@@ -73,6 +73,8 @@ async function cargar(fuente: FuenteCatalogo): Promise<RepositorioCatalogo> {
   switch (fuente) {
     case "sintetico":
       return (await import("./adaptadores/sintetico")).crearAdaptadorSintetico();
+    case "reales":
+      return (await import("./adaptadores/reales")).crearAdaptadorReales();
     case "fixtures":
       return (await import("./adaptadores/fixtures")).crearAdaptadorFixtures();
     case "supabase":

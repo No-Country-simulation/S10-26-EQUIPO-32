@@ -8,6 +8,7 @@
 # Node / Next.js
 node_modules/
 .next/
+.next-redteam/
 out/
 dist/
 *.tsbuildinfo
