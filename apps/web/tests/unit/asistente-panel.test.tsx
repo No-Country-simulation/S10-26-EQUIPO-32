@@ -7,7 +7,7 @@ import { consultarAsistente, rutaFicha } from "@/lib/asistente/cliente";
 const XSS = '<img src=x onerror="alert(1)"><script>alert(2)</script>';
 const html = (estado: EstadoPanel, consulta = "") =>
   renderToStaticMarkup(
-    <PanelAsistente id="p" consulta={consulta} estado={estado} onCambiar={() => {}} onEnviar={() => {}} onCerrar={() => {}} />,
+    <PanelAsistente id="p" consulta={consulta} estado={estado} onCambiar={() => {}} onEnviar={() => {}} onEjemplo={() => {}} onCerrar={() => {}} />,
   );
 
 describe("PanelAsistente", () => {

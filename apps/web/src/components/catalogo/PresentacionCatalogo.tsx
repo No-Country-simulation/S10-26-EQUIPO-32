@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 import { LogoRepo } from "@/components/marca/LogoRepo";
+import { BotonAsistente } from "@/components/sitio/BotonAsistente";
 
 export interface HerramientaDestacada {
   id: string;
@@ -70,6 +71,7 @@ export function PresentacionCatalogo({ idCatalogo, idSeguridad = "seguridad", de
         >
           {t("portada.accion")}
         </a>
+        <BotonAsistente className="bg-secondary text-foreground hover:bg-secundario-hover" />
         <a
           href={`#${encodeURIComponent(idSeguridad)}`}
           className="catalogo-foco inline-flex min-h-12 items-center gap-2 rounded-full bg-secondary px-6 text-[1.05rem] font-medium text-foreground transition-colors hover:bg-secundario-hover"

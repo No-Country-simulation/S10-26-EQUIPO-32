@@ -229,3 +229,31 @@ Los 5 bloques de §12.2 se entregaron antes del cierre. Queda abierto:
 - **Revisión visual de Jerónimo** (RNF-18 / T34) de marcas, pantallas y carrusel.
 - **Variedad de marcas:** 6 formas × 8 colores × 4 giros × 7 acentos. Dos repos pueden coincidir; si molesta, sumar formas.
 - **Carrusel:** sin indicador de posición (puntos) ni arrastre con mouse; se desplaza con trackpad, teclado (foco en las tarjetas) y flechas.
+
+## 13. Imágenes reales e interacciones (feature 007, 2026-11-13)
+
+**Rama:** `007-imagenes-interacciones` · **Spec:** `specs/007-imagenes-interacciones/spec.md` (RF-20..26, RNF-30..32, MU-29..32) · **Cierre:** 19:30. Lo que no llegue pasa a §13.5.
+
+### 13.1 Interacciones (prioridad 1)
+
+Nada decorativo que no funcione. «Probar el asistente» (portada, cabecera, sección del asistente) abre el panel y mueve el foco a él; «Explorar el catálogo» hace scroll a la grilla; el footer solo enlaza a documentos que existen en el repo. Las cards del carrusel y de la grilla abren la ficha. El carrusel suma puntos de posición y arrastre con mouse o touch. Las tabs reordenan la grilla. El asistente ofrece consultas de ejemplo que se envían y un estado de carga. Todo con teclado y con `prefers-reduced-motion` (scroll instantáneo, sin animaciones).
+
+### 13.2 Imágenes (prioridad 2)
+
+- **Capturas de producto** (RF-24): las trae `npm run ingesta` desde el README de cada repo, con los controles de RNF-30; van en `public/capturas/<id>.(png|jpg|webp)` con `fuentes.json` (origen y licencia). Se muestran dentro de la pantalla de preview de la tarjeta y la ficha. Sin captura válida, `PantallaPreview`.
+- **Fotos decorativas** (RF-25): en `public/imagenes/` con `fuentes.json` y crédito en el footer. Nunca como captura de una herramienta.
+- Todas con `next/image`, `alt` descriptivo, CSP sin cambios (`img-src 'self'`).
+
+### 13.3 Invariantes
+
+- La guarda de los e2e (§11.3) **no se afloja**: se agregan dos excepciones estrictas y verificadas (captura propia `/capturas/<id>`, foto propia `/imagenes/<archivo>`; ambas con `alt`, sin `on*`, origen propio). Un `<img>` que no cumpla sigue fallando y hay un test que lo demuestra.
+- Las rutas de `next/image` (`/_next/image?url=/capturas/...`) son del mismo origen.
+- Sin dependencias nuevas, sin `style`, `jsx-no-literals`.
+
+### 13.4 Conciliación
+
+§5.3 del brief prohibía imágenes externas; sigue vigente: ninguna imagen se pide a un host externo desde el navegador, todas se descargan en la ingesta y se sirven desde el sitio. El logo (feature 005) mantiene su `<img>` propio.
+
+### 13.5 Backlog
+
+_(se completa al cierre)_

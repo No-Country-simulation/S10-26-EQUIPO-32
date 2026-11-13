@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Bot, Sparkles } from "lucide-react";
 import type { Categoria } from "@/lib/catalogo/categorias";
 import { LogoRepo } from "@/components/marca/LogoRepo";
+import { BotonAsistente } from "./BotonAsistente";
 import { t } from "@/i18n/es";
 
 export interface RepoCitado {
@@ -31,6 +32,7 @@ export function SeccionAsistente({ id, citados }: SeccionAsistenteProps) {
           {t("seccionAsistente.titulo")}
         </h2>
         <p className="mt-4 text-lg text-balance text-muted-foreground">{t("seccionAsistente.subtitulo")}</p>
+        <BotonAsistente className="mt-8 bg-primary text-primary-foreground hover:bg-primary/85" />
       </div>
 
       <div className="mt-12 rounded-[2rem] bg-secondary p-3 sm:p-8 lg:p-12">
