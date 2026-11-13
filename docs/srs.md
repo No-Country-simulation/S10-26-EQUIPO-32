@@ -52,6 +52,9 @@ OpenBridge centraliza un catálogo de ≥ 100 herramientas open-source con métr
 | RF-27 | Persistencia del backend en Postgres + pgvector con RLS (`DATABASE_URL`; sin ella, memoria) y base local por `docker-compose` | M | `test_postgres_client.py` + prueba de reinicio con 108 repos | 006 |
 | RF-28 | Ingesta programada semanal (`--solo-metadatos`) que abre un PR con el resultado | M | Corrida del workflow + modo idempotente | 006 |
 | RF-29 | Scheduler opcional del backend (`INGEST_SCHEDULE_HOURS`), apagado por defecto | S | `test_scheduler.py` | 006 |
+| RF-30 | La búsqueda mira también id, lenguaje, licencia y categorías, como texto literal (sin regex) | M | `filtros.test.ts`, `busqueda.spec.ts` | 008 |
+| RF-31 | Categorías, Lenguajes, Licencias y Casos de uso son filtros reales reflejados en la URL (segundo clic los quita); «Casos de uso» filtra por tipo de idea | M | `busqueda.spec.ts`, `estado-url.test.ts` | 008 |
+| RF-32 | Scroll a la grilla (respeta movimiento reducido), chips con «Limpiar todo» y conteo con `aria-live` | M | `busqueda.spec.ts` | 008 |
 | RF-19 | Con `CATALOG_SOURCE=backend` la grilla no pide desgloses (health score de la lista); el desglose se pide solo en la ficha | M | `adaptador-backend.test.ts` (requests por carga) | 005 |
 
 ## 4. Requisitos no funcionales
@@ -106,6 +109,7 @@ Riesgo → control → requisito → prueba: ver `docs/matriz-riesgos.md`.
 | Fecha | Cambio | Origen |
 | --- | --- | --- |
 | 2026-10-30 | RNF-08 pasa de 001/003 a 003. RF-02 incluye categorías, mantenedor activo y enlace al repo. RF-05 separa el requisito de datos (≥ 1 idea, 003) del comportamiento de la interfaz (0..N, 001). | Plan 001, decisiones 2 y 3 |
+| 2026-11-13 | RF-30 a RF-32: búsqueda ampliada y bloque de exploración con filtros reales (feature 008). | Consigna, spec 008 |
 | 2026-11-13 | RF-27 a RF-29 y RNF-34 a RNF-36: persistencia con RLS, ingesta programada y scheduler (feature 006). | Consigna, spec 006 |
 | 2026-11-13 | RF-20 a RF-26 y RNF-30 a RNF-32: interacciones reales, capturas de producto y fotos (feature 007). | Consigna, spec 007 |
 | 2026-11-13 | RF-16 a RF-19 y RNF-26 a RNF-29: catálogo de ≥ 100 repos reales, ingesta automática, logos oficiales y grilla sin desgloses con backend. RF-12 queda ampliado por RF-16. | Consigna, spec 005 |

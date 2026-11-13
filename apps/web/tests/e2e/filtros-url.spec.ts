@@ -34,6 +34,6 @@ test("una URL manipulada carga sin error y muestra la búsqueda como texto", asy
   await expect(page.getByText("No hay herramientas para la búsqueda «<svg onload=x>».")).toBeVisible();
   await expect(page.locator("main svg[onload]")).toHaveCount(0);
   expect(dialogos).toEqual([]);
-  await page.getByRole("button", { name: "Limpiar filtros" }).first().click();
+  await page.getByRole("button", { name: "Limpiar todo" }).first().click();
   await expect(page).toHaveURL(/\/$/);
 });
