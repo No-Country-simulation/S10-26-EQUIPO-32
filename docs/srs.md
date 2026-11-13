@@ -107,4 +107,5 @@ Resultado real de cada requisito al entregar. Evidencia completa en `specs/001-f
 | RNF-17 | Cumple (español) | Lint `jsx-no-literals` + `i18n.test`; inglés no entregado (C) |
 | RNF-18 | Pendiente | Aprobación visual de Jerónimo sin registrar |
 | RNF-19 a RNF-22 | Cumple | Tests de 002; MU-14 bloqueado |
+| RNF-23 | Cumple en la batería | Red-team v2 13/13 (v1 11/13), 0/5 falsos positivos; generalización sin medir (AM-29) |
 

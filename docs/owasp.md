@@ -22,7 +22,7 @@
 
 | ID | Riesgo | Control | Evidencia | Estado |
 | --- | --- | --- | --- | --- |
-| LLM01 | Prompt injection | Datos recuperados entre `<datos_no_confiables>`; reglas en el system prompt; delimitadores inyectados neutralizados; salida con esquema | `docs/red-team.md`: 9/10 bloqueados con guardrails (3/10 sin) | ◐ **MU-19 abierto**: la justificación obedeció un role-play |
+| LLM01 | Prompt injection | Datos recuperados entre `<datos_no_confiables>`; reglas en el system prompt (incluido rol fijo, RNF-23); delimitadores inyectados neutralizados; detector de cambio de rol/persona en la entrada, también en otro idioma u ofuscado; salida con esquema | `docs/red-team.md` (2026-11-13, 13 ataques + 5 controles): **v1 11/13 → v2 13/13** con guardrails (4/13 sin); 0/5 falsos positivos; 0 fugas; 0 repos inventados; `asistente-rol.test.ts` | ◐ MU-19 cerrado. Residual: el detector es heurístico y se escribió conociendo los ataques (AM-29), así que una redacción nueva puede pasarlo; el refuerzo del prompt no tiene efecto medido aislado |
 | LLM02 | Divulgación de información sensible | LLM local; el prompt no contiene secretos; la consulta no se registra | MU-21 bloqueado; RNF-22 | ● |
 | LLM03 | Cadena de suministro | Modelos oficiales de Ollama, fijados por nombre; sin SDK (solo `fetch`) | `ollama.ts` | ◐ sin verificación de hash del modelo |
 | LLM04 | Envenenamiento de datos y modelo | Dataset curado y validado por contrato; `revisada: false` en todas las ideas | `repos-reales.test.ts` | ◐ los READMEs no se indexan todavía |
@@ -30,5 +30,5 @@
 | LLM06 | Agencia excesiva | El modelo no tiene herramientas ni acciones: solo devuelve texto | `asistente.ts` | ● |
 | LLM07 | Fuga del system prompt | Canario + detección de fragmentos; la salida que los contiene se descarta | MU-14 bloqueado; 0 fugas con guardrails | ● |
 | LLM08 | Debilidades de vectores y embeddings | Índice local precalculado; los vectores solo entran si su `id` pasa el contrato y la dimensión coincide | `indice.ts` + test | ● |
-| LLM09 | Desinformación | Grounding estricto: sin repos válidos responde «sin contexto»; aviso visible en el panel | MU-15 bloqueado; 0 repos fuera del índice | ◐ 6/10 ataques recibieron una recomendación saneada en lugar de «sin contexto»; falta un umbral de health score (R-03) |
+| LLM09 | Desinformación | Grounding estricto: sin repos válidos responde «sin contexto»; aviso visible en el panel | MU-15 bloqueado; 0 repos fuera del índice | ◐ en v2, 4/13 ataques (MU-14, 16, 17, 21) recibieron una recomendación saneada en lugar de «sin contexto»; falta un umbral de health score (R-03) |
 | LLM10 | Consumo ilimitado | 10/min por IP + tope global de 60/min; 500 caracteres; cuerpo de 4 KB; timeout de 60 s; `num_predict` acotado | MU-22 bloqueado; `asistente-route.test.ts` (429) | ● |
