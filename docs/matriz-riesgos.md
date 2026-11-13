@@ -1,6 +1,6 @@
 # Matriz de riesgos — OpenBridge
 
-**Versión:** 0.1 · **Fecha:** 2026-10-30 · Escala 1–3; nivel = probabilidad × impacto (≥ 6 alto).
+**Versión:** 1.0 (cierre de entrega) · **Fecha:** 2026-10-30, actualizada 2026-11-13 · Escala 1–3; nivel = probabilidad × impacto (≥ 6 alto).
 Funciones NIST CSF 2.0: GV Gobernar · ID Identificar · PR Proteger · DE Detectar · RS Responder · RC Recuperar.
 OWASP: A0x = Top 10 web (edición 2021) · LLM0x = Top 10 para LLM (2025). Si adoptamos la edición web 2025, se renumera.
 
@@ -28,6 +28,20 @@ R-11 a R-13 agregados el 2026-10-30 desde el plan 001 (P y I son mi estimación 
 **R-14 (2026-11-10), incidente real:** al escribir `texto.ts` (T06), el agente de IA insertó en el código fuente caracteres bidi y de ancho cero crudos (en el regex y en los tests) en lugar de escapes. Los tests pasaban igual; se detectó en la revisión del código y se corrigió antes del PR. El mismo día volvió a ocurrir en el script del propio chequeo, y el chequeo lo detectó. P y I son estimación inicial (P = 2 porque ya ocurrió dos veces con un agente), a revisar con Ángel; A08 es una asignación mía.
 
 R-15 y R-16 agregados el 2026-11-12 desde la feature 002 (P e I: estimación inicial, revisar con Ángel). **R-14, 2026-11-12:** volvió a ocurrir dos veces al escribir los tests de 002 (U+202E, U+200B crudos); el hook de pre-commit rechazó ambos commits y se corrigió con escapes.
+
+## Estado al cierre (2026-11-13)
+
+| Riesgo | Estado | Motivo |
+| --- | --- | --- |
+| R-01, R-09, R-13, R-14 | Mitigado | Controles en CI en verde (Gitleaks, audit, `headers.spec`, `check:invisibles` + hook) |
+| R-02 | Mitigado parcial | 9/10 en red-team; **MU-19 abierto** |
+| R-03 | Mitigado parcial | 0 repos fuera del índice; falta umbral de health score (requiere backend) |
+| R-04, R-07, R-11, R-12, R-15, R-16 | Mitigado | Tests unitarios y E2E citados en cada fila |
+| R-05 | Abierto | MU-07 sin probar: Supabase no integrado al frontend |
+| R-06 | Fuera de alcance de esta entrega | Pipeline (003) |
+| R-08 | Mitigado parcial | Licencia visible; nivel de mantenimiento «Sin dato» en datos reales hasta integrar el backend |
+| R-10 | Materializado | El revisor no respondió desde el 12/11 → EX-01 |
+| EX-01 | Abierta | Se cierra con la revisión posterior de Ángel y la aprobación obligatoria en `main` |
 
 ## Excepciones a la constitución
 

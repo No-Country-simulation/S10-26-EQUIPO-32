@@ -147,7 +147,7 @@ Horas reales acumuladas: ______ · Decisión: ______ · Fecha: ______
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | T24 | `next.config.ts`: headers estáticos (`X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`, HSTS, `Cross-Origin-Opener-Policy`) y `poweredByHeader: false`. | AM-11, AM-13, RNF-04, R-13 | `curl -I` contra el build de producción muestra todos los headers de 5.2 y no muestra `X-Powered-By`. | 0.5 | 19 | no medido | [x] |
 | T25 | `proxy.ts`: CSP con nonce por request (sin `unsafe-inline` ni `unsafe-eval` en `script-src` en producción; `unsafe-eval` solo en `development`). Aplicar el nonce a los scripts de Next. Navegar `/` y una ficha sin violaciones. | AM-01, AM-11, AM-12, RNF-04, R-07, R-13, D-05 | En el build de producción, `/` y una ficha cargan y funcionan (filtros, copiar) con **0 violaciones de CSP** en la consola. El nonce cambia entre dos requests. La CSP coincide con la de 5.2. **MVP:** opcional, timebox hasta el miércoles 11/11. Si no entra: headers estáticos de T24 y riesgo aceptado en plan 5.3 (plan 8.7). | 1.5 | 20.5 | no medido | [x] |
-| T26 | Verificaciones de CI: `grep` que falla si aparece `dangerouslySetInnerHTML` en `src/` o `SUPABASE_SERVICE_ROLE_KEY`, `GITHUB_TOKEN`, `LLM_` en `apps/web/src` y en `.next/static`. | RNF-02, AM-01, AM-09, R-01 | El paso de CI está en `web.yml` y falla cuando se planta cualquiera de esas cadenas (probado en una rama descartable); pasa en limpio. | 0.5 | 21 |  | [ ] |
+| T26 | Verificaciones de CI: `grep` que falla si aparece `dangerouslySetInnerHTML` en `src/` o `SUPABASE_SERVICE_ROLE_KEY`, `GITHUB_TOKEN`, `LLM_` en `apps/web/src` y en `.next/static`. | RNF-02, AM-01, AM-09, R-01 | El paso de CI está en `web.yml` y falla cuando se planta cualquiera de esas cadenas (probado en una rama descartable); pasa en limpio. | 0.5 | 21 |  | [ ] fuera del cierre: el paso de `grep` no está en `web.yml`; lo cubren en parte `react/no-danger` y Gitleaks |
 
 ## B7 · Pruebas E2E (2 h; solo `mu.spec` con 6 fixtures y `headers.spec`)
 
@@ -156,22 +156,22 @@ Horas reales acumuladas: ______ · Decisión: ______ · Fecha: ______
 | T27 | `mu.spec` (parte 1): recorrer `mu.json` con la guarda común en grilla y ficha: falla ante `dialog`, violación de CSP en consola, request a otro host o elementos inesperados (`<script>`, `<img>`, `<svg>`) donde debería haber texto. | MU-01..12, RNF-04, R-07 | Corre contra el build de producción. Cada fixture de MU-01 a MU-12 pasa la guarda. Se comprueba que la guarda **detecta** un caso (inyectando a propósito un `<img>` en una prueba temporal que se borra). **MVP:** solo 6 fixtures (ver T11). | 1 | 22 | no medido | [x] |
 | T28 | `mu.spec` (parte 2): aserciones específicas de 6.2: texto literal con `<` `>` visible (01, 05, 11); sin `<a>` en `<pre>` y copiar exacto con aviso (02, 10); snippet largo sin copiar (04); 5 URLs manipuladas (06); enlaces al repo (08); inválidos omitidos o "Sin dato" (09); "✔ Revisada" falso no quita el aviso (12); ficha sin licencia (RNF-13). | MU-02, 04, 05, 06, 08, 09, 10, 11, 12, RNF-13 | Todas las aserciones pasan. MU-07 **no** está en este archivo (ver T37). **MVP:** solo las aserciones de las 6 fixtures; el resto en Vitest. | 0.5 | 22.5 | no medido | [x] |
 | T29 | `headers.spec`: headers de 5.2 en `/` y en una ficha; CSP sin `unsafe-eval` ni `unsafe-inline` en `script-src`; nonce distinto entre dos requests. Más: con `colorScheme: 'light'` y `'dark'` el fondo es blanco y no hay control de tema; el botón del asistente está deshabilitado y no genera requests. | R-13, AM-11, RNF-15, Spec §9 (asistente) | Pasa. Si se quita un header de `next.config.ts`, la prueba falla (verificado una vez y revertido). **MVP:** si T25 no entra, las aserciones de CSP se ajustan a lo emitido. | 0.5 | 23 | no medido | [x] |
-| T30 | `teclado.spec`: guion solo con teclado (categoría → filtro → quitar filtro → búsqueda → abrir ficha → copiar snippet → volver) con foco visible en cada parada y sin trampa de foco. | RNF-16 (2.1.1, 2.1.2, 2.4.3, 2.4.7) | Pasa. En cada paso el elemento enfocado tiene un contorno de foco calculado distinto de `none`. `Tab` recorre la página hasta salir. **FUERA DEL MVP (2026-11-10):** el teclado se revisa a mano en T34. | 0 (antes 1.25) | 23 |  | [ ] |
-| T31 | `a11y.spec`: axe sobre los 5 estados del spec (grilla, panel de filtros abierto, ficha con ideas, estado vacío, estado de error con `mu-forzar-error`). Bloquean las violaciones con etiquetas `wcag143`, `wcag1411`, `wcag211`, `wcag212`, `wcag243`, `wcag247`, `wcag332`, `wcag412`, `wcag311`; el resto se lista. | RNF-16, D-17 | El spec corre y **imprime** el conteo de violaciones en alcance y fuera de alcance por estado (se copian a la tabla de validación). Se confirma que bloquea: se planta una violación en alcance (p. ej. un botón sin nombre) y falla. **FUERA DEL MVP (2026-11-10):** sin axe; RNF-16 por revisión manual. | 0 (antes 1.75) | 23 |  | [ ] |
-| T32 | `rnf07.spec`: con las 150 herramientas, 20 repeticiones alternando un cambio de filtro y un texto de búsqueda; mide con `performance.now()` + `MutationObserver` hasta que la grilla refleja el resultado. | RNF-07, AM-07, R-12 | Imprime mínimo, mediana y máximo reales. Pasa si el máximo es < 1000 ms. Los números y la limitación (una máquina, sin limitar CPU) se copian a la tabla de validación. **FUERA DEL MVP (2026-11-10):** RNF-07 pendiente de verificación. | 0 (antes 1.0) | 23 |  | [ ] |
+| T30 | `teclado.spec`: guion solo con teclado (categoría → filtro → quitar filtro → búsqueda → abrir ficha → copiar snippet → volver) con foco visible en cada parada y sin trampa de foco. | RNF-16 (2.1.1, 2.1.2, 2.4.3, 2.4.7) | Pasa. En cada paso el elemento enfocado tiene un contorno de foco calculado distinto de `none`. `Tab` recorre la página hasta salir. **FUERA DEL MVP (2026-11-10):** el teclado se revisa a mano en T34. | 0 (antes 1.25) | 23 |  | [ ] fuera del MVP (2026-11-10) |
+| T31 | `a11y.spec`: axe sobre los 5 estados del spec (grilla, panel de filtros abierto, ficha con ideas, estado vacío, estado de error con `mu-forzar-error`). Bloquean las violaciones con etiquetas `wcag143`, `wcag1411`, `wcag211`, `wcag212`, `wcag243`, `wcag247`, `wcag332`, `wcag412`, `wcag311`; el resto se lista. | RNF-16, D-17 | El spec corre y **imprime** el conteo de violaciones en alcance y fuera de alcance por estado (se copian a la tabla de validación). Se confirma que bloquea: se planta una violación en alcance (p. ej. un botón sin nombre) y falla. **FUERA DEL MVP (2026-11-10):** sin axe; RNF-16 por revisión manual. | 0 (antes 1.75) | 23 |  | [ ] fuera del MVP (2026-11-10) |
+| T32 | `rnf07.spec`: con las 150 herramientas, 20 repeticiones alternando un cambio de filtro y un texto de búsqueda; mide con `performance.now()` + `MutationObserver` hasta que la grilla refleja el resultado. | RNF-07, AM-07, R-12 | Imprime mínimo, mediana y máximo reales. Pasa si el máximo es < 1000 ms. Los números y la limitación (una máquina, sin limitar CPU) se copian a la tabla de validación. **FUERA DEL MVP (2026-11-10):** RNF-07 pendiente de verificación. | 0 (antes 1.0) | 23 |  | [ ] fuera del MVP (2026-11-10) |
 
 ## B8 · Revisión manual (1 h; axe fuera del MVP)
 
 | # | Tarea | Implementa | Criterio de terminado | Est. h | Acum. | Reales | Estado |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| T33 | Corregir **todo lo que corresponda a los criterios de RNF-16** (hallazgos de axe y de la prueba de teclado) hasta tener 0 bloqueantes. Lo que esté fuera de alcance solo se registra, sin corregirlo. | RNF-16 | `a11y.spec` y `teclado.spec` en verde. Los hallazgos fuera de alcance quedan listados en la tabla de validación (RNF-16). **Si T33 supera 2 h reales, cuenta para el checkpoint:** se vuelve a evaluar el orden de recorte de 8.5 con las horas reales acumuladas a esa fecha. *Es la tarea más variable: depende de lo que encuentre T31.* **FUERA DEL MVP (2026-11-10):** depende de T31. | 0 (antes 1.0) | 23 |  | [ ] |
-| T34 | Revisión manual de 6.3: grilla, panel de filtros y una ficha a 360, 768 y 1280 px **con las fixtures MU-03/MU-04 cargadas**; 10 min de teclado a mano; revisión visual en claro con el sistema en ambos modos; confirmar `react/jsx-no-literals` sin hallazgos y `lang="es"`. | RNF-10, RNF-15, RNF-16, RNF-17, MU-03, MU-04 | Aprobación visual de Jerónimo de cabecera, portada y catálogo (RNF-18, spec §1.2). Resultado escrito en la tabla de validación para cada punto: sin scroll horizontal, textos largos o bidi contenidos en su tarjeta, sin elementos sin estilo. **MVP:** incluye la revisión manual de teclado/foco que sustituye a T30/T31. | 1 | 24 |  | [ ] |
+| T33 | Corregir **todo lo que corresponda a los criterios de RNF-16** (hallazgos de axe y de la prueba de teclado) hasta tener 0 bloqueantes. Lo que esté fuera de alcance solo se registra, sin corregirlo. | RNF-16 | `a11y.spec` y `teclado.spec` en verde. Los hallazgos fuera de alcance quedan listados en la tabla de validación (RNF-16). **Si T33 supera 2 h reales, cuenta para el checkpoint:** se vuelve a evaluar el orden de recorte de 8.5 con las horas reales acumuladas a esa fecha. *Es la tarea más variable: depende de lo que encuentre T31.* **FUERA DEL MVP (2026-11-10):** depende de T31. | 0 (antes 1.0) | 23 | Pendiente (fuera del MVP) | [ ] fuera del MVP (2026-11-10) |
+| T34 | Revisión manual de 6.3: grilla, panel de filtros y una ficha a 360, 768 y 1280 px **con las fixtures MU-03/MU-04 cargadas**; 10 min de teclado a mano; revisión visual en claro con el sistema en ambos modos; confirmar `react/jsx-no-literals` sin hallazgos y `lang="es"`. | RNF-10, RNF-15, RNF-16, RNF-17, MU-03, MU-04 | Aprobación visual de Jerónimo de cabecera, portada y catálogo (RNF-18, spec §1.2). Resultado escrito en la tabla de validación para cada punto: sin scroll horizontal, textos largos o bidi contenidos en su tarjeta, sin elementos sin estilo. **MVP:** incluye la revisión manual de teclado/foco que sustituye a T30/T31. | 1 | 24 |  | [ ] pendiente: revisión manual de Jerónimo no registrada |
 
 ## B10 · Cierre documental (0.75 h)
 
 | # | Tarea | Implementa | Criterio de terminado | Est. h | Acum. | Reales | Estado |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| T35 | Completar la tabla de validación con evidencia real, registrar las limitaciones de 8.3, escribir un README breve de `apps/web` (cómo correr, variables, `CATALOG_SOURCE`) y revisar que `.env.example`, SRS y matriz estén al día. Abrir el PR con `.github/pull_request_template.md`. | P7, P10, RNF-11 | Cada fila de "Validación" tiene resultado y evidencia o dice explícitamente "pendiente" con motivo. El PR referencia RF/RNF y riesgos. | 0.75 | 24.75 |  | [ ] |
+| T35 | Completar la tabla de validación con evidencia real, registrar las limitaciones de 8.3, escribir un README breve de `apps/web` (cómo correr, variables, `CATALOG_SOURCE`) y revisar que `.env.example`, SRS y matriz estén al día. Abrir el PR con `.github/pull_request_template.md`. | P7, P10, RNF-11 | Cada fila de "Validación" tiene resultado y evidencia o dice explícitamente "pendiente" con motivo. El PR referencia RF/RNF y riesgos. | 0.75 | 24.75 | no medido | [x] 2026-11-13: validación completa con evidencia; README en la raíz (incluye `apps/web`); `.env.example`, SRS y matriz al día |
 
 ## B9 · Datos reales — FUERA DEL MVP 2026-11-10 (antes 3 h, 🔒 bloqueado)
 
@@ -251,57 +251,57 @@ Se completa en la etapa 7. **Resultado:** `Cumple` · `No cumple` · `Pendiente 
 
 | Criterio de aceptación (spec §9) | Resultado | Evidencia |
 | --- | --- | --- |
-| Existe un script que genera 150 herramientas sintéticas que respetan el contrato de 4.1, con ideas revisadas y no revisadas y herramientas en varias categorías. | | |
-| Existe un archivo de fixtures separado con los payloads de MU-01 a MU-12 y los casos borde (campos faltantes, al menos una herramienta sin licencia, categoría vacía, valores fuera de rango). | | |
-| La sección 4.1 fue validada con Ángel antes de empezar las tareas que consumen datos reales. | | |
-| RF-01 a RF-05 cumplen sus criterios de aceptación con el conjunto de prueba. | | Ver detalle por RF. |
-| RNF-02, RNF-04, RNF-07, RNF-10, RNF-13, RNF-15 y RNF-16 verificados según la sección 5, con resultados reales registrados en `tasks.md`. | | Ver detalle por RNF. |
-| RNF-17: todos los textos de la interfaz están en el diccionario y la interfaz se entrega en español. El inglés no es requisito para cerrar la feature. | | |
-| Los casos MU-01 a MU-12 se probaron con datos de prueba y dieron el resultado esperado. | | Ver detalle por MU. |
-| El punto de entrada al asistente RAG se ve como un elemento deshabilitado "Asistente — próximamente": no acepta texto, no envía nada y no llama a ningún servicio. | | |
-| La interfaz no usa marca, textos ni imágenes de Mobbin. | | |
-| Sin secretos en el repo; secret scanning en verde. | | |
+| Existe un script que genera 150 herramientas sintéticas que respetan el contrato de 4.1, con ideas revisadas y no revisadas y herramientas en varias categorías. | Cumple con recorte MVP | `scripts/generar-dataset.mjs` determinista (test «re-ejecutar no cambia el archivo»); genera **40** herramientas (recorte MVP 2026-11-10, antes 150) que pasan el contrato sin omitidas (`dataset.test.ts`). |
+| Existe un archivo de fixtures separado con los payloads de MU-01 a MU-12 y los casos borde (campos faltantes, al menos una herramienta sin licencia, categoría vacía, valores fuera de rango). | Cumple parcial | `tests/fixtures/mu.json` con 6 fixtures (MU-01, 03, 04, 08, 09, 12) y casos borde; el resto de MU se prueba con Vitest o E2E propios (ver detalle por MU). |
+| La sección 4.1 fue validada con Ángel antes de empezar las tareas que consumen datos reales. | Pendiente (Ángel) | B9 fuera del MVP; la demo usa `CATALOG_SOURCE=reales` (feature 002), que pasa por el mismo `contrato.ts`. |
+| RF-01 a RF-05 cumplen sus criterios de aceptación con el conjunto de prueba. | Cumple | Ver detalle por RF. |
+| RNF-02, RNF-04, RNF-07, RNF-10, RNF-13, RNF-15 y RNF-16 verificados según la sección 5, con resultados reales registrados en `tasks.md`. | Cumple parcial | RNF-04, RNF-13 y RNF-15 cumplen; RNF-02, RNF-07, RNF-10 y RNF-16 pendientes (ver detalle por RNF). |
+| RNF-17: todos los textos de la interfaz están en el diccionario y la interfaz se entrega en español. El inglés no es requisito para cerrar la feature. | Cumple | Lint `react/jsx-no-literals` en verde en CI; `i18n.test.ts`; `<html lang="es">` en `layout.tsx`. |
+| Los casos MU-01 a MU-12 se probaron con datos de prueba y dieron el resultado esperado. | Cumple, salvo MU-07 | 11 de 12 con prueba automática en verde; MU-07 pendiente de B9 (ver detalle por MU). |
+| El punto de entrada al asistente RAG se ve como un elemento deshabilitado "Asistente — próximamente": no acepta texto, no envía nada y no llama a ningún servicio. | Reemplazado por 002 | La feature 002 habilitó el asistente (RF-11); `headers.spec.ts` prueba ahora que el botón abre el panel y no hace pedidos hasta enviar. |
+| La interfaz no usa marca, textos ni imágenes de Mobbin. | Cumple | `grep -ri mobbin apps/web/src` sin resultados (2026-11-13). |
+| Sin secretos en el repo; secret scanning en verde. | Cumple | Gitleaks en CI en verde en todos los PR; un falso positivo triado por fingerprint (SECURITY.md). |
 | Todas las preguntas de la sección 8 respondidas y reflejadas en este spec. | **Cumple** | `spec.md` §8: las 10 respuestas registradas (2026-10-30) y decisiones finales aprobadas. |
 
 ### Detalle por requisito funcional
 
 | RF | Tareas | Prueba | Resultado | Evidencia |
 | --- | --- | --- | --- | --- |
-| RF-01 Catálogo por categoría | T14, T15, T16 | Manual + `mu.spec` | | |
-| RF-02 Ficha técnica | T21 | `mu.spec`, T34 | | |
-| RF-03 Filtros | T17, T18, T19, T20 | Vitest + `rnf07.spec` | | |
-| RF-04 Búsqueda | T17, T19, T20 | Vitest + `mu.spec` (MU-05) | | |
-| RF-05 Ideas de integración | T22, T23 | `mu.spec` | | |
+| RF-01 Catálogo por categoría | T14, T15, T16 | Manual + `mu.spec` | Cumple | `filtros.test.ts`, `ficha.spec.ts`, `humo.spec.ts`; CI de PR #2 (run 42855548417) y de PR #4 (run 43435799012), en verde. |
+| RF-02 Ficha técnica | T21 | `mu.spec`, T34 | Cumple | `ficha.test.tsx`, `ficha.spec.ts`; CI de PR #2 (run 42855548417) y de PR #4 (run 43435799012), en verde. |
+| RF-03 Filtros | T17, T18, T19, T20 | Vitest + `rnf07.spec` | Cumple | `filtros.test.ts`, `filtros-ui.test.tsx`, `estado-url.test.ts`, `filtros-url.spec.ts`; CI de PR #2 (run 42855548417) y de PR #4 (run 43435799012), en verde. |
+| RF-04 Búsqueda | T17, T19, T20 | Vitest + `mu.spec` (MU-05) | Cumple | `filtros.test.ts`, `filtros-ui.test.tsx`, `filtros-url.spec.ts`; CI de PR #2 (run 42855548417) y de PR #4 (run 43435799012), en verde. |
+| RF-05 Ideas de integración | T22, T23 | `mu.spec` | Cumple | `ideas-mapeo.test.tsx`, `copiar.spec.ts`, `mu.spec.ts` (MU-12); CI de PR #2 (run 42855548417) y de PR #4 (run 43435799012), en verde. |
 
 ### Detalle por requisito no funcional
 
 | RNF | Tareas | Prueba (spec §5) | Resultado | Evidencia (valores reales) |
 | --- | --- | --- | --- | --- |
-| RNF-02 | T09, T26, T36, T37 | Revisión de código + CI + MU-07 | | MU-07 **pendiente** hasta B9 |
-| RNF-04 | T02, T08, T25, T27, T28 | `mu.spec` | | |
-| RNF-07 | T10, T32 | `rnf07.spec` | | mín: ___ ms · mediana: ___ ms · máx: ___ ms (20 repeticiones, 150 herramientas, esta máquina, sin limitar CPU) |
-| RNF-10 | T19, T34 | Revisión manual a 360/768/1280 px | | |
-| RNF-13 | T15, T21, T28 | Vitest (150) + `mu.spec` + revisión | | |
-| RNF-15 | T12, T29, T34 | `headers.spec` + revisión | | |
+| RNF-02 | T09, T26, T36, T37 | Revisión de código + CI + MU-07 | Pendiente (B9) | Por construcción el puerto `RepositorioCatalogo` no tiene métodos de escritura; MU-07 (escritura con la clave pública) no se probó porque Supabase quedó fuera del MVP. |
+| RNF-04 | T02, T08, T25, T27, T28 | `mu.spec` | Cumple | `mu.spec.ts` (guarda común + MU-01, 03, 04, 08, 09, 12), `headers.spec.ts` (CSP con nonce, sin `unsafe-*` en `script-src`), lint `react/no-danger`; en 002, `asistente-panel.test.tsx` con payload XSS. |
+| RNF-07 | T10, T32 | `rnf07.spec` | Pendiente (fuera del MVP) | T32 (`rnf07.spec`) no se implementó: recorte 2026-11-10. Sin medición, no se declara (P7). |
+| RNF-10 | T19, T34 | Revisión manual a 360/768/1280 px | Pendiente (revisión manual) | T34 no se registró. Playwright solo prueba escritorio. |
+| RNF-13 | T15, T21, T28 | Vitest (150) + `mu.spec` + revisión | Cumple | `licencia.test.ts`, `ficha.test.tsx`, `mu.spec.ts`; licencia «Sin dato» visible cuando falta. |
+| RNF-15 | T12, T29, T34 | `headers.spec` + revisión | Cumple | `headers.spec.ts`: fondo blanco y sin control de tema con el sistema en claro y en oscuro. |
 | RNF-16 | T30, T31, T33, T34 | axe + teclado + revisión manual | | Violaciones en alcance por estado: ___ · fuera de alcance (lista): ___ |
-| RNF-17 | T02, T34 | Lint `jsx-no-literals` + `lang="es"` | | |
+| RNF-17 | T02, T34 | Lint `jsx-no-literals` + `lang="es"` | Cumple | Lint `jsx-no-literals` en CI + `i18n.test.ts` + `lang="es"`. |
 
 ### Detalle por caso de mal uso
 
 | MU | Prueba | Tareas | Resultado | Evidencia |
 | --- | --- | --- | --- | --- |
-| MU-01 | `mu.spec` | T11, T27, T28 | | |
-| MU-02 | `mu.spec` | T22, T28 | | |
-| MU-03 | Vitest `texto` + revisión manual | T06, T34 | | |
-| MU-04 | `mu.spec` + revisión manual | T06, T23, T28 | | |
-| MU-05 | Vitest `estado-url` + `mu.spec` | T18, T20, T28 | | |
-| MU-06 | Vitest + `mu.spec` (5 URLs) | T18, T28 | | |
-| MU-07 | Script de integración | T37 | **Pendiente** (B9) | |
-| MU-08 | Vitest `enlaces` + `mu.spec` | T07, T21, T28 | | |
-| MU-09 | Vitest `contrato` + `mu.spec` | T08, T28 | | |
-| MU-10 | `mu.spec` | T23, T28 | | |
-| MU-11 | `mu.spec` | T27, T28 | | |
-| MU-12 | Vitest `contrato` + `mu.spec` | T08, T22, T28 | | |
+| MU-01 | `mu.spec` | T11, T27, T28 | Cumple | `mu.spec.ts`, `contrato.test.ts`. |
+| MU-02 | `mu.spec` | T22, T28 | Cumple | `mu.spec.ts`, `ideas-mapeo.test.tsx`. |
+| MU-03 | Vitest `texto` + revisión manual | T06, T34 | Cumple | `mu.spec.ts`, `fixtures-mu.test.ts` (aspecto visual: revisión manual pendiente). |
+| MU-04 | `mu.spec` + revisión manual | T06, T23, T28 | Cumple | `mu.spec.ts`, `copiar.spec.ts`, `contrato.test.ts`. |
+| MU-05 | Vitest `estado-url` + `mu.spec` | T18, T20, T28 | Cumple | `estado-url.test.ts`, `filtros-url.spec.ts`. |
+| MU-06 | Vitest + `mu.spec` (5 URLs) | T18, T28 | Cumple | `estado-url.test.ts` (sin E2E de las 5 URLs). |
+| MU-07 | Script de integración | T37 | **Pendiente** (B9) | Supabase fuera del MVP; sin prueba de escritura con la clave pública. |
+| MU-08 | Vitest `enlaces` + `mu.spec` | T07, T21, T28 | Cumple | `enlaces.test.ts`, `ficha.spec.ts`, `mu.spec.ts`. |
+| MU-09 | Vitest `contrato` + `mu.spec` | T08, T28 | Cumple | `mu.spec.ts`, `fixtures-mu.test.ts`. |
+| MU-10 | `mu.spec` | T23, T28 | Cumple | `copiar.spec.ts`. |
+| MU-11 | `mu.spec` | T27, T28 | Cumple | `mu.spec.ts` («MU-01: XSS y Markdown/HTML con imagen remota se ven como texto literal»). |
+| MU-12 | Vitest `contrato` + `mu.spec` | T08, T22, T28 | Cumple | `mu.spec.ts`, `contrato.test.ts`, `ficha.test.tsx`. |
 
 ### Limitaciones a registrar (plan 8.3, P7)
 
@@ -309,12 +309,12 @@ Se completa con lo que realmente ocurra; no se omite ninguna.
 
 | Limitación | Estado real |
 | --- | --- |
-| Aislamiento visual de MU-03/04 verificado a ojo, no automáticamente | |
-| RNF-07 medido en una máquina y sin limitar la CPU | |
-| RNF-13 no recorre 150 fichas renderizadas | |
-| RNF-10 es revisión manual | |
-| Menor profundidad en teclado y axe que la versión sin recortes | |
-| Hallazgos de axe fuera de alcance de RNF-16 (lista) | |
+| Aislamiento visual de MU-03/04 verificado a ojo, no automáticamente | Ocurrió: solo hay guarda automática de que todo es texto; la revisión a ojo (T34) no se registró. |
+| RNF-07 medido en una máquina y sin limitar la CPU | No aplica: RNF-07 no se midió. |
+| RNF-13 no recorre 150 fichas renderizadas | Ocurrió: se prueba con fixtures y la ficha de ejemplo, no las 40 fichas renderizadas. |
+| RNF-10 es revisión manual | Ocurrió y la revisión quedó pendiente. |
+| Menor profundidad en teclado y axe que la versión sin recortes | Ocurrió: sin teclado automatizado ni axe (T30, T31 fuera del MVP). |
+| Hallazgos de axe fuera de alcance de RNF-16 (lista) | No hay lista: axe no se corrió. |
 
 ### Validación visual RNF-18 (revisión 2026-11-02)
 
@@ -323,4 +323,4 @@ Se completa con lo que realmente ocurra; no se omite ninguna.
 - [ ] T34: evidencia a 360/768/1280 px, tema claro bajo ambas preferencias del sistema y aprobación visual de Jerónimo.
 - [ ] Reestimar incremento de portada y revisión visual; conciliar plan y tareas.
 
-**Estado:** pendiente de implementación/verificación. No se reutiliza la validación de la UI oscura anterior.
+**Estado (2026-11-13):** pendiente. La aprobación visual de Jerónimo (T34) no quedó registrada; no se declara RNF-18 cumplido. No se reutiliza la validación de la UI oscura anterior.

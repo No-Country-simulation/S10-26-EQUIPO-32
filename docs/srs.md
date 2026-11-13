@@ -1,6 +1,6 @@
 # SRS — OpenBridge
 
-**Versión:** 0.1 · **Fecha:** 2026-10-30 · **Responsable:** Jerónimo Núñez (propone) · Ángel De La Rosa (revisa)
+**Versión:** 1.0 (cierre de entrega) · **Fecha:** 2026-10-30, actualizada 2026-11-13 · **Responsable:** Jerónimo Núñez (propone) · Ángel De La Rosa (revisa)
 **Base:** ISO/IEC/IEEE 29148 (ex IEEE 830), versión reducida para la simulación.
 
 > Regla: todo requisito es verificable (tiene un criterio finito para probarlo). Prioridad MoSCoW: M = Must, S = Should, C = Could.
@@ -77,3 +77,33 @@ Riesgo → control → requisito → prueba: ver `docs/matriz-riesgos.md`.
 | Fecha | Cambio | Origen |
 | --- | --- | --- |
 | 2026-10-30 | RNF-08 pasa de 001/003 a 003. RF-02 incluye categorías, mantenedor activo y enlace al repo. RF-05 separa el requisito de datos (≥ 1 idea, 003) del comportamiento de la interfaz (0..N, 001). | Plan 001, decisiones 2 y 3 |
+
+## Estado al cierre (2026-11-13)
+
+Resultado real de cada requisito al entregar. Evidencia completa en `specs/001-frontend-catalogo/tasks.md` (Validación), `specs/002-asistente-rag/spec.md` §11 y `docs/red-team.md`. **Cumple** · **Parcial** · **Pendiente** (con motivo).
+
+| ID | Estado | Evidencia o motivo |
+| --- | --- | --- |
+| RF-01 a RF-05 | Cumple | Vitest + Playwright en CI (`filtros`, `ficha`, `ideas-mapeo`, `filtros-url.spec`, `mu.spec`, `copiar.spec`) |
+| RF-06 | Cumple | `asistente-nucleo` y `asistente-route`; red-team: 0 repos fuera del índice |
+| RF-07, RF-08, RF-09 | Pendiente de integración | Implementados en `backend/` (feature 003, Ángel); el frontend todavía no los consume |
+| RF-10 | Pendiente | Prioridad C, sin feature asignada |
+| RF-11 a RF-14 | Cumple | `asistente-panel`, `repos-reales`, `npm run embeddings`, `docs/red-team.md` |
+| RNF-01 | Cumple | Gitleaks en CI en verde; un falso positivo triado por fingerprint |
+| RNF-02 | Parcial | Frontend solo lectura por construcción; MU-07 sin probar (Supabase fuera del MVP) |
+| RNF-03 | Parcial | 9/10 ataques bloqueados con guardrails; **MU-19 abierto** |
+| RNF-04, RNF-05 | Cumple | `mu.spec`, `asistente-panel`; test de 429 |
+| RNF-06, RNF-08 | Pendiente | Responsabilidad del pipeline (003) |
+| RNF-07 | Pendiente | `rnf07.spec` fuera del MVP; sin medición no se declara (P7) |
+| RNF-09 | Cumple | 0 repos alucinados en el red-team con guardrails |
+| RNF-10 | Pendiente | Revisión manual T34 sin registrar |
+| RNF-11 | Parcial | PRs con CI; revisión cruzada suspendida por **EX-01** |
+| RNF-12 | Cumple | Entrega 13/11 con README, SRS y matriz |
+| RNF-13 | Cumple | Licencia o «Sin dato» visible en todas las fichas (`licencia.test`, `mu.spec`) |
+| RNF-14 | Cumple | `check:deps` + `npm audit --audit-level=critical` en CI |
+| RNF-15 | Cumple | `headers.spec` con el sistema en claro y en oscuro |
+| RNF-16 | Pendiente | Teclado y axe fuera del MVP |
+| RNF-17 | Cumple (español) | Lint `jsx-no-literals` + `i18n.test`; inglés no entregado (C) |
+| RNF-18 | Pendiente | Aprobación visual de Jerónimo sin registrar |
+| RNF-19 a RNF-22 | Cumple | Tests de 002; MU-14 bloqueado |
+
