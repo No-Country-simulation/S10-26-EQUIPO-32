@@ -1,6 +1,7 @@
 "use client";
 
 import { CATEGORIAS, type Categoria } from "@/lib/catalogo/categorias";
+import { IconoPropio } from "@/components/marca/Iconos";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 
@@ -33,8 +34,9 @@ export function NavCategorias({ activa, onElegir }: NavCategoriasProps) {
               type="button"
               aria-pressed={activa === categoria}
               onClick={() => onElegir(categoria)}
-              className={claseItemColumna(activa === categoria)}
+              className={cn(claseItemColumna(activa === categoria), "justify-start")}
             >
+              <IconoPropio nombre={categoria} className="size-6" />
               {t(`categoria.${categoria}`)}
             </button>
           </li>

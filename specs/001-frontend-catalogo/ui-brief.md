@@ -193,3 +193,39 @@ Esta sección **amplía** §3 y §8; no cambia el contrato de datos ni ningún R
 
 - **RF-01 (c), RNF-13 y MU-03:** la tarjeta v2 conserva en una línea de metadatos el `id` en monoespaciada, el lenguaje, la licencia (o «Sin licencia declarada»), las stars, el nivel de mantenimiento con texto y las categorías. La referencia pide menos campos, pero gana el spec.
 - **RF-03:** los filtros secundarios (`PanelFiltros`) siguen completos. Las columnas Lenguajes y Licencias son atajos a los mismos filtros.
+
+## 12. UI v2.1 (2026-11-13)
+
+**Rama:** `feat/ui-v2.1` · **Alcance:** igual que §11 (sin `src/app/api`, `src/lib` ni `data/`). **Objetivo:** que la portada se vea como Mobbin (colorida, visual, con pantallas y marcas) y no como una lista de texto. **Cierre:** 17:25. Lo que no llegue pasa a §12.5.
+
+### 12.1 Regla dura
+
+**Ninguna letra ni glifo de texto se usa como ícono.** Se eliminan las iniciales de los tiles (hero, tarjetas, ficha y asistente) y la estrella de texto de las stars.
+
+### 12.2 Bloques
+
+1. **`MarcaRepo`:** marca generativa en SVG, determinista por `id` (hash FNV-1a → forma geométrica + gradiente). Paleta de 8 colores fuertes: violeta, azul eléctrico, verde lima, naranja, rosa, cian, amarillo y rojo. Va en un tile redondeado como un ícono de app, en las tarjetas, la ficha, el hero (los tiles rotan entre repos con una animación CSS) y la respuesta del asistente. Solo usa el `id` (ASCII estricto del contrato), nunca el nombre ni otro texto externo.
+2. **Pantallas de preview:** cada tarjeta muestra un mini mockup con barra superior, bloques con la paleta del repo y líneas simuladas. Varía según la categoría: dashboard, terminal, formulario, gráfico, chat y grilla.
+3. **Íconos propios a color:** SVG para las 6 categorías y para los 6 controles de seguridad (escudo, candado, llave, radar, cadena y diana).
+4. **Carrusel «Joyful onboarding»:** tarjetas grandes con marca y pantalla, `scroll-snap` y botones anterior/siguiente operables con teclado.
+5. **Interacciones:** (a) tarjeta que se levanta con sombra suave y escala 1.02 en la pantalla; (b) tabs con subrayado animado y transición de la grilla; (c) cabecera que, al scrollear, muestra el CTA «Probar el asistente». Todo se apaga con `prefers-reduced-motion`.
+
+### 12.3 Invariantes
+
+- Cero `style={{}}` y ningún `<style>` ni script en línea: colores y animaciones salen de clases y de `globals.css`. Los gradientes del SVG usan atributos de presentación, no `style`.
+- Sin dependencias nuevas ni imágenes externas. `jsx-no-literals`. Foco visible.
+- **Contraste:** los colores fuertes son superficie decorativa. El texto sobre un color fuerte se verifica (≥ 4.5:1) o va sobre una superficie neutra.
+- **SVG propios y la guarda de los e2e:** todo SVG propio lleva `data-ob-svg` y `aria-hidden="true"`, y su contenido es fijo (formas y colores de una tabla; ningún texto de datos). La guarda acepta solo SVG lucide o `data-ob-svg`, y además exige que **ningún** SVG tenga atributos `on*`, `href`/`xlink:href`, `<script>`, `<foreignObject>` ni `<text>`. Esto la endurece en lugar de aflojarla. El test anti-XSS de la tarjeta quita únicamente esos SVG fijos antes de buscar etiquetas inyectadas.
+
+### 12.4 Conciliación
+
+RF-01 (c), RNF-13 y MU-03 siguen igual (§11.4). La marca generativa es decorativa y no reemplaza el nombre ni el `id`.
+
+### 12.5 Backlog
+
+Los 5 bloques de §12.2 se entregaron antes del cierre. Queda abierto:
+
+- **axe** sobre la portada v2.1 (sin dependencias nuevas no se corrió; el contraste es por construcción: ningún texto va sobre los colores fuertes de la paleta).
+- **Revisión visual de Jerónimo** (RNF-18 / T34) de marcas, pantallas y carrusel.
+- **Variedad de marcas:** 6 formas × 8 colores × 4 giros × 7 acentos. Dos repos pueden coincidir; si molesta, sumar formas.
+- **Carrusel:** sin indicador de posición (puntos) ni arrastre con mouse; se desplaza con trackpad, teclado (foco en las tarjetas) y flechas.

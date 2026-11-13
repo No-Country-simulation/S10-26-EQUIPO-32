@@ -32,7 +32,7 @@ export function TabsOrden({ base, activo, onCambiar }: TabsOrdenProps) {
   };
 
   return (
-    <div role="tablist" aria-label={t("orden.etiqueta")} onKeyDown={mover} className="inline-flex rounded-full bg-secondary p-1">
+    <div role="tablist" aria-label={t("orden.etiqueta")} onKeyDown={mover} className="inline-flex gap-6 border-b border-border">
       {ORDENES.map((orden) => (
         <button
           key={orden}
@@ -47,8 +47,10 @@ export function TabsOrden({ base, activo, onCambiar }: TabsOrdenProps) {
           tabIndex={activo === orden ? 0 : -1}
           onClick={() => onCambiar(orden)}
           className={cn(
-            "catalogo-foco min-h-10 cursor-pointer rounded-full px-4 text-[0.95rem] font-medium transition-colors",
-            activo === orden ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
+            // Subrayado animado (ui-brief §12.2 #5b): crece desde el centro al elegir la tab; sin animación con movimiento reducido.
+            "catalogo-foco relative -mb-px min-h-11 cursor-pointer rounded-sm px-0.5 text-lg font-medium transition-colors",
+            "after:absolute after:inset-x-0 after:-bottom-px after:h-0.5 after:rounded-full after:bg-foreground after:transition-transform after:duration-300 motion-reduce:after:transition-none",
+            activo === orden ? "text-foreground after:scale-x-100" : "text-muted-foreground after:scale-x-0 hover:text-foreground",
           )}
         >
           {t(`orden.${orden}`)}

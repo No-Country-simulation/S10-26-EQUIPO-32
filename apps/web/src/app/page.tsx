@@ -1,5 +1,6 @@
 import { Catalogo } from "@/components/catalogo/Catalogo";
 import { PresentacionCatalogo } from "@/components/catalogo/PresentacionCatalogo";
+import { Carrusel, type ItemCarrusel } from "@/components/sitio/Carrusel";
 import { SeccionAsistente, type RepoCitado } from "@/components/sitio/SeccionAsistente";
 import { SeccionSeguridad } from "@/components/sitio/SeccionSeguridad";
 import type { Categoria } from "@/lib/catalogo/categorias";
@@ -22,11 +23,18 @@ const CATEGORIAS_EJEMPLO: Categoria[] = ["autenticacion", "pagos", "analitica"];
 
 const porSalud = (lista: HerramientaResumen[]) => [...lista].sort((x, y) => (y.healthScore ?? -1) - (x.healthScore ?? -1));
 
-/** Las 4 herramientas con mejor salud dan las iniciales de los tiles del titular (solo nombre e id). */
+/** Las 12 herramientas con mejor salud dan las marcas de los tiles del titular (solo nombre e id). */
 function destacadas(herramientas: HerramientaResumen[]) {
   return porSalud(herramientas)
-    .slice(0, 4)
+    .slice(0, 12)
     .map(({ id, nombre }) => ({ id, nombre }));
+}
+
+/** Carrusel: las 8 de mejor salud, con su categoría principal para la pantalla de preview. */
+function destacadasCarrusel(herramientas: HerramientaResumen[]): ItemCarrusel[] {
+  return porSalud(herramientas)
+    .slice(0, 8)
+    .flatMap(({ id, nombre, descripcion, categorias }) => (categorias[0] === undefined ? [] : [{ id, nombre, descripcion, categoria: categorias[0] }]));
 }
 
 /** Para cada categoría del ejemplo, la herramienta real con mejor salud (P6: solo repos que están en la base). */
@@ -54,6 +62,7 @@ export default async function Inicio({
   return (
     <>
       <PresentacionCatalogo idCatalogo={ID_CATALOGO} idSeguridad={ID_SEGURIDAD} destacadas={destacadas(herramientas)} />
+      <Carrusel id="destacadas" items={destacadasCarrusel(herramientas)} />
       <section id={ID_CATALOGO} aria-labelledby="titulo-catalogo" className="catalogo-contenedor pb-24">
         <h2 id="titulo-catalogo" className="sr-only">
           {t("catalogo.titulo")}

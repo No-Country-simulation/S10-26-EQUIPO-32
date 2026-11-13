@@ -5,7 +5,9 @@ import { textoLicencia } from "@/lib/catalogo/licencia";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 import { IndicadorSalud } from "./IndicadorSalud";
-import { iniciales } from "./iniciales";
+import { IconoEstrella } from "@/components/marca/Iconos";
+import { MarcaRepo } from "@/components/marca/MarcaRepo";
+import { PantallaPreview } from "@/components/marca/PantallaPreview";
 
 export interface TarjetaHerramientaProps {
   herramienta: HerramientaResumen;
@@ -31,7 +33,7 @@ function Dato({ etiqueta, visible = false, children }: { etiqueta: string; visib
 }
 
 /**
- * Tarjeta v2 (ui-brief §11.2 #4 y §11.4): contenedor gris con las iniciales como placeholder (no hay imágenes),
+ * Tarjeta v2 (ui-brief §11.2 #4 y §11.4): pantalla de preview según la categoría y marca generativa (§12; no hay imágenes),
  * nombre, descripción en una línea, salud y una línea de metadatos que conserva lo que exige RF-01 (c) y RNF-13.
  * Todo texto de `herramienta` es externo: va como texto de React, aislado con <bdi dir="auto"> y cortado.
  */
@@ -40,11 +42,9 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
     herramienta;
   const sinDato = t("comun.sinDato");
   return (
-    <Card className="group/tarjeta relative h-full min-w-0 gap-0 overflow-visible rounded-none bg-transparent py-0 ring-0">
-      <div className="relative flex aspect-[16/10] items-center justify-center rounded-3xl bg-secondary transition-colors group-hover/tarjeta:bg-secundario-hover">
-        <span aria-hidden="true" className="flex size-20 items-center justify-center rounded-[1.4rem] bg-background text-2xl font-semibold tracking-tight shadow-sm">
-          {iniciales(nombre, id)}
-        </span>
+    <Card className="group/tarjeta relative h-full min-w-0 gap-0 overflow-visible rounded-none bg-transparent py-0 ring-0 transition-transform duration-300 ease-out hover:-translate-y-1 focus-within:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-within:translate-y-0">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-secondary ring-1 ring-border transition-shadow duration-300 group-hover/tarjeta:shadow-xl group-hover/tarjeta:shadow-black/10 group-focus-within/tarjeta:shadow-xl group-focus-within/tarjeta:shadow-black/10">
+        {categorias[0] !== undefined && <PantallaPreview id={id} categoria={categorias[0]} className="ob-escala transition-transform duration-300 ease-out group-hover/tarjeta:scale-[1.02] group-focus-within/tarjeta:scale-[1.02]" />}
         <ul aria-label={t("tarjeta.categorias")} className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
           {categorias.map((categoria) => (
             <li key={categoria} className="rounded-full bg-background px-2.5 py-1 text-xs font-medium">
@@ -54,8 +54,9 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
         </ul>
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1.5 px-1 pt-4">
-        <div className="flex min-w-0 items-start justify-between gap-3">
-          <h3 className="line-clamp-2 min-w-0 text-base leading-snug font-semibold [overflow-wrap:anywhere]">
+        <div className="flex min-w-0 items-center gap-3">
+          <MarcaRepo id={id} className="size-10" />
+          <h3 className="line-clamp-2 min-w-0 flex-1 text-base leading-snug font-semibold [overflow-wrap:anywhere]">
             {/* El enlace cubre toda la tarjeta (after:inset-0). El id es ASCII estricto: seguro en la ruta (MU-05). */}
             <Link href={`/herramientas/${encodeURIComponent(id)}`} className="catalogo-foco rounded-sm after:absolute after:inset-0 after:rounded-3xl">
               <bdi dir="auto">{nombre}</bdi>
@@ -79,9 +80,7 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
             <bdi dir="auto">{textoLicencia(licencia)}</bdi>
           </Dato>
           <Dato etiqueta={t("tarjeta.stars")}>
-            <span aria-hidden="true" className="mr-0.5">
-              {t("tarjeta.starsGlifo")}
-            </span>
+            <IconoEstrella className="mr-0.5 -translate-y-px" />
             {stars === null ? sinDato : formatoNumero.format(stars)}
           </Dato>
           <Dato etiqueta={t("tarjeta.mantenimiento")} visible>
