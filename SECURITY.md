@@ -13,7 +13,7 @@ Incluí: descripción, pasos para reproducir, impacto estimado y, si podés, una
 
 ## Controles vigentes
 
-- Rama `main` protegida: PR con 1 aprobación y CI en verde.
+- Rama `main` (configuración del 13/11, aplicada en Settings por Jero): checks obligatorios `Lint, tipos, pruebas y build` y `Gitleaks (secret scanning)`, sin push directo ni force push. La aprobación obligatoria (1 revisión) está **suspendida por EX-01** hasta que vuelva el revisor (ver `docs/matriz-riesgos.md`).
 - Secret scanning con push protection + Gitleaks en CI.
 - Dependabot para dependencias y GitHub Actions.
 - RLS activado en todas las tablas de Supabase; el frontend usa solo la clave pública de lectura.
