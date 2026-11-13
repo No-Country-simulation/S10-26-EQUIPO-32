@@ -387,3 +387,34 @@ describe("contrato · lista y omitidas", () => {
     expect(lista({ nombre: "<img src=x onerror=alert(1)>" })?.nombre).toBe("<img src=x onerror=alert(1)>");
   });
 });
+
+describe("contrato · B9: nivel «bajo» y desglose de salud (RF-15, spec 001 §10)", () => {
+  const desglose = { commits: 15, issues: 18, licencia: 20, comunidad: 17, documentacion: 12.5, penalizacionArchivado: false };
+  it("«bajo» es un nivel válido", () => {
+    expect(lista({ nivelMantenimiento: "bajo" })?.nivelMantenimiento).toBe("bajo");
+  });
+  it("un desglose válido sale igual (y es idempotente); decimales permitidos", () => {
+    const h = detalle({ desgloseSalud: desglose });
+    expect(h?.desgloseSalud).toEqual(desglose);
+    expect(parsearHerramientaDetalle(h, AHORA)?.desgloseSalud).toEqual(desglose);
+  });
+  it("sin desglose → null", () => {
+    expect(detalle()?.desgloseSalud).toBeNull();
+  });
+  it.each([
+    ["componente mayor que su máximo", { ...desglose, commits: 26 }],
+    ["componente negativo", { ...desglose, issues: -1 }],
+    ["componente string", { ...desglose, licencia: "20" }],
+    ["componente faltante", { commits: 25, issues: 20, licencia: 20, comunidad: 20, penalizacionArchivado: false }],
+    ["penalización no booleana", { ...desglose, penalizacionArchivado: "no" }],
+    ["NaN", { ...desglose, comunidad: Number.NaN }],
+  ])("todo o nada: %s → desglose null", (_n, valor) => {
+    expect(detalle({ desgloseSalud: valor })?.desgloseSalud).toBeNull();
+  });
+  it("las claves desconocidas del desglose se descartan", () => {
+    expect(detalle({ desgloseSalud: { ...desglose, html: "<img onerror=x>" } })?.desgloseSalud).not.toHaveProperty("html");
+  });
+  it("la lista no lleva desglose", () => {
+    expect(lista({ desgloseSalud: desglose })).not.toHaveProperty("desgloseSalud");
+  });
+});

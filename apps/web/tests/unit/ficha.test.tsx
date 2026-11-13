@@ -9,7 +9,7 @@ const idea: Idea = { tipo: "docker", disparadores: ["al pagar"], snippet: "docke
 const ficha: HerramientaDetalle = {
   id: "ej", nombre: "Ej", descripcion: "Desc", descripcionTruncada: false, categorias: ["pagos"], lenguaje: "Go", licencia: "MIT",
   stars: 10, ultimaActualizacion: "2026-10-30T00:00:00Z", issuesAbiertos: 3, mantenedorActivo: true, nivelMantenimiento: "activo",
-  healthScore: 80, metricasTomadasEn: "2026-11-09T00:00:00Z", urlRepo: "https://github.com/o/r", ideas: [idea],
+  healthScore: 80, metricasTomadasEn: "2026-11-09T00:00:00Z", urlRepo: "https://github.com/o/r", ideas: [idea], desgloseSalud: null,
 };
 const nada = () => undefined;
 
@@ -69,5 +69,21 @@ describe("FichaHerramienta (RF-02, AM-03, RNF-13)", () => {
     const html = renderToStaticMarkup(<FichaHerramienta herramienta={{ ...ficha, nombre: "<img src=x onerror=alert(1)>", descripcion: "<script>alert(1)</script>" }} />);
     expect(html).not.toContain("<img");
     expect(html).not.toContain("<script");
+  });
+});
+
+describe("FichaHerramienta · desglose de salud (RF-15)", () => {
+  it("muestra los 5 componentes con su máximo", () => {
+    const html = renderToStaticMarkup(
+      <FichaHerramienta herramienta={{ ...ficha, desgloseSalud: { commits: 25, issues: 14, licencia: 20, comunidad: 17, documentacion: 12.5, penalizacionArchivado: true } }} />,
+    );
+    for (const texto of ["Actividad de commits", "25 de 25", "14 de 20", "20 de 20", "17 de 20", "12,5 de 15", "penalización por repositorio archivado"]) {
+      expect(html).toContain(texto);
+    }
+  });
+  it("sin desglose dice «Sin dato» y no muestra componentes", () => {
+    const html = renderToStaticMarkup(<FichaHerramienta herramienta={ficha} />);
+    expect(html).toContain("Desglose de la salud");
+    expect(html).not.toContain("Actividad de commits");
   });
 });

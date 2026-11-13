@@ -204,3 +204,53 @@ No se declaran ni se verifican en esta feature. Pueden cumplirse por diseño, pe
 - [ ] La interfaz no usa marca, textos ni imágenes de Mobbin.
 - [ ] Sin secretos en el repo; secret scanning en verde.
 - [x] Todas las preguntas de la sección 8 respondidas y reflejadas en este spec.
+
+---
+
+## 10. B9 · Catálogo con datos del backend (2026-11-13)
+
+**Pedido:** Jero, 2026-11-13. **Rama:** `feat/b9-backend` (pedido explícito; se aparta del formato `NNN-nombre` de CLAUDE.md). **Contra:** el FastAPI de `backend/` (commit `fe1f22a`, código de Ángel, que esta feature **no modifica**). **Merge sin revisión de Ángel:** cubierto por EX-01 («integración con el backend», antes de las 22:00 del 13/11).
+
+### 10.1 Problema y objetivo
+
+Hasta hoy el catálogo muestra un dataset local. El backend de Ángel ya ingesta repos de GitHub y calcula un health score determinista con un desglose. El objetivo es que el catálogo pueda mostrar **esos** datos, sin perder ninguna garantía de 001: el backend es una fuente **no confiable** (P5) y el frontend solo lee (P3). Sabremos que funciona cuando, con el backend levantado y sembrado, la grilla muestre los 30 repos con su salud y mantenimiento, la ficha muestre el desglose, y con el backend caído o respondiendo basura la interfaz muestre el error genérico sin un solo dato inventado.
+
+### 10.2 Requisitos
+
+| ID | Requisito | Prior. | Criterio de aceptación |
+| --- | --- | --- | --- |
+| RF-15 | Con la fuente backend, la ficha muestra el **desglose del health score** en sus 5 componentes, cada uno con su puntaje y su máximo (actividad de commits 25, gestión de issues 20, licencia 20, comunidad 20, documentación 15), e indica si se aplicó la penalización por repo archivado. | M | (a) Los 5 componentes se ven con «puntaje de máximo». (b) Si el desglose falta o algún componente es inválido (no numérico, negativo o mayor que su máximo), **no se muestra ninguno** y se lee «Sin dato». |
+| RF-01..05 (ampliación) | El nivel de mantenimiento tiene **cuatro** valores: activo, moderado, bajo y abandonado. Con la fuente backend se deriva de la actividad de commits: 25 → activo, ≥ 15 → moderado, < 15 → bajo. | M | El filtro de mantenimiento ofrece los cuatro; la regla está documentada en `docs/` y tiene test. «Abandonado» no se deriva del backend (no expone esa señal). |
+| RNF-24 | Seguridad · El backend es una fuente no confiable: toda respuesta pasa por el contrato de 4.1. Respuesta malformada, lenta (más de 3 s), redirigida o backend caído → error genérico del catálogo, **nunca datos inventados ni de otra fuente**. Campos desconocidos se descartan. En runtime el frontend solo usa endpoints públicos de lectura, sin credenciales (P3); la dirección del backend es solo de servidor. | M | Tests del adaptador: válida, malformada, campo extra, timeout, caído, redirección, método distinto de GET. |
+| RNF-25 | Seguridad · La siembra del backend es una herramienta de operación, fuera del runtime: la credencial de administración llega solo por entorno, nunca se escribe en archivos ni se registra; antes de sembrar se verifica que una escritura **sin** credencial sea rechazada. | M | Revisión del script + corrida real registrada en `tasks.md` (sin la clave). |
+
+### 10.3 Datos que el backend no provee
+
+| Dato de 4.1 | Con la fuente backend | Motivo |
+| --- | --- | --- |
+| Última actualización | «Sin dato» | La API no expone la fecha del último push (solo la de ingesta, que no es lo mismo: P7). |
+| Mantenedor activo | «Sin dato» | No hay señal en la API. |
+| Ideas de integración | 0 → estado vacío (RF-05 d) | El backend no tiene ideas. |
+| Descripción | La de GitHub, en inglés | RNF-17: se muestra tal cual. |
+
+### 10.4 Casos de mal uso nuevos
+
+| ID | El atacante (o un backend comprometido) intenta… | Resultado esperado |
+| --- | --- | --- |
+| MU-23 | Devolver una respuesta malformada, con campos extra (incluido HTML) o enorme. | Error genérico o campos descartados; nada sin validar llega a la interfaz. |
+| MU-24 | Redirigir la petición a otro host o colgarla. | Error genérico en ≤ 3 s; la redirección no se sigue. |
+| MU-07 (backend) | Escribir en el catálogo sin credencial (`POST /ingestion/batch`). | Rechazado por el backend (401/403). |
+
+### 10.5 Fuera de alcance
+
+Modificar el backend (los hallazgos de la revisión cruzada quedan como sugerencias para Ángel en la matriz de riesgos), Supabase, paginación más allá de 100 repos, ideas desde el backend, CI con el backend levantado (el e2e con backend se corre localmente y se registra).
+
+### 10.6 Preguntas (respondidas por el pedido de Jero, 2026-11-13)
+
+| # | Pregunta | Respuesta | Fecha |
+| --- | --- | --- | --- |
+| 1 | ¿Origen de B9: Supabase o la API REST? (plan §0 #11) | API REST del backend: `GET /api/v1/repositories?limit=100` y `GET /api/v1/repositories/{owner}/{repo}`, públicos. | 2026-11-13 |
+| 2 | ¿Escala y niveles? | `health_score` 0-100 → indicador de salud; mantenimiento por `commit_frequency_score` (25/≥15/<15). El pedido dice «bajo» para el último tramo: como 8 pts significa un push en el último año, llamarlo «abandonado» sería falso, así que se agrega «bajo» como cuarto nivel. | 2026-11-13 |
+| 3 | ¿Token en runtime? | No: solo endpoints públicos. `ADMIN_API_KEY` solo en el script de siembra. | 2026-11-13 |
+| 4 | ¿Categorías? | Se pasan las nuestras al sembrar; un repo con una categoría que no es de las 6 se omite (identidad inválida, 4.2). | 2026-11-13 |
+| 5 | ¿Validación del contrato por Ángel (T36)? | Sigue pendiente; EX-01 cubre el merge. Los hallazgos van a la matriz para él. | 2026-11-13 |

@@ -5,7 +5,7 @@ import type { Categoria } from "./categorias";
 export interface ValoresFiltros {
   lenguaje: string | null;
   licencia: string | null;
-  mantenimiento: "activo" | "moderado" | "abandonado" | null;
+  mantenimiento: "activo" | "moderado" | "bajo" | "abandonado" | null;
   /** Entero 0 a 10^7. */
   stars: number | null;
 }

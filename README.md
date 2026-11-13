@@ -36,10 +36,36 @@ npm run dev                          # http://localhost:3000
 npm run embeddings                   # regenera data/embeddings.json (ya viene versionado)
 npm test                             # Vitest
 npm run test:e2e                     # Playwright contra el build de producción (usa CATALOG_SOURCE=fixtures)
-npm run redteam                      # 10 ataques al asistente, con y sin guardrails → docs/red-team.md
+npm run redteam -- --etiqueta v3     # 13 ataques + 5 controles, con y sin guardrails → docs/red-team.md
 ```
 
-**Fuentes de datos (`CATALOG_SOURCE`):** `reales` (demo: 30 repos reales con metadatos de la API de GitHub del 12/11, los mismos que indexa el asistente), `sintetico` (40 herramientas inventadas), `fixtures` (**solo pruebas**: casos de mal uso) y `supabase` (fuera del MVP). Health score y nivel de mantenimiento se muestran como «Sin dato» en `reales`: su fórmula vive en el backend y todavía no está integrada; no se inventan (P7).
+**Fuentes de datos (`CATALOG_SOURCE`):** `reales` (demo: 30 repos reales con metadatos de la API de GitHub del 12/11, los mismos que indexa el asistente), `backend` (los mismos 30 servidos por el FastAPI de `backend/`, con health score, nivel de mantenimiento y desglose reales; ver abajo), `sintetico` (40 herramientas inventadas), `fixtures` (**solo pruebas**: casos de mal uso) y `supabase` (fuera del MVP). En `reales`, health score y mantenimiento se ven como «Sin dato»: no se inventan (P7).
+
+### Catálogo con el backend (`CATALOG_SOURCE=backend`)
+
+El backend guarda los datos **en memoria**: arranca vacío y se pierde al reiniciarlo, así que hay que sembrarlo cada vez. Mapeo de campos y reglas: [`docs/mapeo-backend.md`](docs/mapeo-backend.md).
+
+```bash
+# 1. Backend (desde la raíz del repo)
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r backend/requirements.txt
+export ADMIN_API_KEY="$(openssl rand -hex 32)"   # una propia: nunca la del código ni en un archivo commiteado
+export GITHUB_TOKEN="$(gh auth token)"           # sin token, GitHub corta a 60 pedidos/h y la siembra (2 por repo) falla
+uvicorn backend.app.main:app --port 8000
+
+# 2. Sembrar (otra terminal, con la misma ADMIN_API_KEY exportada): 30 repos en 2 lotes, con nuestra categoría.
+#    Antes verifica que escribir SIN credencial dé 401/403 (MU-07). No imprime la clave.
+cd apps/web
+BACKEND_URL=http://127.0.0.1:8000 npm run sembrar:backend
+
+# 3. Frontend contra el backend: solo lee endpoints públicos, sin token (P3)
+CATALOG_SOURCE=backend BACKEND_URL=http://127.0.0.1:8000 npm run dev
+
+# E2E con el backend levantado y sembrado (no corre en CI; esperá 1 min entre corridas por el rate limit de 60/min)
+BACKEND_URL=http://127.0.0.1:8000 npm run test:e2e:backend
+```
+
+`ADMIN_API_KEY` es solo para la siembra (herramienta de operación). El frontend no la necesita ni la recibe.
 
 **Hook local, una vez por clon:** `git config core.hooksPath .githooks`. Rechaza commits con caracteres bidi o de ancho cero crudos (R-14).
 
@@ -96,9 +122,9 @@ Corrida real del 12/11 contra `llama3.2:3b` (temperature 0, seed 42), con 10 ata
 
 ## Siguientes pasos
 
-1. **Mitigar MU-19** (verificar que la justificación hable de los repos citados, o usar un modelo más grande) y volver a correr `npm run redteam`.
+1. **Red-team:** MU-19 quedó mitigado en v2 (#8); falta un set de prueba separado para medir si el detector generaliza (AM-29).
 2. **Revisión de Ángel** de #2, #4, #5 y los PRs de cierre; activar la aprobación obligatoria en `main` y cerrar EX-01.
-3. **Integrar el backend:** adaptador `supabase` de solo lectura (B9), prueba MU-07 de escritura con la clave pública y health score real en las fichas.
+3. **Backend:** el adaptador `backend` ya lee la API REST (B9). Le quedan a Ángel los hallazgos de la revisión cruzada (R-18 a R-21: clave admin por defecto, store en memoria, categoría por defecto y desglose en la lista) y la persistencia en Supabase.
 4. **Pendientes de 001:** medición de rendimiento (RNF-07), teclado y axe (RNF-16), revisión manual responsiva y visual (T34), chequeo `grep` de CI (T26).
 5. **Asistente:** índice en pgvector, umbral de health score para no recomendar repos abandonados (R-03) y un set de red-team más amplio con inyección indirecta real.
 

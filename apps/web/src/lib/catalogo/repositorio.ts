@@ -17,7 +17,7 @@ export class ErrorCatalogo extends Error {
   }
 }
 
-export const FUENTES = ["sintetico", "reales", "fixtures", "supabase"] as const;
+export const FUENTES = ["sintetico", "reales", "fixtures", "backend", "supabase"] as const;
 export type FuenteCatalogo = (typeof FUENTES)[number];
 
 /** Error de configuración del servidor: el mensaje es para quien despliega, nunca para el usuario. */
@@ -77,6 +77,9 @@ async function cargar(fuente: FuenteCatalogo): Promise<RepositorioCatalogo> {
       return (await import("./adaptadores/reales")).crearAdaptadorReales();
     case "fixtures":
       return (await import("./adaptadores/fixtures")).crearAdaptadorFixtures();
+    case "backend":
+      // API REST pública del backend (spec 001 §10): sin credenciales; BACKEND_URL es solo de servidor.
+      return (await import("./adaptadores/backend")).crearAdaptadorBackend();
     case "supabase":
       throw new ErrorConfiguracion("CATALOG_SOURCE=supabase no está disponible en esta versión (B9 fuera del MVP).");
   }

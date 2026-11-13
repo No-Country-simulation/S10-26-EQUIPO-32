@@ -14,10 +14,12 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:e2e:backend": "playwright test -c playwright.backend.config.ts",
     "check:deps": "node scripts/verificar-dependencias.mjs",
     "check:invisibles": "node scripts/verificar-invisibles.mjs",
     "embeddings": "node --env-file-if-exists=.env scripts/generar-embeddings.mjs",
-    "redteam": "node --env-file-if-exists=.env scripts/redteam.mjs"
+    "redteam": "node --env-file-if-exists=.env scripts/redteam.mjs",
+    "sembrar:backend": "node scripts/sembrar-backend.mjs"
   },
   "dependencies": {
     "@radix-ui/react-slot": "1.5.0",

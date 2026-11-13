@@ -24,7 +24,7 @@ describe("resolverFuente · CATALOG_SOURCE sin valor por defecto en producción"
   });
 
   it("acepta los cuatro valores, también en producción", () => {
-    for (const v of ["sintetico", "reales", "fixtures", "supabase"] as const) {
+    for (const v of ["sintetico", "reales", "fixtures", "backend", "supabase"] as const) {
       expect(resolverFuente({ NODE_ENV: "production", CATALOG_SOURCE: v })).toBe(v);
     }
     expect(resolverFuente({ CATALOG_SOURCE: " sintetico " })).toBe("sintetico");
