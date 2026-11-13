@@ -1,5 +1,6 @@
 import { Catalogo } from "@/components/catalogo/Catalogo";
 import { PresentacionCatalogo } from "@/components/catalogo/PresentacionCatalogo";
+import { Carrusel, type ItemCarrusel } from "@/components/sitio/Carrusel";
 import { SeccionAsistente, type RepoCitado } from "@/components/sitio/SeccionAsistente";
 import { SeccionSeguridad } from "@/components/sitio/SeccionSeguridad";
 import type { Categoria } from "@/lib/catalogo/categorias";
@@ -29,6 +30,13 @@ function destacadas(herramientas: HerramientaResumen[]) {
     .map(({ id, nombre }) => ({ id, nombre }));
 }
 
+/** Carrusel: las 8 de mejor salud, con su categoría principal para la pantalla de preview. */
+function destacadasCarrusel(herramientas: HerramientaResumen[]): ItemCarrusel[] {
+  return porSalud(herramientas)
+    .slice(0, 8)
+    .flatMap(({ id, nombre, descripcion, categorias }) => (categorias[0] === undefined ? [] : [{ id, nombre, descripcion, categoria: categorias[0] }]));
+}
+
 /** Para cada categoría del ejemplo, la herramienta real con mejor salud (P6: solo repos que están en la base). */
 function citadosDelEjemplo(herramientas: HerramientaResumen[]): RepoCitado[] {
   const ordenadas = porSalud(herramientas);
@@ -54,6 +62,7 @@ export default async function Inicio({
   return (
     <>
       <PresentacionCatalogo idCatalogo={ID_CATALOGO} idSeguridad={ID_SEGURIDAD} destacadas={destacadas(herramientas)} />
+      <Carrusel id="destacadas" items={destacadasCarrusel(herramientas)} />
       <section id={ID_CATALOGO} aria-labelledby="titulo-catalogo" className="catalogo-contenedor pb-24">
         <h2 id="titulo-catalogo" className="sr-only">
           {t("catalogo.titulo")}

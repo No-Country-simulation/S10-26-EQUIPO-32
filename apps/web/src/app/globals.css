@@ -156,3 +156,10 @@
   .ob-rotar > * { animation: none; opacity: 0; }
   .ob-rotar > :first-child { opacity: 1; }
 }
+
+/* Carrusel: sin barra de scroll visible (el desplazamiento sigue con trackpad, teclado y flechas). */
+.ob-carrusel { scrollbar-width: none; }
+.ob-carrusel::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ob-escala, .ob-carrusel { transition: none !important; transform: none !important; scroll-behavior: auto; }
+}

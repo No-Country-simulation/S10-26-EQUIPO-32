@@ -85,8 +85,10 @@ test.describe("guarda común", () => {
 test("catálogo con los 6 casos cargados: la grilla muestra todo como texto (MU-01, MU-03)", async ({ page }) => {
   const problemas = instalarGuarda(page);
   await page.goto("/");
-  await expect(page.getByRole("link", { name: "<img src=x onerror=alert(1)>" })).toBeVisible(); // MU-01 literal
-  await expect(page.getByRole("link", { name: "Herramientaotsum seguro" })).toBeVisible(); // MU-03 sin bidi ni ancho cero
+  // Acotado a la grilla (el carrusel puede repetir el enlace); la guarda de abajo sigue revisando todo `main`.
+  const grilla = page.locator("section[aria-label='Herramientas del catálogo']");
+  await expect(grilla.getByRole("link", { name: "<img src=x onerror=alert(1)>" })).toBeVisible(); // MU-01 literal
+  await expect(grilla.getByRole("link", { name: "Herramientaotsum seguro" })).toBeVisible(); // MU-03 sin bidi ni ancho cero
   await verificarGuarda(page, problemas);
 });
 
