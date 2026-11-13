@@ -1,7 +1,7 @@
 // Estado del catálogo en la URL (plan 4.4; RF-03 f, MU-05, MU-06, AM-02).
 // TODO valor de la URL es no confiable: se valida acá, en el servidor (render inicial) y en el cliente.
 import { CATEGORIAS } from "./categorias";
-import { NIVELES_MANTENIMIENTO } from "./contrato";
+import { NIVELES_MANTENIMIENTO, TIPOS_IDEA } from "./contrato";
 import type { EstadoFiltros } from "./filtros";
 import { normalizarTexto } from "./texto";
 
@@ -43,6 +43,7 @@ function deLista(valor: string | undefined, validos: readonly string[]): string 
 export function parsearEstadoUrl(fuente: FuenteParametros, opciones: OpcionesValidas): EstadoFiltros {
   const categoria = primero(fuente, "categoria");
   const mantenimiento = primero(fuente, "mantenimiento");
+  const caso = primero(fuente, "caso");
   const stars = primero(fuente, "stars");
   const q = primero(fuente, "q");
   return {
@@ -54,6 +55,7 @@ export function parsearEstadoUrl(fuente: FuenteParametros, opciones: OpcionesVal
     mantenimiento: (NIVELES_MANTENIMIENTO as readonly string[]).includes(mantenimiento ?? "")
       ? (mantenimiento as EstadoFiltros["mantenimiento"])
       : null,
+    caso: (TIPOS_IDEA as readonly string[]).includes(caso ?? "") ? (caso as EstadoFiltros["caso"]) : null,
     stars: stars !== undefined && /^\d{1,8}$/.test(stars) && Number(stars) <= STARS_MAXIMO ? Number(stars) : null,
     q: q === undefined ? "" : normalizarTexto(q.slice(0, ENTRADA_MAXIMA_Q), LARGO_MAXIMO_Q),
   };
@@ -66,6 +68,7 @@ export function serializarEstadoUrl(estado: EstadoFiltros): string {
   if (estado.lenguaje !== null) p.set("lenguaje", estado.lenguaje);
   if (estado.licencia !== null) p.set("licencia", estado.licencia);
   if (estado.mantenimiento !== null) p.set("mantenimiento", estado.mantenimiento);
+  if (estado.caso !== null) p.set("caso", estado.caso);
   if (estado.stars !== null) p.set("stars", String(estado.stars));
   if (estado.q !== "") p.set("q", estado.q);
   return p.toString();

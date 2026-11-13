@@ -57,7 +57,7 @@ describe("Catalogo cableado (RF-03, RF-04, D-08, D-16)", () => {
     const esperadas = herramientas.filter((h) => h.categorias.includes("ia") && h.stars !== null && h.stars >= 100).length;
     expect(html).toContain(`>${esperadas}</span>`);
     expect(html).toContain("Filtros activos");
-    expect(html).toContain("Limpiar filtros");
+    expect(html).toContain("Limpiar todo");
   });
 
   it("combinación sin resultados: estado vacío con el texto buscado escapado y la acción de limpiar", () => {
@@ -67,6 +67,6 @@ describe("Catalogo cableado (RF-03, RF-04, D-08, D-16)", () => {
     expect(html).toContain("No hay herramientas para la búsqueda");
     expect(html).toContain("«&lt;svg onload=x&gt;»");
     expect(html).not.toContain("<svg onload");
-    expect(html).toContain("Limpiar filtros");
+    expect(html).toContain("Limpiar todo");
   });
 });

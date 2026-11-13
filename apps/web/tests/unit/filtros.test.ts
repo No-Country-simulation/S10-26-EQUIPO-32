@@ -56,10 +56,11 @@ type F = {
   id: string; nombre: string; descripcion: string | null; categorias: Categoria[];
   lenguaje: string | null; licencia: string | null; stars: number | null;
   nivelMantenimiento: "activo" | "moderado" | "bajo" | "abandonado" | null;
+  tiposIdea: Array<"rest" | "docker" | "sdk" | "webhook">;
 };
 const f = (id: string, o: Partial<F> = {}): F => ({
   id, nombre: id, descripcion: null, categorias: ["pagos"], lenguaje: "Go", licencia: "MIT", stars: 100,
-  nivelMantenimiento: "activo", ...o,
+  nivelMantenimiento: "activo", tiposIdea: [], ...o,
 });
 const datos: F[] = [
   f("alfa", { descripcion: "Pasarela de Pagos", stars: 5000 }),
@@ -100,8 +101,29 @@ describe("filtrar (RF-03, RF-04, AM-02)", () => {
   it("la búsqueda no distingue mayúsculas y mira nombre y descripción", () => {
     expect(ids({ q: "ALFA" })).toEqual(["alfa"]);
     expect(ids({ q: "pasarela de pagos" })).toEqual(["alfa"]);
-    expect(ids({ q: "  PAGOS  " })).toEqual(["alfa"]);
+    expect(ids({ q: "  PAGOS  " })).toEqual(["alfa", "delta"]); // la descripción de alfa y la categoría de alfa y delta
     expect(ids({ q: "zzz" })).toEqual([]);
+  });
+  it("también mira id, lenguaje, licencia y categorías (identificador y etiqueta), siempre como texto", () => {
+    expect(ids({ q: "python" })).toEqual(["beta"]); // lenguaje
+    expect(ids({ q: "apache" })).toEqual(["beta"]); // licencia
+    expect(ids({ q: "mit" })).toEqual(["alfa", "delta"]); // licencia
+    expect(ids({ q: "gamma" })).toEqual(["gamma"]); // id
+    expect(ids({ q: "busqueda" })).toEqual(["beta"]); // identificador de la categoría
+    expect(ids({ q: "búsqueda" })).toEqual(["beta", "delta"]); // etiqueta de la categoría (beta) y nombre (delta)
+    expect(ids({ q: "ia" })).toEqual(["beta", "gamma"]); // identificador y etiqueta «IA»
+    expect(ids({ q: "go" })).toEqual(["alfa", "delta"]); // lenguaje Go; los null no rompen la búsqueda
+  });
+  it("«java» da los repos en Java (y no inventa los que tienen el lenguaje en null)", () => {
+    const conJava = [f("uno", { lenguaje: "Java" }), f("dos", { lenguaje: "Java" }), f("tres", { lenguaje: null }), f("cuatro", { lenguaje: "Go" })];
+    expect(filtrar(conJava, con({ q: "Java" })).map((h) => h.id)).toEqual(["uno", "dos"]);
+  });
+  it("el caso de uso filtra por el tipo de las ideas y combina con AND", () => {
+    const d = [f("a", { tiposIdea: ["sdk", "rest"] }), f("b", { tiposIdea: ["docker"] }), f("c", { tiposIdea: [] })];
+    expect(filtrar(d, con({ caso: "sdk" })).map((h) => h.id)).toEqual(["a"]);
+    expect(filtrar(d, con({ caso: "docker" })).map((h) => h.id)).toEqual(["b"]);
+    expect(filtrar(d, con({ caso: "webhook" }))).toEqual([]);
+    expect(filtrar(d, con({ caso: "sdk", q: "b" }))).toEqual([]);
   });
   it("las entradas .*[( se tratan como texto literal, no como patrón", () => {
     expect(ids({ q: ".*" })).toEqual(["delta"]); // como patrón habría coincidido con todo

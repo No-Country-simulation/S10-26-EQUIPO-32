@@ -11,8 +11,12 @@ describe("parsearEstadoUrl (RF-03 f, MU-05, MU-06, AM-02)", () => {
   });
   it("acepta valores válidos de cada parámetro", () => {
     expect(p("categoria=ia&lenguaje=Go&licencia=MIT&mantenimiento=activo&stars=100&q=auth")).toEqual({
-      categoria: "ia", lenguaje: "Go", licencia: "MIT", mantenimiento: "activo", stars: 100, q: "auth",
+      categoria: "ia", lenguaje: "Go", licencia: "MIT", mantenimiento: "activo", caso: null, stars: 100, q: "auth",
     });
+    expect(p("caso=sdk").caso).toBe("sdk");
+  });
+  it("ignora un caso de uso inexistente o con forma de ataque", () => {
+    for (const v of ["hackeo", "__proto__", "SDK", "sdk%27%20OR%201=1"]) expect(p(`caso=${v}`).caso).toBeNull();
   });
   it("ignora categoría y mantenimiento inexistentes", () => {
     expect(p("categoria=hackeo&mantenimiento=inactivo")).toEqual(ESTADO_SIN_FILTROS);
@@ -62,7 +66,7 @@ describe("serializarEstadoUrl", () => {
   it("ida y vuelta serializar → parsear", () => {
     const estados: EstadoFiltros[] = [
       ESTADO_SIN_FILTROS,
-      { categoria: "base-de-datos", lenguaje: "Python", licencia: "Apache-2.0", mantenimiento: "abandonado", stars: 0, q: "hola mundo" },
+      { categoria: "base-de-datos", lenguaje: "Python", licencia: "Apache-2.0", mantenimiento: "abandonado", caso: "sdk", stars: 0, q: "hola mundo" },
       { ...ESTADO_SIN_FILTROS, q: "<svg onload=x>&=?# ñ 日本" },
     ];
     for (const e of estados) expect(p(serializarEstadoUrl(e))).toEqual(e);

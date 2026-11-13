@@ -17,6 +17,7 @@ export const MAXIMOS_SALUD = { commits: 25, issues: 20, licencia: 20, comunidad:
 export type ComponenteSalud = keyof typeof MAXIMOS_SALUD;
 export const COMPONENTES_SALUD = Object.keys(MAXIMOS_SALUD) as ComponenteSalud[];
 export const TIPOS_IDEA = ["rest", "docker", "sdk", "webhook"] as const;
+export type TipoIdea = (typeof TIPOS_IDEA)[number];
 export const DIFICULTADES = ["baja", "media", "alta"] as const;
 
 export const COTAS = {
@@ -164,11 +165,23 @@ function conDescripcion(cota: number) {
   };
 }
 
-/** Versión liviana para la grilla: sin ideas y con la descripción cortada a 300. */
-export const esquemaHerramientaLista = z.object(base).transform((h) => ({
-  ...h,
-  ...conDescripcion(COTAS.descripcionTarjeta)(h),
-}));
+/**
+ * Versión liviana para la grilla: sin ideas y con la descripción cortada a 300. Conserva solo los TIPOS de las
+ * ideas válidas (`tiposIdea`, sin repetir): es lo único que necesita el filtro «Casos de uso» y no lleva snippets.
+ */
+export const esquemaHerramientaLista = z.object({ ...base, ideas: z.unknown().optional(), tiposIdea: z.unknown().optional() }).transform(({ ideas, tiposIdea, ...h }) => {
+  const tipos = new Set<(typeof TIPOS_IDEA)[number]>();
+  if (Array.isArray(ideas)) {
+    for (const crudo of ideas.slice(0, MAX_IDEAS)) {
+      const r = esquemaIdea.safeParse(crudo);
+      if (r.success && r.data.tipo !== null) tipos.add(r.data.tipo);
+    }
+  } else if (Array.isArray(tiposIdea)) {
+    // Idempotencia: una lista ya validada (sin ideas) trae sus tipos; se revalidan contra la lista cerrada.
+    for (const v of tiposIdea.slice(0, TIPOS_IDEA.length)) if ((TIPOS_IDEA as readonly unknown[]).includes(v)) tipos.add(v as (typeof TIPOS_IDEA)[number]);
+  }
+  return { ...h, ...conDescripcion(COTAS.descripcionTarjeta)(h), tiposIdea: TIPOS_IDEA.filter((t) => tipos.has(t)) };
+});
 export type HerramientaLista = z.output<typeof esquemaHerramientaLista>;
 /** Nombre que usa ui-brief §8 para la versión liviana de la grilla. */
 export type HerramientaResumen = HerramientaLista;

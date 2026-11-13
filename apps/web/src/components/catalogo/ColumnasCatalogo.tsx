@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { Container, Globe, Package, Webhook, type LucideIcon } from "lucide-react";
-import { TIPOS_IDEA } from "@/lib/catalogo/contrato";
+import { TIPOS_IDEA, type TipoIdea } from "@/lib/catalogo/contrato";
 import { t } from "@/i18n/es";
 import { claseItemColumna } from "./NavCategorias";
 
@@ -20,23 +20,43 @@ export function Columna({ id, titulo, children }: { id: string; titulo: string; 
 
 const ICONO_TIPO: Record<(typeof TIPOS_IDEA)[number], LucideIcon> = { rest: Globe, docker: Container, sdk: Package, webhook: Webhook };
 
-/** Casos de uso: los tipos de integración que documentan las fichas. Informativo: no es un filtro del listado. */
-export function CasosDeUso({ idTitulo }: { idTitulo: string }) {
+/**
+ * Casos de uso: los tipos de integración que documentan las fichas. Cada uno es un filtro real (feature 008): aplica
+ * `caso` al estado, se marca como activo y un segundo clic lo quita. El conteo es de herramientas con ese tipo de idea.
+ */
+export function CasosDeUso({
+  idTitulo,
+  activo,
+  conteos,
+  onElegir,
+}: {
+  idTitulo: string;
+  activo: TipoIdea | null;
+  conteos: Record<TipoIdea, number>;
+  onElegir: (tipo: TipoIdea | null) => void;
+}) {
   return (
-    <>
-      <ul aria-labelledby={idTitulo} className="space-y-0.5">
-        {TIPOS_IDEA.map((tipo) => {
-          const Icono = ICONO_TIPO[tipo];
-          return (
-            <li key={tipo} className="flex min-h-10 items-center gap-2.5 text-[0.95rem]">
-              <Icono aria-hidden="true" className="size-4 text-muted-foreground" />
-              {t(`idea.tipo.${tipo}`)}
-            </li>
-          );
-        })}
-      </ul>
-      <p className="mt-2 text-xs text-muted-foreground">{t("explorador.casosNota")}</p>
-    </>
+    <ul aria-labelledby={idTitulo} className="-mx-3 space-y-0.5">
+      {TIPOS_IDEA.map((tipo) => {
+        const Icono = ICONO_TIPO[tipo];
+        return (
+          <li key={tipo}>
+            <button
+              type="button"
+              aria-pressed={activo === tipo}
+              onClick={() => onElegir(activo === tipo ? null : tipo)}
+              className={claseItemColumna(activo === tipo)}
+            >
+              <span className="flex min-w-0 items-center gap-2.5">
+                <Icono aria-hidden="true" className="size-4 shrink-0" />
+                <span className="truncate">{t(`idea.tipo.${tipo}`)}</span>
+              </span>
+              <span className="shrink-0 text-xs tabular-nums opacity-70">{conteos[tipo]}</span>
+            </button>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

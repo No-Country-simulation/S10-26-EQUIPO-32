@@ -9,6 +9,7 @@ import { TarjetaHerramienta } from "@/components/catalogo/TarjetaHerramienta";
 import { parsearLista, type HerramientaResumen } from "@/lib/catalogo/contrato";
 
 const base: HerramientaResumen = {
+  tiposIdea: [],
   id: "ejemplo",
   nombre: "Ejemplo",
   descripcion: "Una descripción.",
