@@ -42,6 +42,6 @@ Hallazgos de Jerónimo sobre `backend/` (commit `fe1f22a`). **No se modificó el
 | A07 · CWE-798 | `ADMIN_API_KEY` tiene un valor por defecto escrito en `config.py`. La guarda de producción solo actúa con `BACKEND_ENV=production`, que no es el valor por defecto. | R-18 | Sin default: fallar al arrancar si falta (en desarrollo, una aleatoria por proceso sin loguearla) y un test que lo verifique | ○ |
 | A04 (disponibilidad) | Store en memoria: se vacía al reiniciar y no se comparte entre workers; el catálogo vacío no se distingue de un error. | R-19 | Persistir en Supabase o sembrar al arrancar; un solo worker; `/health/ready` que avise si el store está vacío | ○ |
 | A04 (diseño) | Categoría por defecto inconsistente («Developer Tools» / «Other») y fuera de las 6 del catálogo. | R-20 | Enumeración única compartida; categoría obligatoria y validada en la ingesta | ○ |
-| A04 (consumo) | La lista no trae el desglose, así que el frontend gasta 31 de los 60 pedidos/min de su IP. | R-21 | Desglose o nivel en `GET /repositories` | ◐ contenido con la instantánea de 60 s |
+| A04 (consumo) | La lista no trae el desglose, así que el frontend gasta 31 de los 60 pedidos/min de su IP. | R-21 | Desglose o nivel en `GET /repositories` | ● mitigado del lado del frontend: caché de 60 s, una tanda de 31 requests por ventana y 0 respuestas 429 en la corrida real |
 
 Lo que se verificó del lado del backend con una corrida real: la escritura sin credencial (`POST /api/v1/ingestion/batch` sin `Authorization`) devuelve **403** (MU-07).

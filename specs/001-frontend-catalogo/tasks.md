@@ -200,9 +200,9 @@ T36–T38 quedan reemplazadas: el origen real es la API REST del backend, no Sup
 | T44 | E2E con el backend levantado | RF-15, RNF-24 | `backend.spec.ts` verde en local, resultado abajo | [x] |
 | T45 | `docs/mapeo-backend.md`, matriz de riesgos (revisión cruzada), `docs/owasp.md`, SRS, README | DoD, P10 | Docs en la rama | [x] |
 | T46 | Checks, PR y merge | DoD | CI en verde | [x] |
-| T47 | R-21: test de dos cargas seguidas y concurrentes → una tanda; un fallo de una instantánea vieja no borra la nueva; evidencia real con el log del backend | RNF-24, AM-35, R-21 | Tests verdes + conteo de requests registrado | [ ] |
-| T48 | Nombre curado por `full_name` con fallback al del backend | spec §10.3 | Tests del adaptador y e2e verdes | [ ] |
-| T49 | R-21 «mitigado» en la matriz, `docs/mapeo-backend.md`, PR y merge | DoD | CI en verde | [ ] |
+| T47 | R-21: test de dos cargas seguidas y concurrentes → una tanda; un fallo de una instantánea vieja no borra la nueva; evidencia real con el log del backend | RNF-24, AM-35, R-21 | Tests verdes + conteo de requests registrado | [x] |
+| T48 | Nombre curado por `full_name` con fallback al del backend | spec §10.3 | Tests del adaptador y e2e verdes | [x] |
+| T49 | R-21 «mitigado» en la matriz, `docs/mapeo-backend.md`, PR y merge | DoD | CI en verde | [x] |
 
 #### Resultados de B9 (2026-11-13, corridas reales en local)
 
@@ -216,7 +216,16 @@ T36–T38 quedan reemplazadas: el origen real es la API REST del backend, no Sup
 | tsc / lint / `check:deps` / `check:invisibles` | Verde. `check:invisibles` detectó U+200B crudo en `sembrar-backend.mjs` (R-14) y se corrigió antes del commit. |
 | Validación de 4.1 por Ángel | **Pendiente**: el merge lo cubre EX-01; los hallazgos quedan en la matriz (R-18 a R-21). |
 
-## Resumen de horas
+#### Resultados de T47–T48 (2026-11-13, corridas reales)
+
+| Chequeo | Resultado |
+| --- | --- |
+| Caché (R-21) | `next build` + `next start` con `CATALOG_SOURCE=backend`: 4 cargas seguidas (grilla + ficha ×2) contra el backend real → **31 requests** (1 lista + 30 desgloses), una sola tanda; al vencer los 60 s, otra de 31; **0 respuestas 429** nuevas en el log del backend (2026-11-13). |
+| Nombre curado | Grilla y ficha de `prisma`: «Prisma ORM»; ninguna tarjeta con «orm». |
+| Vitest | 21 archivos, **408** en verde (5 casos nuevos: dos cargas seguidas, concurrentes, instantánea vieja que falla, nombre curado y su fallback). |
+| E2E con backend | **4/4** en verde (la ficha ahora espera «Prisma ORM»). |
+
+
 
 Recorte MVP 2026-11-10 (plan 8.7). Entrega y exposición: viernes 13/11.
 

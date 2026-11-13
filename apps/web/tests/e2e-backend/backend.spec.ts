@@ -20,7 +20,8 @@ test("la ficha muestra el health score y el desglose de los 5 componentes con su
   const api = await r.json();
   const b = api.health_breakdown;
   await page.goto("/herramientas/prisma"); // id del asistente (D-28)
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(api.repository.name);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Prisma ORM"); // nombre curado, no «orm» del backend
+  expect(api.repository.name).toBe("orm");
   await expect(page.getByText(String(Math.round(api.repository.health_score)), { exact: true }).first()).toBeVisible();
   const desglose = page.locator("section[aria-labelledby='titulo-desglose']");
   const esperado: Array<[string, number, number]> = [
