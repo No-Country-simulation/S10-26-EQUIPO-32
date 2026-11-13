@@ -122,7 +122,6 @@ export const es = {
   "salud.media": "Regular",
   "salud.baja": "Baja",
   "tarjeta.stars": "Stars",
-  "tarjeta.starsGlifo": "★",
   "tarjeta.lenguaje": "Lenguaje",
   "tarjeta.licencia": "Licencia",
   "tarjeta.mantenimiento": "Mantenimiento",

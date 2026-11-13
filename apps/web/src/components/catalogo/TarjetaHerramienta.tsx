@@ -5,7 +5,8 @@ import { textoLicencia } from "@/lib/catalogo/licencia";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 import { IndicadorSalud } from "./IndicadorSalud";
-import { iniciales } from "./iniciales";
+import { IconoEstrella } from "@/components/marca/Iconos";
+import { MarcaRepo } from "@/components/marca/MarcaRepo";
 
 export interface TarjetaHerramientaProps {
   herramienta: HerramientaResumen;
@@ -42,9 +43,7 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
   return (
     <Card className="group/tarjeta relative h-full min-w-0 gap-0 overflow-visible rounded-none bg-transparent py-0 ring-0">
       <div className="relative flex aspect-[16/10] items-center justify-center rounded-3xl bg-secondary transition-colors group-hover/tarjeta:bg-secundario-hover">
-        <span aria-hidden="true" className="flex size-20 items-center justify-center rounded-[1.4rem] bg-background text-2xl font-semibold tracking-tight shadow-sm">
-          {iniciales(nombre, id)}
-        </span>
+        <MarcaRepo id={id} className="size-20" />
         <ul aria-label={t("tarjeta.categorias")} className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
           {categorias.map((categoria) => (
             <li key={categoria} className="rounded-full bg-background px-2.5 py-1 text-xs font-medium">
@@ -79,9 +78,7 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
             <bdi dir="auto">{textoLicencia(licencia)}</bdi>
           </Dato>
           <Dato etiqueta={t("tarjeta.stars")}>
-            <span aria-hidden="true" className="mr-0.5">
-              {t("tarjeta.starsGlifo")}
-            </span>
+            <IconoEstrella className="mr-0.5 -translate-y-px" />
             {stars === null ? sinDato : formatoNumero.format(stars)}
           </Dato>
           <Dato etiqueta={t("tarjeta.mantenimiento")} visible>

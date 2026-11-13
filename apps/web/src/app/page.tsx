@@ -22,10 +22,10 @@ const CATEGORIAS_EJEMPLO: Categoria[] = ["autenticacion", "pagos", "analitica"];
 
 const porSalud = (lista: HerramientaResumen[]) => [...lista].sort((x, y) => (y.healthScore ?? -1) - (x.healthScore ?? -1));
 
-/** Las 4 herramientas con mejor salud dan las iniciales de los tiles del titular (solo nombre e id). */
+/** Las 12 herramientas con mejor salud dan las marcas de los tiles del titular (solo nombre e id). */
 function destacadas(herramientas: HerramientaResumen[]) {
   return porSalud(herramientas)
-    .slice(0, 4)
+    .slice(0, 12)
     .map(({ id, nombre }) => ({ id, nombre }));
 }
 

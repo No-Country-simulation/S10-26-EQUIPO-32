@@ -32,8 +32,15 @@ function domInesperado(page: Page): Promise<string[]> {
       salida.push(`<${el.localName}> dentro de main`);
     for (const el of document.querySelectorAll("main bdi *, main code *, main pre > :not(code)"))
       salida.push(`<${el.localName}> dentro de un texto externo`);
+    // Solo íconos lucide o SVG propios fijos (data-ob-svg, ui-brief §12.3), siempre decorativos.
     for (const svg of document.querySelectorAll("main svg"))
-      if (!svg.matches("svg.lucide[aria-hidden='true']")) salida.push("<svg> que no es un ícono propio");
+      if (!svg.matches("svg.lucide[aria-hidden='true'], svg[data-ob-svg][aria-hidden='true']")) salida.push("<svg> que no es un ícono propio");
+    // Y ningún SVG, propio o no, puede llevar manejadores, enlaces, scripts, foreignObject ni texto.
+    for (const el of document.querySelectorAll("main svg, main svg *")) {
+      for (const a of el.getAttributeNames())
+        if (/^on/i.test(a) || /(^|:)href$/i.test(a)) salida.push(`<${el.localName}> con atributo ${a}`);
+      if (/^(script|foreignobject|text|a|image|use)$/i.test(el.localName)) salida.push(`<${el.localName}> dentro de un SVG`);
+    }
     return salida;
   });
 }
@@ -49,10 +56,17 @@ test.describe("guarda común", () => {
     expect(await domInesperado(page)).toEqual([]);
     await page.evaluate(() => {
       document.querySelector("main bdi")?.append(document.createElement("img"), document.createElementNS("http://www.w3.org/2000/svg", "svg"));
+      // Un SVG que imita a los propios (data-ob-svg) pero trae un manejador también tiene que saltar.
+      const falso = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      falso.setAttribute("data-ob-svg", "");
+      falso.setAttribute("aria-hidden", "true");
+      falso.setAttribute("onload", "alert(1)");
+      document.querySelector("main")?.append(falso);
     });
     const hallazgos = await domInesperado(page);
     expect(hallazgos.join()).toContain("<img>");
     expect(hallazgos.join()).toContain("<svg>");
+    expect(hallazgos.join()).toContain("atributo onload");
   });
 
   test("la guarda DETECTA una conexión a otro host (la CSP la bloquea y queda registrada) y un dialog", async ({ page }) => {

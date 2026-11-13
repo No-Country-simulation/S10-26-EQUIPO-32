@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
-import { iniciales } from "./iniciales";
+import { MarcaRepo } from "@/components/marca/MarcaRepo";
 
 export interface HerramientaDestacada {
   id: string;
@@ -13,36 +13,32 @@ export interface PresentacionCatalogoProps {
   idCatalogo: string;
   /** Identificador interno de la sección de seguridad (acción secundaria). */
   idSeguridad?: string;
-  /** Herramientas reales del catálogo para los tiles del titular (se usan hasta 4; sin ellas no hay tiles). */
+  /** Herramientas reales del catálogo para los tiles del titular (hasta 12: 4 tiles × 3 que rotan; sin ellas no hay tiles). */
   destacadas?: HerramientaDestacada[];
 }
 
-// Variantes neutras de los tiles: negro, gris y blanco con borde, con un giro leve como en la referencia.
-const TILES = [
-  "bg-primary text-primary-foreground -rotate-6",
-  "bg-secondary text-foreground ring-1 ring-border rotate-3",
-  "bg-background text-foreground ring-1 ring-input -rotate-3",
-  "bg-grafito text-primary-foreground rotate-6",
-] as const;
+// Giro leve de cada tile, como en la referencia.
+const GIROS = ["-rotate-6", "rotate-3", "-rotate-3", "rotate-6"] as const;
 
-function Tile({ herramienta, variante, className }: { herramienta: HerramientaDestacada | undefined; variante: number; className?: string }) {
-  if (herramienta === undefined) return null;
+/**
+ * Tile inline del titular: marcas generativas de hasta 3 repos reales que rotan con una animación CSS (`ob-rotar`);
+ * con movimiento reducido queda fija la primera. Sin letras (ui-brief §12.1).
+ */
+function Tile({ grupo, variante, className }: { grupo: HerramientaDestacada[]; variante: number; className?: string }) {
+  if (grupo.length === 0) return null;
   return (
-    <span
-      className={cn(
-        "mx-[0.14em] inline-flex size-[0.9em] -translate-y-[0.06em] items-center justify-center rounded-[0.24em] align-middle shadow-sm",
-        TILES[variante % TILES.length],
-        className,
-      )}
-    >
-      <span className="text-[0.34em] leading-none font-bold tracking-normal">{iniciales(herramienta.nombre, herramienta.id)}</span>
+    <span className={cn("ob-rotar relative mx-[0.14em] inline-block size-[0.9em] -translate-y-[0.06em] align-middle", GIROS[variante % GIROS.length], className)}>
+      {grupo.map((h) => (
+        <MarcaRepo key={h.id} id={h.id} className="absolute inset-0 size-full drop-shadow-md" />
+      ))}
     </span>
   );
 }
 
-/** Portada centrada (ui-brief §11.2 #2): titular en 3 líneas con tiles de iniciales, subtítulo y dos acciones. */
+/** Portada centrada (ui-brief §11.2 #2): titular en 3 líneas con tiles de marcas generativas, subtítulo y dos acciones. */
 export function PresentacionCatalogo({ idCatalogo, idSeguridad = "seguridad", destacadas = [] }: PresentacionCatalogoProps) {
-  const [a, b, c, d] = destacadas;
+  // Tile i rota entre los repos i, i+4 e i+8 de las destacadas.
+  const grupo = (i: number) => [destacadas[i], destacadas[i + 4], destacadas[i + 8]].filter((h): h is HerramientaDestacada => h !== undefined);
   return (
     <section className="catalogo-contenedor flex flex-col items-center pt-20 pb-24 text-center sm:pt-28 sm:pb-32 lg:pt-36 lg:pb-40">
       <h1 className="max-w-5xl text-[2.35rem] leading-[1.04] font-semibold tracking-[-0.035em] sm:text-6xl lg:text-[4.25rem]">
@@ -51,18 +47,18 @@ export function PresentacionCatalogo({ idCatalogo, idSeguridad = "seguridad", de
         <span aria-hidden="true">
           <span className="block">
             {t("portada.linea1a")}
-            <Tile herramienta={a} variante={0} />
+            <Tile grupo={grupo(0)} variante={0} />
             {t("portada.linea1b")}
           </span>
           <span className="block">
             {t("portada.linea2a")}
-            <Tile herramienta={b} variante={1} />
-            <Tile herramienta={c} variante={2} />
+            <Tile grupo={grupo(1)} variante={1} />
+            <Tile grupo={grupo(2)} variante={2} />
             {t("portada.linea2b")}
           </span>
           <span className="block">
             {t("portada.linea3")}
-            <Tile herramienta={d} variante={3} className="hidden sm:inline-flex" />
+            <Tile grupo={grupo(3)} variante={3} className="hidden sm:inline-block" />
           </span>
         </span>
       </h1>
