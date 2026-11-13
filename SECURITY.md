@@ -13,10 +13,28 @@ Incluí: descripción, pasos para reproducir, impacto estimado y, si podés, una
 
 ## Controles vigentes
 
-- Rama `main` (configuración del 13/11, aplicada en Settings por Jero): checks obligatorios `Lint, tipos, pruebas y build` y `Gitleaks (secret scanning)`, sin push directo ni force push. La aprobación obligatoria (1 revisión) está **suspendida por EX-01** hasta que vuelva el revisor (ver `docs/matriz-riesgos.md`).
+- Rama `main` protegida por el ruleset `proteccion-main` (ver abajo).
 - Secret scanning con push protection + Gitleaks en CI.
 - Dependabot para dependencias y GitHub Actions.
 - RLS activado en todas las tablas de Supabase; el frontend usa solo la clave pública de lectura.
+
+## Ruleset `proteccion-main`
+
+Ruleset de GitHub (id 27205292), **activo** sobre la rama por defecto (`main`). Control de NIST CSF 2.0 **PR.AA** (quién puede cambiar `main` y cómo) y **PR.PS** (integridad de la plataforma de código). Riesgo R-17 en la matriz.
+
+| Regla | Configuración |
+| --- | --- |
+| Pull request obligatorio | Sí. Ningún cambio entra a `main` sin PR |
+| Aprobaciones requeridas | **0**, cubierto por **EX-01** (`docs/matriz-riesgos.md`). Vuelve a 1 cuando se cierre la excepción |
+| Método de merge | Solo squash |
+| Checks requeridos | `Lint, tipos, pruebas y build` y `Gitleaks (secret scanning)` (GitHub Actions) |
+| Bypass | Ninguno: aplica también a los administradores |
+| Force push | Bloqueado |
+| Borrado de la rama | Bloqueado |
+
+**Evidencia:** el 2026-11-13 a las 11:06, un push directo a `main` fue rechazado con `GH013` (prueba de Jerónimo Núñez). La configuración se verificó por API (`gh api repos/{owner}/{repo}/rulesets/27205292`) el mismo día.
+
+**Límite conocido:** los checks no exigen que la rama esté al día con `main` (`strict_required_status_checks_policy: false`). Un PR puede pasar el CI sobre una base vieja; el CI que corre al hacer push a `main` lo detecta después del merge.
 
 ## Falsos positivos de Gitleaks
 

@@ -22,18 +22,19 @@ OWASP: A0x = Top 10 web (edición 2021) · LLM0x = Top 10 para LLM (2025). Si ad
 | R-14 | Trojan Source: caracteres invisibles (bidi y de ancho cero) en el código fuente introducidos por un agente de IA, que hacen que el código se vea distinto de lo que ejecuta (CVE-2021-42574) | 2 | 3 | 6 | Dos capas: hook local `.githooks/pre-commit` (rechaza el commit con el contenido en staging) y chequeo de CI `check:invisibles` sobre `apps/web/src`, `tests` y `scripts` (falla ante cualquier carácter crudo); escapes `\uXXXX` en el código; `texto.ts` los elimina de los datos externos | — | Paso de CI probado plantando U+202E, U+FEFF y U+200B (2026-11-10); hook probado plantando U+202E en un archivo staged: commit rechazado | PR, DE | A08 |
 | R-15 | Fuga del system prompt del asistente | 2 | 2 | 4 | Canario en el prompt; salida con el canario o fragmentos del prompt se descarta; el prompt no contiene secretos | RNF-19 | MU-14 + test unitario | PR, DE | LLM07 |
 | R-16 | El modo sin guardrails del red-team queda activo en producción | 1 | 3 | 3 | `REDTEAM_SIN_GUARDRAILS` se ignora con `NODE_ENV=production`; el script se niega a correr en producción | RNF-21 | Test de configuración y del handler | PR | A05 |
+| R-17 | Cambio en `main` sin PR ni CI, reescritura del historial (force push) o borrado de la rama | 2 | 3 | 6 | Ruleset `proteccion-main`: PR obligatorio, solo squash, checks requeridos `Lint, tipos, pruebas y build` y `Gitleaks (secret scanning)`, sin bypass, force push y borrado bloqueados. Aprobaciones en 0 por EX-01 (residual: un PR se mergea sin segunda revisión); los checks no exigen la rama al día con `main` | RNF-01, RNF-11, RNF-14 | Push directo a `main` rechazado con GH013 (2026-11-13 11:06, Jerónimo); configuración verificada por API | PR (PR.AA, PR.PS) | A01 / A08 |
 
 R-11 a R-13 agregados el 2026-10-30 desde el plan 001 (P y I son mi estimación inicial; revisar con Ángel).
 
 **R-14 (2026-11-10), incidente real:** al escribir `texto.ts` (T06), el agente de IA insertó en el código fuente caracteres bidi y de ancho cero crudos (en el regex y en los tests) en lugar de escapes. Los tests pasaban igual; se detectó en la revisión del código y se corrigió antes del PR. El mismo día volvió a ocurrir en el script del propio chequeo, y el chequeo lo detectó. P y I son estimación inicial (P = 2 porque ya ocurrió dos veces con un agente), a revisar con Ángel; A08 es una asignación mía.
 
-R-15 y R-16 agregados el 2026-11-12 desde la feature 002 (P e I: estimación inicial, revisar con Ángel). **R-14, 2026-11-12:** volvió a ocurrir dos veces al escribir los tests de 002 (U+202E, U+200B crudos); el hook de pre-commit rechazó ambos commits y se corrigió con escapes.
+R-17 agregado el 2026-11-13 con el ruleset `proteccion-main`. R-15 y R-16 agregados el 2026-11-12 desde la feature 002 (P e I: estimación inicial, revisar con Ángel). **R-14, 2026-11-12:** volvió a ocurrir dos veces al escribir los tests de 002 (U+202E, U+200B crudos); el hook de pre-commit rechazó ambos commits y se corrigió con escapes.
 
 ## Estado al cierre (2026-11-13)
 
 | Riesgo | Estado | Motivo |
 | --- | --- | --- |
-| R-01, R-09, R-13, R-14 | Mitigado | Controles en CI en verde (Gitleaks, audit, `headers.spec`, `check:invisibles` + hook) |
+| R-01, R-09, R-13, R-14, R-17 | Mitigado (R-17 con aprobaciones en 0 por EX-01) | Controles en CI en verde (Gitleaks, audit, `headers.spec`, `check:invisibles` + hook) |
 | R-02 | Mitigado parcial | 9/10 en red-team; **MU-19 abierto** |
 | R-03 | Mitigado parcial | 0 repos fuera del índice; falta umbral de health score (requiere backend) |
 | R-04, R-07, R-11, R-12, R-15, R-16 | Mitigado | Tests unitarios y E2E citados en cada fila |
