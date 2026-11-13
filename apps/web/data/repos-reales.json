@@ -7,15 +7,15 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 37858,
+    "stars": 37860,
     "ultimaActualizacion": "2026-11-13T19:35:45Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 3553,
+    "issuesAbiertos": 3554,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -154,15 +154,15 @@
       "base-de-datos",
       "autenticacion"
     ],
-    "stars": 114986,
-    "ultimaActualizacion": "2026-11-13T21:00:04Z",
+    "stars": 114985,
+    "ultimaActualizacion": "2026-11-13T22:09:39Z",
     "licencia": "Apache-2.0",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 1200,
+    "issuesAbiertos": 1201,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -202,7 +202,7 @@
       "ia",
       "busqueda"
     ],
-    "stars": 23670,
+    "stars": 23671,
     "ultimaActualizacion": "2026-11-13T09:12:29Z",
     "licencia": "PostgreSQL",
     "lenguaje": "C",
@@ -210,7 +210,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -269,15 +269,15 @@
     "categorias": [
       "base-de-datos"
     ],
-    "stars": 27705,
+    "stars": 27706,
     "ultimaActualizacion": "2026-11-13T20:47:06Z",
     "licencia": "BSD-3-Clause",
     "lenguaje": "C",
-    "issuesAbiertos": 1039,
+    "issuesAbiertos": 1038,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -302,15 +302,15 @@
       "base-de-datos",
       "analitica"
     ],
-    "stars": 43044,
+    "stars": 43048,
     "ultimaActualizacion": "2026-11-13T20:45:13Z",
     "licencia": "MIT",
     "lenguaje": "C++",
-    "issuesAbiertos": 1204,
+    "issuesAbiertos": 1207,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -336,14 +336,14 @@
       "pagos"
     ],
     "stars": 45782,
-    "ultimaActualizacion": "2026-11-13T20:19:21Z",
+    "ultimaActualizacion": "2026-11-13T21:05:00Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Rust",
-    "issuesAbiertos": 2367,
+    "issuesAbiertos": 2366,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -404,7 +404,7 @@
       "pagos",
       "analitica"
     ],
-    "stars": 10833,
+    "stars": 10834,
     "ultimaActualizacion": "2026-11-13T08:15:26Z",
     "licencia": "AGPL-3.0",
     "lenguaje": "Go",
@@ -412,7 +412,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -482,7 +482,7 @@
     "categorias": [
       "ia"
     ],
-    "stars": 186884,
+    "stars": 186890,
     "ultimaActualizacion": "2026-11-13T20:45:24Z",
     "licencia": "MIT",
     "lenguaje": "Go",
@@ -490,7 +490,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -515,15 +515,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 149468,
+    "stars": 149469,
     "ultimaActualizacion": "2026-11-13T20:49:45Z",
     "licencia": "MIT",
     "lenguaje": "Python",
-    "issuesAbiertos": 741,
+    "issuesAbiertos": 743,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -547,15 +547,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 168951,
-    "ultimaActualizacion": "2026-11-13T20:58:33Z",
+    "stars": 168949,
+    "ultimaActualizacion": "2026-11-13T22:13:41Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
-    "issuesAbiertos": 1117,
+    "issuesAbiertos": 1116,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -582,14 +582,14 @@
       "busqueda"
     ],
     "stars": 52894,
-    "ultimaActualizacion": "2026-11-13T20:34:33Z",
+    "ultimaActualizacion": "2026-11-13T22:01:57Z",
     "licencia": "MIT",
     "lenguaje": "Python",
-    "issuesAbiertos": 1388,
+    "issuesAbiertos": 1389,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -613,15 +613,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 134863,
-    "ultimaActualizacion": "2026-11-13T20:27:51Z",
+    "stars": 134864,
+    "ultimaActualizacion": "2026-11-13T21:54:25Z",
     "licencia": "MIT",
     "lenguaje": "C++",
-    "issuesAbiertos": 2607,
+    "issuesAbiertos": 2609,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -713,7 +713,7 @@
     "categorias": [
       "analitica"
     ],
-    "stars": 40120,
+    "stars": 40122,
     "ultimaActualizacion": "2026-11-12T23:12:03Z",
     "licencia": "MIT",
     "lenguaje": "TypeScript",
@@ -721,7 +721,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -782,14 +782,14 @@
       "analitica"
     ],
     "stars": 14007,
-    "ultimaActualizacion": "2026-11-13T20:04:51Z",
+    "ultimaActualizacion": "2026-11-13T22:12:24Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 3373,
+    "issuesAbiertos": 3374,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -815,7 +815,7 @@
       "busqueda",
       "ia"
     ],
-    "stars": 35539,
+    "stars": 35540,
     "ultimaActualizacion": "2026-11-13T20:54:39Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Rust",
@@ -823,7 +823,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -978,7 +978,7 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 14844,
+    "stars": 14845,
     "ultimaActualizacion": "2026-11-11T11:37:17Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
@@ -986,7 +986,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -1026,7 +1026,7 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 17663,
+    "stars": 17664,
     "ultimaActualizacion": "2026-07-29T09:30:11Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
@@ -1034,7 +1034,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -1072,15 +1072,15 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 30740,
-    "ultimaActualizacion": "2026-11-13T19:11:00Z",
+    "stars": 30741,
+    "ultimaActualizacion": "2026-11-13T22:12:58Z",
     "licencia": "MIT",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 969,
+    "issuesAbiertos": 964,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -1214,7 +1214,7 @@
     "categorias": [
       "autenticacion"
     ],
-    "stars": 15369,
+    "stars": 15370,
     "ultimaActualizacion": "2026-11-08T19:26:49Z",
     "licencia": "MIT",
     "lenguaje": "Go",
@@ -1222,7 +1222,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -1450,11 +1450,11 @@
     "ultimaActualizacion": "2026-11-13T17:20:15Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
-    "issuesAbiertos": 183,
+    "issuesAbiertos": 184,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -1494,14 +1494,14 @@
       "base-de-datos"
     ],
     "stars": 36274,
-    "ultimaActualizacion": "2026-11-13T18:11:33Z",
+    "ultimaActualizacion": "2026-11-13T22:14:06Z",
     "licencia": "Apache-2.0",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 2054,
+    "issuesAbiertos": 2055,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -1545,11 +1545,11 @@
     "ultimaActualizacion": "2026-11-12T12:06:28Z",
     "licencia": "MIT",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 744,
+    "issuesAbiertos": 745,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -1637,7 +1637,7 @@
     "categorias": [
       "base-de-datos"
     ],
-    "stars": 23330,
+    "stars": 23331,
     "ultimaActualizacion": "2026-08-31T11:03:14Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Rust",
@@ -1645,7 +1645,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -1684,7 +1684,7 @@
     "categorias": [
       "base-de-datos"
     ],
-    "stars": 17326,
+    "stars": 17327,
     "ultimaActualizacion": "2026-11-07T09:15:44Z",
     "licencia": "MIT",
     "lenguaje": "C",
@@ -1692,7 +1692,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -1736,11 +1736,11 @@
     "ultimaActualizacion": "2026-11-13T16:43:44Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 590,
+    "issuesAbiertos": 592,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -1779,15 +1779,15 @@
       "base-de-datos",
       "analitica"
     ],
-    "stars": 50916,
-    "ultimaActualizacion": "2026-11-13T20:59:27Z",
+    "stars": 50917,
+    "ultimaActualizacion": "2026-11-13T22:20:25Z",
     "licencia": "Apache-2.0",
     "lenguaje": "C++",
-    "issuesAbiertos": 9054,
+    "issuesAbiertos": 9058,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -1873,14 +1873,14 @@
       "base-de-datos"
     ],
     "stars": 21419,
-    "ultimaActualizacion": "2026-11-13T20:16:42Z",
+    "ultimaActualizacion": "2026-11-13T21:40:32Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
-    "issuesAbiertos": 1153,
+    "issuesAbiertos": 1150,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -1966,14 +1966,14 @@
       "base-de-datos"
     ],
     "stars": 27757,
-    "ultimaActualizacion": "2026-11-13T18:35:45Z",
+    "ultimaActualizacion": "2026-11-13T21:30:19Z",
     "licencia": "MIT",
     "lenguaje": "Haskell",
     "issuesAbiertos": 411,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -2046,14 +2046,14 @@
       "base-de-datos"
     ],
     "stars": 12091,
-    "ultimaActualizacion": "2026-11-13T21:00:40Z",
+    "ultimaActualizacion": "2026-11-13T22:19:19Z",
     "licencia": "MIT",
     "lenguaje": "C#",
-    "issuesAbiertos": 99,
+    "issuesAbiertos": 97,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -2095,11 +2095,11 @@
     "ultimaActualizacion": "2026-11-12T18:25:40Z",
     "licencia": "MIT",
     "lenguaje": "C#",
-    "issuesAbiertos": 81,
+    "issuesAbiertos": 82,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -2492,14 +2492,14 @@
       "pagos"
     ],
     "stars": 8217,
-    "ultimaActualizacion": "2026-11-13T14:12:46Z",
+    "ultimaActualizacion": "2026-11-13T21:53:44Z",
     "licencia": "MIT",
     "lenguaje": "Go",
     "issuesAbiertos": 919,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -2576,11 +2576,11 @@
     "ultimaActualizacion": "2026-11-13T18:55:42Z",
     "licencia": "MIT",
     "lenguaje": "PHP",
-    "issuesAbiertos": 250,
+    "issuesAbiertos": 251,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -2668,15 +2668,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 96870,
-    "ultimaActualizacion": "2026-11-13T20:36:09Z",
+    "stars": 96871,
+    "ultimaActualizacion": "2026-11-13T21:38:32Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
-    "issuesAbiertos": 10326,
+    "issuesAbiertos": 10334,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -2761,14 +2761,14 @@
       "ia"
     ],
     "stars": 64424,
-    "ultimaActualizacion": "2026-11-13T20:38:29Z",
+    "ultimaActualizacion": "2026-11-13T22:20:25Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
     "issuesAbiertos": 240,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -2808,15 +2808,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 60861,
+    "stars": 60865,
     "ultimaActualizacion": "2026-11-13T18:43:21Z",
     "licencia": "MIT",
     "lenguaje": "Python",
-    "issuesAbiertos": 1262,
+    "issuesAbiertos": 1263,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -2907,14 +2907,14 @@
       "analitica"
     ],
     "stars": 28792,
-    "ultimaActualizacion": "2026-11-13T20:53:05Z",
+    "ultimaActualizacion": "2026-11-13T21:42:55Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
-    "issuesAbiertos": 2220,
+    "issuesAbiertos": 2219,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -2955,14 +2955,14 @@
       "ia"
     ],
     "stars": 44285,
-    "ultimaActualizacion": "2026-11-13T19:55:39Z",
+    "ultimaActualizacion": "2026-11-13T22:06:14Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
-    "issuesAbiertos": 3778,
+    "issuesAbiertos": 3779,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -3002,7 +3002,7 @@
     "categorias": [
       "ia"
     ],
-    "stars": 55165,
+    "stars": 55166,
     "ultimaActualizacion": "2026-11-13T07:04:38Z",
     "licencia": "MIT",
     "lenguaje": "C++",
@@ -3010,7 +3010,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -3050,15 +3050,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 79445,
-    "ultimaActualizacion": "2026-11-13T20:00:02Z",
+    "stars": 79448,
+    "ultimaActualizacion": "2026-11-13T21:50:28Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
-    "issuesAbiertos": 505,
+    "issuesAbiertos": 512,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -3096,7 +3096,7 @@
     "categorias": [
       "ia"
     ],
-    "stars": 44913,
+    "stars": 44917,
     "ultimaActualizacion": "2026-11-13T20:13:21Z",
     "licencia": "MIT",
     "lenguaje": "Python",
@@ -3104,7 +3104,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -3176,15 +3176,15 @@
     "categorias": [
       "ia"
     ],
-    "stars": 50354,
-    "ultimaActualizacion": "2026-11-13T18:13:28Z",
+    "stars": 50355,
+    "ultimaActualizacion": "2026-11-13T21:58:55Z",
     "licencia": "MIT",
     "lenguaje": "Go",
-    "issuesAbiertos": 195,
+    "issuesAbiertos": 167,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -3223,14 +3223,14 @@
       "ia"
     ],
     "stars": 21194,
-    "ultimaActualizacion": "2026-11-13T21:00:22Z",
+    "ultimaActualizacion": "2026-11-13T22:20:02Z",
     "licencia": "MIT",
     "lenguaje": "Python",
-    "issuesAbiertos": 1967,
+    "issuesAbiertos": 1962,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -3268,15 +3268,15 @@
     "categorias": [
       "analitica"
     ],
-    "stars": 77885,
-    "ultimaActualizacion": "2026-11-13T20:55:41Z",
+    "stars": 77888,
+    "ultimaActualizacion": "2026-11-13T22:18:47Z",
     "licencia": "AGPL-3.0",
     "lenguaje": "TypeScript",
-    "issuesAbiertos": 3292,
+    "issuesAbiertos": 3297,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -3315,15 +3315,15 @@
     "categorias": [
       "analitica"
     ],
-    "stars": 75517,
-    "ultimaActualizacion": "2026-11-13T19:41:36Z",
+    "stars": 75518,
+    "ultimaActualizacion": "2026-11-13T21:39:00Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
-    "issuesAbiertos": 663,
+    "issuesAbiertos": 662,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -3461,14 +3461,14 @@
       "base-de-datos"
     ],
     "stars": 14096,
-    "ultimaActualizacion": "2026-11-13T15:33:48Z",
+    "ultimaActualizacion": "2026-11-13T21:23:57Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 763,
+    "issuesAbiertos": 765,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -3509,14 +3509,14 @@
       "base-de-datos"
     ],
     "stars": 6176,
-    "ultimaActualizacion": "2026-11-13T16:06:56Z",
+    "ultimaActualizacion": "2026-11-13T21:29:53Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 1284,
+    "issuesAbiertos": 1281,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -3602,15 +3602,15 @@
     "categorias": [
       "analitica"
     ],
-    "stars": 67590,
-    "ultimaActualizacion": "2026-11-13T20:58:41Z",
+    "stars": 67592,
+    "ultimaActualizacion": "2026-11-13T21:22:48Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
     "issuesAbiertos": 1096,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -3650,14 +3650,14 @@
       "analitica"
     ],
     "stars": 7765,
-    "ultimaActualizacion": "2026-11-13T20:56:55Z",
+    "ultimaActualizacion": "2026-11-13T21:52:20Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
-    "issuesAbiertos": 721,
+    "issuesAbiertos": 719,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -3695,15 +3695,15 @@
     "categorias": [
       "analitica"
     ],
-    "stars": 14165,
-    "ultimaActualizacion": "2026-11-13T20:37:38Z",
+    "stars": 14166,
+    "ultimaActualizacion": "2026-11-13T22:07:10Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Rust",
     "issuesAbiertos": 1915,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -3823,14 +3823,14 @@
       "analitica"
     ],
     "stars": 22870,
-    "ultimaActualizacion": "2026-11-13T21:00:34Z",
+    "ultimaActualizacion": "2026-11-13T22:10:01Z",
     "licencia": "MPL-2.0",
     "lenguaje": "Rust",
-    "issuesAbiertos": 2575,
+    "issuesAbiertos": 2583,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -3869,14 +3869,14 @@
       "busqueda"
     ],
     "stars": 1701,
-    "ultimaActualizacion": "2026-11-13T19:35:05Z",
+    "ultimaActualizacion": "2026-11-13T21:04:34Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
     "issuesAbiertos": 288,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
@@ -3920,11 +3920,11 @@
     "ultimaActualizacion": "2026-11-13T20:54:10Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 2745,
+    "issuesAbiertos": 2746,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -4008,7 +4008,7 @@
     "categorias": [
       "busqueda"
     ],
-    "stars": 16436,
+    "stars": 16437,
     "ultimaActualizacion": "2026-11-11T23:01:25Z",
     "licencia": "MIT",
     "lenguaje": "Rust",
@@ -4016,7 +4016,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -4058,14 +4058,14 @@
       "ia"
     ],
     "stars": 46654,
-    "ultimaActualizacion": "2026-11-13T18:05:07Z",
+    "ultimaActualizacion": "2026-11-13T21:42:01Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Go",
-    "issuesAbiertos": 1499,
+    "issuesAbiertos": 1498,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -4107,14 +4107,14 @@
       "ia"
     ],
     "stars": 29681,
-    "ultimaActualizacion": "2026-11-07T04:52:06Z",
+    "ultimaActualizacion": "2026-11-13T21:08:18Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Rust",
     "issuesAbiertos": 978,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -4202,14 +4202,14 @@
       "base-de-datos"
     ],
     "stars": 9511,
-    "ultimaActualizacion": "2026-11-13T20:29:13Z",
+    "ultimaActualizacion": "2026-11-13T22:04:38Z",
     "licencia": "AGPL-3.0",
     "lenguaje": "Rust",
-    "issuesAbiertos": 309,
+    "issuesAbiertos": 300,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -4298,14 +4298,14 @@
       "ia"
     ],
     "stars": 11894,
-    "ultimaActualizacion": "2026-11-13T21:00:47Z",
+    "ultimaActualizacion": "2026-11-13T21:41:51Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Rust",
     "issuesAbiertos": 687,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -4344,7 +4344,7 @@
       "busqueda",
       "ia"
     ],
-    "stars": 41612,
+    "stars": 41615,
     "ultimaActualizacion": "2026-11-13T16:23:35Z",
     "licencia": "MIT",
     "lenguaje": "C++",
@@ -4352,7 +4352,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -4389,7 +4389,7 @@
     "categorias": [
       "busqueda"
     ],
-    "stars": 39525,
+    "stars": 39527,
     "ultimaActualizacion": "2026-11-13T13:16:16Z",
     "licencia": "AGPL-3.0",
     "lenguaje": "Python",
@@ -4397,7 +4397,7 @@
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "docker",
@@ -4566,15 +4566,15 @@
     "categorias": [
       "analitica"
     ],
-    "stars": 47470,
-    "ultimaActualizacion": "2026-11-13T19:13:01Z",
+    "stars": 47472,
+    "ultimaActualizacion": "2026-11-13T21:47:26Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Python",
-    "issuesAbiertos": 1934,
+    "issuesAbiertos": 1933,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "sdk",
@@ -4615,15 +4615,15 @@
       "analitica",
       "base-de-datos"
     ],
-    "stars": 13512,
-    "ultimaActualizacion": "2026-11-13T17:20:13Z",
+    "stars": 13511,
+    "ultimaActualizacion": "2026-11-13T22:19:25Z",
     "licencia": "Apache-2.0",
     "lenguaje": "Java",
-    "issuesAbiertos": 2758,
+    "issuesAbiertos": 2759,
     "mantenedorActivo": null,
     "nivelMantenimiento": null,
     "healthScore": null,
-    "metricasTomadasEn": "2026-11-13T21:00:46Z",
+    "metricasTomadasEn": "2026-11-13T22:20:35Z",
     "ideas": [
       {
         "tipo": "rest",
