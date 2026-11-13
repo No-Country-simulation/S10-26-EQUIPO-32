@@ -3,6 +3,7 @@ import type { ConfigAsistente } from "./config";
 import type { Indice } from "./indice";
 import { conversar, embeber, ErrorOllama, type Fetch } from "./ollama";
 import { armarMensajes, FORMATO_SALIDA } from "./prompt";
+import { detectarCambioDeRol } from "./rol";
 import { validarSalida, type RespuestaAsistente } from "./salida";
 
 export const TOP_K = 5;
@@ -14,6 +15,14 @@ export interface Dependencias {
 }
 
 export async function responder(consulta: string, { config, indice, fetchFn = fetch }: Dependencias): Promise<RespuestaAsistente> {
+  // Jailbreak por rol/persona (RNF-23, AM-27): no llega al modelo. Solo se registra la señal, nunca la consulta (RNF-22).
+  if (config.guardrails) {
+    const senal = detectarCambioDeRol(consulta);
+    if (senal !== null) {
+      console.warn(`[asistente] entrada rechazada: cambio-de-rol (${senal})`);
+      return { estado: "sin-contexto" };
+    }
+  }
   const vector = await embeber(config.ollamaUrl, consulta, fetchFn);
   const repos = indice.buscar(vector, TOP_K).map((d) => d.repo);
   const mensajes = armarMensajes(consulta, repos, config.guardrails);

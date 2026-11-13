@@ -67,6 +67,7 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-20 | Producto · Seguridad | Entrada del asistente: JSON, cuerpo ≤ 4 KB, consulta ≤ 500 caracteres normalizada | M | Tests del route handler (400/413/415) | 002 |
 | RNF-21 | Producto · Seguridad | El modo sin guardrails del red-team no tiene efecto en producción | M | Test unitario de configuración y del handler | 002 |
 | RNF-22 | Producto · Privacidad | LLM local: la consulta no sale del servidor y no se registra | M | Revisión de código (logs solo con códigos) | 002 |
+| RNF-23 | Producto · Seguridad | Mitigar MU-19: jailbreak por rol/persona, ficción o hipótesis, en otro idioma u ofuscado → «sin contexto», sin bloquear consultas legítimas | M | Red-team v1 vs v2 (`docs/red-team.md`) + tests del detector | 002 |
 
 ## 5. Trazabilidad
 
@@ -106,4 +107,5 @@ Resultado real de cada requisito al entregar. Evidencia completa en `specs/001-f
 | RNF-17 | Cumple (español) | Lint `jsx-no-literals` + `i18n.test`; inglés no entregado (C) |
 | RNF-18 | Pendiente | Aprobación visual de Jerónimo sin registrar |
 | RNF-19 a RNF-22 | Cumple | Tests de 002; MU-14 bloqueado |
+| RNF-23 | Cumple en la batería | Red-team v2 13/13 (v1 11/13), 0/5 falsos positivos; generalización sin medir (AM-29) |
 
