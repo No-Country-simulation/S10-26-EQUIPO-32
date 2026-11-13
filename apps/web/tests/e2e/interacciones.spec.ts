@@ -252,3 +252,27 @@ test.describe("movimiento reducido (RF-26)", () => {
     expect(await pista.evaluate((el) => el.scrollLeft)).toBeGreaterThan(200);
   });
 });
+
+test.describe("fotos del sitio (RF-25, RNF-31)", () => {
+  test("las 3 fotos cargan por next/image desde el propio origen, con alt, sin violar la CSP, y el footer las acredita", async ({ page }) => {
+    const problemas: string[] = [];
+    page.on("console", (m) => {
+      if (/content security policy|violates the following/i.test(m.text())) problemas.push(m.text());
+    });
+    page.on("request", (r) => {
+      const u = new URL(r.url());
+      if (/^https?:$/.test(u.protocol) && u.origin !== "http://localhost:3100") problemas.push(`request a otro host: ${r.url()}`);
+    });
+    await page.goto("/");
+    const fotos = page.locator("main img[data-ob-foto]");
+    await expect(fotos).toHaveCount(3);
+    for (let i = 0; i < 3; i += 1) {
+      const foto = fotos.nth(i);
+      await foto.scrollIntoViewIfNeeded();
+      await expect(foto).toHaveAttribute("alt", /.{15,}/);
+      await expect.poll(() => foto.evaluate((el) => (el as HTMLImageElement).naturalWidth)).toBeGreaterThan(100);
+    }
+    await expect(page.locator("footer")).toContainText("Zayed Hossain, Mikhail Nilov, Sora Shimazaki");
+    expect(problemas).toEqual([]);
+  });
+});

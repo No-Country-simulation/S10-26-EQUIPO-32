@@ -3,6 +3,7 @@ import { Bot, Sparkles } from "lucide-react";
 import type { Categoria } from "@/lib/catalogo/categorias";
 import { LogoRepo } from "@/components/marca/LogoRepo";
 import { BotonAsistente } from "./BotonAsistente";
+import { FotoSitio } from "./FotoSitio";
 import { t } from "@/i18n/es";
 
 export interface RepoCitado {
@@ -35,7 +36,10 @@ export function SeccionAsistente({ id, citados }: SeccionAsistenteProps) {
         <BotonAsistente className="mt-8 bg-primary text-primary-foreground hover:bg-primary/85" />
       </div>
 
-      <div className="mt-12 rounded-[2rem] bg-secondary p-3 sm:p-8 lg:p-12">
+      <div className="mt-12 aspect-[16/9] overflow-hidden rounded-[2rem] bg-secondary ring-1 ring-border sm:aspect-[2/1]">
+        <FotoSitio id="asistente" sizes="(min-width: 1024px) 72rem, 100vw" className="object-[50%_35%]" />
+      </div>
+      <div className="mt-6 rounded-[2rem] bg-secondary p-3 sm:p-8 lg:p-12">
         <div className="mx-auto max-w-3xl space-y-6 rounded-3xl bg-background p-5 shadow-sm sm:p-8">
           <div className="flex justify-end">
             <p className="max-w-[85%] rounded-3xl rounded-br-lg bg-primary px-5 py-3 text-[0.95rem] text-primary-foreground">

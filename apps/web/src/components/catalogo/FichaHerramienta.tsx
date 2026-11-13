@@ -6,6 +6,7 @@ import { textoLicencia } from "@/lib/catalogo/licencia";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 import { LogoRepo } from "@/components/marca/LogoRepo";
+import { PreviewHerramienta, rutaCaptura } from "@/components/marca/PreviewHerramienta";
 import { DesgloseSalud } from "./DesgloseSalud";
 import { EstadoVacio } from "./EstadoVacio";
 import { IdeaIntegracion } from "./IdeaIntegracion";
@@ -68,6 +69,12 @@ export function FichaHerramienta({ herramienta: h }: FichaHerramientaProps) {
             ))}
           </ul>
         </header>
+        {/* Pantalla de preview (RF-24): captura real del repo o mockup por categoría; decorativa si es el mockup. */}
+        {(rutaCaptura(h.id) !== null || h.categorias[0] !== undefined) && (
+          <div className="relative aspect-[16/10] max-w-3xl overflow-hidden rounded-3xl bg-secondary ring-1 ring-border">
+            <PreviewHerramienta id={h.id} nombre={h.nombre} categoria={h.categorias[0]} sizes="(min-width: 768px) 48rem, 100vw" />
+          </div>
+        )}
         <p className="max-w-3xl text-base [overflow-wrap:anywhere] text-muted-foreground">
           <bdi dir="auto">{h.descripcion ?? sinDato}</bdi>
           {h.descripcionTruncada && h.descripcion !== null ? t("comun.recortado") : null}

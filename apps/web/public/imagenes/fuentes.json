@@ -1,0 +1,47 @@
+{
+  "descripcion": "Fotos decorativas de Pexels (feature 007, RF-25), optimizadas a JPEG de 1400 px y ≤ 300 KB. No son capturas de ninguna herramienta. Licencia de Pexels: uso libre sin atribución obligatoria; se acredita igual en el footer.",
+  "fotos": [
+    {
+      "id": "portada",
+      "archivo": "portada.jpg",
+      "autor": "Zayed Hossain",
+      "fuente": "Pexels",
+      "url": "https://www.pexels.com/photo/developer-working-on-code-in-a-modern-office-36706460/",
+      "licencia": "Pexels License",
+      "urlLicencia": "https://www.pexels.com/license/",
+      "alt": "Una persona programa frente a dos monitores con código en una oficina luminosa",
+      "ancho": 1400,
+      "alto": 1050,
+      "bytes": 274783,
+      "sha256": "9ca62c57798687a3e7b9688e96815dd12027ac0418c137b504b78e2265044789"
+    },
+    {
+      "id": "asistente",
+      "archivo": "asistente.jpg",
+      "autor": "Mikhail Nilov",
+      "fuente": "Pexels",
+      "url": "https://www.pexels.com/photo/men-working-on-a-computer-7988742/",
+      "licencia": "Pexels License",
+      "urlLicencia": "https://www.pexels.com/license/",
+      "alt": "Dos desarrolladores revisan código juntos frente a un monitor curvo",
+      "ancho": 1400,
+      "alto": 934,
+      "bytes": 199457,
+      "sha256": "9053a0640b9706d0b5866670e31b4d50f1b226d8ab0aab13f4169c09810ff9b4"
+    },
+    {
+      "id": "seguridad",
+      "archivo": "seguridad.jpg",
+      "autor": "Sora Shimazaki",
+      "fuente": "Pexels",
+      "url": "https://www.pexels.com/photo/crop-faceless-developer-working-on-software-code-on-laptop-5926382/",
+      "licencia": "Pexels License",
+      "urlLicencia": "https://www.pexels.com/license/",
+      "alt": "Manos escribiendo en una laptop que muestra texto de programación en verde sobre fondo negro",
+      "ancho": 1400,
+      "alto": 933,
+      "bytes": 181997,
+      "sha256": "d229bfcad00042d5c29dcd847b1732391112f81a93e9c2c29c2a1ca748eac3a2"
+    }
+  ]
+}

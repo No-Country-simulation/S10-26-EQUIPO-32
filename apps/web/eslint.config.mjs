@@ -111,4 +111,13 @@ export default defineConfig([
       ],
     },
   },
+  {
+    // Excepción a ui-brief §5.3 (feature 007; RF-24, RF-25, RNF-31, ui-brief §13): capturas y fotos propias van con
+    // next/image, solo desde /capturas/<id> y /imagenes/<archivo> del propio sitio (CSP `img-src 'self'` sin cambios).
+    // Solo se habilita el import: siguen prohibidas las URLs absolutas en src, <img> directo y `style`.
+    files: ["src/components/marca/PreviewHerramienta.tsx", "src/components/sitio/FotoSitio.tsx"],
+    rules: {
+      "no-restricted-syntax": ["error", ...sintaxisCatalogo.filter((r) => !r.selector.includes("next/image"))],
+    },
+  },
 ]);

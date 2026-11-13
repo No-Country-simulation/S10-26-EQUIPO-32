@@ -256,4 +256,9 @@ Nada decorativo que no funcione. «Probar el asistente» (portada, cabecera, sec
 
 ### 13.5 Backlog
 
-_(se completa al cierre)_
+Entregado: todo §13.1; capturas (5 de 108 con captura real) y 3 fotos. Queda abierto:
+
+- **Cobertura de capturas (5/108):** la mayoría de los READMEs usa imágenes en otros hosts (sitio propio, CDN) o sin pista de captura. Opciones: aceptar imágenes de `raw.githubusercontent.com` de la carpeta `docs/` de otros repos del mismo owner, o subir el límite de 600 KB con recompresión. Ninguna sin decisión del equipo (RNF-32).
+- **Prueba de la descarga con servidor simulado** (redirecciones, cuerpo enorme): hoy se prueban las funciones puras y las imágenes ya guardadas.
+- **Recorte de las capturas panorámicas** (`object-cover object-top`): revisión visual de Jerónimo (RNF-18).
+- **axe** y revisión visual siguen abiertos desde §12.5. Los puntos y el arrastre del carrusel de §12.5 quedaron resueltos.

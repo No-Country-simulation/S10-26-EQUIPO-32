@@ -1,0 +1,61 @@
+{
+  "descripcion": "Capturas de producto tomadas del README de cada repo (feature 007, RF-24). Validadas por magic bytes (PNG, JPEG o WebP), ≤ 600 KB, desde hosts de GitHub. Cada archivo es del repo que la declara; la licencia es la del repo.",
+  "generadoEn": "2026-11-13T21:35:23Z",
+  "capturas": [
+    {
+      "id": "supabase",
+      "archivo": "supabase.png",
+      "tipo": "image/png",
+      "bytes": 55146,
+      "sha256": "5d6a983be3bfd895354d20251bafa53df02b4429fe9dcc20eceed6f8227d7027",
+      "origen": "https://raw.githubusercontent.com/supabase/supabase/master/apps/www/public/images/github/supabase-dashboard.png",
+      "repo": "https://github.com/supabase/supabase",
+      "licencia": "Apache-2.0",
+      "descargadoEn": "2026-11-13T21:35:23Z"
+    },
+    {
+      "id": "lago",
+      "archivo": "lago.png",
+      "tipo": "image/png",
+      "bytes": 326859,
+      "sha256": "f3de003758e469a80c2715e14c1c70414c979f991915680e4fe0ae53c5cae66c",
+      "origen": "https://raw.githubusercontent.com/getlago/lago/HEAD/docs/images/readme-hero-assets/lago-product-platform.png",
+      "repo": "https://github.com/getlago/lago",
+      "licencia": "AGPL-3.0",
+      "descargadoEn": "2026-11-13T21:35:23Z"
+    },
+    {
+      "id": "plausible",
+      "archivo": "plausible.webp",
+      "tipo": "image/webp",
+      "bytes": 56672,
+      "sha256": "1fbd4fcc931a02fb406053ebb99f6867661f815534dfe6f6cc52e9eb513947dd",
+      "origen": "https://raw.githubusercontent.com/plausible/analytics/HEAD/.github/plausible-analytics-dashboard.webp",
+      "repo": "https://github.com/plausible/analytics",
+      "licencia": "AGPL-3.0",
+      "descargadoEn": "2026-11-13T21:35:23Z"
+    },
+    {
+      "id": "questdb",
+      "archivo": "questdb.webp",
+      "tipo": "image/webp",
+      "bytes": 328868,
+      "sha256": "a7c70edf50cc4859051c2ee91a34e600f235f42abfbc0840c48a637d53e89dbb",
+      "origen": "https://raw.githubusercontent.com/questdb/questdb/HEAD/.github/console.webp",
+      "repo": "https://github.com/questdb/questdb",
+      "licencia": "Apache-2.0",
+      "descargadoEn": "2026-11-13T21:35:23Z"
+    },
+    {
+      "id": "airflow",
+      "archivo": "airflow.png",
+      "tipo": "image/png",
+      "bytes": 416371,
+      "sha256": "2d42b71a6766ffd3fa13b7b3e54ad04fe75050967401fa6b5193cf2dd7b75aed",
+      "origen": "https://raw.githubusercontent.com/apache/airflow/main/airflow-core/docs/img/ui-dark/dags.png",
+      "repo": "https://github.com/apache/airflow",
+      "licencia": "Apache-2.0",
+      "descargadoEn": "2026-11-13T21:35:23Z"
+    }
+  ]
+}
