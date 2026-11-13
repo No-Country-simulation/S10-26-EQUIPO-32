@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Cabecera } from "@/components/catalogo/Cabecera";
+import { Pie } from "@/components/sitio/Pie";
 import { t } from "@/i18n/es";
 import "./globals.css";
 
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <Cabecera />
         <main>{children}</main>
+        <Pie />
       </body>
     </html>
   );

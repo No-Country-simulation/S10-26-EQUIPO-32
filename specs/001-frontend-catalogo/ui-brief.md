@@ -157,3 +157,39 @@ Campos `null` → «Sin dato»; `licencia === null` → «Sin licencia declarada
 - [ ] Demo en `demo/demo-ui/page.tsx`, sin cambios de configuración; vista normal primero y casos extremos separados y cerrados inicialmente.
 - [ ] UI-1 incluye `PresentacionCatalogo`; ningún estado gigante ni texto técnico de pruebas reemplaza la portada del producto.
 - [ ] Evidencia responsive a 360, 768 y 1280 px; no declarar fidelidad móvil pixel perfect sin referencia móvil.
+
+## 11. UI v2 (2026-11-13)
+
+**Responsable:** Jerónimo Núñez · **Rama:** `feat/ui-v2` · **Alcance:** solo `apps/web/src/components`, las páginas de `src/app` (sin `src/app/api`), `globals.css`, el diccionario `src/i18n/es.ts` y las pruebas afectadas. No se tocan `src/lib`, `data/` ni `src/app/api`.
+
+Esta sección **amplía** §3 y §8; no cambia el contrato de datos ni ningún RF/RNF. Si algo de acá choca con `spec.md`, gana el spec (ver «Conciliación con el spec»).
+
+### 11.1 Referencia
+
+- Composición de la landing de Mobbin (captura del 2026-11-13): estructura, espaciado, escala tipográfica, radios, grises y jerarquía. **No** se copian al repo capturas, logo, textos, logos de clientes ni testimonios. Marca, textos e íconos son de OpenBridge.
+- La carpeta de capturas prevista (`~/Desktop/ref-mobbin`) no estaba disponible al empezar. La referencia directa es la captura de la portada (cabecera, hero y wordmark del footer). Las demás secciones siguen la descripción de esta lista.
+
+### 11.2 Secciones (en orden de página)
+
+1. **Cabecera sticky minimalista:** wordmark «OpenBridge» a la izquierda. Navegación con Catálogo, Asistente (el botón real que abre el panel de la feature 002) y Seguridad. «GitHub» a la derecha, como píldora negra. En 375 px pasa a dos filas, sin scroll horizontal.
+2. **Hero centrado:** titular grande en 3 líneas con *tiles* redondeados inline que muestran las **iniciales** de herramientas reales del catálogo (glifos propios, sin logos de terceros, `aria-hidden`). Subtítulo gris, un CTA principal negro (al catálogo) y uno secundario gris (a Seguridad).
+3. **Contenedor «app preview»:** superficie gris redondeada con el buscador al centro y un bloque blanco de 4 columnas: **Categorías** (las 6 + «Todas», es el `NavCategorias`), **Casos de uso** (los tipos de integración que documentan las fichas: API REST, Docker, SDK y Webhook, informativos), **Lenguajes** y **Licencias** (derivados del catálogo cargado; elegir uno aplica ese filtro). Solo datos que ya existen.
+4. **Tabs «Recientes / Mejor salud» y grilla:** las tabs (`role="tablist"`, flechas del teclado) ordenan la grilla por última actualización o por health score, con los `null` al final. Es solo un orden de presentación en memoria: no va a la URL ni al servidor. Cada tarjeta lleva un contenedor gris redondeado con las iniciales como *placeholder* (no hay imágenes: `img-src 'self'` y sin `<img>`), nombre, descripción en una línea e indicador de salud.
+5. **Sección «Asistente»:** título con ícono y una tarjeta con una consulta de ejemplo y una respuesta **estática**. Los repos citados son herramientas reales del catálogo cargado, con enlace a su ficha (P6: nunca se cita un repo que no está en la base). Lleva la leyenda «Ejemplo ilustrativo» (P7). **No llama a la API.**
+6. **Sección «Seguridad por diseño»:** 6 *tiles* (CSP con nonce, contrato zod, guardrails LLM, red-team, supply chain y NIST CSF). Cada uno enlaza a su documento en el repo.
+7. **Footer oscuro:** columnas Producto, Seguridad (SECURITY.md, Red-team, OWASP, NIST CSF) y Proyecto (Repo, Specs, Equipo), la leyenda «Simulación laboral No Country · 2026» y el wordmark «OpenBridge» gigante en gris oscuro, cortado abajo (decorativo, `aria-hidden`).
+
+### 11.3 Invariantes (no negociables)
+
+- CSP: ningún `<script>` ni `style` en línea nuevos. Todo el aspecto sale de clases de Tailwind y tokens de `globals.css`; ningún estilo depende de datos.
+- `react/jsx-no-literals`: todo texto propio va a `src/i18n/es.ts`.
+- Enlaces externos: solo hacia el repositorio del proyecto, armados desde **una constante** en `src/components/sitio/enlaces.ts` (nunca desde datos), con `target="_blank" rel="noopener noreferrer"`. Ningún enlace externo dentro de `main` en las fichas (MU-08).
+- SVG dentro de `main`: solo íconos `lucide` con `aria-hidden="true"` (la guarda de los e2e lo exige). Los *tiles* son texto, no SVG propios.
+- Contraste AA (texto ≥ 4.5:1; controles y foco ≥ 3:1), incluido el footer oscuro. Foco visible en todo control. HTML semántico con `h1`–`h3` en orden.
+- Responsive a 375, 768 y 1280 px sin scroll horizontal. Tema claro único (RNF-15); el footer oscuro es una superficie fija, no un modo oscuro.
+- Todos los tests en verde. Si cambian selectores, se actualizan los e2e **sin bajar ninguna aserción de seguridad**.
+
+### 11.4 Conciliación con el spec
+
+- **RF-01 (c), RNF-13 y MU-03:** la tarjeta v2 conserva en una línea de metadatos el `id` en monoespaciada, el lenguaje, la licencia (o «Sin licencia declarada»), las stars, el nivel de mantenimiento con texto y las categorías. La referencia pide menos campos, pero gana el spec.
+- **RF-03:** los filtros secundarios (`PanelFiltros`) siguen completos. Las columnas Lenguajes y Licencias son atajos a los mismos filtros.

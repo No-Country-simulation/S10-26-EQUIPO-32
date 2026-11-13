@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import type { HerramientaResumen } from "@/lib/catalogo/contrato";
 import { textoLicencia } from "@/lib/catalogo/licencia";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 import { IndicadorSalud } from "./IndicadorSalud";
+import { iniciales } from "./iniciales";
 
 export interface TarjetaHerramientaProps {
   herramienta: HerramientaResumen;
@@ -20,55 +20,71 @@ const COLOR_NIVEL = {
 
 const formatoNumero = new Intl.NumberFormat("es-AR");
 
-function Dato({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
+/** Un dato de la línea de metadatos: la etiqueta existe para lectores de pantalla y el valor se ve compacto. */
+function Dato({ etiqueta, visible = false, children }: { etiqueta: string; visible?: boolean; children: React.ReactNode }) {
   return (
-    <div className="min-w-0">
-      <dt className="text-xs text-muted-foreground">{etiqueta}</dt>
-      <dd className="line-clamp-2 font-medium [overflow-wrap:anywhere]">{children}</dd>
+    <div className="flex max-w-full min-w-0 items-baseline gap-1">
+      <dt className={visible ? "shrink-0" : "sr-only"}>{etiqueta}</dt>
+      <dd className="min-w-0 font-medium text-foreground [overflow-wrap:anywhere]">{children}</dd>
     </div>
   );
 }
 
 /**
- * Todo texto de `herramienta` es externo: se muestra solo como texto de React, aislado con <bdi dir="auto">
- * (unicode-bidi: isolate) y cortado con line-clamp / truncate / overflow-wrap, así no altera a sus vecinas.
+ * Tarjeta v2 (ui-brief §11.2 #4 y §11.4): contenedor gris con las iniciales como placeholder (no hay imágenes),
+ * nombre, descripción en una línea, salud y una línea de metadatos que conserva lo que exige RF-01 (c) y RNF-13.
+ * Todo texto de `herramienta` es externo: va como texto de React, aislado con <bdi dir="auto"> y cortado.
  */
 export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
   const { nombre, id, descripcion, descripcionTruncada, categorias, lenguaje, licencia, stars, healthScore, nivelMantenimiento } =
     herramienta;
   const sinDato = t("comun.sinDato");
   return (
-    <Card className="relative h-full min-w-0 gap-4 rounded-2xl py-5">
-      <CardHeader className="min-w-0 gap-1 px-5">
-        <h3 className="line-clamp-2 text-lg leading-snug font-semibold [overflow-wrap:anywhere]">
-          {/* El enlace cubre toda la tarjeta (after:inset-0). El id es ASCII estricto: seguro en la ruta (MU-05). */}
-          <Link href={`/herramientas/${encodeURIComponent(id)}`} className="catalogo-foco rounded-sm after:absolute after:inset-0 after:rounded-2xl">
-            <bdi dir="auto">{nombre}</bdi>
-          </Link>
-        </h3>
-        <code className="block truncate font-mono text-xs text-muted-foreground">{id}</code>
-      </CardHeader>
-      <CardContent className="flex min-w-0 flex-1 flex-col gap-4 px-5">
-        <p className="line-clamp-3 text-sm text-muted-foreground [overflow-wrap:anywhere]">
-          <bdi dir="auto">{descripcion ?? sinDato}</bdi>
-          {descripcionTruncada && descripcion !== null ? t("comun.recortado") : null}
-        </p>
-        <ul aria-label={t("tarjeta.categorias")} className="flex flex-wrap gap-1.5">
+    <Card className="group/tarjeta relative h-full min-w-0 gap-0 overflow-visible rounded-none bg-transparent py-0 ring-0">
+      <div className="relative flex aspect-[16/10] items-center justify-center rounded-3xl bg-secondary transition-colors group-hover/tarjeta:bg-secundario-hover">
+        <span aria-hidden="true" className="flex size-20 items-center justify-center rounded-[1.4rem] bg-background text-2xl font-semibold tracking-tight shadow-sm">
+          {iniciales(nombre, id)}
+        </span>
+        <ul aria-label={t("tarjeta.categorias")} className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
           {categorias.map((categoria) => (
-            <li key={categoria}>
-              <Badge variant="secondary">{t(`categoria.${categoria}`)}</Badge>
+            <li key={categoria} className="rounded-full bg-background px-2.5 py-1 text-xs font-medium">
+              {t(`categoria.${categoria}`)}
             </li>
           ))}
         </ul>
-        <dl className="mt-auto grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
+      </div>
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5 px-1 pt-4">
+        <div className="flex min-w-0 items-start justify-between gap-3">
+          <h3 className="line-clamp-2 min-w-0 text-base leading-snug font-semibold [overflow-wrap:anywhere]">
+            {/* El enlace cubre toda la tarjeta (after:inset-0). El id es ASCII estricto: seguro en la ruta (MU-05). */}
+            <Link href={`/herramientas/${encodeURIComponent(id)}`} className="catalogo-foco rounded-sm after:absolute after:inset-0 after:rounded-3xl">
+              <bdi dir="auto">{nombre}</bdi>
+            </Link>
+          </h3>
+          <span className="shrink-0">
+            <IndicadorSalud valor={healthScore} />
+          </span>
+        </div>
+        <p className="line-clamp-1 text-sm text-muted-foreground [overflow-wrap:anywhere]">
+          <bdi dir="auto">{descripcion ?? sinDato}</bdi>
+          {descripcionTruncada && descripcion !== null ? t("comun.recortado") : null}
+        </p>
+        {/* MU-03: el nombre se muestra siempre junto a su id. */}
+        <code className="block truncate font-mono text-xs text-muted-foreground">{id}</code>
+        <dl className="mt-1 flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
           <Dato etiqueta={t("tarjeta.lenguaje")}>
             <bdi dir="auto">{lenguaje ?? sinDato}</bdi>
           </Dato>
           <Dato etiqueta={t("tarjeta.licencia")}>
             <bdi dir="auto">{textoLicencia(licencia)}</bdi>
           </Dato>
-          <Dato etiqueta={t("tarjeta.stars")}>{stars === null ? sinDato : formatoNumero.format(stars)}</Dato>
-          <Dato etiqueta={t("tarjeta.mantenimiento")}>
+          <Dato etiqueta={t("tarjeta.stars")}>
+            <span aria-hidden="true" className="mr-0.5">
+              {t("tarjeta.starsGlifo")}
+            </span>
+            {stars === null ? sinDato : formatoNumero.format(stars)}
+          </Dato>
+          <Dato etiqueta={t("tarjeta.mantenimiento")} visible>
             {nivelMantenimiento === null ? (
               sinDato
             ) : (
@@ -76,10 +92,7 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
             )}
           </Dato>
         </dl>
-        <div>
-          <IndicadorSalud valor={healthScore} />
-        </div>
-      </CardContent>
+      </div>
     </Card>
   );
 }

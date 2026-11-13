@@ -43,7 +43,7 @@ export function PanelFiltros({ opciones, valores, total, onCambiar }: PanelFiltr
   const idMantenimiento = `${base}-mantenimiento`;
   const idStars = `${base}-stars`;
   return (
-    <details open className="rounded-2xl bg-secondary px-5 py-4">
+    <details open className="rounded-2xl border border-border bg-background px-5 py-4">
       <summary className="catalogo-foco flex cursor-pointer items-center justify-between gap-3 rounded-sm text-base font-semibold">
         <span>{t("filtros.titulo")}</span>
         <span className="flex gap-1.5 text-sm font-normal text-muted-foreground">

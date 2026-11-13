@@ -84,8 +84,8 @@ describe("TarjetaHerramienta · el texto externo nunca se inserta como HTML (AM-
 
   it("el texto sin cortes lleva las clases que lo contienen", () => {
     const salida = html({ nombre: "N".repeat(100), descripcion: "D".repeat(300) });
-    expect(salida).toContain("line-clamp-2");
-    expect(salida).toContain("line-clamp-3");
+    expect(salida).toContain("line-clamp-2"); // nombre
+    expect(salida).toContain("line-clamp-1"); // descripción en una línea (UI v2, más estricto que 3)
     expect(salida).toContain("[overflow-wrap:anywhere]");
   });
 });
