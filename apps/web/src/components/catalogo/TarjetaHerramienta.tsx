@@ -14,6 +14,7 @@ export interface TarjetaHerramientaProps {
 const COLOR_NIVEL = {
   activo: "text-salud-alta",
   moderado: "text-salud-media",
+  bajo: "text-salud-baja",
   abandonado: "text-salud-baja",
 } as const;
 

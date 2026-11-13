@@ -55,7 +55,7 @@ import { derivarOpciones, ESTADO_SIN_FILTROS, filtrar, type EstadoFiltros } from
 type F = {
   id: string; nombre: string; descripcion: string | null; categorias: Categoria[];
   lenguaje: string | null; licencia: string | null; stars: number | null;
-  nivelMantenimiento: "activo" | "moderado" | "abandonado" | null;
+  nivelMantenimiento: "activo" | "moderado" | "bajo" | "abandonado" | null;
 };
 const f = (id: string, o: Partial<F> = {}): F => ({
   id, nombre: id, descripcion: null, categorias: ["pagos"], lenguaje: "Go", licencia: "MIT", stars: 100,

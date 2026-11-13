@@ -5,6 +5,7 @@ import type { HerramientaDetalle } from "@/lib/catalogo/contrato";
 import { textoLicencia } from "@/lib/catalogo/licencia";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
+import { DesgloseSalud } from "./DesgloseSalud";
 import { EstadoVacio } from "./EstadoVacio";
 import { IdeaIntegracion } from "./IdeaIntegracion";
 import { IndicadorSalud } from "./IndicadorSalud";
@@ -16,6 +17,7 @@ export interface FichaHerramientaProps {
 const COLOR_NIVEL = {
   activo: "text-salud-alta",
   moderado: "text-salud-media",
+  bajo: "text-salud-baja",
   abandonado: "text-salud-baja",
 } as const;
 
@@ -92,6 +94,7 @@ export function FichaHerramienta({ herramienta: h }: FichaHerramientaProps) {
             <IndicadorSalud valor={h.healthScore} />
           </Dato>
         </dl>
+        <DesgloseSalud desglose={h.desgloseSalud} />
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
           <p className="text-sm text-muted-foreground">
             {t("ficha.metricasAl")} {fecha(h.metricasTomadasEn)}

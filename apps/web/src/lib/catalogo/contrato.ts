@@ -10,7 +10,12 @@ import { validarUrlRepo } from "./enlaces";
 import { normalizarTexto, normalizarTextoLargo } from "./texto";
 
 export { CATEGORIAS };
-export const NIVELES_MANTENIMIENTO = ["activo", "moderado", "abandonado"] as const;
+export const NIVELES_MANTENIMIENTO = ["activo", "moderado", "bajo", "abandonado"] as const;
+export type NivelMantenimiento = (typeof NIVELES_MANTENIMIENTO)[number];
+/** Componentes del health score del backend y su máximo (spec 001 §10, RF-15). Suman 100. */
+export const MAXIMOS_SALUD = { commits: 25, issues: 20, licencia: 20, comunidad: 20, documentacion: 15 } as const;
+export type ComponenteSalud = keyof typeof MAXIMOS_SALUD;
+export const COMPONENTES_SALUD = Object.keys(MAXIMOS_SALUD) as ComponenteSalud[];
 export const TIPOS_IDEA = ["rest", "docker", "sdk", "webhook"] as const;
 export const DIFICULTADES = ["baja", "media", "alta"] as const;
 
@@ -181,9 +186,32 @@ const esquemaIdeas = z
   })
   .catch([] as Idea[]);
 
-/** Detalle: descripción completa (hasta 2000) e ideas (máximo 10). */
+const puntosSalud = (maximo: number) => z.number().min(0).max(maximo);
+/**
+ * Desglose del health score (RF-15). Todo o nada: si un componente es inválido (no numérico, negativo o mayor
+ * que su máximo) o falta, el desglose entero es null y la UI dice «Sin dato». Nunca se muestra uno parcial.
+ */
+const esquemaDesgloseSalud = z
+  .object({
+    commits: puntosSalud(MAXIMOS_SALUD.commits),
+    issues: puntosSalud(MAXIMOS_SALUD.issues),
+    licencia: puntosSalud(MAXIMOS_SALUD.licencia),
+    comunidad: puntosSalud(MAXIMOS_SALUD.comunidad),
+    documentacion: puntosSalud(MAXIMOS_SALUD.documentacion),
+    penalizacionArchivado: z.boolean(),
+  })
+  .nullable()
+  .catch(null);
+export type DesgloseSalud = NonNullable<z.output<typeof esquemaDesgloseSalud>>;
+
+/** Valida un desglose suelto (lo usa el adaptador backend para derivar el nivel de mantenimiento con el mismo criterio). */
+export function parsearDesgloseSalud(crudo: unknown): DesgloseSalud | null {
+  return esquemaDesgloseSalud.parse(crudo);
+}
+
+/** Detalle: descripción completa (hasta 2000), ideas (máximo 10) y desglose de salud. */
 export const esquemaHerramientaDetalle = z
-  .object({ ...base, ideas: esquemaIdeas })
+  .object({ ...base, ideas: esquemaIdeas, desgloseSalud: esquemaDesgloseSalud })
   .transform((h) => ({ ...h, ...conDescripcion(COTAS.descripcion)(h) }));
 export type HerramientaDetalle = z.output<typeof esquemaHerramientaDetalle>;
 
