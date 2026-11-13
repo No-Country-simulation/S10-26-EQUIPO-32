@@ -379,3 +379,17 @@ Un commit por sección, en orden: brief, cabecera, hero, app preview, tabs y gri
 | CSP | Sin `<script>` ni `style` en línea nuevos; e2e de headers y nonce en verde |
 
 **Pendiente:** aprobación visual de Jerónimo (RNF-18 / T34). La carpeta de referencias `ref-mobbin` no estaba disponible: la referencia directa fue solo la captura de la portada.
+
+### UI v2.1 (2026-11-13, `feat/ui-v2.1`, ui-brief §12)
+
+Un commit por bloque: brief, marcas generativas, pantallas de preview, íconos propios, carrusel e interacciones (+ ajuste del CTA).
+
+| Verificación | Resultado |
+| --- | --- |
+| `check:deps`, `check:invisibles`, lint, `tsc` | En verde. Cero `style={{}}`, sin dependencias nuevas, sin imágenes externas |
+| Vitest | 411/411 |
+| Playwright (build de producción, `fixtures`, 3100) | 29/29. La guarda de `mu.spec` acepta SVG propios (`data-ob-svg`) y **se endurece**: ningún SVG puede tener `on*`, `href`, `script`, `foreignObject` ni `<text>` (con prueba de que detecta un `data-ob-svg` con `onload`). Los enlaces por nombre se acotan a la grilla |
+| Sin letras como ícono | Cero iniciales y cero glifos de texto en tiles (se borró `iniciales.ts` y la clave `tarjeta.starsGlifo`) |
+| Scroll horizontal a 360/375/768/1280 (portada, ficha, no encontrado) | Ninguno |
+| Foco visible (139 paradas de Tab) | Todos los controles |
+| `prefers-reduced-motion` | Rotación del hero, hover, tabs, grilla, carrusel y CTA sin animación (verificado con `reducedMotion: "reduce"`) |

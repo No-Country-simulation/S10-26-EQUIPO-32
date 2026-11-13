@@ -223,4 +223,9 @@ RF-01 (c), RNF-13 y MU-03 siguen igual (§11.4). La marca generativa es decorati
 
 ### 12.5 Backlog
 
-(Se completa al cierre con lo que no llegue a las 17:25.)
+Los 5 bloques de §12.2 se entregaron antes del cierre. Queda abierto:
+
+- **axe** sobre la portada v2.1 (sin dependencias nuevas no se corrió; el contraste es por construcción: ningún texto va sobre los colores fuertes de la paleta).
+- **Revisión visual de Jerónimo** (RNF-18 / T34) de marcas, pantallas y carrusel.
+- **Variedad de marcas:** 6 formas × 8 colores × 4 giros × 7 acentos. Dos repos pueden coincidir; si molesta, sumar formas.
+- **Carrusel:** sin indicador de posición (puntos) ni arrastre con mouse; se desplaza con trackpad, teclado (foco en las tarjetas) y flechas.
