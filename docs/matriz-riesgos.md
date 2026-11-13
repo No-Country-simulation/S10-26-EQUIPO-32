@@ -29,4 +29,12 @@ R-11 a R-13 agregados el 2026-10-30 desde el plan 001 (P y I son mi estimación 
 
 R-15 y R-16 agregados el 2026-11-12 desde la feature 002 (P e I: estimación inicial, revisar con Ángel). **R-14, 2026-11-12:** volvió a ocurrir dos veces al escribir los tests de 002 (U+202E, U+200B crudos); el hook de pre-commit rechazó ambos commits y se corrigió con escapes.
 
+## Excepciones a la constitución
+
+Una excepción documenta una decisión explícita de no cumplir un principio, con su riesgo residual, sus controles compensatorios y cómo se cierra. Se registra antes o en el mismo momento del desvío, nunca después de olvidarlo.
+
+| ID | Qué | Por qué | Aprueba | Riesgo residual | Controles compensatorios | Cierre | Estado |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| EX-01 | Merge a `main` sin la revisión cruzada que exige P9. **Alcance:** PR #2 (feature 001), PR #4 (feature 002), PR #5 (este registro) y los PRs de cierre de entrega del 13/11 mergeados **hasta las 22:00** (documentación, README, integración con el backend y mitigación de MU-19). Incluye configurar la protección de `main` **sin aprobación obligatoria** mientras dure la excepción | Fecha límite de entrega hoy, 13/11 23:59; el revisor (Ángel) no respondió desde el 12/11. Una aprobación obligatoria bloquearía todos los merges | Jerónimo Núñez, 2026-11-13 (ampliación del alcance: misma fecha) | Un defecto que una segunda revisión habría detectado | Cada PR: CI completo en verde (check:deps, check:invisibles, lint, tsc, Vitest, build, Playwright, npm audit, Gitleaks); red-team con resultados (`docs/red-team.md`); autorrevisión del diff. `main`: checks obligatorios `Lint, tipos, pruebas y build` y `Gitleaks (secret scanning)`, sin push directo ni force push | Ángel revisa cada PR después del merge; los hallazgos se corrigen en PRs nuevos. Cuando Ángel vuelva se activa 1 aprobación obligatoria en `main` y EX-01 se cierra. Un PR fuera del alcance o mergeado después de las 22:00 del 13/11 no está cubierto | Abierta |
+
 Pendiente: revisar con Ángel; completar R-xx del backend (feature 003).
