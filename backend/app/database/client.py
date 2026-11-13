@@ -187,6 +187,10 @@ class DatabaseClient:
 
         return dot_product / (norm_a * norm_b)
 
+    def list_all_repositories(self) -> List[Dict[str, Any]]:
+        """Every catalog row (for the scheduled re-ingestion; feature 006)."""
+        return sorted(self._repositories.values(), key=lambda r: r.get("full_name", ""))
+
     def log_audit(self, event_data: Dict[str, Any]) -> None:
         """Stores audit log record."""
         self._audit_logs.append(event_data)
@@ -203,6 +207,17 @@ class DatabaseClient:
         self._audit_logs.clear()
 
 
+def create_db_client():
+    """Selects the data layer (feature 006; RF-27): Postgres when DATABASE_URL is set, in-memory otherwise.
+
+    Without DATABASE_URL the in-memory store is kept (unit tests and offline mode)."""
+    if settings.database_url:
+        from backend.app.database.postgres_client import PostgresDatabaseClient
+
+        return PostgresDatabaseClient(settings.database_url)
+    return DatabaseClient()
+
+
 # Global database client singleton
-db_client = DatabaseClient()
+db_client = create_db_client()
 

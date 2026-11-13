@@ -7,6 +7,12 @@
 //   Pide  api.github.com/repos/{owner}/{repo}, el avatar del owner y, para repos sin ideas, Ollama local
 //   Escribe data/repos-reales.json, data/embeddings.json, public/logos/<id>.(png|jpg) y public/logos/fuentes.json
 //
+// Modo `--solo-metadatos` (feature 006, RF-28; pensado para GitHub Actions, donde no hay Ollama): actualiza metadatos de
+// GitHub y logos de los repos que YA están en data/repos-reales.json; conserva descripciones, ideas y embeddings tal cual
+// (nunca llama al LLM). Un repo de la semilla que todavía no está queda anotado en data/ingesta-pendientes.json para
+// procesarlo en local con `npm run ingesta` (sin ideas no entra al dataset). Si nada cambió, no escribe nada.
+// La salud (health score) no se calcula acá: la calcula el backend (feature 003); este script no la toca.
+//
 // Capturas de producto (feature 007, RF-24, RNF-30): `npm run ingesta -- --solo-capturas` corre solo ese paso sobre
 // data/repos-reales.json (sin token, sin Ollama): lee el README de cada repo desde raw.githubusercontent.com.
 //   Escribe public/capturas/<id>.(png|jpg|webp) y public/capturas/fuentes.json (origen y licencia del repo).
@@ -40,6 +46,7 @@ const REALES = new URL("../data/repos-reales.json", import.meta.url);
 const EMBEDDINGS = new URL("../data/embeddings.json", import.meta.url);
 const LOGOS = new URL("../public/logos/", import.meta.url);
 const CAPTURAS = new URL("../public/capturas/", import.meta.url);
+const PENDIENTES = new URL("../data/ingesta-pendientes.json", import.meta.url);
 const NOMBRES_README = ["README.md", "readme.md", "Readme.md", "README.markdown"];
 const MODELO_IDEAS = process.env.INGESTA_MODELO_IDEAS?.trim() || "llama3.1:8b";
 const CONCURRENCIA_GITHUB = 6;
@@ -303,8 +310,123 @@ function escribirAtomico(url, contenido) {
   renameSync(tmp, url);
 }
 
+const sinMarca = (r) => JSON.stringify({ ...r, metricasTomadasEn: null });
+
+async function soloMetadatos() {
+  const inicio = Date.now();
+  const ahoraIso = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
+  const ahora = new Date();
+  const tk = token();
+  let semilla;
+  let previos;
+  try {
+    semilla = validarSemilla(JSON.parse(readFileSync(SEMILLA, "utf8")));
+    previos = JSON.parse(readFileSync(REALES, "utf8"));
+  } catch (e) {
+    throw new ErrorConfig(`entrada: ${e instanceof Error ? e.message : "ilegible"}`);
+  }
+  const previoPorId = new Map(previos.map((r) => [r.id, r]));
+  const metas = await enParalelo(semilla, CONCURRENCIA_GITHUB, (e) => metadatos(e.repo, tk));
+  const repos = [];
+  const pendientes = [];
+  const aceptados = [];
+  let sinCambios = 0;
+  semilla.forEach((entrada, i) => {
+    const previo = previoPorId.get(entrada.id);
+    const motivo = metas[i] === null ? "no existe (404)" : motivoExclusion(metas[i], entrada.licencia, ahora);
+    if (motivo !== null) {
+      log("warn", `excluido ${entrada.repo}: ${motivo}`);
+      return;
+    }
+    if (!previo) {
+      pendientes.push({ id: entrada.id, repo: entrada.repo, motivo: "nuevo: sin ideas ni embedding; correr `npm run ingesta` en local", detectadoEn: ahoraIso });
+      return;
+    }
+    const ideas = (Array.isArray(previo.ideas) ? previo.ideas : []).filter((x) => x && typeof x === "object");
+    const nuevo = { ...mapearRepo(entrada, metas[i], previo, ideas, ahoraIso) };
+    // La salud la calcula el backend: se conserva lo que ya había en el dataset.
+    nuevo.healthScore = previo.healthScore ?? null;
+    nuevo.mantenedorActivo = previo.mantenedorActivo ?? null;
+    nuevo.nivelMantenimiento = previo.nivelMantenimiento ?? null;
+    if (sinMarca(nuevo) === sinMarca(previo)) {
+      nuevo.metricasTomadasEn = previo.metricasTomadasEn;
+      sinCambios += 1;
+    }
+    repos.push(nuevo);
+    aceptados.push({ entrada, meta: metas[i] });
+  });
+  // Los repos que dejan de cumplir el criterio salen del dataset (y de los embeddings) igual que en la ingesta completa.
+  const ids = new Set(repos.map((r) => r.id));
+  const quitados = previos.filter((r) => !ids.has(r.id)).map((r) => r.id);
+
+  const logos = await enParalelo(aceptados, CONCURRENCIA_GITHUB, ({ entrada, meta }) => descargarLogo(entrada.id, meta.owner?.avatar_url));
+  let fuentesPrevias = { logos: [] };
+  try {
+    fuentesPrevias = JSON.parse(readFileSync(new URL("fuentes.json", LOGOS), "utf8"));
+  } catch {
+    log("warn", "no hay public/logos/fuentes.json previo");
+  }
+  const logoPrevio = new Map(fuentesPrevias.logos.map((l) => [l.id, l]));
+  const entradasLogos = [];
+  const aEscribir = [];
+  logos.forEach((l, i) => {
+    const id = aceptados[i].entrada.id;
+    const previo = logoPrevio.get(id);
+    if (l.error) {
+      log("warn", `logo ${id}: ${l.error}${previo ? " (se conserva el anterior)" : ""}`);
+      if (previo) entradasLogos.push(previo);
+      return;
+    }
+    const sha256 = createHash("sha256").update(l.bytes).digest("hex");
+    if (previo && previo.sha256 === sha256) {
+      entradasLogos.push(previo);
+      return;
+    }
+    aEscribir.push(l);
+    entradasLogos.push({ id, archivo: l.archivo, tipo: l.tipo, bytes: l.bytes.byteLength, sha256, origen: l.origen, descargadoEn: ahoraIso });
+  });
+
+  const cambioDataset = JSON.stringify(repos) !== JSON.stringify(previos);
+  const cambioLogos = aEscribir.length > 0 || entradasLogos.length !== fuentesPrevias.logos.length;
+  let previoPend = [];
+  try {
+    previoPend = JSON.parse(readFileSync(PENDIENTES, "utf8")).pendientes ?? [];
+  } catch {
+    previoPend = [];
+  }
+  const mismosPend = JSON.stringify(previoPend.map((p) => p.id)) === JSON.stringify(pendientes.map((p) => p.id));
+
+  if (cambioLogos) {
+    for (const l of aEscribir) writeFileSync(new URL(l.archivo, LOGOS), l.bytes);
+    escribirAtomico(new URL("fuentes.json", LOGOS), `${JSON.stringify({ ...fuentesPrevias, generadoEn: ahoraIso, logos: entradasLogos }, null, 2)}\n`);
+  }
+  if (cambioDataset) escribirAtomico(REALES, `${JSON.stringify(repos, null, 2)}\n`);
+  if (quitados.length > 0) {
+    const emb = JSON.parse(readFileSync(EMBEDDINGS, "utf8"));
+    emb.items = emb.items.filter((x) => !quitados.includes(x.id));
+    escribirAtomico(EMBEDDINGS, `${JSON.stringify(emb)}\n`);
+  }
+  if (!mismosPend) {
+    if (pendientes.length === 0) {
+      try {
+        unlinkSync(PENDIENTES);
+      } catch {
+        /* no había archivo */
+      }
+    } else {
+      escribirAtomico(PENDIENTES, `${JSON.stringify({ descripcion: "Repos de la semilla sin ideas ni embedding: correr `npm run ingesta` en local (con Ollama) para sumarlos.", pendientes }, null, 2)}\n`);
+    }
+  }
+  log(
+    "info",
+    `ok (solo metadatos): ${repos.length} repos (${sinCambios} sin cambios), ${aEscribir.length} logos nuevos, ${pendientes.length} pendientes de ideas, ` +
+      `${quitados.length} quitados, ${cambioDataset || cambioLogos || !mismosPend ? "CON cambios" : "sin cambios"}, ${Math.round((Date.now() - inicio) / 1000)} s`,
+  );
+}
+
 async function main() {
   if (process.argv.includes("--solo-capturas")) return soloCapturas();
+  if (process.argv.includes("--solo-metadatos")) return soloMetadatos();
   const inicio = Date.now();
   const ahora = new Date();
   const ahoraIso = ahora.toISOString().replace(/\.\d{3}Z$/, "Z");

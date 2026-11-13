@@ -23,6 +23,11 @@ class Settings(BaseModel):
     supabase_anon_key: str = Field(default="")
     supabase_service_role_key: str = Field(default="")
 
+    # Postgres directo (feature 006): si está, el backend persiste ahí; si no, store en memoria. Solo por entorno.
+    database_url: str = Field(default="")
+    # Re-ingesta programada (feature 006): horas entre corridas; 0 = apagada (por defecto y en los tests).
+    ingest_schedule_hours: float = Field(default=0.0)
+
     # GitHub API (Pipeline de Ingesta)
     github_token: str = Field(default="")
 
@@ -57,6 +62,7 @@ class Settings(BaseModel):
         return (
             f"<Settings env={self.backend_env} host={self.host}:{self.port} "
             f"supabase_url={'configured' if self.supabase_url else 'none'} "
+            f"database={'postgres' if self.database_url else 'memory'} "
             f"rate_limit={self.rate_limit_per_minute}/min>"
         )
 
@@ -82,6 +88,8 @@ def load_settings() -> Settings:
         supabase_url=os.getenv("NEXT_PUBLIC_SUPABASE_URL", os.getenv("SUPABASE_URL", "")),
         supabase_anon_key=os.getenv("NEXT_PUBLIC_SUPABASE_ANON_KEY", os.getenv("SUPABASE_ANON_KEY", "")),
         supabase_service_role_key=os.getenv("SUPABASE_SERVICE_ROLE_KEY", ""),
+        database_url=os.getenv("DATABASE_URL", ""),
+        ingest_schedule_hours=float(os.getenv("INGEST_SCHEDULE_HOURS", "0") or 0),
         github_token=os.getenv("GITHUB_TOKEN", ""),
         llm_api_key=os.getenv("LLM_API_KEY", ""),
         llm_model=os.getenv("LLM_MODEL", "text-embedding-3-small"),

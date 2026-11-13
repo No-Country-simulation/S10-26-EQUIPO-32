@@ -48,7 +48,7 @@ npm run redteam -- --etiqueta v3     # 13 ataques + 5 controles, con y sin guard
 
 ### Catálogo con el backend (`CATALOG_SOURCE=backend`)
 
-El backend guarda los datos **en memoria**: arranca vacío y se pierde al reiniciarlo, así que hay que sembrarlo cada vez. Mapeo de campos y reglas: [`docs/mapeo-backend.md`](docs/mapeo-backend.md).
+Sin `DATABASE_URL` el backend guarda los datos **en memoria** (arranca vacío y se pierde al reiniciarlo); con `DATABASE_URL` persiste en Postgres (ver «Persistencia y pipeline»). Mapeo de campos y reglas: [`docs/mapeo-backend.md`](docs/mapeo-backend.md).
 
 ```bash
 # 1. Backend (desde la raíz del repo)
@@ -58,7 +58,7 @@ export ADMIN_API_KEY="$(openssl rand -hex 32)"   # una propia: nunca la del cód
 export GITHUB_TOKEN="$(gh auth token)"           # sin token, GitHub corta a 60 pedidos/h y la siembra (2 por repo) falla
 uvicorn backend.app.main:app --port 8000
 
-# 2. Sembrar (otra terminal, con la misma ADMIN_API_KEY exportada): los 108 repos en lotes de 15, con nuestra categoría.
+# 2. Sembrar (otra terminal, con la misma ADMIN_API_KEY exportada): los 108 repos en lotes de 20, con nuestra categoría.
 #    Antes verifica que escribir SIN credencial dé 401/403 (MU-07). No imprime la clave.
 cd apps/web
 BACKEND_URL=http://127.0.0.1:8000 npm run sembrar:backend
@@ -84,10 +84,43 @@ Navegador ──► Next.js 16 (apps/web)                         Ollama local (
                    rate limit → validación → embedding → top-5 coseno (en memoria)
                    → prompt con datos delimitados → salida JSON validada → solo ids del índice
 
-backend/ (FastAPI) ──► GitHub API · health score · pgvector en Supabase con RLS   (integración con el frontend: pendiente)
+backend/ (FastAPI) ──► GitHub API · health score ──► PostgresDatabaseClient ──► Postgres + pgvector (RLS)
+        ▲  scheduler opcional (INGEST_SCHEDULE_HOURS)          ▲ rol service_role · anon solo lee el catálogo
+        └── apps/web CATALOG_SOURCE=backend (lectura pública)   └── docker-compose.yml (imagen por digest)
+
+GitHub Actions (ingesta.yml, semanal) ──► npm run ingesta -- --solo-metadatos ──► PR con data/ y logos
 ```
 
 Decisiones clave: el navegador nunca habla con el origen de datos ni con el LLM; todo dato externo pasa por `contrato.ts`; el LLM es local (la consulta no sale del servidor); sin SDK de LLM ni de Supabase (`fetch` + `zod`).
+
+## Persistencia y pipeline (feature 006)
+
+El backend persiste en **Postgres + pgvector** cuando existe `DATABASE_URL`; sin ella usa el store en memoria (tests y modo offline). El esquema es el `schema.sql` de Ángel, sin cambios (RLS incluido).
+
+```bash
+# 1. Base local (imagen pgvector fijada por digest; solo escucha en 127.0.0.1). Las claves son tuyas y solo van al entorno.
+export POSTGRES_PASSWORD="$(openssl rand -hex 24)" BACKEND_DB_PASSWORD="$(openssl rand -hex 24)"
+docker compose up -d db          # la primera vez aplica el shim de roles, schema.sql y los GRANT (backend/db/init/)
+
+# 2. Backend contra la base (el rol backend_service opera como service_role)
+export DATABASE_URL="postgresql://backend_service:${BACKEND_DB_PASSWORD}@127.0.0.1:5432/openbridge"
+export ADMIN_API_KEY="$(openssl rand -hex 32)" GITHUB_TOKEN="$(gh auth token)"
+uvicorn backend.app.main:app --port 8000     # /health/ready → "database": "connected"
+
+# 3. Sembrar los 108 repos a través de la ingesta del backend (lotes de 20) y verificar la persistencia
+cd apps/web && BACKEND_URL=http://127.0.0.1:8000 npm run sembrar:backend
+#    reiniciá el backend y el contenedor (docker compose restart db): los 108 siguen ahí.
+
+# 4. Tests contra la base real (sin estas variables se saltan y corre solo el store en memoria)
+export TEST_DATABASE_URL="$DATABASE_URL" TEST_ADMIN_DATABASE_URL="postgresql://postgres:${POSTGRES_PASSWORD}@127.0.0.1:5432/openbridge"
+python -m pytest backend/tests
+```
+
+**Migrar:** `schema.sql` es idempotente (`IF NOT EXISTS`, `DROP POLICY IF EXISTS`). En una base existente: `docker compose exec -T db psql -U postgres -d openbridge < backend/app/database/schema.sql` y luego `backend/db/init/02-grants.sql`. En Supabase se aplica el mismo `schema.sql` desde el editor SQL (allí los roles y los GRANT ya existen).
+
+**Re-ingesta programada del backend (opcional):** `INGEST_SCHEDULE_HOURS=24` activa un hilo que reingesta el catálogo cada 24 h. Apagado por defecto y en los tests.
+
+**Ingesta programada en GitHub Actions:** `.github/workflows/ingesta.yml` (**pendiente de empujar**: ver `specs/006-persistencia-cron/tasks.md`, P08) corre cada lunes (y a mano) `npm run ingesta -- --solo-metadatos`: actualiza metadatos y logos, conserva ideas y embeddings (en Actions no hay Ollama) y anota los repos nuevos en `apps/web/data/ingesta-pendientes.json` para procesarlos en local con `npm run ingesta`. Abre un PR con el resultado; **si la organización no permite que Actions cree PRs** (hoy es el caso: «Allow GitHub Actions to create and approve pull requests» está apagado), el workflow lo sube como artifact `ingesta-resultado` y se aplica en local. Para dispararlo: `gh workflow run ingesta.yml` o la pestaña Actions → ingesta → «Run workflow». Los PRs creados con el `GITHUB_TOKEN` no disparan los checks del ruleset: hay que revisarlos y empujar un commit.
 
 ## Equipo y roles
 

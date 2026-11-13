@@ -19,6 +19,7 @@ from backend.app.core.audit import audit_logger
 from backend.app.core.config import settings
 from backend.app.core.headers import SecurityHeadersMiddleware
 from backend.app.core.rate_limiter import RateLimitMiddleware
+from backend.app.services.scheduler import build_scheduler_from_settings
 
 
 logger = logging.getLogger("openbridge.main")
@@ -40,7 +41,13 @@ async def lifespan(app: FastAPI):
             "cors_origins": settings.allowed_origins,
         },
     )
+    # Optional scheduled re-ingestion (feature 006): off unless INGEST_SCHEDULE_HOURS > 0.
+    scheduler = build_scheduler_from_settings(settings)
+    if scheduler:
+        scheduler.start()
     yield
+    if scheduler:
+        scheduler.stop()
     logger.info("Shutting down OpenBridge Backend...")
     audit_logger.log(
         action="SERVER_SHUTDOWN",
