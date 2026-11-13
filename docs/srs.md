@@ -85,10 +85,11 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-26 | Producto · Seguridad | Logos solo de `avatars.githubusercontent.com`, sin redirecciones, PNG o JPEG por magic bytes (nunca SVG), ≤ 200 KB, nombre derivado del id validado; CSP sin cambios | M | Tests de la validación del logo | 005 |
 | RNF-27 | Producto · Seguridad | Ideas generadas por el LLM: no confiables, validadas por el contrato, `revisada: false`, nunca ejecutadas ni renderizadas como HTML | M | Test de validación de ideas + `repos-reales.test.ts` | 005 |
 | RNF-28 | Producto · Disponibilidad | Con fuente backend el catálogo no supera 60 requests/min sin subir el límite del backend | M | Test del adaptador + R-21 | 005 |
+| RNF-29 | Producto · Seguridad | El asistente con ≥ 100 repos no regresiona en la batería del red-team v2 | M | `docs/red-team.md` | 005 |
 | RNF-30 | Producto · Seguridad | Capturas: 4 hosts de GitHub, https, redirecciones validadas por salto, PNG/JPEG/WebP por magic bytes, ≤ 600 KB, nombre del id | M | `capturas.test.tsx` | 007 |
 | RNF-31 | Producto · Seguridad | Imágenes por `next/image`, `alt` descriptivo, CSP `img-src 'self'` sin cambios | M | `headers.spec.ts`, guarda de `mu.spec.ts` | 007 |
 | RNF-32 | Producto | Una captura solo aparece en la card de su propia herramienta y no se repite entre repos | M | `capturas.test.tsx` | 007 |
-| RNF-29 | Producto · Seguridad | El asistente con ≥ 100 repos no regresiona en la batería del red-team v2 | M | `docs/red-team.md` | 005 |
+| RNF-33 | Producto · Seguridad | Red-team held-out con promptfoo: 6 categorías × 5 casos generados localmente (Ollama), mismo set con y sin guardrails, ningún request fuera de localhost; promptfoo aislado en `redteam/promptfoo/` (riesgo de supply chain: R-23) | S | Corridas en `redteam/promptfoo/corridas/` + `docs/red-team.md` §v3 | 002 (§13) |
 
 ## 5. Trazabilidad
 

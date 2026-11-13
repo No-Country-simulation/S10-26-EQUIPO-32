@@ -1,0 +1,5 @@
+{"t":"2026-11-13T16:13:03.129Z","pid":49099,"tipo":"inicio","argv":[".bin/promptfoo","redteam"]}
+{"t":"2026-11-13T16:13:03.937Z","pid":49099,"tipo":"tcp","host":"localhost","permitido":true}
+{"t":"2026-11-13T16:13:03.938Z","pid":49099,"tipo":"tcp","host":"localhost","permitido":true}
+{"t":"2026-11-13T16:13:03.956Z","pid":49099,"tipo":"tcp","host":"r.promptfoo.app","puerto":443,"permitido":false}
+{"t":"2026-11-13T16:13:03.980Z","pid":49099,"tipo":"tcp","host":"127.0.0.1","puerto":"11434","permitido":true}

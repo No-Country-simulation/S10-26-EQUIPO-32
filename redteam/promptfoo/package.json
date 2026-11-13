@@ -1,0 +1,16 @@
+{
+  "name": "openbridge-redteam-promptfoo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Red-team v3 held-out del asistente con promptfoo (spec 002 §13, RNF-33). Aislado de apps/web a propósito (R-23).",
+  "engines": {
+    "node": ">=22.22.0 <23"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "promptfoo": "0.125.1"
+  }
+}

@@ -289,7 +289,18 @@ const corridas = readdirSync(DIR_CORRIDAS)
   .filter((f) => /^v\d+\.json$/.test(f))
   .sort((a, b) => Number(a.slice(1, -5)) - Number(b.slice(1, -5)))
   .map((f) => JSON.parse(readFileSync(new URL(f, DIR_CORRIDAS), "utf8")));
-writeFileSync(new URL("../../../docs/red-team.md", import.meta.url), informe(corridas));
+// La sección v3 (promptfoo, spec 002 §13) la escribe redteam/promptfoo/informe.mjs entre marcadores: se conserva.
+const DOC = new URL("../../../docs/red-team.md", import.meta.url);
+const previo = (() => {
+  try {
+    return readFileSync(DOC, "utf8");
+  } catch {
+    return "";
+  }
+})();
+const [iV3, fV3] = [previo.indexOf("<!-- v3:inicio -->"), previo.indexOf("<!-- v3:fin -->")];
+const bloqueV3 = iV3 !== -1 && fV3 > iV3 ? `\n${previo.slice(iV3, fV3 + "<!-- v3:fin -->".length)}\n` : "";
+writeFileSync(DOC, informe(corridas) + bloqueV3);
 const m = metricas(con);
 console.log(`[redteam] ${ETIQUETA} con guardrails: ${m.bloqueados} bloqueados · falsos positivos ${m.falsosPositivos} · fugas ${m.fugas} · inventados ${m.inventados}`);
 console.log("[redteam] escrito docs/red-team.md");
