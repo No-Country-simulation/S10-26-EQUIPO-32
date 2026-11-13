@@ -1,6 +1,6 @@
 // Siembra del backend (spec 001 §10, T43; RNF-25, MU-07, AM-34). Herramienta de OPERACIÓN: el frontend en runtime
 // nunca usa token (solo lee endpoints públicos, P3).
-// Ingesta los 30 repos de data/repos-reales.json en 2 lotes (≤ 20, límite del backend), con NUESTRA categoría en cada uno.
+// Ingesta los repos de data/repos-reales.json (108 desde la feature 005) en lotes de 15 (≤ 20, límite del backend), con NUESTRA categoría en cada uno.
 // Lee BACKEND_URL y ADMIN_API_KEY del entorno: nunca se escriben en archivos ni se imprimen.
 // Antes de sembrar verifica que una escritura SIN credencial sea rechazada (MU-07 contra el backend).
 // Uso: BACKEND_URL=http://127.0.0.1:8000 ADMIN_API_KEY=... npm run sembrar:backend
