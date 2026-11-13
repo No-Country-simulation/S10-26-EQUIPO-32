@@ -61,7 +61,7 @@ for (const esquema of ["light", "dark"] as const) {
 
 test("Feature 002 (RF-11): el botón abre el panel del asistente y no hace requests hasta enviar", async ({ page }) => {
   await page.goto("/");
-  const boton = page.getByRole("button", { name: "Asistente de stack" });
+  const boton = page.getByRole("button", { name: "Asistente", exact: true });
   await expect(boton).toHaveAttribute("aria-expanded", "false");
   const pedidos: string[] = [];
   page.on("request", (r) => pedidos.push(r.url()));

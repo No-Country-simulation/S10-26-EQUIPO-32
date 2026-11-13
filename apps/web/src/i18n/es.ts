@@ -2,7 +2,12 @@
 export const es = {
   "sitio.nombre": "OpenBridge",
   "sitio.descripcion": "Catálogo de herramientas open-source para arquitectos de software",
-  "cabecera.asistente": "Asistente de stack",
+  "cabecera.asistente": "Asistente",
+  "cabecera.navegacion": "Principal",
+  "cabecera.catalogo": "Catálogo",
+  "cabecera.seguridad": "Seguridad",
+  "cabecera.github": "GitHub",
+  "enlace.pestanaNueva": " (se abre en una pestaña nueva)",
   "asistente.titulo": "¿Qué stack te conviene?",
   "asistente.descripcion": "Contanos tu negocio en una o dos frases. Solo recomendamos herramientas de este catálogo y te decimos cuáles usamos.",
   "asistente.etiqueta": "Describí tu negocio",

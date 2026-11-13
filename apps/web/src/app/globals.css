@@ -92,6 +92,8 @@
   }
   html {
     @apply font-sans antialiased;
+    /* La cabecera es sticky: los destinos de los enlaces de fragmento no quedan debajo de ella. */
+    scroll-padding-top: 7rem;
   }
   body {
     @apply bg-background text-foreground;
