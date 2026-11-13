@@ -1,6 +1,7 @@
 import { Catalogo } from "@/components/catalogo/Catalogo";
 import { PresentacionCatalogo } from "@/components/catalogo/PresentacionCatalogo";
 import { SeccionAsistente, type RepoCitado } from "@/components/sitio/SeccionAsistente";
+import { SeccionSeguridad } from "@/components/sitio/SeccionSeguridad";
 import type { Categoria } from "@/lib/catalogo/categorias";
 import type { HerramientaResumen } from "@/lib/catalogo/contrato";
 import { parsearEstadoUrl, serializarEstadoUrl } from "@/lib/catalogo/estado-url";
@@ -61,6 +62,7 @@ export default async function Inicio({
         <Catalogo key={serializarEstadoUrl(estadoInicial)} herramientas={herramientas} estadoInicial={estadoInicial} />
       </section>
       <SeccionAsistente id={ID_ASISTENTE} citados={citadosDelEjemplo(herramientas)} />
+      <SeccionSeguridad id={ID_SEGURIDAD} />
     </>
   );
 }

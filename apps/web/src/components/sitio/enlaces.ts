@@ -17,5 +17,5 @@ export const ENLACES = {
   csp: archivo("apps/web/src/lib/seguridad/csp.ts"),
   contrato: archivo("apps/web/src/lib/catalogo/contrato.ts"),
   guardrails: archivo("specs/002-asistente-rag/spec.md"),
-  supplyChain: archivo("apps/web/allowed-deps.json"),
+  supplyChain: `${archivo("SECURITY.md")}#controles-vigentes`,
 } as const;
