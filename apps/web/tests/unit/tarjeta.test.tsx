@@ -123,7 +123,7 @@ describe("NavCategorias", () => {
     }
     expect(cuenta(salida, 'aria-pressed="true"')).toBe(1);
     expect(cuenta(salida, 'aria-pressed="false"')).toBe(6);
-    expect(salida).toMatch(/aria-pressed="true"[^>]*>Pagos</);
+    expect(salida).toMatch(/aria-pressed="true"[^>]*>(?:<svg data-ob-svg=""[\s\S]*?<\/svg>)?Pagos</); // ícono propio opcional (§12)
   });
 
   it("sin categoría activa, «Todas» está activa", () => {

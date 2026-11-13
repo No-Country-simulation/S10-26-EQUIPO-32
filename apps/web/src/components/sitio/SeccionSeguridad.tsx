@@ -1,19 +1,20 @@
-import { ArrowUpRight, Bot, Braces, Landmark, PackageCheck, ShieldCheck, Swords, type LucideIcon } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { IconoPropio, type NombreIcono } from "@/components/marca/Iconos";
 import { t, type ClaveTexto } from "@/i18n/es";
 import { EnlaceExterno, type DestinoExterno } from "./EnlaceExterno";
 
 interface Control {
   clave: "csp" | "contrato" | "guardrails" | "redTeam" | "supplyChain" | "nist";
-  icono: LucideIcon;
+  icono: NombreIcono;
 }
 
 const CONTROLES: Control[] = [
-  { clave: "csp", icono: ShieldCheck },
-  { clave: "contrato", icono: Braces },
-  { clave: "guardrails", icono: Bot },
-  { clave: "redTeam", icono: Swords },
-  { clave: "supplyChain", icono: PackageCheck },
-  { clave: "nist", icono: Landmark },
+  { clave: "csp", icono: "escudo" },
+  { clave: "contrato", icono: "candado" },
+  { clave: "guardrails", icono: "llave" },
+  { clave: "redTeam", icono: "radar" },
+  { clave: "supplyChain", icono: "cadena" },
+  { clave: "nist", icono: "diana" },
 ];
 
 const titulo = (c: Control["clave"]) => `seguridad.${c}.titulo` as ClaveTexto;
@@ -33,13 +34,11 @@ export function SeccionSeguridad({ id }: { id: string }) {
         <p className="mt-4 text-lg text-muted-foreground">{t("seguridad.subtitulo")}</p>
       </div>
       <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {CONTROLES.map(({ clave, icono: Icono }) => {
+        {CONTROLES.map(({ clave, icono }) => {
           const destino: DestinoExterno = clave;
           return (
             <li key={clave} className="group/tile relative flex min-h-56 flex-col rounded-3xl bg-secondary p-6 transition-colors hover:bg-secundario-hover sm:p-7">
-              <span aria-hidden="true" className="flex size-11 items-center justify-center rounded-2xl bg-background shadow-sm">
-                <Icono className="size-5" />
-              </span>
+              <IconoPropio nombre={icono} className="size-12 drop-shadow-sm" />
               <h3 className="mt-6 text-lg font-semibold">
                 <EnlaceExterno destino={destino} className="rounded-sm after:absolute after:inset-0 after:rounded-3xl">
                   {t(titulo(clave))}
