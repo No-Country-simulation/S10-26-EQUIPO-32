@@ -29,4 +29,12 @@ R-11 a R-13 agregados el 2026-10-30 desde el plan 001 (P y I son mi estimación 
 
 R-15 y R-16 agregados el 2026-11-12 desde la feature 002 (P e I: estimación inicial, revisar con Ángel). **R-14, 2026-11-12:** volvió a ocurrir dos veces al escribir los tests de 002 (U+202E, U+200B crudos); el hook de pre-commit rechazó ambos commits y se corrigió con escapes.
 
+## Excepciones a la constitución
+
+Una excepción documenta una decisión explícita de no cumplir un principio, con su riesgo residual, sus controles compensatorios y cómo se cierra. Se registra antes o en el mismo momento del desvío, nunca después de olvidarlo.
+
+| ID | Qué | Por qué | Aprueba | Riesgo residual | Controles compensatorios | Cierre | Estado |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| EX-01 | Merge a `main` sin la revisión cruzada que exige P9: PR #2 (feature 001) y PR #4 (feature 002) | Fecha límite de entrega hoy, 13/11 23:59; el revisor (Ángel) no respondió desde el 12/11 | Jerónimo Núñez, 2026-11-13 | Un defecto que una segunda revisión habría detectado | CI completo en verde en los dos PR (check:deps, check:invisibles, lint, tsc, Vitest, build, Playwright, npm audit, Gitleaks); red-team con resultados (`docs/red-team.md`: 9/10 con guardrails, MU-19 abierto); autorrevisión del diff | Ángel revisa después del merge; los hallazgos se corrigen en PRs nuevos. Además: activar la protección de `main` (hoy no está configurada) | Abierta |
+
 Pendiente: revisar con Ángel; completar R-xx del backend (feature 003).
