@@ -49,6 +49,9 @@ OpenBridge centraliza un catálogo de ≥ 100 herramientas open-source con métr
 | RF-24 | Captura real de producto desde el README (solo si hay una válida), con origen y licencia; si no, `PantallaPreview` | M | `capturas.test.tsx` + corrida real | 007 |
 | RF-25 | 3 a 5 fotos decorativas con crédito en el footer | S | `capturas.test.tsx`, `interacciones.spec.ts` | 007 |
 | RF-26 | Teclado y `prefers-reduced-motion` en todo lo anterior | M | `interacciones.spec.ts` | 007 |
+| RF-27 | Persistencia del backend en Postgres + pgvector con RLS (`DATABASE_URL`; sin ella, memoria) y base local por `docker-compose` | M | `test_postgres_client.py` + prueba de reinicio con 108 repos | 006 |
+| RF-28 | Ingesta programada semanal (`--solo-metadatos`) que abre un PR con el resultado | M | Corrida del workflow + modo idempotente | 006 |
+| RF-29 | Scheduler opcional del backend (`INGEST_SCHEDULE_HOURS`), apagado por defecto | S | `test_scheduler.py` | 006 |
 | RF-19 | Con `CATALOG_SOURCE=backend` la grilla no pide desgloses (health score de la lista); el desglose se pide solo en la ficha | M | `adaptador-backend.test.ts` (requests por carga) | 005 |
 
 ## 4. Requisitos no funcionales
@@ -86,6 +89,9 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-27 | Producto · Seguridad | Ideas generadas por el LLM: no confiables, validadas por el contrato, `revisada: false`, nunca ejecutadas ni renderizadas como HTML | M | Test de validación de ideas + `repos-reales.test.ts` | 005 |
 | RNF-28 | Producto · Disponibilidad | Con fuente backend el catálogo no supera 60 requests/min sin subir el límite del backend | M | Test del adaptador + R-21 | 005 |
 | RNF-29 | Producto · Seguridad | El asistente con ≥ 100 repos no regresiona en la batería del red-team v2 | M | `docs/red-team.md` | 005 |
+| RNF-34 | Producto · Seguridad | RLS sin debilitar: anon lee el catálogo y no escribe ni lee embeddings ni audit logs; el login del backend opera como `service_role` | M | `test_postgres_client.py` (RLS) | 006 |
+| RNF-35 | Producto · Seguridad | SQL parametrizado, `LIKE` escapado, `clear()` solo en pruebas, DSN fuera de logs | M | Test de inyección | 006 |
+| RNF-36 | Producto · Cadena de suministro | Workflow de ingesta con permisos mínimos, acciones por SHA y `GITHUB_TOKEN` propio | M | Revisión del YAML + Gitleaks | 006 |
 | RNF-30 | Producto · Seguridad | Capturas: 4 hosts de GitHub, https, redirecciones validadas por salto, PNG/JPEG/WebP por magic bytes, ≤ 600 KB, nombre del id | M | `capturas.test.tsx` | 007 |
 | RNF-31 | Producto · Seguridad | Imágenes por `next/image`, `alt` descriptivo, CSP `img-src 'self'` sin cambios | M | `headers.spec.ts`, guarda de `mu.spec.ts` | 007 |
 | RNF-32 | Producto | Una captura solo aparece en la card de su propia herramienta y no se repite entre repos | M | `capturas.test.tsx` | 007 |
@@ -100,6 +106,7 @@ Riesgo → control → requisito → prueba: ver `docs/matriz-riesgos.md`.
 | Fecha | Cambio | Origen |
 | --- | --- | --- |
 | 2026-10-30 | RNF-08 pasa de 001/003 a 003. RF-02 incluye categorías, mantenedor activo y enlace al repo. RF-05 separa el requisito de datos (≥ 1 idea, 003) del comportamiento de la interfaz (0..N, 001). | Plan 001, decisiones 2 y 3 |
+| 2026-11-13 | RF-27 a RF-29 y RNF-34 a RNF-36: persistencia con RLS, ingesta programada y scheduler (feature 006). | Consigna, spec 006 |
 | 2026-11-13 | RF-20 a RF-26 y RNF-30 a RNF-32: interacciones reales, capturas de producto y fotos (feature 007). | Consigna, spec 007 |
 | 2026-11-13 | RF-16 a RF-19 y RNF-26 a RNF-29: catálogo de ≥ 100 repos reales, ingesta automática, logos oficiales y grilla sin desgloses con backend. RF-12 queda ampliado por RF-16. | Consigna, spec 005 |
 

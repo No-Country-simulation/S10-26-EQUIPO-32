@@ -1,0 +1,31 @@
+# Base local de OpenBridge (feature 006; RF-27): Postgres 17 + pgvector, imagen fijada por digest (R-04).
+# Aplica el schema.sql de Ángel SIN cambios (RLS incluido) y un shim de roles anon / authenticated / service_role
+# para que las políticas funcionen igual que en Supabase. Credenciales solo por entorno (sin valores por defecto).
+#   export POSTGRES_PASSWORD=$(openssl rand -hex 24) BACKEND_DB_PASSWORD=$(openssl rand -hex 24)
+#   docker compose up -d db
+services:
+  db:
+    # pgvector/pgvector:pg17 (digest verificado el 2026-11-13). Para actualizar: docker pull y cambiar el digest.
+    image: pgvector/pgvector@sha256:b513c48566e4777cd3370451400000c78eda6a08131d68f4c31d4a76f27bd8fd
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?definí POSTGRES_PASSWORD en el entorno}
+      POSTGRES_DB: openbridge
+      BACKEND_DB_PASSWORD: ${BACKEND_DB_PASSWORD:?definí BACKEND_DB_PASSWORD en el entorno}
+    # Solo loopback: la base no se expone a la red.
+    ports:
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
+    volumes:
+      - openbridge-pgdata:/var/lib/postgresql/data
+      # Orden alfabético = orden de ejecución, solo en el primer arranque con volumen vacío.
+      - ./backend/db/init/00-roles.sh:/docker-entrypoint-initdb.d/00-roles.sh:ro
+      - ./backend/app/database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./backend/db/init/02-grants.sql:/docker-entrypoint-initdb.d/02-grants.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d openbridge"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+volumes:
+  openbridge-pgdata:
