@@ -75,6 +75,8 @@ async function verificarGuarda(page: Page, problemas: string[]) {
 test.describe("guarda común", () => {
   test("la guarda DETECTA un <img> y un <svg> inyectados donde solo debería haber texto", async ({ page }) => {
     await page.goto("/herramientas/mu-01-xss");
+    // Con las imágenes de next/image la hidratación termina más tarde: se espera para que no pise lo inyectado.
+    await page.waitForLoadState("networkidle");
     expect(await domInesperado(page)).toEqual([]);
     await page.evaluate(() => {
       document.querySelector("main bdi")?.append(document.createElement("img"), document.createElementNS("http://www.w3.org/2000/svg", "svg"));
