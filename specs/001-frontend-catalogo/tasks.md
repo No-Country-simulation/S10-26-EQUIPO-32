@@ -200,6 +200,9 @@ T36–T38 quedan reemplazadas: el origen real es la API REST del backend, no Sup
 | T44 | E2E con el backend levantado | RF-15, RNF-24 | `backend.spec.ts` verde en local, resultado abajo | [x] |
 | T45 | `docs/mapeo-backend.md`, matriz de riesgos (revisión cruzada), `docs/owasp.md`, SRS, README | DoD, P10 | Docs en la rama | [x] |
 | T46 | Checks, PR y merge | DoD | CI en verde | [x] |
+| T47 | R-21: test de dos cargas seguidas y concurrentes → una tanda; un fallo de una instantánea vieja no borra la nueva; evidencia real con el log del backend | RNF-24, AM-35, R-21 | Tests verdes + conteo de requests registrado | [ ] |
+| T48 | Nombre curado por `full_name` con fallback al del backend | spec §10.3 | Tests del adaptador y e2e verdes | [ ] |
+| T49 | R-21 «mitigado» en la matriz, `docs/mapeo-backend.md`, PR y merge | DoD | CI en verde | [ ] |
 
 #### Resultados de B9 (2026-11-13, corridas reales en local)
 

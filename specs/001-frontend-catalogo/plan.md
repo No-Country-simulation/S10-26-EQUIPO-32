@@ -554,7 +554,7 @@ Operación (fuera del runtime): scripts/sembrar-backend.mjs  POST /api/v1/ingest
 | Contrato | Backend | Regla |
 | --- | --- | --- |
 | `id` | `full_name` | El id de `data/repos-reales.json` si el repo está ahí (así los enlaces del asistente siguen valiendo); si no, `owner--repo` en minúsculas. Si no pasa `esIdValido`, el contrato omite el repo. |
-| `nombre` | `name` | — |
+| `nombre` | `name` | El nombre curado de `data/repos-reales.json` si el `full_name` está ahí (sin distinguir mayúsculas); si no, `name`. |
 | `urlRepo` | `html_url` | `validarUrlRepo` (solo `https://github.com`). |
 | `descripcion` | `description` | — |
 | `categorias` | `category` | `[category]`; fuera de las 6 → se omite (identidad inválida). |
