@@ -1,0 +1,50 @@
+name: web
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    name: Lint, tipos, pruebas y build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Instalar (lockfile)
+        run: npm ci
+      - name: Dependencias contra la tabla 3
+        run: npm run check:deps
+      - name: Sin caracteres bidi ni de ancho cero crudos (R-14)
+        run: npm run check:invisibles
+      - name: Lint
+        run: npm run lint
+      - name: Tipos
+        run: npx tsc --noEmit
+      - name: Pruebas unitarias
+        run: npm test
+      - name: Build de producción
+        run: npm run build
+        env:
+          CATALOG_SOURCE: fixtures
+      - name: Navegador para E2E
+        run: npx playwright install --with-deps chromium
+      - name: Pruebas E2E
+        run: npm run test:e2e
+        env:
+          CATALOG_SOURCE: fixtures
+      - name: Auditoría de dependencias (bloquea críticas; informa el resto)
+        run: |
+          npm audit --audit-level=high || true
+          npm audit --audit-level=critical

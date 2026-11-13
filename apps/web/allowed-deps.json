@@ -1,0 +1,28 @@
+{
+  "_fuente": "Tabla 3 de specs/001-frontend-catalogo/plan.md. Solo cambia en el mismo commit que esa tabla (RNF-14, R-09).",
+  "dependencies": [
+    "next",
+    "react",
+    "react-dom",
+    "zod",
+    "@radix-ui/react-slot",
+    "class-variance-authority",
+    "clsx",
+    "tailwind-merge",
+    "lucide-react"
+  ],
+  "devDependencies": [
+    "typescript",
+    "@types/react",
+    "@types/react-dom",
+    "@types/node",
+    "tailwindcss",
+    "@tailwindcss/postcss",
+    "shadcn",
+    "vitest",
+    "@playwright/test",
+    "@axe-core/playwright",
+    "eslint",
+    "eslint-config-next"
+  ]
+}

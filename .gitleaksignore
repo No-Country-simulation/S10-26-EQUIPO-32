@@ -1,0 +1,2 @@
+# Falso positivo verificado el 2026-11-10: token de prueba ficticio en el test de redact_secrets (backend/tests/test_sanitizer.py:86). No es una credencial real; no requiere rotación.
+fe1f22a99b44413a4a8ae8c703bddf12f49d559c:backend/tests/test_sanitizer.py:github-pat:86
