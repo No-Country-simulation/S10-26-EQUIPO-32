@@ -36,3 +36,15 @@ export function mensajesIdeas(repo: Record<string, unknown>): Array<{ role: stri
 export function urlAvatar(crudo: unknown): string | null;
 export function tipoImagen(bytes: unknown): { tipo: string; extension: string } | null;
 export function archivoLogo(id: unknown, extension: string): string | null;
+
+// Capturas de producto (feature 007).
+export const MAX_CAPTURA_BYTES: number;
+export const MIN_CAPTURA_BYTES: number;
+export const MAX_README_BYTES: number;
+export const MAX_SALTOS: number;
+export const MAX_CANDIDATAS: number;
+export const HOSTS_CAPTURA: Set<string>;
+export function urlCaptura(crudo: unknown, fullName?: string): string | null;
+export function tipoCaptura(bytes: unknown): { tipo: string; extension: "png" | "jpg" | "webp" } | null;
+export function archivoCaptura(id: unknown, extension: unknown): string | null;
+export function candidatasCaptura(markdown: unknown, fullName: string): string[];

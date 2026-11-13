@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
+import { AsistenteProvider } from "@/components/asistente/Asistente";
 import { Cabecera } from "@/components/catalogo/Cabecera";
 import { Pie } from "@/components/sitio/Pie";
 import { t } from "@/i18n/es";
@@ -22,8 +23,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" className={`${sans.variable} ${mono.variable}`}>
       <body>
-        <Cabecera />
-        <main>{children}</main>
+        <AsistenteProvider>
+          <Cabecera />
+          <main>{children}</main>
+        </AsistenteProvider>
         <Pie />
       </body>
     </html>

@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { IconoPropio, type NombreIcono } from "@/components/marca/Iconos";
 import { t, type ClaveTexto } from "@/i18n/es";
+import { FotoSitio } from "./FotoSitio";
 import { EnlaceExterno, type DestinoExterno } from "./EnlaceExterno";
 
 interface Control {
@@ -33,7 +34,10 @@ export function SeccionSeguridad({ id }: { id: string }) {
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">{t("seguridad.subtitulo")}</p>
       </div>
-      <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 aspect-[16/9] overflow-hidden rounded-[2rem] bg-secondary ring-1 ring-border sm:aspect-[3/1]">
+        <FotoSitio id="seguridad" sizes="(min-width: 1024px) 72rem, 100vw" className="object-[50%_30%]" />
+      </div>
+      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {CONTROLES.map(({ clave, icono }) => {
           const destino: DestinoExterno = clave;
           return (

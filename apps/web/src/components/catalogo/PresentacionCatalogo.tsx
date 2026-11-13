@@ -2,6 +2,8 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { t } from "@/i18n/es";
 import { LogoRepo } from "@/components/marca/LogoRepo";
+import { FotoSitio } from "@/components/sitio/FotoSitio";
+import { BotonAsistente } from "@/components/sitio/BotonAsistente";
 
 export interface HerramientaDestacada {
   id: string;
@@ -70,6 +72,7 @@ export function PresentacionCatalogo({ idCatalogo, idSeguridad = "seguridad", de
         >
           {t("portada.accion")}
         </a>
+        <BotonAsistente className="bg-secondary text-foreground hover:bg-secundario-hover" />
         <a
           href={`#${encodeURIComponent(idSeguridad)}`}
           className="catalogo-foco inline-flex min-h-12 items-center gap-2 rounded-full bg-secondary px-6 text-[1.05rem] font-medium text-foreground transition-colors hover:bg-secundario-hover"
@@ -77,6 +80,9 @@ export function PresentacionCatalogo({ idCatalogo, idSeguridad = "seguridad", de
           {t("portada.accionSecundaria")}
           <ArrowRight aria-hidden="true" className="size-4" />
         </a>
+      </div>
+      <div className="mt-16 aspect-[16/9] w-full max-w-5xl overflow-hidden rounded-[2rem] bg-secondary ring-1 ring-border sm:aspect-[2/1]">
+        <FotoSitio id="portada" sizes="(min-width: 1024px) 64rem, 100vw" />
       </div>
     </section>
   );

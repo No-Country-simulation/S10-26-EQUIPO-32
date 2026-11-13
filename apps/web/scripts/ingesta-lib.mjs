@@ -218,3 +218,118 @@ export function archivoLogo(id, extension) {
   if (typeof id !== "string" || !ID_VALIDO.test(id) || id.includes("..") || !["png", "jpg"].includes(extension)) return null;
   return `${id}.${extension}`;
 }
+
+// ---------- capturas de producto (feature 007; RF-24, RNF-30, RNF-32, MU-29..MU-32) ----------
+
+export const MAX_CAPTURA_BYTES = 600 * 1024;
+/** Por debajo de esto no es una captura de UI: es un ícono o un pixel de seguimiento. */
+export const MIN_CAPTURA_BYTES = 6 * 1024;
+export const MAX_README_BYTES = 512 * 1024;
+export const MAX_SALTOS = 3;
+export const MAX_CANDIDATAS = 5;
+/** Únicos hosts de los que se baja una captura. `github.com` solo bajo `/user-attachments/`. */
+export const HOSTS_CAPTURA = new Set(["raw.githubusercontent.com", "user-images.githubusercontent.com", "private-user-images.githubusercontent.com"]);
+const HOST_RAW = "raw.githubusercontent.com";
+const EXT_CAPTURA = ["png", "jpg", "webp"];
+
+/**
+ * URL de una captura aceptable o `null`. https, sin credenciales ni puerto, host de la lista. Si `fullName`
+ * (`owner/repo`) viene, una URL de `raw.githubusercontent.com` tiene que ser de ESE repo: así un README no puede
+ * mostrar la captura de otro producto (MU-31). En los saltos de una redirección se llama sin `fullName`.
+ */
+export function urlCaptura(crudo, fullName) {
+  if (typeof crudo !== "string" || crudo.length === 0 || crudo.length > 2000) return null;
+  let url;
+  try {
+    url = new URL(crudo);
+  } catch {
+    return null;
+  }
+  if (url.protocol !== "https:" || url.port !== "" || url.username || url.password) return null;
+  const host = url.hostname.toLowerCase();
+  const permitido = HOSTS_CAPTURA.has(host) || (host === "github.com" && url.pathname.startsWith("/user-attachments/"));
+  if (!permitido) return null;
+  if (host === HOST_RAW && typeof fullName === "string") {
+    const propio = `/${fullName.toLowerCase()}/`;
+    if (!url.pathname.toLowerCase().startsWith(propio)) return null;
+  }
+  url.hash = "";
+  return url.href;
+}
+
+/** Tipo de imagen de una captura por magic bytes: PNG, JPEG o WebP, entre MIN y MAX bytes. SVG, GIF y HTML → null. */
+export function tipoCaptura(bytes) {
+  if (!(bytes instanceof Uint8Array) || bytes.length < MIN_CAPTURA_BYTES || bytes.length > MAX_CAPTURA_BYTES) return null;
+  const png = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+  if (png.every((b, i) => bytes[i] === b)) return { tipo: "image/png", extension: "png" };
+  if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return { tipo: "image/jpeg", extension: "jpg" };
+  const ascii = (desde, texto) => [...texto].every((c, i) => bytes[desde + i] === c.charCodeAt(0));
+  if (ascii(0, "RIFF") && ascii(8, "WEBP")) return { tipo: "image/webp", extension: "webp" };
+  return null;
+}
+
+/** Nombre del archivo de una captura: derivado solo del id validado, nunca de texto externo (MU-32). */
+export function archivoCaptura(id, extension) {
+  if (typeof id !== "string" || !ID_VALIDO.test(id) || id.includes("..") || !EXT_CAPTURA.includes(extension)) return null;
+  return `${id}.${extension}`;
+}
+
+const NEGATIVA = /badge|shield|logo|icon|favicon|sponsor|avatar|contributor|star-history|banner|button|emoji|travis|codecov|coveralls|workflow|banner|diagram|architecture|\bgif\b/i;
+const POSITIVA = /screen[-_ ]?shot|screen[-_ ]?cap|capture|dashboard|\bu[ix]\b|\bgui\b|demo|preview|interface|console|studio|admin|overview|playground|web[-_ ]?app|\bapp\b|home[-_ ]?page|panel/i;
+const EXT_RECHAZADA = /\.(svg|gif|ico|bmp|tiff?|mp4|webm)(?:$|\?)/i;
+
+/** Pasa una referencia del README a URL absoluta, o `null`. Solo resuelve dentro del propio repo. */
+function resolverReferencia(ref, fullName) {
+  const sinMarcas = ref.trim().replace(/^<|>$/g, "");
+  if (/^https?:\/\//i.test(sinMarcas)) {
+    // Un blob/raw de github.com del MISMO repo se pasa a raw.githubusercontent.com; el resto queda como viene.
+    const m = new RegExp(`^https://github\\.com/${fullName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/(?:blob|raw)/(.+?)(?:\\?.*)?$`, "i").exec(sinMarcas);
+    return m ? `https://${HOST_RAW}/${fullName}/${m[1]}` : sinMarcas;
+  }
+  if (/^[a-z][a-z0-9+.-]*:/i.test(sinMarcas) || sinMarcas.startsWith("//")) return null; // data:, javascript:, protocolo relativo
+  const limpia = sinMarcas.replace(/^\.\//, "").replace(/^\//, "");
+  if (limpia.split("/").includes("..")) return null;
+  return `https://${HOST_RAW}/${fullName}/HEAD/${limpia}`;
+}
+
+/**
+ * Candidatas a captura de UI del README, en el orden en que aparecen. El README es texto NO confiable: solo se
+ * le extraen URLs, que después pasan por `urlCaptura`. Descarta badges, logos, íconos, SVG y GIF; exige una
+ * pista de captura en el alt o el nombre del archivo. Hasta `MAX_CANDIDATAS`.
+ */
+export function candidatasCaptura(markdown, fullName) {
+  if (typeof markdown !== "string" || !FULL_NAME.test(fullName)) return [];
+  const texto = markdown.slice(0, MAX_README_BYTES);
+  const crudas = [];
+  for (const m of texto.matchAll(/!\[([^\]\n]{0,200})\]\(\s*(<[^>\n]+>|[^)\s]+)(?:\s+(?:"[^"\n]*"|'[^'\n]*'))?\s*\)/g)) {
+    crudas.push({ indice: m.index, alt: m[1], ref: m[2] });
+  }
+  for (const m of texto.matchAll(/<img\b[^>\n]{0,1500}>/gi)) {
+    const src = /\bsrc\s*=\s*(?:"([^"]*)"|'([^']*)')/i.exec(m[0]);
+    if (!src) continue;
+    const alt = /\balt\s*=\s*(?:"([^"]*)"|'([^']*)')/i.exec(m[0]);
+    crudas.push({ indice: m.index, alt: alt ? (alt[1] ?? alt[2] ?? "") : "", ref: src[1] ?? src[2] ?? "" });
+  }
+  crudas.sort((a, b) => a.indice - b.indice);
+  const vistas = new Set();
+  const salida = [];
+  for (const { alt, ref } of crudas) {
+    if (/gh-dark-mode-only/i.test(ref)) continue; // la variante clara del README alcanza
+    const absoluta = resolverReferencia(ref, fullName);
+    if (absoluta === null || EXT_RECHAZADA.test(absoluta)) continue;
+    const url = urlCaptura(absoluta, fullName);
+    if (url === null || vistas.has(url)) continue;
+    const { hostname, pathname } = new URL(url);
+    // Pista: el alt y la ruta dentro del repo (carpeta y nombre de archivo). Sin owner/repo ni `HEAD`: no son del autor del README.
+    const ruta = decodeURIComponent(hostname === HOST_RAW ? pathname.split("/").slice(3).join("/") : pathname.split("/").pop() ?? "");
+    const pista = `${alt} ${ruta}`;
+    if (NEGATIVA.test(pista)) continue;
+    // Sin una pista positiva (alt o ruta) no se acepta ninguna imagen, ni siquiera una subida anónima: en la práctica
+    // son logos y banners tanto como capturas. Se prefiere no mostrar nada antes que mostrar el logo equivocado.
+    if (!POSITIVA.test(pista)) continue;
+    vistas.add(url);
+    salida.push(url);
+    if (salida.length >= MAX_CANDIDATAS) break;
+  }
+  return salida;
+}

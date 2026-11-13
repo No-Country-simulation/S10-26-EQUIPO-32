@@ -13,6 +13,7 @@ export const ENLACES = {
   owasp: archivo("docs/owasp.md"),
   nist: archivo("docs/perfil-nist-csf.md"),
   specs: carpeta("specs"),
+  fotos: archivo("apps/web/public/imagenes/fuentes.json"),
   equipo: `${URL_REPOSITORIO}#equipo-y-roles`,
   csp: archivo("apps/web/src/lib/seguridad/csp.ts"),
   contrato: archivo("apps/web/src/lib/catalogo/contrato.ts"),

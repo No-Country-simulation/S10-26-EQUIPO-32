@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { t, type ClaveTexto } from "@/i18n/es";
+import { fotosConCredito } from "./FotoSitio";
 import { EnlaceExterno, type DestinoExterno } from "./EnlaceExterno";
 
 // En el fondo oscuro el foco usa el texto claro: el anillo por defecto (#141414) no se vería (2.4.7, 1.4.11).
@@ -70,7 +71,16 @@ export function Pie() {
         ))}
       </div>
       <div className="catalogo-contenedor">
-        <p className="border-t border-white/10 py-6 text-sm text-pie-suave">{t("pie.leyenda")}</p>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-white/10 py-6 text-sm text-pie-suave">
+          <p>{t("pie.leyenda")}</p>
+          {/* Crédito de las fotos decorativas (RF-25): autor y fuente salen del manifiesto, como texto. */}
+          <p>
+            {t("pie.fotos")} {fotosConCredito().map((f) => f.autor).join(", ")} {t("pie.fotosFuente")}{" "}
+            <EnlaceExterno destino="fotos" className={CLASE_ENLACE}>
+              {t("pie.fotosDetalle")}
+            </EnlaceExterno>
+          </p>
+        </div>
       </div>
       <p
         aria-hidden="true"

@@ -42,6 +42,13 @@ OpenBridge centraliza un catálogo de ≥ 100 herramientas open-source con métr
 | RF-16 | Lista curada y versionada de ≥ 100 repos reales (`data/semilla-repos.json`), activos y con licencia OSI, repartidos en las 6 categorías, con el criterio de selección documentado | M | Test de la semilla (≥ 100, ≥ 15 por categoría, ids únicos) + criterio aplicado contra la API en la ingesta | 005 |
 | RF-17 | Ingesta sin intervención (apta para cron): metadatos reales de la API de GitHub, ideas nuevas del LLM local validadas por el contrato con `revisada: false`, regenera `repos-reales.json` y embeddings; código de error y log claro ante una falla | M | Corrida real registrada en `specs/005-catalogo-100/tasks.md` + tests de las funciones puras | 005 |
 | RF-18 | Logo oficial (avatar de la org u owner) en tarjetas, ficha, carrusel, asistente y portada, con la marca generativa como fallback | M | Test del componente con y sin logo | 005 |
+| RF-20 | Todo CTA hace algo real (asistente, catálogo, footer a docs existentes); cards del carrusel y la grilla abren la ficha | M | `interacciones.spec.ts` | 007 |
+| RF-21 | Las tabs Recientes y Mejor salud reordenan la grilla | M | `interacciones.spec.ts`, `orden.test.ts` | 007 |
+| RF-22 | Carrusel con puntos de posición y arrastre con mouse o touch | M | `interacciones.spec.ts` | 007 |
+| RF-23 | Consultas de ejemplo que se envían y estado de carga en el asistente | M | `interacciones.spec.ts` | 007 |
+| RF-24 | Captura real de producto desde el README (solo si hay una válida), con origen y licencia; si no, `PantallaPreview` | M | `capturas.test.tsx` + corrida real | 007 |
+| RF-25 | 3 a 5 fotos decorativas con crédito en el footer | S | `capturas.test.tsx`, `interacciones.spec.ts` | 007 |
+| RF-26 | Teclado y `prefers-reduced-motion` en todo lo anterior | M | `interacciones.spec.ts` | 007 |
 | RF-19 | Con `CATALOG_SOURCE=backend` la grilla no pide desgloses (health score de la lista); el desglose se pide solo en la ficha | M | `adaptador-backend.test.ts` (requests por carga) | 005 |
 
 ## 4. Requisitos no funcionales
@@ -78,6 +85,9 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-26 | Producto · Seguridad | Logos solo de `avatars.githubusercontent.com`, sin redirecciones, PNG o JPEG por magic bytes (nunca SVG), ≤ 200 KB, nombre derivado del id validado; CSP sin cambios | M | Tests de la validación del logo | 005 |
 | RNF-27 | Producto · Seguridad | Ideas generadas por el LLM: no confiables, validadas por el contrato, `revisada: false`, nunca ejecutadas ni renderizadas como HTML | M | Test de validación de ideas + `repos-reales.test.ts` | 005 |
 | RNF-28 | Producto · Disponibilidad | Con fuente backend el catálogo no supera 60 requests/min sin subir el límite del backend | M | Test del adaptador + R-21 | 005 |
+| RNF-30 | Producto · Seguridad | Capturas: 4 hosts de GitHub, https, redirecciones validadas por salto, PNG/JPEG/WebP por magic bytes, ≤ 600 KB, nombre del id | M | `capturas.test.tsx` | 007 |
+| RNF-31 | Producto · Seguridad | Imágenes por `next/image`, `alt` descriptivo, CSP `img-src 'self'` sin cambios | M | `headers.spec.ts`, guarda de `mu.spec.ts` | 007 |
+| RNF-32 | Producto | Una captura solo aparece en la card de su propia herramienta y no se repite entre repos | M | `capturas.test.tsx` | 007 |
 | RNF-29 | Producto · Seguridad | El asistente con ≥ 100 repos no regresiona en la batería del red-team v2 | M | `docs/red-team.md` | 005 |
 
 ## 5. Trazabilidad
@@ -89,6 +99,7 @@ Riesgo → control → requisito → prueba: ver `docs/matriz-riesgos.md`.
 | Fecha | Cambio | Origen |
 | --- | --- | --- |
 | 2026-10-30 | RNF-08 pasa de 001/003 a 003. RF-02 incluye categorías, mantenedor activo y enlace al repo. RF-05 separa el requisito de datos (≥ 1 idea, 003) del comportamiento de la interfaz (0..N, 001). | Plan 001, decisiones 2 y 3 |
+| 2026-11-13 | RF-20 a RF-26 y RNF-30 a RNF-32: interacciones reales, capturas de producto y fotos (feature 007). | Consigna, spec 007 |
 | 2026-11-13 | RF-16 a RF-19 y RNF-26 a RNF-29: catálogo de ≥ 100 repos reales, ingesta automática, logos oficiales y grilla sin desgloses con backend. RF-12 queda ampliado por RF-16. | Consigna, spec 005 |
 
 ## Estado al cierre (2026-11-13)
