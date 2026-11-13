@@ -67,6 +67,7 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-20 | Producto · Seguridad | Entrada del asistente: JSON, cuerpo ≤ 4 KB, consulta ≤ 500 caracteres normalizada | M | Tests del route handler (400/413/415) | 002 |
 | RNF-21 | Producto · Seguridad | El modo sin guardrails del red-team no tiene efecto en producción | M | Test unitario de configuración y del handler | 002 |
 | RNF-22 | Producto · Privacidad | LLM local: la consulta no sale del servidor y no se registra | M | Revisión de código (logs solo con códigos) | 002 |
+| RNF-23 | Producto · Seguridad | Mitigar MU-19: jailbreak por rol/persona, ficción o hipótesis, en otro idioma u ofuscado → «sin contexto», sin bloquear consultas legítimas | M | Red-team v1 vs v2 (`docs/red-team.md`) + tests del detector | 002 |
 
 ## 5. Trazabilidad
 
