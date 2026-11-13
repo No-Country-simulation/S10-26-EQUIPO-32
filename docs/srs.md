@@ -38,6 +38,7 @@ OpenBridge centraliza un catálogo de ≥ 100 herramientas open-source con métr
 | RF-12 | Dataset real de 30 repos (5 por categoría principal, ideas sin revisar) validado con el contrato del catálogo | M | `repos-reales.test.ts` | 002 |
 | RF-13 | Embeddings precalculados por script y búsqueda por similitud coseno en memoria | M | `npm run embeddings` + test del índice | 002 |
 | RF-14 | Set de red-team de 10 ataques y script que genera `docs/red-team.md` con y sin guardrails | M | Corrida real registrada en `docs/red-team.md` | 002 |
+| RF-15 | Con `CATALOG_SOURCE=backend`, la ficha muestra el desglose del health score en sus 5 componentes con sus máximos (25/20/20/20/15) y la penalización por archivado; todo o nada | M | `ficha.test.tsx` + e2e con backend | 001 (B9) |
 
 ## 4. Requisitos no funcionales
 
@@ -68,6 +69,8 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-21 | Producto · Seguridad | El modo sin guardrails del red-team no tiene efecto en producción | M | Test unitario de configuración y del handler | 002 |
 | RNF-22 | Producto · Privacidad | LLM local: la consulta no sale del servidor y no se registra | M | Revisión de código (logs solo con códigos) | 002 |
 | RNF-23 | Producto · Seguridad | Mitigar MU-19: jailbreak por rol/persona, ficción o hipótesis, en otro idioma u ofuscado → «sin contexto», sin bloquear consultas legítimas | M | Red-team v1 vs v2 (`docs/red-team.md`) + tests del detector | 002 |
+| RNF-24 | Producto · Seguridad | El backend es fuente no confiable: respuesta validada por el contrato; malformada, lenta (> 3 s), redirigida o caída → error genérico, sin datos inventados; runtime sin credenciales | M | `adaptador-backend.test.ts` + e2e con backend | 001 (B9) |
+| RNF-25 | Producto · Seguridad | Siembra del backend fuera del runtime: `ADMIN_API_KEY` solo por entorno, nunca en archivos ni logs; verifica que escribir sin credencial sea rechazado | M | Corrida real de `sembrar:backend` | 001 (B9) |
 
 ## 5. Trazabilidad
 

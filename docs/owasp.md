@@ -13,10 +13,10 @@
 | A04 | Diseño inseguro | Threat model por feature (STRIDE); cotas de tamaño; `revisada` falla cerrado; rate limit | Plan 001 AM-01..16, spec 002 AM-17..26; `contrato.ts` | ● |
 | A05 | Configuración insegura | CSP con nonce sin `unsafe-*` en `script-src`; `frame-ancestors 'none'`; sin `X-Powered-By`; errores genéricos; modo red-team ignorado en producción | `headers.spec.ts`, `config.ts` (RNF-21) | ● |
 | A06 | Componentes vulnerables | Lista cerrada de dependencias con versión exacta; `npm audit` bloqueante en críticas; Dependabot | `check:deps`, `web.yml`, `allowed-deps.json` | ● |
-| A07 | Fallas de autenticación | — | Sin autenticación en el MVP (catálogo público) | — |
-| A08 | Integridad de datos y software | Validación zod en la frontera; lockfile + `npm ci`; chequeo de caracteres invisibles (Trojan Source) | `contrato.ts`, `check:invisibles`, hook de pre-commit (R-14) | ● |
+| A07 | Fallas de autenticación | Frontend sin autenticación (catálogo público); el runtime no envía credenciales al backend (P3) | `adaptador-backend.test.ts` (sin `Authorization`) | — en `apps/web`. **Backend: ○ R-18** (clave admin por defecto, CWE-798), ver abajo |
+| A08 | Integridad de datos y software | Validación zod en la frontera (también para la respuesta del backend: sobre + `contrato.ts`, falla cerrado); lockfile + `npm ci`; chequeo de caracteres invisibles (Trojan Source) | `contrato.ts`, `adaptador-backend.test.ts` (malformada, campo extra), `check:invisibles`, hook de pre-commit (R-14) | ● |
 | A09 | Fallas de registro y monitoreo | Logs sin datos del usuario (solo códigos y contadores) | `route.ts`, `asistente.ts`, `memoria.ts` | ◐ sin alertas |
-| A10 | SSRF | `OLLAMA_URL` solo de servidor, validada (http(s), sin credenciales) y nunca proviene del usuario | `config.ts` + `asistente-nucleo.test.ts` | ● |
+| A10 | SSRF | `OLLAMA_URL` y `BACKEND_URL` solo de servidor, validadas (http(s), sin credenciales) y nunca provienen del usuario; el adaptador backend no sigue redirecciones (`redirect: 'error'`) | `config.ts` + `asistente-nucleo.test.ts`; `adaptador-backend.test.ts` (redirección, `BACKEND_URL`) | ● |
 
 ## Top 10 para LLM (2025)
 
@@ -32,3 +32,16 @@
 | LLM08 | Debilidades de vectores y embeddings | Índice local precalculado; los vectores solo entran si su `id` pasa el contrato y la dimensión coincide | `indice.ts` + test | ● |
 | LLM09 | Desinformación | Grounding estricto: sin repos válidos responde «sin contexto»; aviso visible en el panel | MU-15 bloqueado; 0 repos fuera del índice | ◐ en v2, 4/13 ataques (MU-14, 16, 17, 21) recibieron una recomendación saneada en lugar de «sin contexto»; falta un umbral de health score (R-03) |
 | LLM10 | Consumo ilimitado | 10/min por IP + tope global de 60/min; 500 caracteres; cuerpo de 4 KB; timeout de 60 s; `num_predict` acotado | MU-22 bloqueado; `asistente-route.test.ts` (429) | ● |
+
+## Revisión cruzada del backend (2026-11-13, B9)
+
+Hallazgos de Jerónimo sobre `backend/` (commit `fe1f22a`). **No se modificó el código de Ángel**: la mitigación sugerida queda para él. El detalle y la evidencia están en `docs/matriz-riesgos.md` (sección «Revisión cruzada del backend»).
+
+| OWASP | Hallazgo | Riesgo | Mitigación sugerida (Ángel) | Estado |
+| --- | --- | --- | --- | --- |
+| A07 · CWE-798 | `ADMIN_API_KEY` tiene un valor por defecto escrito en `config.py`. La guarda de producción solo actúa con `BACKEND_ENV=production`, que no es el valor por defecto. | R-18 | Sin default: fallar al arrancar si falta (en desarrollo, una aleatoria por proceso sin loguearla) y un test que lo verifique | ○ |
+| A04 (disponibilidad) | Store en memoria: se vacía al reiniciar y no se comparte entre workers; el catálogo vacío no se distingue de un error. | R-19 | Persistir en Supabase o sembrar al arrancar; un solo worker; `/health/ready` que avise si el store está vacío | ○ |
+| A04 (diseño) | Categoría por defecto inconsistente («Developer Tools» / «Other») y fuera de las 6 del catálogo. | R-20 | Enumeración única compartida; categoría obligatoria y validada en la ingesta | ○ |
+| A04 (consumo) | La lista no trae el desglose, así que el frontend gasta 31 de los 60 pedidos/min de su IP. | R-21 | Desglose o nivel en `GET /repositories` | ◐ contenido con la instantánea de 60 s |
+
+Lo que se verificó del lado del backend con una corrida real: la escritura sin credencial (`POST /api/v1/ingestion/batch` sin `Authorization`) devuelve **403** (MU-07).

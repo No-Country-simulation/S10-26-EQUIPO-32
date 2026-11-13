@@ -198,8 +198,20 @@ T36–T38 quedan reemplazadas: el origen real es la API REST del backend, no Sup
 | T42 | Desglose en la ficha (5 componentes con máximos) | RF-15 | Test de la ficha verde | [x] |
 | T43 | `scripts/sembrar-backend.mjs` (2 lotes, nuestra categoría, chequeo sin credencial) | RNF-25, MU-07, AM-34 | Corrida real: 30/30 ingestados, escritura sin token rechazada | [x] |
 | T44 | E2E con el backend levantado | RF-15, RNF-24 | `backend.spec.ts` verde en local, resultado abajo | [x] |
-| T45 | `docs/mapeo-backend.md`, matriz de riesgos (revisión cruzada), `docs/owasp.md`, SRS, README | DoD, P10 | Docs en la rama | [ ] |
+| T45 | `docs/mapeo-backend.md`, matriz de riesgos (revisión cruzada), `docs/owasp.md`, SRS, README | DoD, P10 | Docs en la rama | [x] |
 | T46 | Checks, PR y merge | DoD | CI en verde | [ ] |
+
+#### Resultados de B9 (2026-11-13, corridas reales en local)
+
+| Chequeo | Resultado |
+| --- | --- |
+| Backend | `uvicorn backend.app.main:app --port 8000` desde la raíz, Python 3.15.1, `pip install -r backend/requirements.txt`; levantó al primer intento con el store vacío (`total: 0`). |
+| Siembra (`npm run sembrar:backend`) | Escritura sin credencial → **HTTP 403** (MU-07). Lote 1: 15/15, lote 2: 15/15 (18 s cada uno) → **30/30**; la API pública lista 30; **0** con categoría distinta de la pedida. La clave admin y el token de GitHub no aparecen en el log del backend (verificado con `grep`). |
+| Vitest | 21 archivos, **403** tests en verde (`adaptador-backend.test.ts` nuevo: 46 casos, incluida la suite de contrato compartida). |
+| E2E con backend (`npm run test:e2e:backend`) | **4/4** en verde: 30 tarjetas sin pedidos del navegador al backend; ficha de `prisma` con los 5 componentes iguales a la API; filtro activo + moderado + bajo = 30 y abandonado = 0; backend caído → error genérico. La primera corrida falló por dos motivos reales: un selector del test que contaba también los `<li>` de categorías, y un **429** del backend por corridas seguidas (R-21), ante el que el adaptador falló cerrado como corresponde. |
+| E2E original (`npm run test:e2e`, fixtures) | 29/29 en verde. |
+| tsc / lint / `check:deps` / `check:invisibles` | Verde. `check:invisibles` detectó U+200B crudo en `sembrar-backend.mjs` (R-14) y se corrigió antes del commit. |
+| Validación de 4.1 por Ángel | **Pendiente**: el merge lo cubre EX-01; los hallazgos quedan en la matriz (R-18 a R-21). |
 
 ## Resumen de horas
 

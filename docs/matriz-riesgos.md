@@ -23,12 +23,16 @@ OWASP: A0x = Top 10 web (edición 2021) · LLM0x = Top 10 para LLM (2025). Si ad
 | R-15 | Fuga del system prompt del asistente | 2 | 2 | 4 | Canario en el prompt; salida con el canario o fragmentos del prompt se descarta; el prompt no contiene secretos | RNF-19 | MU-14 + test unitario | PR, DE | LLM07 |
 | R-16 | El modo sin guardrails del red-team queda activo en producción | 1 | 3 | 3 | `REDTEAM_SIN_GUARDRAILS` se ignora con `NODE_ENV=production`; el script se niega a correr en producción | RNF-21 | Test de configuración y del handler | PR | A05 |
 | R-17 | Cambio en `main` sin PR ni CI, reescritura del historial (force push) o borrado de la rama | 2 | 3 | 6 | Ruleset `proteccion-main`: PR obligatorio, solo squash, checks requeridos `Lint, tipos, pruebas y build` y `Gitleaks (secret scanning)`, sin bypass, force push y borrado bloqueados. Aprobaciones en 0 por EX-01 (residual: un PR se mergea sin segunda revisión); los checks no exigen la rama al día con `main` | RNF-01, RNF-11, RNF-14 | Push directo a `main` rechazado con GH013 (2026-11-13 11:06, Jerónimo); configuración verificada por API | PR (PR.AA, PR.PS) | A01 / A08 |
+| R-18 | Clave de administración con valor por defecto escrito en el código del backend (CWE-798): cualquiera que lea el repo público puede ingestar o administrar un backend desplegado sin `ADMIN_API_KEY` | 2 | 3 | 6 | **Backend (pendiente, Ángel):** ver revisión cruzada. Frontend: el runtime no usa ninguna credencial; la siembra exige una clave propia de ≥ 24 caracteres por entorno | RNF-25 | Revisión de código de `backend/app/core/config.py:35` y `:88` | PR, GV | A07 |
+| R-19 | Store en memoria del backend: un reinicio vacía el catálogo y cada worker de uvicorn tiene su propia copia (disponibilidad) | 3 | 2 | 6 | **Backend (pendiente, Ángel):** ver revisión cruzada. Frontend: con el backend caído, error genérico sin datos; con el store vacío, estado «No encontramos herramientas» | RNF-24 | E2E «backend caído» (`backend.spec.ts`) | PR, RC | A04 |
+| R-20 | Categoría por defecto inconsistente en el backend («Developer Tools» al ingestar, «Other» en el esquema y en la base), ninguna de las 6 del catálogo: un repo ingestado sin categoría desaparece del frontend sin aviso | 3 | 1 | 3 | **Backend (pendiente, Ángel):** ver revisión cruzada. Frontend: el contrato omite el repo y lo cuenta en `omitidas`; la siembra pasa siempre nuestra categoría y verifica 0 diferencias | RF-01, RNF-24 | `adaptador-backend.test.ts` («Developer Tools» → omitido) + siembra: 0 con otra categoría | ID, PR | A04 |
+| R-21 | El rate limit del backend (60/min por IP) lo consume el propio servidor del frontend: la lista no trae el desglose y cada instantánea cuesta 31 pedidos | 2 | 2 | 4 | Instantánea de 60 s en el adaptador; ante 429 falla cerrado. **Backend (sugerencia):** desglose o nivel en la lista | RNF-24 | 429 real observado en el e2e (2026-11-13) + test de la instantánea | PR | A04 |
 
 R-11 a R-13 agregados el 2026-10-30 desde el plan 001 (P y I son mi estimación inicial; revisar con Ángel).
 
 **R-14 (2026-11-10), incidente real:** al escribir `texto.ts` (T06), el agente de IA insertó en el código fuente caracteres bidi y de ancho cero crudos (en el regex y en los tests) en lugar de escapes. Los tests pasaban igual; se detectó en la revisión del código y se corrigió antes del PR. El mismo día volvió a ocurrir en el script del propio chequeo, y el chequeo lo detectó. P y I son estimación inicial (P = 2 porque ya ocurrió dos veces con un agente), a revisar con Ángel; A08 es una asignación mía.
 
-R-17 agregado el 2026-11-13 con el ruleset `proteccion-main`. R-15 y R-16 agregados el 2026-11-12 desde la feature 002 (P e I: estimación inicial, revisar con Ángel). **R-14, 2026-11-12:** volvió a ocurrir dos veces al escribir los tests de 002 (U+202E, U+200B crudos); el hook de pre-commit rechazó ambos commits y se corrigió con escapes.
+R-18 a R-21 agregados el 2026-11-13 desde B9 (revisión cruzada del backend; P e I son estimación inicial, a revisar con Ángel). **R-14, 2026-11-13:** volvió a ocurrir en `sembrar-backend.mjs` (U+200B crudo en un regex); lo detectó `check:invisibles` antes del commit. R-17 agregado el 2026-11-13 con el ruleset `proteccion-main`. R-15 y R-16 agregados el 2026-11-12 desde la feature 002 (P e I: estimación inicial, revisar con Ángel). **R-14, 2026-11-12:** volvió a ocurrir dos veces al escribir los tests de 002 (U+202E, U+200B crudos); el hook de pre-commit rechazó ambos commits y se corrigió con escapes.
 
 ## Estado al cierre (2026-11-13)
 
@@ -38,11 +42,24 @@ R-17 agregado el 2026-11-13 con el ruleset `proteccion-main`. R-15 y R-16 agrega
 | R-02 | Mitigado parcial | MU-19 cerrado: red-team v2 13/13 (v1 11/13), 0/5 falsos positivos. Sigue parcial: detector heurístico sin set de prueba separado y los READMEs todavía no se indexan (el vector indirecto real de R-02 no está probado) |
 | R-03 | Mitigado parcial | 0 repos fuera del índice; falta umbral de health score (requiere backend) |
 | R-04, R-07, R-11, R-12, R-15, R-16 | Mitigado | Tests unitarios y E2E citados en cada fila |
-| R-05 | Abierto | MU-07 sin probar: Supabase no integrado al frontend |
+| R-05 | Abierto | MU-07 con Supabase sin probar (no integrado). Contra el backend: escritura sin credencial → **403** (siembra del 2026-11-13) |
+| R-18, R-19, R-20 | **Abierto (backend)** | Hallazgos de la revisión cruzada del 2026-11-13; mitigación sugerida para Ángel abajo. El frontend los contiene, no los corrige |
+| R-21 | Mitigado parcial | Instantánea de 60 s; la reducción a 1 pedido depende del backend |
 | R-06 | Fuera de alcance de esta entrega | Pipeline (003) |
 | R-08 | Mitigado parcial | Licencia visible; nivel de mantenimiento «Sin dato» en datos reales hasta integrar el backend |
 | R-10 | Materializado | El revisor no respondió desde el 12/11 → EX-01 |
 | EX-01 | Abierta | Se cierra con la revisión posterior de Ángel y la aprobación obligatoria en `main` |
+
+## Revisión cruzada del backend (2026-11-13)
+
+Revisión de Jerónimo sobre `backend/` (commit `fe1f22a`) durante B9. **No se modificó código del backend**: cada hallazgo queda con una mitigación sugerida para que Ángel la evalúe y la haga en su PR.
+
+| Riesgo | Evidencia | Por qué importa | Mitigación sugerida (para Ángel) |
+| --- | --- | --- | --- |
+| R-18 · Clave admin por defecto (CWE-798, A07) | `backend/app/core/config.py:35` (`Field(default=...)`) y `:88` (`os.getenv("ADMIN_API_KEY", ...)`) | El valor es público. La guarda de producción lo rechaza, pero solo si `BACKEND_ENV` es `production`, y su valor por defecto es `development`. Un despliegue que se olvide de esa variable queda con la clave conocida. | Sacar el valor por defecto: sin `ADMIN_API_KEY`, fallar al arrancar en cualquier entorno (o, solo en desarrollo, generar una aleatoria por proceso sin loguearla). Agregar un test que verifique que no hay un default. |
+| R-19 · Store en memoria (disponibilidad) | `backend/app/database/client.py:20-22`: los diccionarios en memoria se usan aunque Supabase esté configurado | Un reinicio deja el catálogo vacío y cada worker tiene su propia copia, así que dos requests pueden ver datos distintos. El vacío no es un error: el frontend lo muestra como «No encontramos herramientas». | Persistir en Supabase (ya está `schema.sql`) o, mientras tanto, sembrar al arrancar desde un snapshot versionado, correr con un solo worker y exponer en `/health/ready` si el store está vacío. |
+| R-20 · Categoría por defecto inconsistente | «Developer Tools» en `schemas/ingestion.py:15`, `routes/ingestion.py:35,66` y `ingestion_pipeline.py:33`; «Other» en `schemas/repository.py:14`, `schema.sql:23`, `client.py:166`, `vector_service.py:68` y `rag_service.py:65` | Dos defaults distintos y ninguno es una de las 6 categorías del catálogo, así que un repo ingestado sin categoría desaparece del frontend. | Una sola enumeración de categorías compartida con el frontend (las 6 de `categorias.ts`); en la ingesta, categoría obligatoria y validada (422 si no es válida), sin default. |
+| R-21 · Rate limit consumido por el frontend | Lista sin `health_breakdown`; 429 real durante el e2e | 31 pedidos por instantánea de los 60/min disponibles por IP. | Incluir el desglose (o el nivel) en `GET /repositories`, o eximir del límite por IP a un cliente interno de confianza. |
 
 ## Excepciones a la constitución
 
