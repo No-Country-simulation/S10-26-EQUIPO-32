@@ -19,3 +19,4 @@ Flujo: constitución → especificación → clarificación → plan técnico �
 | 001 | Frontend: catálogo y ficha | Jero | tareas aprobadas |
 | 002 | Asistente RAG + guardrails | Jero | pendiente |
 | 003 | Backend y pipeline de ingesta | Ángel | pendiente |
+| 005 | Catálogo de 100+ repos reales, logos e ingesta | Jero | implementada (PR #21) |

@@ -1,4 +1,4 @@
-// Adaptador de solo lectura contra la API REST del backend (spec 001 §10, plan §9; RF-15, RNF-24, AM-30..33, AM-35).
+// Adaptador de solo lectura contra la API REST del backend (spec 001 §10, plan §9, spec 005; RF-15, RF-19, RNF-24, RNF-28, AM-30..33, AM-35).
 // El backend es una fuente NO confiable (P5): cada respuesta pasa por un sobre con zod y luego por contrato.ts.
 // Falla cerrado: respuesta malformada, lenta, redirigida o backend caído → ErrorCatalogo, nunca datos inventados
 // ni de otra fuente. En runtime no se envía ninguna credencial: solo endpoints públicos de lectura (P3).
@@ -18,10 +18,9 @@ import { ErrorCatalogo, ErrorConfiguracion, type RepositorioCatalogo } from "../
 
 export const TIMEOUT_BACKEND_MS = 3000;
 export const MAX_RESPUESTA_BYTES = 1_000_000;
-/** Vida de la instantánea (lista + desgloses): acota los requests contra el límite de 60/min del backend (AM-35). */
+/** Vida de la instantánea de la lista y de cada desglose: acota los requests contra el límite de 60/min del backend (AM-35). */
 export const VIDA_INSTANTANEA_MS = 60_000;
 const LIMITE_LISTA = 100;
-const CONCURRENCIA_DETALLES = 6;
 
 export type Fetch = (url: string, init: RequestInit) => Promise<Response>;
 
@@ -125,7 +124,7 @@ async function obtenerJson(url: string, fetchFn: Fetch, timeoutMs: number, permi
 // ---------- sobres y mapeo al contrato ----------
 
 const FULL_NAME = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})\/[A-Za-z0-9._-]{1,100}$/;
-const sobreLista = z.object({ items: z.array(z.unknown()).max(LIMITE_LISTA) });
+const sobreLista = z.object({ items: z.array(z.unknown()).max(LIMITE_LISTA), total: z.number().int().min(0).optional().catch(undefined) });
 const sobreDetalle = z.object({ repository: z.object({ full_name: z.string() }).passthrough(), health_breakdown: z.unknown() });
 type Registro = Record<string, unknown>;
 
@@ -200,88 +199,147 @@ function mapear(item: Registro, id: string, fullName: string, desglose: Desglose
   };
 }
 
-async function enParalelo<T, R>(items: readonly T[], limite: number, f: (x: T) => Promise<R>): Promise<R[]> {
-  const salida = new Array<R>(items.length);
-  let siguiente = 0;
-  const trabajador = async () => {
-    while (siguiente < items.length) {
-      const i = siguiente++;
-      salida[i] = await f(items[i]!);
-    }
-  };
-  await Promise.all(Array.from({ length: Math.min(limite, items.length) }, trabajador));
-  return salida;
-}
-
 // ---------- adaptador ----------
+
+/** Páginas de la lista como máximo (100 ítems cada una, el tope del backend): hasta 300 repos. */
+export const MAX_PAGINAS = 3;
+/**
+ * Presupuesto de desgloses por minuto y por instancia (RNF-28, R-21). La grilla gasta ⌈N/100⌉ requests (2 con 108
+ * repos); con 50 desgloses el total queda por debajo de los 60/min del backend. Agotado el presupuesto, la ficha se
+ * sirve sin desglose («Sin dato»), nunca con datos inventados ni con un error.
+ */
+export const PRESUPUESTO_DETALLES_POR_MINUTO = 50;
+
+interface EntradaLista {
+  item: Registro;
+  fullName: string;
+}
 
 interface Instantanea {
   lista: ResultadoLista;
-  crudosPorId: Map<string, Registro>;
+  porId: Map<string, EntradaLista>;
+}
+
+interface Desglose {
+  desglose: DesgloseSalud | null;
+  calculadoEn: unknown;
 }
 
 export class AdaptadorBackend implements RepositorioCatalogo {
   private instantanea: { expira: number; promesa: Promise<Instantanea> } | null = null;
+  private readonly detalles = new Map<string, { expira: number; promesa: Promise<Desglose> }>();
+  private pedidosDetalle: number[] = [];
 
   constructor(private readonly opciones: OpcionesBackend) {}
 
+  /** Grilla (RF-19): solo la lista paginada; el health score viene en cada ítem. No pide ningún desglose. */
   async listarHerramientas(): Promise<ResultadoLista> {
     return (await this.#obtenerInstantanea()).lista;
   }
 
+  /** Ficha: el ítem de la lista (en caché) más un único pedido de su desglose, también en caché 60 s. */
   async obtenerHerramienta(id: string): Promise<HerramientaDetalle | null> {
     if (!esIdValido(id)) return null;
-    const crudo = (await this.#obtenerInstantanea()).crudosPorId.get(id);
-    return crudo === undefined ? null : parsearHerramientaDetalle(crudo);
+    const entrada = (await this.#obtenerInstantanea()).porId.get(id);
+    if (entrada === undefined) return null;
+    const { desglose, calculadoEn } = await this.#obtenerDesglose(id, entrada.fullName);
+    return parsearHerramientaDetalle(mapear(entrada.item, id, entrada.fullName, desglose, calculadoEn));
   }
 
-  #obtenerInstantanea(): Promise<Instantanea> {
-    const ahora = (this.opciones.ahora ?? Date.now)();
-    if (this.instantanea !== null && ahora < this.instantanea.expira) return this.instantanea.promesa;
-    // Caché en memoria del servidor (R-21, AM-35): una sola tanda de requests por ventana, compartida también por
-    // las cargas concurrentes. Un error nunca queda en caché, y el fallo de una instantánea vieja no borra la vigente.
-    const promesa: Promise<Instantanea> = this.#construir().catch((e: unknown) => {
-      if (this.instantanea?.promesa === promesa) this.instantanea = null;
+  #ahora(): number {
+    return (this.opciones.ahora ?? Date.now)();
+  }
+
+  /** Caché con promesa compartida: un error nunca queda guardado y el fallo de una entrada vieja no borra la vigente. */
+  #conCache<T>(
+    leer: () => { expira: number; promesa: Promise<T> } | null | undefined,
+    guardar: (v: { expira: number; promesa: Promise<T> } | null) => void,
+    construir: () => Promise<T>,
+  ): Promise<T> {
+    const ahora = this.#ahora();
+    const vigente = leer();
+    if (vigente && ahora < vigente.expira) return vigente.promesa;
+    const promesa: Promise<T> = construir().catch((e: unknown) => {
+      if (leer()?.promesa === promesa) guardar(null);
       const codigo = e instanceof FalloBackend ? e.codigo : "interno";
       console.error(`[catalogo] backend: ${codigo}`); // solo un código, nunca contenido externo (A09)
       throw new ErrorCatalogo({ cause: e });
     });
-    this.instantanea = { expira: ahora + VIDA_INSTANTANEA_MS, promesa };
+    guardar({ expira: ahora + VIDA_INSTANTANEA_MS, promesa });
     return promesa;
   }
 
-  async #construir(): Promise<Instantanea> {
-    const { baseUrl, fetchFn = fetch, timeoutMs = TIMEOUT_BACKEND_MS } = this.opciones;
-    const sobre = sobreLista.safeParse(await obtenerJson(`${baseUrl}/api/v1/repositories?limit=${LIMITE_LISTA}`, fetchFn, timeoutMs));
-    if (!sobre.success) throw new FalloBackend("sobre-lista");
+  #obtenerInstantanea(): Promise<Instantanea> {
+    return this.#conCache(
+      () => this.instantanea,
+      (v) => (this.instantanea = v),
+      () => this.#construirLista(),
+    );
+  }
 
-    const conId = sobre.data.items.map((item) => {
+  #obtenerDesglose(id: string, fullName: string): Promise<Desglose> {
+    const vigente = this.detalles.get(id);
+    if (vigente && this.#ahora() < vigente.expira) return vigente.promesa;
+    if (!this.#hayPresupuesto()) return Promise.resolve({ desglose: null, calculadoEn: undefined });
+    return this.#conCache(
+      () => this.detalles.get(id),
+      (v) => (v === null ? this.detalles.delete(id) : this.detalles.set(id, v)),
+      () => this.#pedirDesglose(fullName),
+    );
+  }
+
+  #hayPresupuesto(): boolean {
+    const ahora = this.#ahora();
+    this.pedidosDetalle = this.pedidosDetalle.filter((t) => ahora - t < 60_000);
+    if (this.pedidosDetalle.length >= PRESUPUESTO_DETALLES_POR_MINUTO) {
+      console.warn("[catalogo] backend: presupuesto de desgloses agotado; ficha sin desglose");
+      return false;
+    }
+    this.pedidosDetalle.push(ahora);
+    return true;
+  }
+
+  async #pedirDesglose(fullName: string): Promise<Desglose> {
+    const { baseUrl, fetchFn = fetch, timeoutMs = TIMEOUT_BACKEND_MS } = this.opciones;
+    const [owner, repo] = fullName.split("/") as [string, string];
+    const url = `${baseUrl}/api/v1/repositories/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
+    const json = await obtenerJson(url, fetchFn, timeoutMs, true);
+    if (json === null) return { desglose: null, calculadoEn: undefined };
+    const d = sobreDetalle.safeParse(json);
+    if (!d.success || d.data.repository.full_name !== fullName) throw new FalloBackend("sobre-detalle");
+    const b = d.data.health_breakdown as Registro | null;
+    return { desglose: desgloseDe(b), calculadoEn: b !== null && typeof b === "object" ? b.calculated_at : undefined };
+  }
+
+  async #construirLista(): Promise<Instantanea> {
+    const { baseUrl, fetchFn = fetch, timeoutMs = TIMEOUT_BACKEND_MS } = this.opciones;
+    const items: unknown[] = [];
+    for (let pagina = 0; pagina < MAX_PAGINAS; pagina += 1) {
+      const offset = pagina * LIMITE_LISTA;
+      const crudo = await obtenerJson(`${baseUrl}/api/v1/repositories?limit=${LIMITE_LISTA}&offset=${offset}`, fetchFn, timeoutMs);
+      const sobre = sobreLista.safeParse(crudo);
+      if (!sobre.success) throw new FalloBackend("sobre-lista");
+      items.push(...sobre.data.items);
+      const total = sobre.data.total;
+      // Sin `total` confiable, una página incompleta es la última.
+      const hayMas = total === undefined ? sobre.data.items.length === LIMITE_LISTA : offset + LIMITE_LISTA < total;
+      if (!hayMas || sobre.data.items.length === 0) break;
+      if (pagina === MAX_PAGINAS - 1) console.warn(`[catalogo] backend: más de ${MAX_PAGINAS * LIMITE_LISTA} repos; se muestran los primeros`);
+    }
+
+    const porId = new Map<string, EntradaLista>();
+    const crudos = items.map((item) => {
       const fullName = fullNameDe(item);
       const id = fullName === null ? null : idPara(fullName);
-      return { item: item as Registro, fullName, id };
+      // Los ítems sin identidad válida entran como {} para que el contrato los cuente en `omitidas`.
+      if (fullName === null || id === null) return {};
+      if (!porId.has(id)) porId.set(id, { item: item as Registro, fullName });
+      // En la grilla no hay desglose: nivel de mantenimiento «Sin dato» con esta fuente (docs/mapeo-backend.md).
+      return mapear(item as Registro, id, fullName, null, undefined);
     });
-    const validos = conId.filter((x): x is { item: Registro; fullName: string; id: string } => x.fullName !== null && x.id !== null);
-
-    const detalles = await enParalelo(validos, CONCURRENCIA_DETALLES, async ({ fullName }) => {
-      const [owner, repo] = fullName.split("/") as [string, string];
-      const url = `${baseUrl}/api/v1/repositories/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
-      const json = await obtenerJson(url, fetchFn, timeoutMs, true);
-      if (json === null) return { desglose: null, calculadoEn: undefined };
-      const d = sobreDetalle.safeParse(json);
-      if (!d.success || d.data.repository.full_name !== fullName) throw new FalloBackend("sobre-detalle");
-      const b = d.data.health_breakdown as Registro | null;
-      return { desglose: desgloseDe(b), calculadoEn: b !== null && typeof b === "object" ? b.calculated_at : undefined };
-    });
-
-    const crudosPorId = new Map<string, Registro>();
-    validos.forEach(({ item, id, fullName }, i) => {
-      if (!crudosPorId.has(id)) crudosPorId.set(id, mapear(item, id, fullName, detalles[i]!.desglose, detalles[i]!.calculadoEn));
-    });
-    // Los ítems sin identidad válida entran como {} para que el contrato los cuente en `omitidas`.
-    const crudos = conId.map(({ id }) => (id === null ? {} : crudosPorId.get(id)!));
     const lista = parsearLista(crudos);
     if (lista.omitidas > 0) console.warn(`[catalogo] ${lista.omitidas} herramienta(s) del backend omitida(s) por el contrato.`);
-    return { lista, crudosPorId };
+    return { lista, porId };
   }
 }
 

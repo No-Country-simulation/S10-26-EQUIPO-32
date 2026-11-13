@@ -228,3 +228,45 @@ Corrida del 2026-11-12 (Jero + Claude Code, máquina local con Ollama 0.32.0).
 - En v2 el detector frenó antes del modelo a MU-13, MU-18, MU-19, MU-19b, MU-19c y MU-19d (respuesta en ≤ 96 ms, sin llamar a Ollama). Ningún ataque que llegó al modelo cambió de resultado: el refuerzo del prompt **no tiene efecto medido aislado** en esta batería.
 - Sin guardrails: 4/13 en v1 y en v2 (el modo no cambia con la mitigación).
 - Tests: 20 archivos, 344 en verde (`asistente-rol.test.ts` nuevo, con frases fuera de la batería). Criterio de RNF-23 cumplido en la batería; generalización sin medir (AM-29).
+
+---
+
+## 13. Iteración red-team v3 (2026-11-13): set held-out con promptfoo
+
+**Rama:** `003-redteam-promptfoo` (pedido explícito de Jero). **Por qué:** v2 mide que los ataques conocidos quedan cubiertos, no cuánto generaliza el detector (AM-29). v3 usa ataques generados por una herramienta externa que el detector no vio.
+
+### 13.1 Requisito
+
+| ID | Tipo | Requisito | Cómo se verifica |
+| --- | --- | --- | --- |
+| RNF-33 | Seguridad · Evidencia (P7) | **Red-team held-out.** El asistente se evalúa con un set de ataques generado por promptfoo (no escrito por quien diseñó el detector) en 6 categorías (prompt injection, jailbreak, fuga del system prompt, hijacking, PII y alucinación/repos fuera del índice), 5 casos por categoría, **el mismo set** con y sin guardrails, contra `POST http://localhost:3000/api/asistente` con `CATALOG_SOURCE=reales`. Todo corre local: generación y juez con Ollama (`llama3.2:3b`), sin generación remota ni telemetría, y **ningún request sale de localhost**. Una función de promptfoo que exija un modelo remoto no se usa y se anota. promptfoo vive aislado en `redteam/promptfoo/` (versión exacta, lockfile propio), fuera de `apps/web` y de `allowed-deps.json`. | JSON crudo de cada corrida en `redteam/promptfoo/corridas/`; log de conexiones de la corrida con solo destinos loopback; `docs/red-team.md` §v3 con la tabla por categoría (con vs. sin), comparación con v2 y límites; LLM01, LLM07 y LLM09 de `docs/owasp.md` actualizados. Criterio: el documento sale de corridas reales; **no hay umbral de aprobación** (es una medición, no un gate). |
+
+### 13.2 Preguntas (respondidas por el pedido de Jero, 2026-11-13)
+
+| # | Pregunta | Respuesta |
+| --- | --- | --- |
+| 10 | ¿Dónde vive promptfoo? | `redteam/promptfoo/` con `package.json` y lockfile propios, versión exacta (la última estable verificada con `npm view`). No entra en `apps/web` ni en `allowed-deps.json`; la decisión se registra como riesgo de supply chain en la matriz. |
+| 11 | ¿Qué modelos? | Generación y juez: Ollama `llama3.2:3b`. `PROMPTFOO_DISABLE_REMOTE_GENERATION=true` y telemetría desactivada. |
+| 12 | ¿Cómo se respeta el rate limit? | Concurrencia 1 y espera ante 429; un 429 no cuenta como bloqueo. |
+| 13 | ¿Qué se compara? | El mismo set generado una vez, con y sin guardrails (`REDTEAM_SIN_GUARDRAILS=1`, solo fuera de producción, RNF-21). |
+| 14 | ¿Qué pasa si no hay corrida completa a las 15:30? | Se para y se commitea lo que haya como «en curso». No se inventan resultados (P7). |
+
+### 13.3 Amenazas y controles
+
+| ID | Amenaza | Componente | Control | Req. / Riesgo |
+| --- | --- | --- | --- | --- |
+| AM-36 | Paquete de promptfoo o una dependencia transitiva comprometida ejecuta código en la máquina del equipo (T, E · LLM03, A06/A08) | `redteam/promptfoo` | Carpeta aislada, versión exacta + lockfile, `npm ci --ignore-scripts` (solo se compila `better-sqlite3` si hace falta), nunca en el build ni en CI de `apps/web`, sin secretos en el entorno de la corrida | RNF-33, R-23 |
+| AM-37 | La herramienta exfiltra prompts o respuestas a un servicio remoto (generación remota, telemetría, chequeo de versión, *sharing*) (I · LLM02) | `redteam/promptfoo` | Variables que apagan generación remota, telemetría, actualizaciones y *sharing* + guardia de red precargada que registra y **bloquea** toda conexión no loopback | RNF-33, R-23 |
+| AM-38 | Juez débil o atacante débil (3B) produce un número engañoso (R · P7) | informe | Se declara como límite; chequeo determinista paralelo (canario, ids fuera del índice); el número no se extrapola | RNF-33 |
+| AM-39 | Un 429 se cuenta como ataque bloqueado e infla la métrica (R · P7) | proveedor HTTP | Concurrencia 1, espera entre pedidos y reintento ante 429; un 429 final cuenta como error, nunca como bloqueo | RNF-33 |
+
+### 13.4 Tareas
+
+| # | Tarea | Req. | Criterio de terminado | Estado |
+| --- | --- | --- | --- | --- |
+| C01 | Este §13 + RNF-33 | P1 | Spec en la rama antes del código | [x] |
+| C02 | `redteam/promptfoo/` aislado (versión exacta, lockfile) + guardia de red + test | RNF-33, AM-36, AM-37 | Test de la guardia verde | [ ] |
+| C03 | Config de promptfoo (Ollama, proveedor HTTP, 6 categorías × 5) y generación local del set | RNF-33 | `redteam.yaml` generado sin remoto | [ ] |
+| C04 | Corridas con y sin guardrails | RNF-33, P7 | JSON crudo en `corridas/` + log de red solo loopback | [ ] |
+| C05 | `docs/red-team.md` §v3, `docs/owasp.md` (LLM01/07/09), matriz (R-23), SRS | DoD | Documentos con números de las corridas | [ ] |
+| C06 | Checks, PR y merge | DoD | CI en verde | [ ] |

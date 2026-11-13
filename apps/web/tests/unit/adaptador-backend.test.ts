@@ -2,6 +2,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   AdaptadorBackend,
+  MAX_PAGINAS,
+  PRESUPUESTO_DETALLES_POR_MINUTO,
   idPara,
   nombrePara,
   nivelPorCommits,
@@ -60,7 +62,11 @@ function backendFalso({ items = [item()], detalles = {} as Record<string, unknow
   const fetchFn = vi.fn(async (url: string, init: RequestInit) => {
     llamadas.push({ url, init });
     const u = new URL(url);
-    if (u.pathname === "/api/v1/repositories") return lista ? lista(url, init) : json({ total: items.length, limit: 100, offset: 0, items });
+    if (u.pathname === "/api/v1/repositories") {
+      if (lista) return lista(url, init);
+      const offset = Number(u.searchParams.get("offset") ?? "0");
+      return json({ total: items.length, limit: 100, offset, items: items.slice(offset, offset + 100) });
+    }
     const slug = decodeURIComponent(u.pathname.replace("/api/v1/repositories/", ""));
     if (detalle) return detalle(url, init);
     const encontrado = (items as Array<{ full_name?: string }>).find((i) => i.full_name === slug);
@@ -88,7 +94,7 @@ ejecutarSuiteContratoAdaptador("backend (simulado)", () =>
 );
 
 describe("adaptador backend · respuesta válida", () => {
-  it("mapea al contrato: id del asistente, salud redondeada, nivel por commits, licencia y sin datos inventados", async () => {
+  it("mapea al contrato: id del asistente, salud redondeada, licencia y sin datos inventados (grilla sin nivel: RF-19)", async () => {
     const { herramientas, omitidas } = await crear(backendFalso().fetchFn).listarHerramientas();
     expect(omitidas).toBe(0);
     expect(herramientas[0]).toMatchObject({
@@ -101,13 +107,14 @@ describe("adaptador backend · respuesta válida", () => {
       licencia: "Apache-2.0",
       lenguaje: "Java",
       healthScore: 79,
-      nivelMantenimiento: "activo",
+      nivelMantenimiento: null, // sin desglose en la grilla: «Sin dato» con esta fuente
       ultimaActualizacion: null,
       mantenedorActivo: null,
     });
   });
-  it("la ficha trae el desglose de los 5 componentes y la fecha de cálculo", async () => {
+  it("la ficha trae el desglose de los 5 componentes, el nivel por commits y la fecha de cálculo", async () => {
     const h = await crear(backendFalso().fetchFn).obtenerHerramienta("keycloak");
+    expect(h?.nivelMantenimiento).toBe("activo");
     expect(h?.desgloseSalud).toEqual({ commits: 25, issues: 3, licencia: 20, comunidad: 20, documentacion: 10.5, penalizacionArchivado: false });
     expect(h?.metricasTomadasEn).toBe("2026-11-13T15:20:01.5+00:00");
     expect(h?.ideas).toEqual([]);
@@ -165,7 +172,7 @@ describe("adaptador backend · respuesta malformada (MU-23) → falla cerrado", 
   it("detalle con otro full_name que el pedido → ErrorCatalogo", async () => {
     silenciar();
     const { fetchFn } = backendFalso({ detalle: () => json({ repository: item({ full_name: "evil/evil" }), health_breakdown: breakdown() }) });
-    await expect(crear(fetchFn).listarHerramientas()).rejects.toBeInstanceOf(ErrorCatalogo);
+    await expect(crear(fetchFn).obtenerHerramienta("keycloak")).rejects.toBeInstanceOf(ErrorCatalogo);
   });
   it("un ítem con identidad inválida se omite y se cuenta; los demás siguen", async () => {
     silenciar();
@@ -263,21 +270,21 @@ describe("adaptador backend · caché de 60 s (R-21, AM-35)", () => {
         item({ full_name: "prisma/orm", name: "orm", html_url: "https://github.com/prisma/orm", category: "base-de-datos" }),
       ],
     });
-  it("dos cargas seguidas (grilla + ficha, dos veces) → una sola tanda: 1 lista + 1 detalle por repo", async () => {
+  it("dos cargas seguidas (grilla + ficha, dos veces) → 1 lista + 1 desglose (el de la ficha abierta)", async () => {
     const { fetchFn, llamadas } = tres();
     const a = crear(fetchFn, { ahora: () => 0 });
     for (let carga = 0; carga < 2; carga += 1) {
       await a.listarHerramientas();
       await a.obtenerHerramienta("prisma");
     }
-    expect(fetchFn).toHaveBeenCalledTimes(4);
+    expect(fetchFn).toHaveBeenCalledTimes(2);
     expect(llamadas.filter((l) => new URL(l.url).pathname === "/api/v1/repositories")).toHaveLength(1);
   });
   it("dos cargas concurrentes comparten la misma tanda", async () => {
     const { fetchFn } = tres();
     const a = crear(fetchFn, { ahora: () => 0 });
     await Promise.all([a.listarHerramientas(), a.listarHerramientas(), a.obtenerHerramienta("kratos")]);
-    expect(fetchFn).toHaveBeenCalledTimes(4);
+    expect(fetchFn).toHaveBeenCalledTimes(2); // 1 lista + 1 desglose
   });
   it("el fallo de una instantánea vencida no borra la vigente", async () => {
     silenciar();
@@ -297,12 +304,12 @@ describe("adaptador backend · caché de 60 s (R-21, AM-35)", () => {
     );
     const vieja = a.listarHerramientas(); // queda colgada
     t = 61_000;
-    await a.listarHerramientas(); // nueva instantánea: 1 lista + 1 detalle
+    await a.listarHerramientas(); // nueva instantánea: 1 lista, sin desgloses
     rechazarVieja(new TypeError("fetch failed"));
     await expect(vieja).rejects.toBeInstanceOf(ErrorCatalogo);
     t = 61_001;
     await a.listarHerramientas();
-    expect(fetchFn).toHaveBeenCalledTimes(2); // la vigente sigue en caché
+    expect(fetchFn).toHaveBeenCalledTimes(1); // la vigente sigue en caché
   });
 
   it("dentro de la ventana no vuelve a pedir; al vencer, sí", async () => {
@@ -311,10 +318,53 @@ describe("adaptador backend · caché de 60 s (R-21, AM-35)", () => {
     const a = crear(fetchFn, { ahora: () => t });
     await a.listarHerramientas();
     await a.obtenerHerramienta("keycloak");
-    expect(fetchFn).toHaveBeenCalledTimes(2); // lista + 1 detalle
+    expect(fetchFn).toHaveBeenCalledTimes(2); // lista + 1 desglose
     t = 61_000;
     await a.listarHerramientas();
-    expect(fetchFn).toHaveBeenCalledTimes(4);
+    expect(fetchFn).toHaveBeenCalledTimes(3); // solo la lista: la grilla no pide desgloses
+  });
+});
+
+describe("adaptador backend · 100+ repos sin pasar el rate limit (RF-19, RNF-28, R-21)", () => {
+  const muchos = (n: number) =>
+    Array.from({ length: n }, (_, i) =>
+      item({ full_name: `org${i}/repo${i}`, name: `repo${i}`, html_url: `https://github.com/org${i}/repo${i}` }),
+    );
+  it("la grilla con 108 repos hace 2 requests (2 páginas) y ningún desglose", async () => {
+    const { fetchFn, llamadas } = backendFalso({ items: muchos(108) });
+    const { herramientas, omitidas } = await crear(fetchFn, { ahora: () => 0 }).listarHerramientas();
+    expect(herramientas).toHaveLength(108);
+    expect(omitidas).toBe(0);
+    expect(llamadas.map((l) => new URL(l.url).search)).toEqual(["?limit=100&offset=0", "?limit=100&offset=100"]);
+    expect(herramientas.every((h) => h.nivelMantenimiento === null && h.healthScore === 79)).toBe(true);
+  });
+  it("abrir una ficha suma 1 request; reabrirla dentro de los 60 s no suma", async () => {
+    const { fetchFn } = backendFalso({ items: muchos(108) });
+    const a = crear(fetchFn, { ahora: () => 0 });
+    await a.listarHerramientas();
+    const h = await a.obtenerHerramienta("org104--repo104");
+    await a.obtenerHerramienta("org104--repo104");
+    expect(h?.desgloseSalud?.commits).toBe(25);
+    expect(fetchFn).toHaveBeenCalledTimes(3);
+  });
+  it("con el presupuesto de desgloses agotado la ficha se sirve sin desglose, sin pasar 60 requests por minuto", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const { fetchFn } = backendFalso({ items: muchos(108) });
+    const a = crear(fetchFn, { ahora: () => 0 });
+    await a.listarHerramientas();
+    const fichas = [];
+    for (let i = 0; i < 108; i += 1) fichas.push(await a.obtenerHerramienta(`org${i}--repo${i}`));
+    expect(fetchFn.mock.calls.length).toBeLessThan(60);
+    expect(fetchFn).toHaveBeenCalledTimes(2 + PRESUPUESTO_DETALLES_POR_MINUTO);
+    expect(fichas.every((f) => f !== null)).toBe(true);
+    expect(fichas.at(-1)?.desgloseSalud).toBeNull();
+  });
+  it("como mucho MAX_PAGINAS páginas aunque el backend anuncie más", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const pagina = json({ total: 10_000, limit: 100, offset: 0, items: muchos(100) });
+    const { fetchFn } = backendFalso({ lista: () => pagina.clone() });
+    await crear(fetchFn).listarHerramientas().catch(() => {});
+    expect(fetchFn).toHaveBeenCalledTimes(MAX_PAGINAS);
   });
 });
 
@@ -342,7 +392,7 @@ describe("BACKEND_URL (solo servidor, sin valor por defecto)", () => {
   it("idPara: ids del asistente y fallback owner--repo", () => {
     expect(idPara("prisma/orm")).toBe("prisma");
     expect(idPara("ggml-org/llama.cpp")).toBe("llama-cpp");
-    expect(idPara("PostHog/posthog")).toBe("posthog");
+    expect(idPara("ClickHouse/ClickHouse")).toBe("clickhouse"); // feature 005, sin distinguir mayúsculas
     expect(idPara("a/b")).toBe("a--b");
   });
 });

@@ -1,0 +1,12 @@
+{
+  "modo": "con",
+  "inicio": "2026-11-13T16:29:28.339Z",
+  "commit": "a8565cb",
+  "arbolLimpioAsistente": true,
+  "objetivo": "http://localhost:3000/api/asistente",
+  "catalogSource": "reales",
+  "redTeamSinGuardrails": false,
+  "fin": "2026-11-13T16:36:37.781Z",
+  "codigoSalida": 100,
+  "json": "2026-11-13T16-29-28-338Z-con.json"
+}

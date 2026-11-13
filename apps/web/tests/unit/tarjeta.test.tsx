@@ -9,6 +9,7 @@ import { TarjetaHerramienta } from "@/components/catalogo/TarjetaHerramienta";
 import { parsearLista, type HerramientaResumen } from "@/lib/catalogo/contrato";
 
 const base: HerramientaResumen = {
+  tiposIdea: [],
   id: "ejemplo",
   nombre: "Ejemplo",
   descripcion: "Una descripción.",
@@ -28,6 +29,7 @@ const base: HerramientaResumen = {
 
 const html = (h: Partial<HerramientaResumen> = {}) => renderToStaticMarkup(<TarjetaHerramienta herramienta={{ ...base, ...h }} />);
 const cuenta = (texto: string, parte: string) => texto.split(parte).length - 1;
+const SVG_PROPIO = /<svg data-ob-svg=""[^>]*>[\s\S]*?<\/svg>/g;
 
 describe("TarjetaHerramienta · muestra todos los campos", () => {
   it("nombre, id en monoespaciada, descripción, categorías, lenguaje, licencia, stars, mantenimiento y salud", () => {
@@ -65,7 +67,11 @@ describe("TarjetaHerramienta · el texto externo nunca se inserta como HTML (AM-
   ];
 
   it.each(ataques)("%s sale escapado en nombre, descripción, licencia y lenguaje", (ataque) => {
-    const salida = html({ nombre: ataque, descripcion: ataque, licencia: ataque, lenguaje: ataque });
+    const completa = html({ nombre: ataque, descripcion: ataque, licencia: ataque, lenguaje: ataque });
+    // Los únicos SVG permitidos son los propios y fijos (data-ob-svg, ui-brief §12.3): sin texto, manejadores ni enlaces.
+    const propios = completa.match(SVG_PROPIO) ?? [];
+    for (const svg of propios) expect(svg).not.toMatch(/\son\w+=|href=|<(text|script|foreignObject)\b|&lt;/i);
+    const salida = completa.replace(SVG_PROPIO, "");
     expect(salida).not.toMatch(/<(script|img|svg|iframe)\b/i);
     expect(salida).toContain("&lt;");
     // «onerror=» puede verse como texto escapado, pero nunca como atributo de una etiqueta real
@@ -84,8 +90,8 @@ describe("TarjetaHerramienta · el texto externo nunca se inserta como HTML (AM-
 
   it("el texto sin cortes lleva las clases que lo contienen", () => {
     const salida = html({ nombre: "N".repeat(100), descripcion: "D".repeat(300) });
-    expect(salida).toContain("line-clamp-2");
-    expect(salida).toContain("line-clamp-3");
+    expect(salida).toContain("line-clamp-2"); // nombre
+    expect(salida).toContain("line-clamp-1"); // descripción en una línea (UI v2, más estricto que 3)
     expect(salida).toContain("[overflow-wrap:anywhere]");
   });
 });
@@ -118,7 +124,7 @@ describe("NavCategorias", () => {
     }
     expect(cuenta(salida, 'aria-pressed="true"')).toBe(1);
     expect(cuenta(salida, 'aria-pressed="false"')).toBe(6);
-    expect(salida).toMatch(/aria-pressed="true"[^>]*>Pagos</);
+    expect(salida).toMatch(/aria-pressed="true"[^>]*>(?:<svg data-ob-svg=""[\s\S]*?<\/svg>)?Pagos</); // ícono propio opcional (§12)
   });
 
   it("sin categoría activa, «Todas» está activa", () => {

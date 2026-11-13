@@ -1,0 +1,917 @@
+{
+  "version": 1,
+  "actualizado": "2026-11-13",
+  "criterio": "Repos reales de GitHub elegidos a mano para el catálogo (feature 005, RF-16). Cada uno cumple, verificado contra la API de GitHub al ingerir: (1) no archivado y no fork; (2) activo: último push hace 180 días o menos; (3) licencia aprobada por la OSI según el SPDX que informa GitHub. NOASSERTION o sin licencia queda afuera, igual que los repos open-core con partes bajo licencia no OSI (ee/, enterprise/). Única excepción: el campo `licencia` de la semilla, solo para un repo con un único LICENSE aprobado por la OSI que GitHub no detecta, verificado a mano y explicado en `notaLicencia`; (4) útil para integrar en un producto (SDK, servicio autohospedable o API), no listas ni tutoriales. La primera categoría es la principal (reparto por categoría); las demás son secundarias. id y nombre son curados: el id es estable porque lo citan los enlaces del asistente. Un repo que deja de cumplir se saca de esta lista; la ingesta nunca lo completa con sintéticos.",
+  "repos": [
+    {
+      "repo": "keycloak/keycloak",
+      "id": "keycloak",
+      "nombre": "Keycloak",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "nextauthjs/next-auth",
+      "id": "next-auth",
+      "nombre": "Auth.js (NextAuth)",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "ory/kratos",
+      "id": "kratos",
+      "nombre": "Ory Kratos",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "authelia/authelia",
+      "id": "authelia",
+      "nombre": "Authelia",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "supabase/supabase",
+      "id": "supabase",
+      "nombre": "Supabase",
+      "categorias": [
+        "base-de-datos",
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "pgvector/pgvector",
+      "id": "pgvector",
+      "nombre": "pgvector",
+      "categorias": [
+        "base-de-datos",
+        "ia",
+        "busqueda"
+      ],
+      "licencia": "PostgreSQL",
+      "notaLicencia": "GitHub no detecta la licencia (NOASSERTION); el LICENSE es la PostgreSQL License, aprobada por la OSI. Verificado a mano el 2026-11-13."
+    },
+    {
+      "repo": "prisma/orm",
+      "id": "prisma",
+      "nombre": "Prisma ORM",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "valkey-io/valkey",
+      "id": "valkey",
+      "nombre": "Valkey",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "duckdb/duckdb",
+      "id": "duckdb",
+      "nombre": "DuckDB",
+      "categorias": [
+        "base-de-datos",
+        "analitica"
+      ]
+    },
+    {
+      "repo": "juspay/hyperswitch",
+      "id": "hyperswitch",
+      "nombre": "Hyperswitch",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "killbill/killbill",
+      "id": "killbill",
+      "nombre": "Kill Bill",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "getlago/lago",
+      "id": "lago",
+      "nombre": "Lago",
+      "categorias": [
+        "pagos",
+        "analitica"
+      ]
+    },
+    {
+      "repo": "stripe/stripe-node",
+      "id": "stripe-node",
+      "nombre": "Stripe Node.js",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "ollama/ollama",
+      "id": "ollama",
+      "nombre": "Ollama",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "langchain-ai/langchain",
+      "id": "langchain",
+      "nombre": "LangChain",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "huggingface/transformers",
+      "id": "transformers",
+      "nombre": "Transformers",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "run-llama/llama_index",
+      "id": "llama-index",
+      "nombre": "LlamaIndex",
+      "categorias": [
+        "ia",
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "ggml-org/llama.cpp",
+      "id": "llama-cpp",
+      "nombre": "llama.cpp",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "plausible/analytics",
+      "id": "plausible",
+      "nombre": "Plausible Analytics",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "matomo-org/matomo",
+      "id": "matomo",
+      "nombre": "Matomo",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "umami-software/umami",
+      "id": "umami",
+      "nombre": "Umami",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "typesense/typesense",
+      "id": "typesense",
+      "nombre": "Typesense",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "opensearch-project/OpenSearch",
+      "id": "opensearch",
+      "nombre": "OpenSearch",
+      "categorias": [
+        "busqueda",
+        "analitica"
+      ]
+    },
+    {
+      "repo": "qdrant/qdrant",
+      "id": "qdrant",
+      "nombre": "Qdrant",
+      "categorias": [
+        "busqueda",
+        "ia"
+      ]
+    },
+    {
+      "repo": "valeriansaliou/sonic",
+      "id": "sonic",
+      "nombre": "Sonic",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "logto-io/logto",
+      "id": "logto",
+      "nombre": "Logto",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "zitadel/zitadel",
+      "id": "zitadel",
+      "nombre": "ZITADEL",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "casdoor/casdoor",
+      "id": "casdoor",
+      "nombre": "Casdoor",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "ory/hydra",
+      "id": "hydra",
+      "nombre": "Ory Hydra",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "better-auth/better-auth",
+      "id": "better-auth",
+      "nombre": "Better Auth",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "dexidp/dex",
+      "id": "dex",
+      "nombre": "Dex",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "teamhanko/hanko",
+      "id": "hanko",
+      "nombre": "Hanko",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "oauth2-proxy/oauth2-proxy",
+      "id": "oauth2-proxy",
+      "nombre": "OAuth2 Proxy",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "pocket-id/pocket-id",
+      "id": "pocket-id",
+      "nombre": "Pocket ID",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "panva/jose",
+      "id": "jose",
+      "nombre": "jose",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "apache/casbin",
+      "id": "casbin",
+      "nombre": "Casbin",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "openfga/openfga",
+      "id": "openfga",
+      "nombre": "OpenFGA",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "authzed/spicedb",
+      "id": "spicedb",
+      "nombre": "SpiceDB",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "drizzle-team/drizzle-orm",
+      "id": "drizzle-orm",
+      "nombre": "Drizzle ORM",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "typeorm/typeorm",
+      "id": "typeorm",
+      "nombre": "TypeORM",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "sequelize/sequelize",
+      "id": "sequelize",
+      "nombre": "Sequelize",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "neondatabase/neon",
+      "id": "neon",
+      "nombre": "Neon",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "tursodatabase/libsql",
+      "id": "libsql",
+      "nombre": "libSQL",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "apache/cassandra",
+      "id": "cassandra",
+      "nombre": "Apache Cassandra",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "ClickHouse/ClickHouse",
+      "id": "clickhouse",
+      "nombre": "ClickHouse",
+      "categorias": [
+        "base-de-datos",
+        "analitica"
+      ]
+    },
+    {
+      "repo": "etcd-io/etcd",
+      "id": "etcd",
+      "nombre": "etcd",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "vitessio/vitess",
+      "id": "vitess",
+      "nombre": "Vitess",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "questdb/questdb",
+      "id": "questdb",
+      "nombre": "QuestDB",
+      "categorias": [
+        "base-de-datos",
+        "analitica"
+      ]
+    },
+    {
+      "repo": "PostgREST/postgrest",
+      "id": "postgrest",
+      "nombre": "PostgREST",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "kysely-org/kysely",
+      "id": "kysely",
+      "nombre": "Kysely",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "microsoft/garnet",
+      "id": "garnet",
+      "nombre": "Garnet",
+      "categorias": [
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "btcpayserver/btcpayserver",
+      "id": "btcpayserver",
+      "nombre": "BTCPay Server",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "saleor/saleor",
+      "id": "saleor",
+      "nombre": "Saleor",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "spree/spree",
+      "id": "spree",
+      "nombre": "Spree Commerce",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "openmeterio/openmeter",
+      "id": "openmeter",
+      "nombre": "OpenMeter",
+      "categorias": [
+        "pagos",
+        "analitica"
+      ]
+    },
+    {
+      "repo": "stripe/stripe-python",
+      "id": "stripe-python",
+      "nombre": "Stripe Python",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "stripe/stripe-go",
+      "id": "stripe-go",
+      "nombre": "Stripe Go",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "mollie/mollie-api-php",
+      "id": "mollie-api-php",
+      "nombre": "Mollie API PHP",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "Adyen/adyen-node-api-library",
+      "id": "adyen-node",
+      "nombre": "Adyen Node.js",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "thephpleague/omnipay",
+      "id": "omnipay",
+      "nombre": "Omnipay",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "lightningnetwork/lnd",
+      "id": "lnd",
+      "nombre": "LND (Lightning Network Daemon)",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "activemerchant/active_merchant",
+      "id": "active-merchant",
+      "nombre": "Active Merchant",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "Sylius/Sylius",
+      "id": "sylius",
+      "nombre": "Sylius",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "bagisto/bagisto",
+      "id": "bagisto",
+      "nombre": "Bagisto",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "vllm-project/vllm",
+      "id": "vllm",
+      "nombre": "vLLM",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "huggingface/diffusers",
+      "id": "diffusers",
+      "nombre": "Diffusers",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "keras-team/keras",
+      "id": "keras",
+      "nombre": "Keras",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "crewAIInc/crewAI",
+      "id": "crewai",
+      "nombre": "CrewAI",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "deepset-ai/haystack",
+      "id": "haystack",
+      "nombre": "Haystack",
+      "categorias": [
+        "ia",
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "mlflow/mlflow",
+      "id": "mlflow",
+      "nombre": "MLflow",
+      "categorias": [
+        "ia",
+        "analitica"
+      ]
+    },
+    {
+      "repo": "ray-project/ray",
+      "id": "ray",
+      "nombre": "Ray",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "ggml-org/whisper.cpp",
+      "id": "whisper-cpp",
+      "nombre": "whisper.cpp",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "unslothai/unsloth",
+      "id": "unsloth",
+      "nombre": "Unsloth",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "langchain-ai/langgraph",
+      "id": "langgraph",
+      "nombre": "LangGraph",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "microsoft/semantic-kernel",
+      "id": "semantic-kernel",
+      "nombre": "Semantic Kernel",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "mudler/LocalAI",
+      "id": "localai",
+      "nombre": "LocalAI",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "pydantic/pydantic-ai",
+      "id": "pydantic-ai",
+      "nombre": "Pydantic AI",
+      "categorias": [
+        "ia"
+      ]
+    },
+    {
+      "repo": "grafana/grafana",
+      "id": "grafana",
+      "nombre": "Grafana",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "apache/superset",
+      "id": "superset",
+      "nombre": "Apache Superset",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "getredash/redash",
+      "id": "redash",
+      "nombre": "Redash",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "jitsucom/jitsu",
+      "id": "jitsu",
+      "nombre": "Jitsu",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "apache/druid",
+      "id": "druid",
+      "nombre": "Apache Druid",
+      "categorias": [
+        "analitica",
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "apache/pinot",
+      "id": "pinot",
+      "nombre": "Apache Pinot",
+      "categorias": [
+        "analitica",
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "evidence-dev/evidence",
+      "id": "evidence",
+      "nombre": "Evidence",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "prometheus/prometheus",
+      "id": "prometheus",
+      "nombre": "Prometheus",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "open-telemetry/opentelemetry-collector",
+      "id": "opentelemetry-collector",
+      "nombre": "OpenTelemetry Collector",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "dbt-labs/dbt",
+      "id": "dbt",
+      "nombre": "dbt",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "Openpanel-dev/openpanel",
+      "id": "openpanel",
+      "nombre": "OpenPanel",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "aptabase/aptabase",
+      "id": "aptabase",
+      "nombre": "Aptabase",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "vectordotdev/vector",
+      "id": "vector",
+      "nombre": "Vector",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "apache/solr",
+      "id": "solr",
+      "nombre": "Apache Solr",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "apache/lucene",
+      "id": "lucene",
+      "nombre": "Apache Lucene",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "quickwit-oss/quickwit",
+      "id": "quickwit",
+      "nombre": "Quickwit",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "quickwit-oss/tantivy",
+      "id": "tantivy",
+      "nombre": "Tantivy",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "milvus-io/milvus",
+      "id": "milvus",
+      "nombre": "Milvus",
+      "categorias": [
+        "busqueda",
+        "ia"
+      ]
+    },
+    {
+      "repo": "chroma-core/chroma",
+      "id": "chroma",
+      "nombre": "Chroma",
+      "categorias": [
+        "busqueda",
+        "ia"
+      ]
+    },
+    {
+      "repo": "manticoresoftware/manticoresearch",
+      "id": "manticoresearch",
+      "nombre": "Manticore Search",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "paradedb/paradedb",
+      "id": "paradedb",
+      "nombre": "ParadeDB",
+      "categorias": [
+        "busqueda",
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "vespa-engine/vespa",
+      "id": "vespa",
+      "nombre": "Vespa",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "lancedb/lancedb",
+      "id": "lancedb",
+      "nombre": "LanceDB",
+      "categorias": [
+        "busqueda",
+        "ia"
+      ]
+    },
+    {
+      "repo": "facebookresearch/faiss",
+      "id": "faiss",
+      "nombre": "Faiss",
+      "categorias": [
+        "busqueda",
+        "ia"
+      ]
+    },
+    {
+      "repo": "searxng/searxng",
+      "id": "searxng",
+      "nombre": "SearXNG",
+      "categorias": [
+        "busqueda"
+      ]
+    },
+    {
+      "repo": "neuml/txtai",
+      "id": "txtai",
+      "nombre": "txtai",
+      "categorias": [
+        "busqueda",
+        "ia"
+      ]
+    },
+    {
+      "repo": "kanidm/kanidm",
+      "id": "kanidm",
+      "nombre": "Kanidm",
+      "categorias": [
+        "autenticacion"
+      ]
+    },
+    {
+      "repo": "solidusio/solidus",
+      "id": "solidus",
+      "nombre": "Solidus",
+      "categorias": [
+        "pagos"
+      ]
+    },
+    {
+      "repo": "apache/airflow",
+      "id": "airflow",
+      "nombre": "Apache Airflow",
+      "categorias": [
+        "analitica"
+      ]
+    },
+    {
+      "repo": "trinodb/trino",
+      "id": "trino",
+      "nombre": "Trino",
+      "categorias": [
+        "analitica",
+        "base-de-datos"
+      ]
+    },
+    {
+      "repo": "Pagefind/pagefind",
+      "id": "pagefind",
+      "nombre": "Pagefind",
+      "categorias": [
+        "busqueda"
+      ]
+    }
+  ],
+  "excluidos": [
+    {
+      "repo": "PostHog/posthog",
+      "motivo": "open-core: el LICENSE incluye partes bajo licencia no OSI; GitHub informa NOASSERTION"
+    },
+    {
+      "repo": "medusajs/medusa",
+      "motivo": "open-core: el LICENSE incluye partes bajo licencia no OSI; GitHub informa NOASSERTION"
+    },
+    {
+      "repo": "meilisearch/meilisearch",
+      "motivo": "open-core: el LICENSE incluye partes bajo licencia no OSI; GitHub informa NOASSERTION"
+    },
+    {
+      "repo": "metabase/metabase",
+      "motivo": "open-core: el LICENSE incluye partes bajo licencia no OSI; GitHub informa NOASSERTION"
+    },
+    {
+      "repo": "supertokens/supertokens-core",
+      "motivo": "open-core: el LICENSE incluye partes bajo licencia no OSI; GitHub informa NOASSERTION"
+    }
+  ]
+}

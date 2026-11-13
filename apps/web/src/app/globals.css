@@ -28,6 +28,12 @@
     --color-card: var(--card);
     --color-foreground: var(--foreground);
     --color-background: var(--background);
+    --color-grafito: var(--grafito);
+    --color-secundario-hover: var(--secundario-hover);
+    --color-pie: var(--pie);
+    --color-pie-texto: var(--pie-texto);
+    --color-pie-suave: var(--pie-suave);
+    --color-pie-wordmark: var(--pie-wordmark);
     --color-salud-alta: var(--salud-alta);
     --color-salud-alta-fondo: var(--salud-alta-fondo);
     --color-salud-media: var(--salud-media);
@@ -74,6 +80,16 @@
     /* Error: #b42318 sobre #ffffff = 6.57:1 · sobre #fdecea = 5.75:1 */
     --destructive: #b42318;
 
+    /* UI v2 (ui-brief §11). Tile oscuro: #ffffff sobre #2b2b2b = 14.35:1 · hover de la acción secundaria */
+    --grafito: #2b2b2b;
+    --secundario-hover: #ebebeb;
+    /* Footer oscuro (superficie fija, no es un modo oscuro). #f5f5f5 sobre #0f0f0f = 17.6:1 ·
+       #a3a3a3 sobre #0f0f0f = 7.9:1 · wordmark decorativo #262626 (aria-hidden, sin requisito de contraste) */
+    --pie: #0f0f0f;
+    --pie-texto: #f5f5f5;
+    --pie-suave: #a3a3a3;
+    --pie-wordmark: #262626;
+
     /* Salud: color + texto + número (nunca solo color). */
     /* #1a7f37 sobre #ffffff = 5.08:1 · sobre #e8f5ec = 4.52:1 */
     --salud-alta: #1a7f37;
@@ -92,6 +108,8 @@
   }
   html {
     @apply font-sans antialiased;
+    /* La cabecera es sticky: los destinos de los enlaces de fragmento no quedan debajo de ella. */
+    scroll-padding-top: 7rem;
   }
   body {
     @apply bg-background text-foreground;
@@ -103,8 +121,9 @@
   .catalogo-contenedor {
     @apply mx-auto w-full max-w-[72rem] px-5 sm:px-8;
   }
+  /* Tailwind 4: outline-none fija --tw-outline-style: none y outline-2 lo hereda; sin outline-solid el foco no se pinta (2.4.7). */
   .catalogo-foco {
-    @apply outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring;
+    @apply outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-ring;
   }
   .catalogo-estado {
     @apply mx-auto flex w-full max-w-xl min-w-0 flex-col items-center rounded-3xl bg-secondary px-6 py-12 text-center sm:px-10;
@@ -118,4 +137,39 @@
   .catalogo-accion {
     @apply mt-8 min-h-11 max-w-full rounded-full px-6;
   }
+}
+
+/* UI v2.1 (ui-brief §12): animaciones solo con clases; todas se apagan con prefers-reduced-motion. */
+@keyframes ob-rotar {
+  0% { opacity: 0; transform: scale(0.8); }
+  4%, 30% { opacity: 1; transform: scale(1); }
+  34%, 100% { opacity: 0; transform: scale(0.8); }
+}
+.ob-rotar > * {
+  animation: ob-rotar 9s infinite both;
+}
+.ob-rotar > :nth-child(2) { animation-delay: 3s; }
+.ob-rotar > :nth-child(3) { animation-delay: 6s; }
+.ob-rotar > :only-child { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ob-rotar > * { animation: none; opacity: 0; }
+  .ob-rotar > :first-child { opacity: 1; }
+}
+
+/* Carrusel: sin barra de scroll visible (el desplazamiento sigue con trackpad, teclado y flechas). */
+.ob-carrusel { scrollbar-width: none; }
+.ob-carrusel::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .ob-escala, .ob-carrusel { transition: none !important; transform: none !important; scroll-behavior: auto; }
+}
+
+/* Transición de la grilla al cambiar de tab. */
+@keyframes ob-aparecer {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.ob-aparecer { animation: ob-aparecer 320ms ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .ob-aparecer { animation: none; }
 }

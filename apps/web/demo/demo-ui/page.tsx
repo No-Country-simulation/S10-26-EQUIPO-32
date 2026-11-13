@@ -21,6 +21,7 @@ import { t } from "@/i18n/es";
 const RLO = String.fromCodePoint(0x202e);
 const PDF = String.fromCodePoint(0x202c);
 const base: HerramientaResumen = {
+  tiposIdea: [],
   id: "ejemplo",
   nombre: "Ejemplo",
   descripcion: "Herramienta de ejemplo para revisar la presentación.",

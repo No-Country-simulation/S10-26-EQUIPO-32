@@ -3,7 +3,8 @@ import { expect, test } from "@playwright/test";
 // T21 (RF-02, AM-03, AM-16, MU-08). Datos de prueba: CATALOG_SOURCE=fixtures.
 test("la ficha se abre desde la tarjeta y se recarga en su propia dirección", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: "Brisa Registro" }).click();
+  // Acotado a la grilla: el carrusel y el asistente también enlazan herramientas por nombre (UI v2.1).
+  await page.locator("section[aria-label='Herramientas del catálogo']").getByRole("link", { name: "Brisa Registro" }).click();
   await expect(page).toHaveURL(/\/herramientas\/brisa-registro$/);
   await expect(page.getByRole("heading", { level: 1, name: "Brisa Registro" })).toBeVisible();
   await page.reload();

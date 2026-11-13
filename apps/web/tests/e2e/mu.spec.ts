@@ -28,12 +28,41 @@ function instalarGuarda(page: Page): string[] {
 function domInesperado(page: Page): Promise<string[]> {
   return page.evaluate(() => {
     const salida: string[] = [];
-    for (const el of document.querySelectorAll("main script, main img, main iframe, main object, main embed, main style, main link"))
-      salida.push(`<${el.localName}> dentro de main`);
+    for (const el of document.querySelectorAll("main script, main img, main iframe, main object, main embed, main style, main link")) {
+      // Excepciones estrictas: el logo propio (feature 005, RF-18) y, por next/image (feature 007, RNF-31), la captura
+      // de la herramienta o una foto del sitio. Todas decorativas o con alt, del propio origen y sin manejadores.
+      const sinManejadores = el instanceof HTMLImageElement && !el.getAttributeNames().some((n) => /^on/i.test(n));
+      const logo =
+        el instanceof HTMLImageElement &&
+        el.matches("img[data-ob-logo][alt=''][aria-hidden='true']") &&
+        new URL(el.src).origin === location.origin &&
+        /^\/logos\/[a-z0-9][a-z0-9._-]*\.(png|jpg)$/.test(new URL(el.src).pathname) &&
+        sinManejadores;
+      // La imagen que pide next/image: /_next/image?url=<ruta propia>; la ruta decodificada es la que se valida.
+      const rutaOptimizada = (img: HTMLImageElement) => {
+        const u = new URL(img.src);
+        return u.origin === location.origin && u.pathname === "/_next/image" ? u.searchParams.get("url") : null;
+      };
+      const optimizada =
+        el instanceof HTMLImageElement &&
+        sinManejadores &&
+        el.alt.trim() !== "" &&
+        !el.srcset.split(",").some((c) => c.trim() !== "" && new URL(c.trim().split(" ")[0] ?? "", location.href).origin !== location.origin);
+      const foto = optimizada && el.matches("img[data-ob-foto]") && /^\/imagenes\/[a-z0-9-]+\.jpg$/.test(rutaOptimizada(el) ?? "");
+      const captura = optimizada && el.matches("img[data-ob-captura]") && /^\/capturas\/[a-z0-9][a-z0-9._-]*\.(png|jpg|webp)$/.test(rutaOptimizada(el) ?? "");
+      if (!logo && !foto && !captura) salida.push(`<${el.localName}> dentro de main`);
+    }
     for (const el of document.querySelectorAll("main bdi *, main code *, main pre > :not(code)"))
       salida.push(`<${el.localName}> dentro de un texto externo`);
+    // Solo íconos lucide o SVG propios fijos (data-ob-svg, ui-brief §12.3), siempre decorativos.
     for (const svg of document.querySelectorAll("main svg"))
-      if (!svg.matches("svg.lucide[aria-hidden='true']")) salida.push("<svg> que no es un ícono propio");
+      if (!svg.matches("svg.lucide[aria-hidden='true'], svg[data-ob-svg][aria-hidden='true']")) salida.push("<svg> que no es un ícono propio");
+    // Y ningún SVG, propio o no, puede llevar manejadores, enlaces, scripts, foreignObject ni texto.
+    for (const el of document.querySelectorAll("main svg, main svg *")) {
+      for (const a of el.getAttributeNames())
+        if (/^on/i.test(a) || /(^|:)href$/i.test(a)) salida.push(`<${el.localName}> con atributo ${a}`);
+      if (/^(script|foreignobject|text|a|image|use)$/i.test(el.localName)) salida.push(`<${el.localName}> dentro de un SVG`);
+    }
     return salida;
   });
 }
@@ -46,13 +75,40 @@ async function verificarGuarda(page: Page, problemas: string[]) {
 test.describe("guarda común", () => {
   test("la guarda DETECTA un <img> y un <svg> inyectados donde solo debería haber texto", async ({ page }) => {
     await page.goto("/herramientas/mu-01-xss");
+    // Con las imágenes de next/image la hidratación termina más tarde: se espera para que no pise lo inyectado.
+    await page.waitForLoadState("networkidle");
     expect(await domInesperado(page)).toEqual([]);
     await page.evaluate(() => {
       document.querySelector("main bdi")?.append(document.createElement("img"), document.createElementNS("http://www.w3.org/2000/svg", "svg"));
+      // Un SVG que imita a los propios (data-ob-svg) pero trae un manejador también tiene que saltar.
+      const falso = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      falso.setAttribute("data-ob-svg", "");
+      falso.setAttribute("aria-hidden", "true");
+      falso.setAttribute("onload", "alert(1)");
+      document.querySelector("main")?.append(falso);
+      // Un <img> que imita al logo propio pero apunta a otro host también tiene que saltar (RNF-26).
+      const logoFalso = document.createElement("img");
+      for (const [k, v] of [["data-ob-logo", ""], ["alt", ""], ["aria-hidden", "true"], ["src", "https://evil.test/logos/keycloak.png"]] as const) logoFalso.setAttribute(k, v);
+      document.querySelector("main")?.append(logoFalso);
+    });
+    // Fotos y capturas falsas (feature 007): host ajeno, ruta fuera de /imagenes y /capturas, sin alt o con manejador.
+    await page.evaluate(() => {
+      const falsa = (atributos: Array<[string, string]>) => {
+        const img = document.createElement("img");
+        for (const [k, v] of atributos) img.setAttribute(k, v);
+        document.querySelector("main")?.append(img);
+      };
+      falsa([["data-ob-foto", ""], ["alt", "x"], ["src", "https://evil.test/_next/image?url=%2Fimagenes%2Fa.jpg"]]);
+      falsa([["data-ob-foto", ""], ["alt", "x"], ["src", "/_next/image?url=https%3A%2F%2Fevil.test%2Fa.jpg&w=640&q=75"]]);
+      falsa([["data-ob-captura", ""], ["alt", ""], ["src", "/_next/image?url=%2Fcapturas%2Fa.png&w=640&q=75"]]);
+      falsa([["data-ob-captura", ""], ["alt", "x"], ["onerror", "alert(1)"], ["src", "/_next/image?url=%2Fcapturas%2Fa.png&w=640&q=75"]]);
+      falsa([["data-ob-captura", ""], ["alt", "x"], ["src", "/_next/image?url=%2Fcapturas%2Fa.svg&w=640&q=75"]]);
     });
     const hallazgos = await domInesperado(page);
     expect(hallazgos.join()).toContain("<img>");
     expect(hallazgos.join()).toContain("<svg>");
+    expect(hallazgos.join()).toContain("atributo onload");
+    expect(hallazgos.filter((h) => h === "<img> dentro de main")).toHaveLength(7); // 2 anteriores + 5 falsas de la feature 007
   });
 
   test("la guarda DETECTA una conexión a otro host (la CSP la bloquea y queda registrada) y un dialog", async ({ page }) => {
@@ -71,8 +127,10 @@ test.describe("guarda común", () => {
 test("catálogo con los 6 casos cargados: la grilla muestra todo como texto (MU-01, MU-03)", async ({ page }) => {
   const problemas = instalarGuarda(page);
   await page.goto("/");
-  await expect(page.getByRole("link", { name: "<img src=x onerror=alert(1)>" })).toBeVisible(); // MU-01 literal
-  await expect(page.getByRole("link", { name: "Herramientaotsum seguro" })).toBeVisible(); // MU-03 sin bidi ni ancho cero
+  // Acotado a la grilla (el carrusel puede repetir el enlace); la guarda de abajo sigue revisando todo `main`.
+  const grilla = page.locator("section[aria-label='Herramientas del catálogo']");
+  await expect(grilla.getByRole("link", { name: "<img src=x onerror=alert(1)>" })).toBeVisible(); // MU-01 literal
+  await expect(grilla.getByRole("link", { name: "Herramientaotsum seguro" })).toBeVisible(); // MU-03 sin bidi ni ancho cero
   await verificarGuarda(page, problemas);
 });
 

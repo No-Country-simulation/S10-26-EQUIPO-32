@@ -133,7 +133,7 @@ Campos `null` → «Sin dato»; `licencia === null` → «Sin licencia declarada
 ## 9. Cómo se entrega
 
 - Rama `ui/astra-v1` (o zip), **una tanda por PR** (ver tabla de tandas en §8), con **solo**: `src/components/catalogo/*.tsx`, ajustes de tokens en `src/app/globals.css`, la fuente con `next/font` y las claves nuevas para `src/i18n/es.ts`.
-- Página de demostración como archivo aparte en `demo/demo-ui/page.tsx`, **fuera de `src/app`**. El autor de UI no modifica configuración ni crea una ruta de producción; TI1 decide cómo montarla solo en desarrollo y verifica que `/demo-ui` no exista en producción. Estar fuera de `src/app` evita registrar una ruta, pero no garantiza exclusión de typecheck: no cambiar `tsconfig` para ocultar errores.
+- Página de demostración como archivo aparte en `demo/demo-ui/page.tsx`, **fuera de `src/app`**. El autor de UI no modifica configuración ni crea una ruta de producción; TI1 decide cómo montarla solo en desarrollo y verifica que `/demo-ui` no exista en producción. **2026-11-13 (R-24):** no se monta en `src/app`; el 404 en producción no alcanzaba porque el chunk cliente se publicaba igual. Lo verifica `tests/e2e/superficie-dev.spec.ts`. Estar fuera de `src/app` evita registrar una ruta, pero no garantiza exclusión de typecheck: no cambiar `tsconfig` para ocultar errores.
 - La demo abre con una **vista normal del producto**: cabecera y portada; desde UI-2, catálogo de ejemplo. En UI-1 el enlace principal lleva a una sección de demostración de un estado del catálogo; no se inventan tarjetas de tandas posteriores. Los casos de prueba se agrupan aparte en un `<details>` identificado, cerrado inicialmente, y nunca sustituyen la portada.
 - Datos inventados; incluir solo casos aplicables a la tanda. UI-1: estados con/sin acción, reintento opcional, texto largo, `<script>alert(1)</script>` como texto y caracteres bidi contenidos sin afectar vecinos. En UI-2/3 agregar licencia ausente, campos nulos, ideas no revisadas y ficha sin ideas. Los valores nulos solo se usan donde el tipo los permite; no forzar props inválidas con casts.
 - Entregar cada archivo completo con su ruta en un bloque separado, claves nuevas de `es.ts` aparte y checklist §10 confirmado con evidencia o explicado como pendiente.
@@ -157,3 +157,108 @@ Campos `null` → «Sin dato»; `licencia === null` → «Sin licencia declarada
 - [ ] Demo en `demo/demo-ui/page.tsx`, sin cambios de configuración; vista normal primero y casos extremos separados y cerrados inicialmente.
 - [ ] UI-1 incluye `PresentacionCatalogo`; ningún estado gigante ni texto técnico de pruebas reemplaza la portada del producto.
 - [ ] Evidencia responsive a 360, 768 y 1280 px; no declarar fidelidad móvil pixel perfect sin referencia móvil.
+
+## 11. UI v2 (2026-11-13)
+
+**Responsable:** Jerónimo Núñez · **Rama:** `feat/ui-v2` · **Alcance:** solo `apps/web/src/components`, las páginas de `src/app` (sin `src/app/api`), `globals.css`, el diccionario `src/i18n/es.ts` y las pruebas afectadas. No se tocan `src/lib`, `data/` ni `src/app/api`.
+
+Esta sección **amplía** §3 y §8; no cambia el contrato de datos ni ningún RF/RNF. Si algo de acá choca con `spec.md`, gana el spec (ver «Conciliación con el spec»).
+
+### 11.1 Referencia
+
+- Composición de la landing de Mobbin (captura del 2026-11-13): estructura, espaciado, escala tipográfica, radios, grises y jerarquía. **No** se copian al repo capturas, logo, textos, logos de clientes ni testimonios. Marca, textos e íconos son de OpenBridge.
+- La carpeta de capturas prevista (`~/Desktop/ref-mobbin`) no estaba disponible al empezar. La referencia directa es la captura de la portada (cabecera, hero y wordmark del footer). Las demás secciones siguen la descripción de esta lista.
+
+### 11.2 Secciones (en orden de página)
+
+1. **Cabecera sticky minimalista:** wordmark «OpenBridge» a la izquierda. Navegación con Catálogo, Asistente (el botón real que abre el panel de la feature 002) y Seguridad. «GitHub» a la derecha, como píldora negra. En 375 px pasa a dos filas, sin scroll horizontal.
+2. **Hero centrado:** titular grande en 3 líneas con *tiles* redondeados inline que muestran las **iniciales** de herramientas reales del catálogo (glifos propios, sin logos de terceros, `aria-hidden`). Subtítulo gris, un CTA principal negro (al catálogo) y uno secundario gris (a Seguridad).
+3. **Contenedor «app preview»:** superficie gris redondeada con el buscador al centro y un bloque blanco de 4 columnas: **Categorías** (las 6 + «Todas», es el `NavCategorias`), **Casos de uso** (los tipos de integración que documentan las fichas: API REST, Docker, SDK y Webhook, informativos), **Lenguajes** y **Licencias** (derivados del catálogo cargado; elegir uno aplica ese filtro). Solo datos que ya existen.
+4. **Tabs «Recientes / Mejor salud» y grilla:** las tabs (`role="tablist"`, flechas del teclado) ordenan la grilla por última actualización o por health score, con los `null` al final. Es solo un orden de presentación en memoria: no va a la URL ni al servidor. Cada tarjeta lleva un contenedor gris redondeado con las iniciales como *placeholder* (no hay imágenes: `img-src 'self'` y sin `<img>`), nombre, descripción en una línea e indicador de salud.
+5. **Sección «Asistente»:** título con ícono y una tarjeta con una consulta de ejemplo y una respuesta **estática**. Los repos citados son herramientas reales del catálogo cargado, con enlace a su ficha (P6: nunca se cita un repo que no está en la base). Lleva la leyenda «Ejemplo ilustrativo» (P7). **No llama a la API.**
+6. **Sección «Seguridad por diseño»:** 6 *tiles* (CSP con nonce, contrato zod, guardrails LLM, red-team, supply chain y NIST CSF). Cada uno enlaza a su documento en el repo.
+7. **Footer oscuro:** columnas Producto, Seguridad (SECURITY.md, Red-team, OWASP, NIST CSF) y Proyecto (Repo, Specs, Equipo), la leyenda «Simulación laboral No Country · 2026» y el wordmark «OpenBridge» gigante en gris oscuro, cortado abajo (decorativo, `aria-hidden`).
+
+### 11.3 Invariantes (no negociables)
+
+- CSP: ningún `<script>` ni `style` en línea nuevos. Todo el aspecto sale de clases de Tailwind y tokens de `globals.css`; ningún estilo depende de datos.
+- `react/jsx-no-literals`: todo texto propio va a `src/i18n/es.ts`.
+- Enlaces externos: solo hacia el repositorio del proyecto, armados desde **una constante** en `src/components/sitio/enlaces.ts` (nunca desde datos), con `target="_blank" rel="noopener noreferrer"`. Ningún enlace externo dentro de `main` en las fichas (MU-08).
+- SVG dentro de `main`: solo íconos `lucide` con `aria-hidden="true"` (la guarda de los e2e lo exige). Los *tiles* son texto, no SVG propios.
+- Contraste AA (texto ≥ 4.5:1; controles y foco ≥ 3:1), incluido el footer oscuro. Foco visible en todo control. HTML semántico con `h1`–`h3` en orden.
+- Responsive a 375, 768 y 1280 px sin scroll horizontal. Tema claro único (RNF-15); el footer oscuro es una superficie fija, no un modo oscuro.
+- Todos los tests en verde. Si cambian selectores, se actualizan los e2e **sin bajar ninguna aserción de seguridad**.
+
+### 11.4 Conciliación con el spec
+
+- **RF-01 (c), RNF-13 y MU-03:** la tarjeta v2 conserva en una línea de metadatos el `id` en monoespaciada, el lenguaje, la licencia (o «Sin licencia declarada»), las stars, el nivel de mantenimiento con texto y las categorías. La referencia pide menos campos, pero gana el spec.
+- **RF-03:** los filtros secundarios (`PanelFiltros`) siguen completos. Las columnas Lenguajes y Licencias son atajos a los mismos filtros.
+
+## 12. UI v2.1 (2026-11-13)
+
+**Rama:** `feat/ui-v2.1` · **Alcance:** igual que §11 (sin `src/app/api`, `src/lib` ni `data/`). **Objetivo:** que la portada se vea como Mobbin (colorida, visual, con pantallas y marcas) y no como una lista de texto. **Cierre:** 17:25. Lo que no llegue pasa a §12.5.
+
+### 12.1 Regla dura
+
+**Ninguna letra ni glifo de texto se usa como ícono.** Se eliminan las iniciales de los tiles (hero, tarjetas, ficha y asistente) y la estrella de texto de las stars.
+
+### 12.2 Bloques
+
+1. **`MarcaRepo`:** marca generativa en SVG, determinista por `id` (hash FNV-1a → forma geométrica + gradiente). Paleta de 8 colores fuertes: violeta, azul eléctrico, verde lima, naranja, rosa, cian, amarillo y rojo. Va en un tile redondeado como un ícono de app, en las tarjetas, la ficha, el hero (los tiles rotan entre repos con una animación CSS) y la respuesta del asistente. Solo usa el `id` (ASCII estricto del contrato), nunca el nombre ni otro texto externo.
+2. **Pantallas de preview:** cada tarjeta muestra un mini mockup con barra superior, bloques con la paleta del repo y líneas simuladas. Varía según la categoría: dashboard, terminal, formulario, gráfico, chat y grilla.
+3. **Íconos propios a color:** SVG para las 6 categorías y para los 6 controles de seguridad (escudo, candado, llave, radar, cadena y diana).
+4. **Carrusel «Joyful onboarding»:** tarjetas grandes con marca y pantalla, `scroll-snap` y botones anterior/siguiente operables con teclado.
+5. **Interacciones:** (a) tarjeta que se levanta con sombra suave y escala 1.02 en la pantalla; (b) tabs con subrayado animado y transición de la grilla; (c) cabecera que, al scrollear, muestra el CTA «Probar el asistente». Todo se apaga con `prefers-reduced-motion`.
+
+### 12.3 Invariantes
+
+- Cero `style={{}}` y ningún `<style>` ni script en línea: colores y animaciones salen de clases y de `globals.css`. Los gradientes del SVG usan atributos de presentación, no `style`.
+- Sin dependencias nuevas ni imágenes externas. `jsx-no-literals`. Foco visible.
+- **Contraste:** los colores fuertes son superficie decorativa. El texto sobre un color fuerte se verifica (≥ 4.5:1) o va sobre una superficie neutra.
+- **SVG propios y la guarda de los e2e:** todo SVG propio lleva `data-ob-svg` y `aria-hidden="true"`, y su contenido es fijo (formas y colores de una tabla; ningún texto de datos). La guarda acepta solo SVG lucide o `data-ob-svg`, y además exige que **ningún** SVG tenga atributos `on*`, `href`/`xlink:href`, `<script>`, `<foreignObject>` ni `<text>`. Esto la endurece en lugar de aflojarla. El test anti-XSS de la tarjeta quita únicamente esos SVG fijos antes de buscar etiquetas inyectadas.
+
+### 12.4 Conciliación
+
+RF-01 (c), RNF-13 y MU-03 siguen igual (§11.4). La marca generativa es decorativa y no reemplaza el nombre ni el `id`.
+
+### 12.5 Backlog
+
+Los 5 bloques de §12.2 se entregaron antes del cierre. Queda abierto:
+
+- **axe** sobre la portada v2.1 (sin dependencias nuevas no se corrió; el contraste es por construcción: ningún texto va sobre los colores fuertes de la paleta).
+- **Revisión visual de Jerónimo** (RNF-18 / T34) de marcas, pantallas y carrusel.
+- **Variedad de marcas:** 6 formas × 8 colores × 4 giros × 7 acentos. Dos repos pueden coincidir; si molesta, sumar formas.
+- **Carrusel:** sin indicador de posición (puntos) ni arrastre con mouse; se desplaza con trackpad, teclado (foco en las tarjetas) y flechas.
+
+## 13. Imágenes reales e interacciones (feature 007, 2026-11-13)
+
+**Rama:** `007-imagenes-interacciones` · **Spec:** `specs/007-imagenes-interacciones/spec.md` (RF-20..26, RNF-30..32, MU-29..32) · **Cierre:** 19:30. Lo que no llegue pasa a §13.5.
+
+### 13.1 Interacciones (prioridad 1)
+
+Nada decorativo que no funcione. «Probar el asistente» (portada, cabecera, sección del asistente) abre el panel y mueve el foco a él; «Explorar el catálogo» hace scroll a la grilla; el footer solo enlaza a documentos que existen en el repo. Las cards del carrusel y de la grilla abren la ficha. El carrusel suma puntos de posición y arrastre con mouse o touch. Las tabs reordenan la grilla. El asistente ofrece consultas de ejemplo que se envían y un estado de carga. Todo con teclado y con `prefers-reduced-motion` (scroll instantáneo, sin animaciones).
+
+### 13.2 Imágenes (prioridad 2)
+
+- **Capturas de producto** (RF-24): las trae `npm run ingesta` desde el README de cada repo, con los controles de RNF-30; van en `public/capturas/<id>.(png|jpg|webp)` con `fuentes.json` (origen y licencia). Se muestran dentro de la pantalla de preview de la tarjeta y la ficha. Sin captura válida, `PantallaPreview`.
+- **Fotos decorativas** (RF-25): en `public/imagenes/` con `fuentes.json` y crédito en el footer. Nunca como captura de una herramienta.
+- Todas con `next/image`, `alt` descriptivo, CSP sin cambios (`img-src 'self'`).
+
+### 13.3 Invariantes
+
+- La guarda de los e2e (§11.3) **no se afloja**: se agregan dos excepciones estrictas y verificadas (captura propia `/capturas/<id>`, foto propia `/imagenes/<archivo>`; ambas con `alt`, sin `on*`, origen propio). Un `<img>` que no cumpla sigue fallando y hay un test que lo demuestra.
+- Las rutas de `next/image` (`/_next/image?url=/capturas/...`) son del mismo origen.
+- Sin dependencias nuevas, sin `style`, `jsx-no-literals`.
+
+### 13.4 Conciliación
+
+§5.3 del brief prohibía imágenes externas; sigue vigente: ninguna imagen se pide a un host externo desde el navegador, todas se descargan en la ingesta y se sirven desde el sitio. El logo (feature 005) mantiene su `<img>` propio.
+
+### 13.5 Backlog
+
+Entregado: todo §13.1; capturas (5 de 108 con captura real) y 3 fotos. Queda abierto:
+
+- **Cobertura de capturas (5/108):** la mayoría de los READMEs usa imágenes en otros hosts (sitio propio, CDN) o sin pista de captura. Opciones: aceptar imágenes de `raw.githubusercontent.com` de la carpeta `docs/` de otros repos del mismo owner, o subir el límite de 600 KB con recompresión. Ninguna sin decisión del equipo (RNF-32).
+- **Prueba de la descarga con servidor simulado** (redirecciones, cuerpo enorme): hoy se prueban las funciones puras y las imágenes ya guardadas.
+- **Recorte de las capturas panorámicas** (`object-cover object-top`): revisión visual de Jerónimo (RNF-18).
+- **axe** y revisión visual siguen abiertos desde §12.5. Los puntos y el arrastre del carrusel de §12.5 quedaron resueltos.

@@ -35,10 +35,27 @@ OpenBridge centraliza un catálogo de ≥ 100 herramientas open-source con métr
 | RF-09 | Health score con fórmula documentada | M | Fórmula en README + tests | 003 |
 | RF-10 | Un admin puede dar de alta o baja un repo | C | Alta/baja visible en catálogo | — |
 | RF-11 | Panel del asistente desde la cabecera: campo de ≤ 500 caracteres, stack, justificación y repos citados enlazados a su ficha | M | Test del panel (`asistente-panel.test.tsx`) y E2E del botón | 002 |
-| RF-12 | Dataset real de 30 repos (5 por categoría principal, ideas sin revisar) validado con el contrato del catálogo | M | `repos-reales.test.ts` | 002 |
+| RF-12 | Dataset real de 30 repos (5 por categoría principal, ideas sin revisar; ampliado a ≥ 100 por RF-16) validado con el contrato del catálogo | M | `repos-reales.test.ts` | 002 |
 | RF-13 | Embeddings precalculados por script y búsqueda por similitud coseno en memoria | M | `npm run embeddings` + test del índice | 002 |
 | RF-14 | Set de red-team de 10 ataques y script que genera `docs/red-team.md` con y sin guardrails | M | Corrida real registrada en `docs/red-team.md` | 002 |
 | RF-15 | Con `CATALOG_SOURCE=backend`, la ficha muestra el desglose del health score en sus 5 componentes con sus máximos (25/20/20/20/15) y la penalización por archivado; todo o nada | M | `ficha.test.tsx` + e2e con backend | 001 (B9) |
+| RF-16 | Lista curada y versionada de ≥ 100 repos reales (`data/semilla-repos.json`), activos y con licencia OSI, repartidos en las 6 categorías, con el criterio de selección documentado | M | Test de la semilla (≥ 100, ≥ 15 por categoría, ids únicos) + criterio aplicado contra la API en la ingesta | 005 |
+| RF-17 | Ingesta sin intervención (apta para cron): metadatos reales de la API de GitHub, ideas nuevas del LLM local validadas por el contrato con `revisada: false`, regenera `repos-reales.json` y embeddings; código de error y log claro ante una falla | M | Corrida real registrada en `specs/005-catalogo-100/tasks.md` + tests de las funciones puras | 005 |
+| RF-18 | Logo oficial (avatar de la org u owner) en tarjetas, ficha, carrusel, asistente y portada, con la marca generativa como fallback | M | Test del componente con y sin logo | 005 |
+| RF-20 | Todo CTA hace algo real (asistente, catálogo, footer a docs existentes); cards del carrusel y la grilla abren la ficha | M | `interacciones.spec.ts` | 007 |
+| RF-21 | Las tabs Recientes y Mejor salud reordenan la grilla | M | `interacciones.spec.ts`, `orden.test.ts` | 007 |
+| RF-22 | Carrusel con puntos de posición y arrastre con mouse o touch | M | `interacciones.spec.ts` | 007 |
+| RF-23 | Consultas de ejemplo que se envían y estado de carga en el asistente | M | `interacciones.spec.ts` | 007 |
+| RF-24 | Captura real de producto desde el README (solo si hay una válida), con origen y licencia; si no, `PantallaPreview` | M | `capturas.test.tsx` + corrida real | 007 |
+| RF-25 | 3 a 5 fotos decorativas con crédito en el footer | S | `capturas.test.tsx`, `interacciones.spec.ts` | 007 |
+| RF-26 | Teclado y `prefers-reduced-motion` en todo lo anterior | M | `interacciones.spec.ts` | 007 |
+| RF-27 | Persistencia del backend en Postgres + pgvector con RLS (`DATABASE_URL`; sin ella, memoria) y base local por `docker-compose` | M | `test_postgres_client.py` + prueba de reinicio con 108 repos | 006 |
+| RF-28 | Ingesta programada semanal (`--solo-metadatos`) que abre un PR con el resultado | M | Corrida del workflow + modo idempotente | 006 |
+| RF-29 | Scheduler opcional del backend (`INGEST_SCHEDULE_HOURS`), apagado por defecto | S | `test_scheduler.py` | 006 |
+| RF-30 | La búsqueda mira también id, lenguaje, licencia y categorías, como texto literal (sin regex) | M | `filtros.test.ts`, `busqueda.spec.ts` | 008 |
+| RF-31 | Categorías, Lenguajes, Licencias y Casos de uso son filtros reales reflejados en la URL (segundo clic los quita); «Casos de uso» filtra por tipo de idea | M | `busqueda.spec.ts`, `estado-url.test.ts` | 008 |
+| RF-32 | Scroll a la grilla (respeta movimiento reducido), chips con «Limpiar todo» y conteo con `aria-live` | M | `busqueda.spec.ts` | 008 |
+| RF-19 | Con `CATALOG_SOURCE=backend` la grilla no pide desgloses (health score de la lista); el desglose se pide solo en la ficha | M | `adaptador-backend.test.ts` (requests por carga) | 005 |
 
 ## 4. Requisitos no funcionales
 
@@ -71,6 +88,17 @@ Clasificación: de producto, organizacionales y externos.
 | RNF-23 | Producto · Seguridad | Mitigar MU-19: jailbreak por rol/persona, ficción o hipótesis, en otro idioma u ofuscado → «sin contexto», sin bloquear consultas legítimas | M | Red-team v1 vs v2 (`docs/red-team.md`) + tests del detector | 002 |
 | RNF-24 | Producto · Seguridad | El backend es fuente no confiable: respuesta validada por el contrato; malformada, lenta (> 3 s), redirigida o caída → error genérico, sin datos inventados; runtime sin credenciales | M | `adaptador-backend.test.ts` + e2e con backend | 001 (B9) |
 | RNF-25 | Producto · Seguridad | Siembra del backend fuera del runtime: `ADMIN_API_KEY` solo por entorno, nunca en archivos ni logs; verifica que escribir sin credencial sea rechazado | M | Corrida real de `sembrar:backend` | 001 (B9) |
+| RNF-26 | Producto · Seguridad | Logos solo de `avatars.githubusercontent.com`, sin redirecciones, PNG o JPEG por magic bytes (nunca SVG), ≤ 200 KB, nombre derivado del id validado; CSP sin cambios | M | Tests de la validación del logo | 005 |
+| RNF-27 | Producto · Seguridad | Ideas generadas por el LLM: no confiables, validadas por el contrato, `revisada: false`, nunca ejecutadas ni renderizadas como HTML | M | Test de validación de ideas + `repos-reales.test.ts` | 005 |
+| RNF-28 | Producto · Disponibilidad | Con fuente backend el catálogo no supera 60 requests/min sin subir el límite del backend | M | Test del adaptador + R-21 | 005 |
+| RNF-29 | Producto · Seguridad | El asistente con ≥ 100 repos no regresiona en la batería del red-team v2 | M | `docs/red-team.md` | 005 |
+| RNF-34 | Producto · Seguridad | RLS sin debilitar: anon lee el catálogo y no escribe ni lee embeddings ni audit logs; el login del backend opera como `service_role` | M | `test_postgres_client.py` (RLS) | 006 |
+| RNF-35 | Producto · Seguridad | SQL parametrizado, `LIKE` escapado, `clear()` solo en pruebas, DSN fuera de logs | M | Test de inyección | 006 |
+| RNF-36 | Producto · Cadena de suministro | Workflow de ingesta con permisos mínimos, acciones por SHA y `GITHUB_TOKEN` propio | M | Revisión del YAML + Gitleaks | 006 |
+| RNF-30 | Producto · Seguridad | Capturas: 4 hosts de GitHub, https, redirecciones validadas por salto, PNG/JPEG/WebP por magic bytes, ≤ 600 KB, nombre del id | M | `capturas.test.tsx` | 007 |
+| RNF-31 | Producto · Seguridad | Imágenes por `next/image`, `alt` descriptivo, CSP `img-src 'self'` sin cambios | M | `headers.spec.ts`, guarda de `mu.spec.ts` | 007 |
+| RNF-32 | Producto | Una captura solo aparece en la card de su propia herramienta y no se repite entre repos | M | `capturas.test.tsx` | 007 |
+| RNF-33 | Producto · Seguridad | Red-team held-out con promptfoo: 6 categorías × 5 casos generados localmente (Ollama), mismo set con y sin guardrails, ningún request fuera de localhost; promptfoo aislado en `redteam/promptfoo/` (riesgo de supply chain: R-23) | S | Corridas en `redteam/promptfoo/corridas/` + `docs/red-team.md` §v3 | 002 (§13) |
 
 ## 5. Trazabilidad
 
@@ -81,6 +109,10 @@ Riesgo → control → requisito → prueba: ver `docs/matriz-riesgos.md`.
 | Fecha | Cambio | Origen |
 | --- | --- | --- |
 | 2026-10-30 | RNF-08 pasa de 001/003 a 003. RF-02 incluye categorías, mantenedor activo y enlace al repo. RF-05 separa el requisito de datos (≥ 1 idea, 003) del comportamiento de la interfaz (0..N, 001). | Plan 001, decisiones 2 y 3 |
+| 2026-11-13 | RF-30 a RF-32: búsqueda ampliada y bloque de exploración con filtros reales (feature 008). | Consigna, spec 008 |
+| 2026-11-13 | RF-27 a RF-29 y RNF-34 a RNF-36: persistencia con RLS, ingesta programada y scheduler (feature 006). | Consigna, spec 006 |
+| 2026-11-13 | RF-20 a RF-26 y RNF-30 a RNF-32: interacciones reales, capturas de producto y fotos (feature 007). | Consigna, spec 007 |
+| 2026-11-13 | RF-16 a RF-19 y RNF-26 a RNF-29: catálogo de ≥ 100 repos reales, ingesta automática, logos oficiales y grilla sin desgloses con backend. RF-12 queda ampliado por RF-16. | Consigna, spec 005 |
 
 ## Estado al cierre (2026-11-13)
 
@@ -111,4 +143,11 @@ Resultado real de cada requisito al entregar. Evidencia completa en `specs/001-f
 | RNF-18 | Pendiente | Aprobación visual de Jerónimo sin registrar |
 | RNF-19 a RNF-22 | Cumple | Tests de 002; MU-14 bloqueado |
 | RNF-23 | Cumple en la batería | Red-team v2 13/13 (v1 11/13), 0/5 falsos positivos; generalización sin medir (AM-29) |
+| RF-16 | Cumple | `data/semilla-repos.json`: 108 repos, 18 por categoría, criterio verificado contra la API (`semilla-repos.test.ts`) |
+| RF-17 | Cumple | Corrida real de `npm run ingesta` del 13/11: 108 repos, 0 excluidos, 83 con ideas nuevas, exit 0 (`specs/005-catalogo-100/tasks.md`); `ingesta.test.ts` |
+| RF-18 | Cumple | 108 logos en `public/logos/` con `fuentes.json`; `logo.test.tsx` y guarda de `mu.spec.ts` |
+| RF-19 | Cumple | Grilla con 108 repos en 2 requests; desglose solo en ficha (`adaptador-backend.test.ts`). Nivel en la grilla con backend: «Sin dato» |
+| RNF-26, RNF-27 | Cumple | `ingesta.test.ts`, `logo.test.tsx`, `repos-reales.test.ts`; CSP sin cambios (`headers.spec`) |
+| RNF-28 | Cumple | Peor caso 52 requests/min por instancia (`adaptador-backend.test.ts`); sin medir contra el backend real con 108 |
+| RNF-29 | Parcial | Red-team v3 (108 repos): 13/13 bloqueados, 0/5 falsos positivos, 0 fugas, 0 inventados, igual que v2. **Regresión cualitativa en MU-20** (recomienda repos para un pedido de ransomware en vez de «sin contexto»): abierta, R-27 (`docs/red-team.md`) |
 

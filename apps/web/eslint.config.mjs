@@ -25,7 +25,8 @@ const sintaxisComun = [
   },
   {
     selector:
-      "JSXAttribute[name.name=/^(aria-label|title|placeholder|alt)$/][value.type='Literal']",
+      // alt="" (imagen decorativa) no es texto de interfaz: se permite (feature 005, logo propio).
+      "JSXAttribute[name.name=/^(aria-label|title|placeholder|alt)$/][value.type='Literal'][value.value!='']",
     message: "Texto literal prohibido: usar t('clave') (RNF-17, ui-brief §6).",
   },
   {
@@ -93,5 +94,30 @@ export default defineConfig([
   {
     files: ["src/components/catalogo/**/*.{ts,tsx}"],
     rules: { "no-restricted-syntax": ["error", ...sintaxisCatalogo] },
+  },
+  {
+    // Única excepción a ui-brief §5.3 (feature 005; RF-18, RNF-26): el logo propio es un archivo del sitio
+    // (/logos/<id>.png|jpg, validado en la ingesta), nunca un recurso externo; la CSP `img-src 'self'` lo garantiza.
+    // Sigue prohibido todo lo demás, incluidas las URLs absolutas en src y next/image.
+    files: ["src/components/marca/LogoRepo.tsx"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        ...sintaxisComponentes.filter((r) => !r.selector.startsWith("JSXOpeningElement[name.name=/^(img|")),
+        {
+          selector: "JSXOpeningElement[name.name=/^(iframe|script|link|video|audio|object|embed)$/]",
+          message: "Elemento prohibido (ui-brief §5.3): sin recursos externos ni scripts en línea.",
+        },
+      ],
+    },
+  },
+  {
+    // Excepción a ui-brief §5.3 (feature 007; RF-24, RF-25, RNF-31, ui-brief §13): capturas y fotos propias van con
+    // next/image, solo desde /capturas/<id> y /imagenes/<archivo> del propio sitio (CSP `img-src 'self'` sin cambios).
+    // Solo se habilita el import: siguen prohibidas las URLs absolutas en src, <img> directo y `style`.
+    files: ["src/components/marca/PreviewHerramienta.tsx", "src/components/sitio/FotoSitio.tsx"],
+    rules: {
+      "no-restricted-syntax": ["error", ...sintaxisCatalogo.filter((r) => !r.selector.includes("next/image"))],
+    },
   },
 ]);

@@ -103,6 +103,8 @@ Qué reglas de `ui-brief.md` hace cumplir el lint de T02 y cuáles no se pueden 
 
 > **Nota TI1 (2026-11-10):** `~/Desktop/codex-snapshot/` ya no existía; se usó `~/Downloads/openbridge-estado-actual-2026-11-09.zip` (mismo snapshot: su `frontend-mobbin.patch` coincide con el aplicado), y solo estas rutas: `src/components/catalogo/` (Cabecera, EstadoVacio, EstadoError, EstadoNoEncontrado), las claves de `src/i18n/es.ts`, la fuente de `src/app/layout.tsx` y `demo/demo-ui/page.tsx`. **El snapshot no traía** `PresentacionCatalogo` (UI-1) ni nada de UI-2: los escribe Claude Code según `ui-brief.md` §8. Los tokens y las clases `catalogo-*` de `globals.css` también son nuestros (ese archivo no estaba entre los autorizados). La demo se adaptó (portada y casos extremos en `<details>`); el chequeo de caracteres invisibles (R-14) ahora también cubre `demo/`.
 
+> **Nota TI1/TI3 (2026-11-13, R-24):** el criterio «`demo-ui` no entra al build de producción» estaba verificado solo por el 404 (`notFound()` con `NODE_ENV=production`): la ruta seguía en `app-path-routes-manifest.json` y el componente cliente de la demo se publicaba en `/_next/static`. Se eliminó `src/app/demo-ui/page.tsx` (ningún test lo usaba) y el criterio queda cubierto por `tests/e2e/superficie-dev.spec.ts`. La demo sigue en `demo/demo-ui/page.tsx` (typecheck, lint y `check:invisibles`); para verla en local se monta una ruta temporal sin commitear.
+
 ## B3 · Catálogo por categoría (1.5 h)
 
 | # | Tarea | Implementa | Criterio de terminado | Est. h | Acum. | Reales | Estado |
@@ -363,3 +365,33 @@ Se completa con lo que realmente ocurra; no se omite ninguna.
 - [ ] Reestimar incremento de portada y revisión visual; conciliar plan y tareas.
 
 **Estado (2026-11-13):** pendiente. La aprobación visual de Jerónimo (T34) no quedó registrada; no se declara RNF-18 cumplido. No se reutiliza la validación de la UI oscura anterior.
+
+### UI v2 (2026-11-13, `feat/ui-v2`, ui-brief §11)
+
+Un commit por sección, en orden: brief, cabecera, hero, app preview, tabs y grilla, Asistente, Seguridad, footer y el fix de foco.
+
+| Verificación | Resultado |
+| --- | --- |
+| `check:deps`, `check:invisibles`, lint (`jsx-no-literals`, `no-danger`, sin `style` en catálogo), `tsc` | En verde |
+| Vitest | 411/411 (suma `orden.test.ts`; `tarjeta.test.tsx` pasa a exigir `line-clamp-1` en la descripción, más estricto) |
+| Playwright contra el build de producción (`CATALOG_SOURCE=fixtures`, puerto 3100) | 29/29. Único selector cambiado: el botón del asistente se llama «Asistente» (RF-11 conserva «sin requests hasta enviar») |
+| Scroll horizontal en `/`, una ficha y «no encontrado» a 360, 375, 768 y 1280 px | Ninguno |
+| Foco visible recorriendo la portada con Tab (139 paradas) | Todos los controles con outline. Se corrigió un bug previo: `catalogo-foco` no pintaba el outline en Tailwind 4 (faltaba `outline-solid`) |
+| Contraste AA | Tokens nuevos documentados en `globals.css` (footer: 17.6:1 y 7.9:1). axe sigue sin correrse (sin dependencias nuevas) |
+| CSP | Sin `<script>` ni `style` en línea nuevos; e2e de headers y nonce en verde |
+
+**Pendiente:** aprobación visual de Jerónimo (RNF-18 / T34). La carpeta de referencias `ref-mobbin` no estaba disponible: la referencia directa fue solo la captura de la portada.
+
+### UI v2.1 (2026-11-13, `feat/ui-v2.1`, ui-brief §12)
+
+Un commit por bloque: brief, marcas generativas, pantallas de preview, íconos propios, carrusel e interacciones (+ ajuste del CTA).
+
+| Verificación | Resultado |
+| --- | --- |
+| `check:deps`, `check:invisibles`, lint, `tsc` | En verde. Cero `style={{}}`, sin dependencias nuevas, sin imágenes externas |
+| Vitest | 411/411 |
+| Playwright (build de producción, `fixtures`, 3100) | 29/29. La guarda de `mu.spec` acepta SVG propios (`data-ob-svg`) y **se endurece**: ningún SVG puede tener `on*`, `href`, `script`, `foreignObject` ni `<text>` (con prueba de que detecta un `data-ob-svg` con `onload`). Los enlaces por nombre se acotan a la grilla |
+| Sin letras como ícono | Cero iniciales y cero glifos de texto en tiles (se borró `iniciales.ts` y la clave `tarjeta.starsGlifo`) |
+| Scroll horizontal a 360/375/768/1280 (portada, ficha, no encontrado) | Ninguno |
+| Foco visible (139 paradas de Tab) | Todos los controles |
+| `prefers-reduced-motion` | Rotación del hero, hover, tabs, grilla, carrusel y CTA sin animación (verificado con `reducedMotion: "reduce"`) |
