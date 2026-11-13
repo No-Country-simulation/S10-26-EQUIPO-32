@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import type { Categoria } from "@/lib/catalogo/categorias";
 import type { HerramientaResumen } from "@/lib/catalogo/contrato";
 import { serializarEstadoUrl } from "@/lib/catalogo/estado-url";
@@ -8,6 +8,7 @@ import { derivarOpciones, ESTADO_SIN_FILTROS, filtrar, type EstadoFiltros, type 
 import { t } from "@/i18n/es";
 import { Buscador, LARGO_MAXIMO_BUSQUEDA } from "./Buscador";
 import { ChipsFiltros } from "./ChipsFiltros";
+import { AtajosFiltro, CasosDeUso, Columna, type AtajoFiltro } from "./ColumnasCatalogo";
 import { GrillaHerramientas } from "./GrillaHerramientas";
 import { NavCategorias } from "./NavCategorias";
 import { PanelFiltros } from "./PanelFiltros";
@@ -31,6 +32,22 @@ function chipsActivos(estado: EstadoFiltros): { clave: string; etiqueta: string 
   return chips;
 }
 
+const MAX_ATAJOS = 6;
+
+/** Los valores más frecuentes de un campo (empates por orden alfabético); el activo se incluye aunque no esté entre ellos. */
+function atajos(valores: (string | null)[], activo: string | null): { atajos: AtajoFiltro[]; restantes: number } {
+  const cuentas = new Map<string, number>();
+  for (const v of valores) if (v !== null) cuentas.set(v, (cuentas.get(v) ?? 0) + 1);
+  const todos = [...cuentas].map(([valor, cantidad]) => ({ valor, cantidad }));
+  todos.sort((a, b) => b.cantidad - a.cantidad || a.valor.localeCompare(b.valor, "es"));
+  const elegidos = todos.slice(0, MAX_ATAJOS);
+  if (activo !== null && !elegidos.some((a) => a.valor === activo)) {
+    const actual = todos.find((a) => a.valor === activo);
+    if (actual) elegidos.push(actual);
+  }
+  return { atajos: elegidos, restantes: todos.length - elegidos.length };
+}
+
 const CLAVES = ["categoria", "lenguaje", "licencia", "mantenimiento", "stars", "q"] as const;
 
 /** Estado en memoria del catálogo (categoría, filtros y búsqueda), reflejado en la URL con `history.replaceState`. */
@@ -38,6 +55,9 @@ export function Catalogo({ herramientas, estadoInicial = ESTADO_SIN_FILTROS }: C
   const [estado, setEstado] = useState<EstadoFiltros>(estadoInicial);
   const opciones = useMemo(() => derivarOpciones(herramientas), [herramientas]);
   const visibles = useMemo(() => filtrar(herramientas, estado), [herramientas, estado]);
+  const base = useId();
+  const lenguajes = useMemo(() => atajos(herramientas.map((h) => h.lenguaje), estado.lenguaje), [herramientas, estado.lenguaje]);
+  const licencias = useMemo(() => atajos(herramientas.map((h) => h.licencia), estado.licencia), [herramientas, estado.licencia]);
 
   const cambiar = useCallback((parcial: Partial<EstadoFiltros>) => setEstado((e) => ({ ...e, ...parcial })), []);
   const limpiar = useCallback(() => setEstado(ESTADO_SIN_FILTROS), []);
@@ -72,8 +92,36 @@ export function Catalogo({ herramientas, estadoInicial = ESTADO_SIN_FILTROS }: C
 
   return (
     <div className="space-y-6">
-      <Buscador valor={estado.q} onBuscar={(q) => cambiar({ q: q.slice(0, LARGO_MAXIMO_BUSQUEDA) })} />
-      <NavCategorias activa={estado.categoria} onElegir={(categoria: Categoria | null) => cambiar({ categoria })} />
+      {/* «App preview» (ui-brief §11.2 #3): buscador central y explorador de 4 columnas sobre una superficie gris. */}
+      <div role="group" aria-label={t("explorador.region")} className="rounded-[2rem] bg-secondary p-3 sm:p-6 lg:p-10">
+        <div className="mx-auto max-w-2xl">
+          <Buscador valor={estado.q} onBuscar={(q) => cambiar({ q: q.slice(0, LARGO_MAXIMO_BUSQUEDA) })} />
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-8 rounded-3xl bg-background p-5 shadow-sm sm:mt-6 sm:gap-x-8 sm:p-6 lg:grid-cols-4 lg:p-8">
+          <Columna id={`${base}-categorias`} titulo={t("explorador.categorias")}>
+            <NavCategorias activa={estado.categoria} onElegir={(categoria: Categoria | null) => cambiar({ categoria })} />
+          </Columna>
+          <Columna id={`${base}-casos`} titulo={t("explorador.casos")}>
+            <CasosDeUso idTitulo={`${base}-casos`} />
+          </Columna>
+          <Columna id={`${base}-lenguajes`} titulo={t("explorador.lenguajes")}>
+            <AtajosFiltro
+              idTitulo={`${base}-lenguajes`}
+              {...lenguajes}
+              activo={estado.lenguaje}
+              onElegir={(lenguaje) => cambiar({ lenguaje })}
+            />
+          </Columna>
+          <Columna id={`${base}-licencias`} titulo={t("explorador.licencias")}>
+            <AtajosFiltro
+              idTitulo={`${base}-licencias`}
+              {...licencias}
+              activo={estado.licencia}
+              onElegir={(licencia) => cambiar({ licencia })}
+            />
+          </Columna>
+        </div>
+      </div>
       <PanelFiltros opciones={opciones} valores={valores} total={visibles.length} onCambiar={cambiar} />
       <ChipsFiltros activos={activos} onQuitar={quitar} onLimpiar={limpiar} />
       <GrillaHerramientas
