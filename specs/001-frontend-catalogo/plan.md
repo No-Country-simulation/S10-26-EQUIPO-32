@@ -20,7 +20,7 @@
 | 8 | Presupuesto | 40-45 h para el frontend (después vienen 002 y el red-team; entrega 16/11). | Secciones 6 y 8. Total 45.5 h (ver 8.4). |
 | 9 | Alcance de Playwright | Se aceptan tres desvíos: axe en `a11y.spec`, RNF-07 como test E2E y dos aserciones extra en `headers.spec` (tema claro, asistente deshabilitado). | 6.2, 8.1 |
 | 10 | `next/font` | Se recupera del recorte de extras visuales (≈ 0.5 h en B2). Sirve las fuentes desde nuestro servidor, compatible con `font-src 'self'`. Animaciones, esqueletos y microinteracciones siguen fuera. | D-14, 8.1, 8.2 |
-| 11 | **Pendiente** · Origen de datos de B9 | El adaptador real probablemente lea de la API REST del backend en lugar de Supabase directo; se decide al llegar a B9. (Contexto: el backend de Ángel, FastAPI en `backend/`, ya está en `main`, expone una API REST y hoy guarda los datos en memoria, no en Supabase.) | B9 (T36-T38). No se cambia nada más del plan por ahora. |
+| 11 | Origen de datos de B9 (**resuelto 2026-11-13**) | API REST pública del backend (FastAPI de Ángel), no Supabase directo. Detalle en §9. | 4.1, 4.2, §9. T36-T38 reemplazadas por T39-T46. |
 
 ## 1. Chequeo contra la constitución
 
@@ -202,7 +202,8 @@ Campos y reglas (`C` = cota de longitud aplicada tras normalizar):
 | Herramienta.`lenguaje` | string no vacío, normalizado, C=40 | string \| null |
 | Herramienta.`issuesAbiertos` | entero ≥ 0 | number \| null |
 | Herramienta.`mantenedorActivo` | booleano estricto | boolean \| null |
-| Herramienta.`nivelMantenimiento` | `activo` \| `moderado` \| `abandonado` | enum \| null |
+| Herramienta.`nivelMantenimiento` | `activo` \| `moderado` \| `bajo` \| `abandonado` (`bajo` desde 2026-11-13, §9) | enum \| null |
+| Herramienta.`desgloseSalud` (solo detalle, §9) | 5 componentes con puntaje en `[0, máximo]` + `penalizacionArchivado` booleano estricto; **todo o nada**: un componente inválido anula el desglose | objeto \| null |
 | Herramienta.`healthScore` | entero 0-100 | number \| null |
 | Herramienta.`metricasTomadasEn` | ISO 8601 válido | string \| null |
 | Idea.`tipo` | `rest` \| `docker` \| `sdk` \| `webhook` | enum \| null |
@@ -529,3 +530,70 @@ B0 → B1 → (B2 ∥ B3) → B4 → B5 → B6 → B7 → B8 → B10. B9 depende
 | **Total** | 44.25 | **24.75** (19.75 desde hoy) |
 
 Los objetivos de B1 y de la UI no tienen margen: **la UI en 8 h es el punto más optimista del plan.** Si la UI supera 8 h, se recorta en este orden: RF-04 (búsqueda), después T23 (copiar) a texto seleccionable, y nunca los controles de seguridad ni `mu.spec`. El detalle por tarea está en `tasks.md`.
+
+---
+
+## 9. B9 · Adaptador `backend` (2026-11-13, spec §10)
+
+### 9.1 Arquitectura
+
+```
+Servidor Next (RSC, force-dynamic)
+  obtenerRepositorio()  CATALOG_SOURCE=backend
+   └─ adaptadores/backend.ts
+        clienteHttp: solo GET · sin credenciales · redirect:'error' · timeout 3 s · ≤ 1 MB · Content-Type JSON
+        GET {BACKEND_URL}/api/v1/repositories?limit=100        → sobre (zod) → mapeo → contrato.ts
+        GET {BACKEND_URL}/api/v1/repositories/{owner}/{repo}   → sobre (zod) → desglose → contrato.ts
+        instantánea en memoria de 60 s (lista + desgloses)    → acota requests contra el límite de 60/min del backend
+Navegador: igual que hoy (nunca habla con el backend; CSP connect-src 'self')
+Operación (fuera del runtime): scripts/sembrar-backend.mjs  POST /api/v1/ingestion/batch (2 lotes ≤ 20) con ADMIN_API_KEY del entorno
+```
+
+### 9.2 Mapeo (backend → contrato 4.1)
+
+| Contrato | Backend | Regla |
+| --- | --- | --- |
+| `id` | `full_name` | El id de `data/repos-reales.json` si el repo está ahí (así los enlaces del asistente siguen valiendo); si no, `owner--repo` en minúsculas. Si no pasa `esIdValido`, el contrato omite el repo. |
+| `nombre` | `name` | — |
+| `urlRepo` | `html_url` | `validarUrlRepo` (solo `https://github.com`). |
+| `descripcion` | `description` | — |
+| `categorias` | `category` | `[category]`; fuera de las 6 → se omite (identidad inválida). |
+| `stars`, `issuesAbiertos` | `stars_count`, `open_issues_count` | Enteros; si no, `null`. |
+| `licencia` | `license_spdx` | `NOASSERTION` → `null` (igual que en `reales`). |
+| `lenguaje` | `language` | — |
+| `healthScore` | `health_score` | Número finito en [0, 100] → redondeado a entero; si no, `null`. Un string no se convierte. |
+| `nivelMantenimiento` | `health_breakdown.commit_frequency_score` | 25 → `activo`; ≥ 15 → `moderado`; < 15 → `bajo`; sin desglose válido → `null`. |
+| `desgloseSalud` | `health_breakdown.*_score`, `penalty_archived` | Máximos fijos de nuestro lado: 25/20/20/20/15. |
+| `metricasTomadasEn` | `health_breakdown.calculated_at` (o `updated_at` de la lista) | Es la fecha de ingesta: cuándo se leyó GitHub. |
+| `ultimaActualizacion`, `mantenedorActivo`, `ideas` | — | `null` / `[]` (spec §10.3). |
+
+### 9.3 Fallo cerrado
+
+- **Sobre inválido** (no JSON, `items` que no es lista, `repository` ausente, Content-Type no JSON, > 1 MB, status ≠ 200 salvo 404 en el detalle) → `ErrorCatalogo` (mensaje genérico; el log del servidor lleva solo un código, nunca contenido externo).
+- **Ítem inválido** → reglas de 4.2 (identidad → se omite y cuenta; métrica → `null`). No hay respaldo a otra fuente: con el backend caído no se muestra el dataset local.
+- `BACKEND_URL`: solo servidor, `http(s)`, sin credenciales, ruta ni query; en producción es obligatoria. `.env.example` la documenta sin valor.
+
+### 9.4 Amenazas y controles
+
+| ID | Amenaza | Control | Req. |
+| --- | --- | --- | --- |
+| AM-30 | Backend comprometido o con bug devuelve datos malformados, campos extra o HTML (T · A08, LLM05 indirecto) | Sobre con zod + `contrato.ts`; claves desconocidas descartadas; texto de React | RNF-24, MU-23 |
+| AM-31 | Backend lento o caído bloquea el render (D · A04) | Timeout de 3 s, error genérico, instantánea de 60 s | RNF-24, MU-24 |
+| AM-32 | Redirección del backend hacia otro host (SSRF desde nuestro servidor, I · A10) | `redirect: 'error'`; `BACKEND_URL` solo de servidor y validada | RNF-24, MU-24 |
+| AM-33 | El frontend usa una credencial con más privilegio que la necesaria (E · A01, P3) | Runtime sin `Authorization`; el cliente HTTP solo permite GET | RNF-24 |
+| AM-34 | Fuga de `ADMIN_API_KEY` al sembrar (I · A02, A09) | Solo por entorno; nunca en logs ni en archivos; el script imprime solo conteos | RNF-25 |
+| AM-35 | Agotar el rate limit del backend (60/min por IP) desde el servidor Next (D) | Instantánea de 60 s: ≤ 31 requests por minuto para la grilla | RNF-24 |
+
+### 9.5 Decisiones
+
+| ID | Decisión | Por qué |
+| --- | --- | --- |
+| D-26 | `fetch` propio de solo GET (como D-03), sin cliente generado | Sin dependencias nuevas; auditable. |
+| D-27 | La grilla también trae el desglose de cada repo (lista + 30 detalles, concurrencia 6) en una instantánea de 60 s | La lista no expone `commit_frequency_score`; sin esto, el filtro de mantenimiento quedaría vacío. Sugerencia para Ángel: incluir el desglose (o el nivel) en la lista y bajar a 1 request. |
+| D-28 | Ids del asistente reutilizados vía `data/repos-reales.json` | Los repos citados por el asistente enlazan a `/herramientas/{id}`; con otros ids darían 404. |
+| D-29 | E2E con backend en un proyecto de Playwright aparte (`playwright.backend.config.ts`), fuera del CI | El CI no levanta el backend ni tiene acceso a GitHub para sembrar; se corre local y se registra. |
+
+### 9.6 Pruebas
+
+- Vitest `tests/unit/adaptador-backend.test.ts`: respuesta válida (mapeo, ids, desglose, nivel), malformada → error, campo extra → descartado, timeout → error en ≤ 3 s, backend caído → error sin datos, redirección → error, 404 del detalle → `null`, sin `Authorization` en ningún request, configuración de `BACKEND_URL`.
+- Playwright `tests/e2e-backend/backend.spec.ts` contra `next build && next start` con `CATALOG_SOURCE=backend` y el backend sembrado: grilla con 30 repos, ficha con los 5 componentes y sus máximos, filtro de mantenimiento.

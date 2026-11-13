@@ -186,6 +186,21 @@ Horas reales acumuladas: ______ · Decisión: ______ · Fecha: ______
 | T37 | Script de integración MU-07: `POST`, `PATCH` y `DELETE` con la clave pública deben ser rechazados. Registrar el resultado. | RNF-02, AM-08, MU-07, R-05 | Las tres operaciones devuelven error de autorización; la evidencia (comandos y respuestas, **sin la clave**) queda en la tabla de validación. Recién entonces RNF-02 puede marcarse verificado. **FUERA DEL MVP (2026-11-10).** | 0 (antes 0.75) | 24.75 |  | [!] |
 | T38 | Prueba con datos reales: recorrer el catálogo real, revisar el log de `omitidas` y ajustar el contrato (con Ángel y pasando primero por el spec si cambia el alcance) si difiere de 4.1. | RF-01..05, AM-10, R-11 | Catálogo real visible sin errores. `omitidas` revisado y explicado. Diferencias con 4.1 registradas en el spec. **FUERA DEL MVP (2026-11-10).** | 0 (antes 0.5) | 24.75 |  | [!] |
 
+### B9 · Reemplazo 2026-11-13: adaptador `backend` (spec §10, plan §9)
+
+T36–T38 quedan reemplazadas: el origen real es la API REST del backend, no Supabase. Las dos condiciones de arriba siguen sin cumplirse (Ángel no validó 4.1; el backend no usa Supabase ni RLS): el merge lo cubre EX-01 y los hallazgos quedan en la matriz para Ángel.
+
+| # | Tarea | Implementa | Criterio de terminado | Estado |
+| --- | --- | --- | --- | --- |
+| T39 | Spec §10 + plan §9 + estas tareas | P1 | En la rama antes del código | [x] |
+| T40 | Contrato: nivel `bajo` y `desgloseSalud` (todo o nada) + filtro, URL e i18n | RF-01..05, RF-15 | Tests de contrato y filtros verdes | [ ] |
+| T41 | `adaptadores/backend.ts` + `config` de `BACKEND_URL` + `.env.example` | RNF-24, AM-30..33, AM-35 | Tests unitarios del adaptador verdes | [ ] |
+| T42 | Desglose en la ficha (5 componentes con máximos) | RF-15 | Test de la ficha verde | [ ] |
+| T43 | `scripts/sembrar-backend.mjs` (2 lotes, nuestra categoría, chequeo sin credencial) | RNF-25, MU-07, AM-34 | Corrida real: 30/30 ingestados, escritura sin token rechazada | [ ] |
+| T44 | E2E con el backend levantado | RF-15, RNF-24 | `backend.spec.ts` verde en local, resultado abajo | [ ] |
+| T45 | `docs/mapeo-backend.md`, matriz de riesgos (revisión cruzada), `docs/owasp.md`, SRS, README | DoD, P10 | Docs en la rama | [ ] |
+| T46 | Checks, PR y merge | DoD | CI en verde | [ ] |
+
 ## Resumen de horas
 
 Recorte MVP 2026-11-10 (plan 8.7). Entrega y exposición: viernes 13/11.
