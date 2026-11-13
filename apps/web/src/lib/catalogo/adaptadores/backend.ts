@@ -129,9 +129,14 @@ const sobreLista = z.object({ items: z.array(z.unknown()).max(LIMITE_LISTA) });
 const sobreDetalle = z.object({ repository: z.object({ full_name: z.string() }).passthrough(), health_breakdown: z.unknown() });
 type Registro = Record<string, unknown>;
 
-// Los ids del asistente (data/repos-reales.json) se reutilizan para que sus enlaces a /herramientas/{id} sigan valiendo (D-28).
-const ID_POR_FULL_NAME = new Map<string, string>(
-  (datosReales as Array<{ id: string; urlRepo: string }>).map((r) => [r.urlRepo.replace("https://github.com/", "").toLowerCase(), r.id]),
+// Datos curados de data/repos-reales.json por `full_name` (sin distinguir mayúsculas):
+//  - el id del asistente, para que sus enlaces a /herramientas/{id} sigan valiendo (D-28);
+//  - el nombre del producto («Prisma» en vez de «orm»; spec 001 §10.3). Sin entrada → id derivado y nombre del backend.
+const CURADOS_POR_FULL_NAME = new Map<string, { id: string; nombre: string }>(
+  (datosReales as Array<{ id: string; nombre: string; urlRepo: string }>).map((r) => [
+    r.urlRepo.replace("https://github.com/", "").toLowerCase(),
+    { id: r.id, nombre: r.nombre },
+  ]),
 );
 
 function fullNameDe(item: unknown): string | null {
@@ -141,7 +146,7 @@ function fullNameDe(item: unknown): string | null {
 
 /** id del contrato para un `owner/repo`; `null` si no da un id válido (el contrato lo omitirá). */
 export function idPara(fullName: string): string | null {
-  const id = ID_POR_FULL_NAME.get(fullName.toLowerCase()) ?? fullName.toLowerCase().replace("/", "--");
+  const id = CURADOS_POR_FULL_NAME.get(fullName.toLowerCase())?.id ?? fullName.toLowerCase().replace("/", "--");
   return esIdValido(id) ? id : null;
 }
 
@@ -166,12 +171,17 @@ function desgloseDe(breakdown: unknown): DesgloseSalud | null {
   });
 }
 
+/** Nombre a mostrar: el curado si el repo está en data/repos-reales.json; si no, el del backend (lo valida el contrato). */
+export function nombrePara(fullName: string, nombreBackend: unknown): unknown {
+  return CURADOS_POR_FULL_NAME.get(fullName.toLowerCase())?.nombre ?? nombreBackend;
+}
+
 /** Mapea un ítem del backend a la forma cruda del contrato. Nada se coacciona: lo inválido lo anula contrato.ts. */
-function mapear(item: Registro, id: string, desglose: DesgloseSalud | null, calculadoEn: unknown): Registro {
+function mapear(item: Registro, id: string, fullName: string, desglose: DesgloseSalud | null, calculadoEn: unknown): Registro {
   const salud = item.health_score;
   return {
     id,
-    nombre: item.name,
+    nombre: nombrePara(fullName, item.name),
     urlRepo: item.html_url,
     descripcion: item.description,
     categorias: typeof item.category === "string" ? [item.category] : item.category,
@@ -228,8 +238,10 @@ export class AdaptadorBackend implements RepositorioCatalogo {
   #obtenerInstantanea(): Promise<Instantanea> {
     const ahora = (this.opciones.ahora ?? Date.now)();
     if (this.instantanea !== null && ahora < this.instantanea.expira) return this.instantanea.promesa;
-    const promesa = this.#construir().catch((e: unknown) => {
-      this.instantanea = null; // un fallo no queda en caché
+    // Caché en memoria del servidor (R-21, AM-35): una sola tanda de requests por ventana, compartida también por
+    // las cargas concurrentes. Un error nunca queda en caché, y el fallo de una instantánea vieja no borra la vigente.
+    const promesa: Promise<Instantanea> = this.#construir().catch((e: unknown) => {
+      if (this.instantanea?.promesa === promesa) this.instantanea = null;
       const codigo = e instanceof FalloBackend ? e.codigo : "interno";
       console.error(`[catalogo] backend: ${codigo}`); // solo un código, nunca contenido externo (A09)
       throw new ErrorCatalogo({ cause: e });
@@ -262,8 +274,8 @@ export class AdaptadorBackend implements RepositorioCatalogo {
     });
 
     const crudosPorId = new Map<string, Registro>();
-    validos.forEach(({ item, id }, i) => {
-      if (!crudosPorId.has(id)) crudosPorId.set(id, mapear(item, id, detalles[i]!.desglose, detalles[i]!.calculadoEn));
+    validos.forEach(({ item, id, fullName }, i) => {
+      if (!crudosPorId.has(id)) crudosPorId.set(id, mapear(item, id, fullName, detalles[i]!.desglose, detalles[i]!.calculadoEn));
     });
     // Los ítems sin identidad válida entran como {} para que el contrato los cuente en `omitidas`.
     const crudos = conId.map(({ id }) => (id === null ? {} : crudosPorId.get(id)!));

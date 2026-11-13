@@ -232,6 +232,7 @@ Hasta hoy el catálogo muestra un dataset local. El backend de Ángel ya ingesta
 | Mantenedor activo | «Sin dato» | No hay señal en la API. |
 | Ideas de integración | 0 → estado vacío (RF-05 d) | El backend no tiene ideas. |
 | Descripción | La de GitHub, en inglés | RNF-17: se muestra tal cual. |
+| Nombre (2026-11-13) | El nombre curado de `data/repos-reales.json` cruzando por `full_name` («Prisma» en vez de «orm»); si el repo no está ahí, el nombre del backend | El nombre del repo en GitHub no siempre es el del producto. Se usa en la grilla **y** en la ficha para que sea el mismo en las dos. |
 
 ### 10.4 Casos de mal uso nuevos
 
@@ -253,4 +254,5 @@ Modificar el backend (los hallazgos de la revisión cruzada quedan como sugerenc
 | 2 | ¿Escala y niveles? | `health_score` 0-100 → indicador de salud; mantenimiento por `commit_frequency_score` (25/≥15/<15). El pedido dice «bajo» para el último tramo: como 8 pts significa un push en el último año, llamarlo «abandonado» sería falso, así que se agrega «bajo» como cuarto nivel. | 2026-11-13 |
 | 3 | ¿Token en runtime? | No: solo endpoints públicos. `ADMIN_API_KEY` solo en el script de siembra. | 2026-11-13 |
 | 4 | ¿Categorías? | Se pasan las nuestras al sembrar; un repo con una categoría que no es de las 6 se omite (identidad inválida, 4.2). | 2026-11-13 |
+| 6 | ¿R-21 (rate limit consumido por el frontend)? | Caché en memoria del servidor de 60 s para lista y desgloses, sin cachear errores; dos cargas seguidas → una sola tanda de requests. Pedido de Jero, 2026-11-13. | 2026-11-13 |
 | 5 | ¿Validación del contrato por Ángel (T36)? | Sigue pendiente; EX-01 cubre el merge. Los hallazgos van a la matriz para él. | 2026-11-13 |

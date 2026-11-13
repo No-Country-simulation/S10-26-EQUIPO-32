@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   AdaptadorBackend,
   idPara,
+  nombrePara,
   nivelPorCommits,
   resolverBackendUrl,
   TIMEOUT_BACKEND_MS,
@@ -92,7 +93,7 @@ describe("adaptador backend · respuesta válida", () => {
     expect(omitidas).toBe(0);
     expect(herramientas[0]).toMatchObject({
       id: "keycloak",
-      nombre: "keycloak",
+      nombre: "Keycloak", // curado de data/repos-reales.json
       urlRepo: "https://github.com/keycloak/keycloak",
       categorias: ["autenticacion"],
       stars: 37836,
@@ -253,7 +254,57 @@ describe("adaptador backend · timeout, caído y redirección (MU-24)", () => {
   });
 });
 
-describe("adaptador backend · instantánea de 60 s (AM-35)", () => {
+describe("adaptador backend · caché de 60 s (R-21, AM-35)", () => {
+  const tres = () =>
+    backendFalso({
+      items: [
+        item(),
+        item({ full_name: "ory/kratos", name: "kratos", html_url: "https://github.com/ory/kratos" }),
+        item({ full_name: "prisma/orm", name: "orm", html_url: "https://github.com/prisma/orm", category: "base-de-datos" }),
+      ],
+    });
+  it("dos cargas seguidas (grilla + ficha, dos veces) → una sola tanda: 1 lista + 1 detalle por repo", async () => {
+    const { fetchFn, llamadas } = tres();
+    const a = crear(fetchFn, { ahora: () => 0 });
+    for (let carga = 0; carga < 2; carga += 1) {
+      await a.listarHerramientas();
+      await a.obtenerHerramienta("prisma");
+    }
+    expect(fetchFn).toHaveBeenCalledTimes(4);
+    expect(llamadas.filter((l) => new URL(l.url).pathname === "/api/v1/repositories")).toHaveLength(1);
+  });
+  it("dos cargas concurrentes comparten la misma tanda", async () => {
+    const { fetchFn } = tres();
+    const a = crear(fetchFn, { ahora: () => 0 });
+    await Promise.all([a.listarHerramientas(), a.listarHerramientas(), a.obtenerHerramienta("kratos")]);
+    expect(fetchFn).toHaveBeenCalledTimes(4);
+  });
+  it("el fallo de una instantánea vencida no borra la vigente", async () => {
+    silenciar();
+    let t = 0;
+    const { fetchFn } = backendFalso();
+    let rechazarVieja: (e: Error) => void = () => {};
+    let primera = true;
+    const a = crear(
+      (u, i) => {
+        if (primera) {
+          primera = false;
+          return new Promise<Response>((_r, rechazar) => (rechazarVieja = rechazar));
+        }
+        return fetchFn(u, i);
+      },
+      { ahora: () => t },
+    );
+    const vieja = a.listarHerramientas(); // queda colgada
+    t = 61_000;
+    await a.listarHerramientas(); // nueva instantánea: 1 lista + 1 detalle
+    rechazarVieja(new TypeError("fetch failed"));
+    await expect(vieja).rejects.toBeInstanceOf(ErrorCatalogo);
+    t = 61_001;
+    await a.listarHerramientas();
+    expect(fetchFn).toHaveBeenCalledTimes(2); // la vigente sigue en caché
+  });
+
   it("dentro de la ventana no vuelve a pedir; al vencer, sí", async () => {
     let t = 0;
     const { fetchFn } = backendFalso();
@@ -274,6 +325,19 @@ describe("BACKEND_URL (solo servidor, sin valor por defecto)", () => {
   });
   it.each([undefined, "", "ftp://x", "http://u:p@x", "http://x/api", "http://x?a=1", "no es url", "javascript:alert(1)"])("rechaza %s", (v) => {
     expect(() => resolverBackendUrl({ BACKEND_URL: v })).toThrow(ErrorConfiguracion);
+  });
+  it("nombrePara: el curado por full_name (sin distinguir mayúsculas) y, si no está, el del backend", () => {
+    expect(nombrePara("prisma/orm", "orm")).toBe("Prisma ORM");
+    expect(nombrePara("PRISMA/ORM", "orm")).toBe("Prisma ORM");
+    expect(nombrePara("plausible/analytics", "analytics")).toBe("Plausible Analytics");
+    expect(nombrePara("foo/bar", "bar")).toBe("bar");
+  });
+  it("un repo fuera del dataset curado con nombre inválido se omite (el fallback también pasa por el contrato)", async () => {
+    silenciar();
+    const otro = item({ full_name: "foo/bar", name: "   ", html_url: "https://github.com/foo/bar" });
+    const { herramientas, omitidas } = await crear(backendFalso({ items: [otro] }).fetchFn).listarHerramientas();
+    expect(herramientas).toHaveLength(0);
+    expect(omitidas).toBe(1);
   });
   it("idPara: ids del asistente y fallback owner--repo", () => {
     expect(idPara("prisma/orm")).toBe("prisma");

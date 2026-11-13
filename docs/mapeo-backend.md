@@ -20,7 +20,7 @@ Controles del cliente HTTP: solo `GET`, `redirect: 'error'`, timeout de 3 s, res
 | Catálogo | Backend | Regla |
 | --- | --- | --- |
 | `id` | `full_name` | El id de `data/repos-reales.json` si el repo está ahí (los enlaces del asistente siguen valiendo); si no, `owner--repo` en minúsculas. Un id inválido → el repo se omite. |
-| `nombre` | `name` | Nombre del repo en GitHub (por eso Prisma se ve como «orm»). |
+| `nombre` | `name` | El nombre curado de `data/repos-reales.json` cruzando por `full_name`, sin distinguir mayúsculas («Prisma ORM» en vez de «orm»). Si el repo no está ahí, el nombre del backend, que igual valida el contrato. Se usa en la grilla y en la ficha. |
 | `urlRepo` | `html_url` | Solo `https://github.com/...`; si no, sin enlace. |
 | `descripcion` | `description` | Tal cual (en inglés). |
 | `categorias` | `category` | Debe ser una de las 6 del catálogo; si no, el repo se omite. |
@@ -62,5 +62,5 @@ Todo o nada: si un componente falta, no es numérico, es negativo o supera su m�
 
 ## Límites conocidos
 
-- **Rate limit:** el backend permite 60 pedidos/min por IP y la lista no trae el desglose, así que cada instantánea cuesta 1 + 30 pedidos. El adaptador la guarda 60 s. Con corridas seguidas del e2e se vio un 429 real (2026-11-13), y el adaptador falló cerrado. Sugerencia para el backend: incluir el desglose (o el nivel) en la lista.
+- **Rate limit (R-21, mitigado):** el backend permite 60 pedidos/min por IP y la lista no trae el desglose, así que cada tanda cuesta 1 + 30 pedidos. El adaptador guarda en memoria del servidor, durante 60 s, la lista y los desgloses; las cargas concurrentes comparten la misma tanda y los errores no se guardan. Medido con el backend real: 4 cargas seguidas → 31 pedidos, 0 respuestas 429. El 429 que se vio antes vino de varias corridas del e2e seguidas (cada una levanta un servidor nuevo, con su caché vacía). Sugerencia para el backend: incluir el desglose (o el nivel) en la lista.
 - **Store en memoria:** si el backend se reinicia, la lista vuelve vacía y el catálogo muestra el estado «No encontramos herramientas» hasta volver a sembrar (R-19).
