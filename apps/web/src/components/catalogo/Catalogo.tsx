@@ -133,6 +133,8 @@ export function Catalogo({ herramientas, estadoInicial = ESTADO_SIN_FILTROS }: C
       </div>
       <PanelFiltros opciones={opciones} valores={valores} total={visibles.length} onCambiar={cambiar} />
       <ChipsFiltros activos={activos} onQuitar={quitar} onLimpiar={limpiar} />
+      {/* La clave reinicia la animación de entrada al cambiar de tab (ui-brief §12.2 #5b). */}
+      <div key={orden} className="ob-aparecer">
       <GrillaHerramientas
         herramientas={ordenadas}
         total={visibles.length}
@@ -143,6 +145,7 @@ export function Catalogo({ herramientas, estadoInicial = ESTADO_SIN_FILTROS }: C
           accion: activos.length > 0 ? { etiqueta: t("vacio.limpiar"), onClick: limpiar } : undefined,
         }}
       />
+      </div>
     </div>
   );
 }

@@ -42,9 +42,9 @@ export function TarjetaHerramienta({ herramienta }: TarjetaHerramientaProps) {
     herramienta;
   const sinDato = t("comun.sinDato");
   return (
-    <Card className="group/tarjeta relative h-full min-w-0 gap-0 overflow-visible rounded-none bg-transparent py-0 ring-0">
-      <div className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-secondary ring-1 ring-border">
-        {categorias[0] !== undefined && <PantallaPreview id={id} categoria={categorias[0]} />}
+    <Card className="group/tarjeta relative h-full min-w-0 gap-0 overflow-visible rounded-none bg-transparent py-0 ring-0 transition-transform duration-300 ease-out hover:-translate-y-1 focus-within:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-within:translate-y-0">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-secondary ring-1 ring-border transition-shadow duration-300 group-hover/tarjeta:shadow-xl group-hover/tarjeta:shadow-black/10 group-focus-within/tarjeta:shadow-xl group-focus-within/tarjeta:shadow-black/10">
+        {categorias[0] !== undefined && <PantallaPreview id={id} categoria={categorias[0]} className="ob-escala transition-transform duration-300 ease-out group-hover/tarjeta:scale-[1.02] group-focus-within/tarjeta:scale-[1.02]" />}
         <ul aria-label={t("tarjeta.categorias")} className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5">
           {categorias.map((categoria) => (
             <li key={categoria} className="rounded-full bg-background px-2.5 py-1 text-xs font-medium">

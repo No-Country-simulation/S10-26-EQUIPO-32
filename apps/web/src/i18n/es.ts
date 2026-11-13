@@ -7,6 +7,7 @@ export const es = {
   "cabecera.catalogo": "Catálogo",
   "cabecera.seguridad": "Seguridad",
   "cabecera.github": "GitHub",
+  "cabecera.cta": "Probar el asistente",
   "enlace.pestanaNueva": " (se abre en una pestaña nueva)",
   "asistente.titulo": "¿Qué stack te conviene?",
   "asistente.descripcion": "Contanos tu negocio en una o dos frases. Solo recomendamos herramientas de este catálogo y te decimos cuáles usamos.",

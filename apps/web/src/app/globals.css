@@ -163,3 +163,13 @@
 @media (prefers-reduced-motion: reduce) {
   .ob-escala, .ob-carrusel { transition: none !important; transform: none !important; scroll-behavior: auto; }
 }
+
+/* Transición de la grilla al cambiar de tab. */
+@keyframes ob-aparecer {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.ob-aparecer { animation: ob-aparecer 320ms ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .ob-aparecer { animation: none; }
+}
