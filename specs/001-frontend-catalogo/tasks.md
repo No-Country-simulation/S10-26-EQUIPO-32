@@ -199,7 +199,7 @@ T36–T38 quedan reemplazadas: el origen real es la API REST del backend, no Sup
 | T43 | `scripts/sembrar-backend.mjs` (2 lotes, nuestra categoría, chequeo sin credencial) | RNF-25, MU-07, AM-34 | Corrida real: 30/30 ingestados, escritura sin token rechazada | [x] |
 | T44 | E2E con el backend levantado | RF-15, RNF-24 | `backend.spec.ts` verde en local, resultado abajo | [x] |
 | T45 | `docs/mapeo-backend.md`, matriz de riesgos (revisión cruzada), `docs/owasp.md`, SRS, README | DoD, P10 | Docs en la rama | [x] |
-| T46 | Checks, PR y merge | DoD | CI en verde | [ ] |
+| T46 | Checks, PR y merge | DoD | CI en verde | [x] |
 
 #### Resultados de B9 (2026-11-13, corridas reales en local)
 
