@@ -11,6 +11,8 @@ import { ChipsFiltros } from "./ChipsFiltros";
 import { AtajosFiltro, CasosDeUso, Columna, type AtajoFiltro } from "./ColumnasCatalogo";
 import { GrillaHerramientas } from "./GrillaHerramientas";
 import { NavCategorias } from "./NavCategorias";
+import { ordenar, type Orden } from "./orden";
+import { TabsOrden } from "./TabsOrden";
 import { PanelFiltros } from "./PanelFiltros";
 
 export interface CatalogoProps {
@@ -56,6 +58,8 @@ export function Catalogo({ herramientas, estadoInicial = ESTADO_SIN_FILTROS }: C
   const opciones = useMemo(() => derivarOpciones(herramientas), [herramientas]);
   const visibles = useMemo(() => filtrar(herramientas, estado), [herramientas, estado]);
   const base = useId();
+  const [orden, setOrden] = useState<Orden>("recientes");
+  const ordenadas = useMemo(() => ordenar(visibles, orden), [visibles, orden]);
   const lenguajes = useMemo(() => atajos(herramientas.map((h) => h.lenguaje), estado.lenguaje), [herramientas, estado.lenguaje]);
   const licencias = useMemo(() => atajos(herramientas.map((h) => h.licencia), estado.licencia), [herramientas, estado.licencia]);
 
@@ -122,11 +126,17 @@ export function Catalogo({ herramientas, estadoInicial = ESTADO_SIN_FILTROS }: C
           </Columna>
         </div>
       </div>
+      {/* Tabs y grilla (ui-brief §11.2 #4): el orden es solo de presentación. */}
+      {/* El contador de resultados vive en PanelFiltros (ui-brief §8). */}
+      <div className="pt-10">
+        <TabsOrden base={base} activo={orden} onCambiar={setOrden} />
+      </div>
       <PanelFiltros opciones={opciones} valores={valores} total={visibles.length} onCambiar={cambiar} />
       <ChipsFiltros activos={activos} onQuitar={quitar} onLimpiar={limpiar} />
       <GrillaHerramientas
-        herramientas={visibles}
+        herramientas={ordenadas}
         total={visibles.length}
+        panel={{ id: `${base}-panel`, idTab: `${base}-tab-${orden}` }}
         vacio={{
           // La búsqueda se muestra como texto (React la escapa); nunca como HTML.
           texto: sinResultadosPorBusqueda ? `${t("vacio.paraBusqueda")} «${estado.q}».` : undefined,
